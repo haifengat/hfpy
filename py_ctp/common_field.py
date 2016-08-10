@@ -185,8 +185,8 @@ class PositionField:
 	#----------------------------------------------------------------------
 	def __str__(self):
 		""""""
-		return '''self.InstrumentID, self.Direction, self.Price, self.Position, self.TdPosition, self.YdPosition, 
-			self.CloseProfit, self.PositionProfit, self.Commission, self.Margin'''.format(self=self)
+		return '''{self.InstrumentID}, {self.Direction}, {self.Price}, {self.Position}, {self.TdPosition}, {self.YdPosition}, {
+			self.CloseProfit}, {self.PositionProfit}, {self.Commission}, {self.Margin}'''.format(self=self)
 	
 
 ########################################################################
@@ -215,3 +215,4 @@ class MarketData:
 		""""""
 		return '''self.InstrumentID, self.LastPrice, self.BidPrice, self.BidVolume, self.AskPrice, self.AskVolume, self.AveragePrice, 
 		self.Volume, self.OpenInterest, self.UpdateTime, self.UpdateMillisec, self.UpperLimitPrice, self.LowerLimitPrice'''.format(self = self)
+

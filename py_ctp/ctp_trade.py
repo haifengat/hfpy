@@ -374,14 +374,15 @@ class ctp_trade(object):
 		else:
 			key = '{0}_{1}'.format(tf.InstrumentID, int(DirectionType.Sell if tf.Direction == DirectionType.Buy else DirectionType.Buy))
 			pf = self.DicPositionField.get(key)
-			if tf.Offset == OffsetType.CloseToday:
-				pf.TdPosition -= tf.Volume
-			else:
-				tdclose = min(pf.TdPosition, tf.Volume)
-				if pf.TdPosition > 0:
-					pf.TdPosition -= tdclose
-				pf.YdPosition -= max(0, tf.Volume - tdclose)
-			pf.Position -= tf.Volume
+			if pf: #有可能出现无持仓的情况
+				if tf.Offset == OffsetType.CloseToday:
+					pf.TdPosition -= tf.Volume
+				else:
+					tdclose = min(pf.TdPosition, tf.Volume)
+					if pf.TdPosition > 0:
+						pf.TdPosition -= tdclose
+					pf.YdPosition -= max(0, tf.Volume - tdclose)
+				pf.Position -= tf.Volume
 		
 		self.OnRtnOrder(of)		
 		self.OnRtnTrade(tf)
@@ -498,7 +499,8 @@ class ctp_trade(object):
 		self.__posi.append(r)
 		
 		if last:
-			for key, group in itertools.groupby(self.__posi, lambda c: '{0}_{1}'.format(c.getInstrumentID(), int(c.getPosiDirection()))):
+			#direction需从posidiction转换为dictiontype
+			for key, group in itertools.groupby(self.__posi, lambda c: '{0}_{1}'.format(c.getInstrumentID(), int(DirectionType.Buy if c.getPosiDirection() == PosiDirectionType.Long else DirectionType.Sell))):
 				pf = self.DicPositionField.get(key)
 				if not pf:
 					pf = PositionField()
@@ -518,7 +520,7 @@ class ctp_trade(object):
 						pf.Direction = g.getPosiDirection() == DirectionType.Buy if PosiDirectionType.Long else DirectionType.Sell
 					pf.Position += g.getPosition()
 					pf.TdPosition += g.getTodayPosition()					
-					pf.YdPosition += g.getCloseProfit()
+					pf.YdPosition = pf.Position - pf.TdPosition
 					pf.CloseProfit += g.getCloseProfit()
 					pf.PositionProfit += g.getPositionProfit()
 					pf.Commission += g.getCommission()
