@@ -84,7 +84,7 @@ class ctp_trade(object):
 	#----------------------------------------------------------------------
 	def __ReqCmd(self, cmd_type, cmd_params):
 		if type(cmd_params) == str:
-			self.h.ReqCommand(self.api, cmd_type, cast(cmd_params.encode("ascii"), c_void_p))
+			self.h.ReqCommand(self.api, cmd_type, cmd_params.encode("ascii"))   #导致invalidport的原因:cast(cmd_params.encode("ascii"), c_void_p))
 			return
 
 		return self.h.ReqCommand(self.api, int(cmd_type), cmd_params)
@@ -494,9 +494,11 @@ class ctp_trade(object):
 		"""持仓查询响应"""
 		r = CThostFtdcInvestorPositionField()
 		r = POINTER(CThostFtdcInvestorPositionField).from_param(rsp).contents
+
 		if not self.__posi:
 			self.__posi = []
-		self.__posi.append(r)
+		if r.getInstrumentID() != '':  # 偶尔出现NULL的数据导致数据转换错误
+			self.__posi.append(r)
 		
 		if last:
 			#direction需从posidiction转换为dictiontype
