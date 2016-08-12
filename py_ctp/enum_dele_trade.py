@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-#coding:utf-8
+# -*- coding: utf-8 -*-
+
 """
   Author:  HaiFeng --<galaxy>
   Purpose: 
@@ -7,7 +8,8 @@
 """
 
 
-from enum import *
+from enum import Enum
+
 class EnumDelegate(Enum):
 	
 	OnFrontConnected = 0

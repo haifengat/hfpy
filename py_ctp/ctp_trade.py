@@ -1,30 +1,24 @@
 #!/usr/bin/env python
-#coding:utf-8
+# -*- coding: utf-8 -*-
+
 """
   Author:  HaiFeng --<galaxy>
   Purpose: trade api of ctp
   Created: 2016/7/26
 """
 
-
-from time import *
-import os
-from ctypes import *
-
-from ctp_data_type import *
-from ctp_struct import *
-from ctp_enum import *
-from enum_req_trade import *
-from enum_dele_trade import *
-from common_field import *
-from enum import *
-from switch import *
-
 import _thread
 import itertools
-	
-	
-	
+import os
+from time import sleep, time
+
+from py_ctp.common_field import *
+from py_ctp.ctp_struct import *
+from py_ctp.enum_dele_trade import *
+from py_ctp.enum_req_trade import *
+from py_ctp.switch import *
+
+
 ########################################################################
 class ctp_trade(object):
 	"""交易类"""
@@ -143,22 +137,21 @@ class ctp_trade(object):
 			if case(OrderType.Market): #市价
 				f.OrderPriceType = OrderPriceTypeType.AnyPrice.__char__()
 				f.TimeCondition = TimeConditionType.IOC.__char__()
-				#max = instField.MaxMarketOrderVolume;
-				f.LimitPrice = 0;
-				break;
+				f.LimitPrice = 0
+				break
 			if case(OrderType.Limit): #限价
-				f.OrderPriceType = OrderPriceTypeType.LimitPrice.__char__();
-				f.TimeCondition = TimeConditionType.GFD.__char__();
-				break;
+				f.OrderPriceType = OrderPriceTypeType.LimitPrice.__char__()
+				f.TimeCondition = TimeConditionType.GFD.__char__()
+				break
 			if case(OrderType.FAK): #FAK
-				f.OrderPriceType = OrderPriceTypeType.LimitPrice.__char__();
-				f.TimeCondition = TimeConditionType.IOC.__char__();
-				break;
+				f.OrderPriceType = OrderPriceTypeType.LimitPrice.__char__()
+				f.TimeCondition = TimeConditionType.IOC.__char__()
+				break
 			if case(OrderType.FOK): #FOK
-				f.OrderPriceType = OrderPriceTypeType.LimitPrice.__char__();
-				f.TimeCondition = TimeConditionType.IOC.__char__();
-				f.VolumeCondition = VolumeConditionType.CV.__char__(); #全部数量
-				break;			
+				f.OrderPriceType = OrderPriceTypeType.LimitPrice.__char__()
+				f.TimeCondition = TimeConditionType.IOC.__char__()
+				f.VolumeCondition = VolumeConditionType.CV.__char__() #全部数量
+				break
 		return self.__ReqCmd(EnumReq.ReqOrderInsert, byref(f))
 	
 
@@ -170,13 +163,14 @@ class ctp_trade(object):
 		if not of:
 			return -1
 		else:
+			pOrderId = of.OrderID
 			f = CThostFtdcInputOrderActionField()
-			f.ActionFlag = TThostFtdcActionFlagType.THOST_FTDC_AF_Delete
+			f.ActionFlag = ActionFlagType.Delete
 			f.BrokerID = self.BrokerID
 			f.InstrumentID = of.InstrumentID
 			f.InvestorID = of.InvestorID
-			f.SessionID = int.Parse(pOrderId.Split('|')[0])
-			f.FrontID = int.Parse(pOrderId.Split('|')[1])
+			f.SessionID = int(pOrderId.Split('|')[0])
+			f.FrontID = int(pOrderId.Split('|')[1])
 			f.OrderRef = pOrderId.Split('|')[2]
 			return self.__ReqCmd(EnumReq.ReqOrderAction, byref(f))
 
@@ -268,7 +262,10 @@ class ctp_trade(object):
 		self.TradingDay = r.getTradingDay()
 
 		if c.getErrorID() != 0:
-			self.OnUserLogin(r, c);
+			info = InfoField()
+			info.ErrorID = c.getErrorID()
+			info.ErrorMsg = c.getErrorMsg()
+			self.OnUserLogin(info)
 		else:
 			f = CThostFtdcSettlementInfoConfirmField()
 			f.BrokerID = self.BrokerID
@@ -291,7 +288,6 @@ class ctp_trade(object):
 		#of = OrderField()
 		of = self.DicOrderField.get(id)
 		if not of:
-			#if type(f.getOrderRef()) is types.
 			of = OrderField()
 			l = int(f.getOrderRef())
 			of.Custom = l % 1000000
@@ -307,7 +303,7 @@ class ctp_trade(object):
 			of.Volume = f.getVolumeTotalOriginal()
 			of.VolumeLeft = of.Volume
 			self.DicOrderField[id] = of
-			self.OnRtnOrder(of);	#call client OnRtnOrder event
+			self.OnRtnOrder(of) 	#call client OnRtnOrder event
 		elif f.getOrderStatus() == OrderStatusType.Canceled:
 			of.Status = OrderStatus.Canceled
 			of.StatusMsg = f.getStatusMsg()

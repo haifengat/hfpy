@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 #coding:utf-8
 
-from enum import *
 from ctypes import *
+from enum import Enum
+
 
 class ExchangePropertyType(Enum):
 	"""交易所属性类型"""

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-#coding:utf-8
-from ctypes import *
-from ctp_enum import *
+# -*- coding: utf-8 -*-
+
+from py_ctp.ctp_enum import *
 
 class CThostFtdcDisseminationField(Structure):
 	"""信息分发"""

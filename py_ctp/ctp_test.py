@@ -1,13 +1,15 @@
 #!/usr/bin/env python
-#coding:utf-8
+# -*- coding: utf-8 -*-
+
 """
   Author:  HaiFeng --<galaxy>
   Purpose: 
   Created: 2016/8/4
 """
+import _thread
 
-from ctp_quote import *
-from ctp_trade import *
+from py_ctp.ctp_quote import *
+from py_ctp.ctp_trade import *
 
 
 ########################################################################
@@ -26,7 +28,7 @@ class ctp_test:
 	def OnFrontConnected(self):
 		""""""
 		print("t:connected by client")
-		self.t.ReqUserLogin("008105","1","9999");
+		self.t.ReqUserLogin("008105", "1", "9999")
 	
 	#----------------------------------------------------------------------
 	def relogin(self):
@@ -44,8 +46,8 @@ class ctp_test:
 		r = info
 		print('{0},{1}'.format(r.ErrorID, r.ErrorMsg))
 		if r.ErrorID == 7:
-			_thread.start_new_thread(relogin, ())
-		elif r.ErrorID == 0:		
+			_thread.start_new_thread(self.relogin, ())
+		elif r.ErrorID == 0:
 			front = 'tcp://180.168.146.187:10010'
 			self.q.ReqConnect(front)
 	
@@ -88,7 +90,7 @@ class ctp_test:
 	def q_OnFrontConnected(self):
 		""""""
 		print("q:connected by client")
-		self.q.ReqUserLogin("008105","1","9999");
+		self.q.ReqUserLogin("008105", "1", "9999")
 	
 	#----------------------------------------------------------------------
 	def q_OnRspUserLogin(self, info):

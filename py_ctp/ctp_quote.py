@@ -6,14 +6,12 @@
   Created: 2016/7/4
 """
 
-from ctp_data_type import *
-from ctp_struct import *
-from ctypes import *
-from enum_req_quote import *
-from enum_dele_quote import *
-from time import sleep
-from common_field import *
 import os
+
+from py_ctp.common_field import *
+from py_ctp.ctp_struct import *
+from py_ctp.enum_dele_quote import EnumDelegate
+from py_ctp.enum_req_quote import EnumReq
 
 class ctp_quote:
 	#RegDele(IntPtr classPtr, int cbType, IntPtr cbPtr);
@@ -35,10 +33,10 @@ class ctp_quote:
 		"""connect to server """
 		self.__ReqCmd(EnumReq.RegisterFront, front_addr)
 		return self.__ReqCmd(EnumReq.Init, None)
-		
+
 	#----------------------------------------------------------------------
 	def ReqSubscribe(self, instrument:str):
-		""""""		
+		""""""
 		self.__ReqCmd(EnumReq.SubscribeMarketData, instrument)
 	
 	#----------------------------------------------------------------------
@@ -78,7 +76,7 @@ class ctp_quote:
 		i = InfoField()
 		i.ErrorID = f.getErrorID()
 		i.ErrorMsg = f.getErrorMsg()
-		self.OnUserLogin(i);
+		self.OnUserLogin(i)
 			
 	
 	#----------------------------------------------------------------------

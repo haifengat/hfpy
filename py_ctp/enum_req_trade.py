@@ -1,12 +1,13 @@
 #!/usr/bin/env python
-#coding:utf-8
+# -*- coding: utf-8 -*-
+
 """
   Author:  HaiFeng --<galaxy>
   Purpose: 
   Created: 2016/7/26
 """
-from enum import *
-########################################################################
+from enum import Enum
+
 class EnumReq(Enum):
 	""""""
 	Release = 0
@@ -71,4 +72,3 @@ class EnumReq(Enum):
 	#----------------------------------------------------------------------	
 	def __int__(self):
 		return self.value
-		

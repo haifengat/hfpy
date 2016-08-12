@@ -5,11 +5,10 @@
   Purpose: order fields type of all api of trade
   Created: 2016/7/28
 """
-from enum import *
-from ctp_struct import *
-from ctp_enum import *
 
-########################################################################
+from py_ctp.ctp_enum import *
+
+
 class OffsetType(Enum):
 	""""""
 	Open = 0
@@ -185,8 +184,8 @@ class PositionField:
 	#----------------------------------------------------------------------
 	def __str__(self):
 		""""""
-		return '''{self.InstrumentID}, {self.Direction}, {self.Price}, {self.Position}, {self.TdPosition}, {self.YdPosition}, {
-			self.CloseProfit}, {self.PositionProfit}, {self.Commission}, {self.Margin}'''.format(self=self)
+		return ('{self.InstrumentID}, {self.Direction}, {self.Price}, {self.Position}, {self.TdPosition}, {self.YdPosition}, {\n'
+		        '			self.CloseProfit}, {self.PositionProfit}, {self.Commission}, {self.Margin}').format(self=self)
 	
 
 ########################################################################
