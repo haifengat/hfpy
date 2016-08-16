@@ -129,9 +129,12 @@ class ctp_test:
 		get = input()
 		while True:
 			#LIMIT/FAK/FOK/MARKET测试完成
-			if get == 'order':
-				#self.t.ReqOrderInsert("rb1610",  DirectionType.Sell, OffsetFlagType.CloseToday, self.price, 1, OrderType.Limit, 10)
-				self.t.ReqOrderInsert("rb1610",  DirectionType.Sell, OffsetFlagType.CloseToday, 0, 1, OrderType.Market, 10)
+			if get == 'p':
+				for pf in self.t.DicPositionField:
+					print('{0},{1}'.format(pf, self.t.DicPositionField[pf]))
+			elif get == 'order':
+				self.t.ReqOrderInsert("rb1610",  DirectionType.Sell, OffsetFlagType.Open, self.price, 1, OrderType.Limit, 10)
+				#self.t.ReqOrderInsert("rb1610",  DirectionType.Sell, OffsetFlagType.Open, 0, 1, OrderType.Market, 10)
 			get = input()
 
 if __name__ == '__main__':

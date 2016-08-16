@@ -18,15 +18,14 @@ class OffsetType(Enum):
 	#----------------------------------------------------------------------	
 	def __int__(self):
 		return self.value
-    
-	
+
 
 ########################################################################
 class OrderType(Enum):
 	""""""
-	Limit = 0,
-	Market = 1,
-	FAK = 2,
+	Limit = 0
+	Market = 1
+	FAK = 2
 	FOK = 3
 
 
@@ -51,16 +50,12 @@ class OrderStatus(Enum):
 class InfoField:
 	""""""
 
-	
 	#----------------------------------------------------------------------
 	def __init__(self):
 		"""Constructor"""
 		self.ErrorID = 0
 		self.ErrorMsg = '正确'
-		
-		
-    
-	
+
 
 ########################################################################
 class OrderField:
@@ -90,9 +85,7 @@ class OrderField:
 	#----------------------------------------------------------------------
 	def __str__(self):
 		""""""
-		return '''self.OrderID, self.InstrumentID, self.Direction, self.Offset, self.LimitPrice, self.AvgPrice, 
-		    self.InsertTime, self.TradeTime, self.TradeVolume, self.Volume, self.VolumeLeft, self.Status,
-		    self.StatusMsg, self.IsLocal, self.Custom, self.SysID'''.format(self = self)
+		return 'self.OrderID, self.InstrumentID, self.Direction, self.Offset, self.LimitPrice, self.AvgPrice, self.InsertTime, self.TradeTime, self.TradeVolume, self.Volume, self.VolumeLeft, self.Status, self.StatusMsg, self.IsLocal, self.Custom, self.SysID'.format(self = self)
 
 ########################################################################
 class TradeField:
@@ -117,8 +110,7 @@ class TradeField:
 	#----------------------------------------------------------------------
 	def __str__(self):
 		""""""
-		return '''self.TradeID, self.InstrumentID, self.ExchangeID, self.Direction, self.Offset, self.Price, self.Volume, 
-			self.TradeTime, self.TradingDay, self.OrderID, self.SysID'''.format(self = self)
+		return 'self.TradeID, self.InstrumentID, self.ExchangeID, self.Direction, self.Offset, self.Price, self.Volume, self.TradeTime, self.TradingDay, self.OrderID, self.SysID'.format(self = self)
 
 ########################################################################
 class InstrumentField:
@@ -184,8 +176,7 @@ class PositionField:
 	#----------------------------------------------------------------------
 	def __str__(self):
 		""""""
-		return ('{self.InstrumentID}, {self.Direction}, {self.Price}, {self.Position}, {self.TdPosition}, {self.YdPosition}, {\n'
-		        '			self.CloseProfit}, {self.PositionProfit}, {self.Commission}, {self.Margin}').format(self=self)
+		return ('{self.InstrumentID}, {self.Direction}, {self.Price}, {self.Position}, {self.TdPosition}, {self.YdPosition}, {self.CloseProfit}, {self.PositionProfit}, {self.Commission}, {self.Margin}').format(self=self)
 	
 
 ########################################################################
@@ -212,6 +203,5 @@ class MarketData:
 	#----------------------------------------------------------------------
 	def __str__(self):
 		""""""
-		return '''self.InstrumentID, self.LastPrice, self.BidPrice, self.BidVolume, self.AskPrice, self.AskVolume, self.AveragePrice, 
-		self.Volume, self.OpenInterest, self.UpdateTime, self.UpdateMillisec, self.UpperLimitPrice, self.LowerLimitPrice'''.format(self = self)
+		return '''self.InstrumentID, self.LastPrice, self.BidPrice, self.BidVolume, self.AskPrice, self.AskVolume, self.AveragePrice, self.Volume, self.OpenInterest, self.UpdateTime, self.UpdateMillisec, self.UpperLimitPrice, self.LowerLimitPrice'''.format(self = self)
 

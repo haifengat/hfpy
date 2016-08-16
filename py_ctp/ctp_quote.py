@@ -21,7 +21,7 @@ class ctp_quote:
 	#ReqCmd(IntPtr pApi, int pCmd, IntPtr pPtr)
 	def __ReqCmd(self, cmd_type, cmd_params):
 		if type(cmd_params) == str:
-			self.h.ReqCommand(self.api, int(cmd_type), cast(cmd_params.encode("ascii"), c_void_p))
+			self.h.ReqCommand(self.api, int(cmd_type), cmd_params.encode("ascii"))
 			return
 		
 		self.h.ReqCommand(self.api, int(cmd_type), cmd_params)
@@ -85,6 +85,7 @@ class ctp_quote:
 		f = CThostFtdcDepthMarketDataField()
 		r = POINTER(CThostFtdcDepthMarketDataField).from_param(tick).contents
 		f = r
+
 		tick = MarketData()
 		tick.AskPrice = f.getAskPrice1()
 		tick.AskVolume = f.getAskVolume1()

@@ -68,17 +68,11 @@ class ctp_trade(object):
 		#restore work directory
 		os.chdir(cur_path)
 
-		#front = 'tcp://192.168.105.72:53213'
-		#front = 'tcp://180.168.146.187:10010'
-		#self.ReqConnect(front)
-		#os.system("pause")	#必须的,否则会报异常.可能是由此导致某些变量被回收 ##改用Self...注册即可 ^_^
-	
-
-
 	#----------------------------------------------------------------------
 	def __ReqCmd(self, cmd_type, cmd_params):
 		if type(cmd_params) == str:
-			self.h.ReqCommand(self.api, cmd_type, cmd_params.encode("ascii"))   #导致invalidport的原因:cast(cmd_params.encode("ascii"), c_void_p))
+			self.h.ReqCommand(self.api, cmd_type, cmd_params.encode("ascii"))
+			#导致invalidport的原因:cast(cmd_params.encode("ascii"), c_void_p))
 			return
 
 		return self.h.ReqCommand(self.api, int(cmd_type), cmd_params)
@@ -87,7 +81,6 @@ class ctp_trade(object):
 	#----------------------------------------------------------------------
 	def __RegDele(self, dele_type, dele_ptr):
 		self.h.RegDelegate(self.spi, dele_type, dele_ptr)	
-
 
 	#----------------------------------------------------------------------
 	def ReqConnect(self, front_addr):
@@ -317,7 +310,6 @@ class ctp_trade(object):
 				self.OnRtnCancel(of)
 		elif f.getOrderSysID():
 			self.__dic_orderid_sysid[f.getOrderSysID()] = id #记录sysid与orderid关联,方便Trade时查找处理
-			
 
 
 	#----------------------------------------------------------------------
@@ -336,7 +328,7 @@ class ctp_trade(object):
 		tf.TradeTime = f.getTradeTime()
 		tf.TradingDay = f.getTradingDay()
 		tf.Volume = f.getVolume()
-		
+
 		self.DicTradeField[tf.TradeID] = tf
 
 		id = self.__dic_orderid_sysid[tf.SysID]
@@ -355,7 +347,6 @@ class ctp_trade(object):
 			of.Status = OrderStatus.Partial
 			of.StatusMsg = '部分成交'
 		#更新持仓 *****
-		pf = PositionField()
 		if tf.Offset == OffsetType.Open:
 			key = '{0}_{1}'.format(tf.InstrumentID, int( tf.Direction))
 			pf = self.DicPositionField.get(key)
@@ -525,7 +516,7 @@ class ctp_trade(object):
 					pf.Margin += g.getUseMargin()
 					cost += g.getOpenCost()
 				#pf.Position <= 0 ? 0 : (g.Sum(n => n.PositionCost) / DicInstrumentField[pf.InstrumentID].VolumeMultiple / pf.Position);
-				vm = self.DicInstrument[bytes.decode(pf.InstrumentID, 'ascii')].VolumeMultiple
+				vm = self.DicInstrument[pf.InstrumentID.decode('ascii')].VolumeMultiple
 				pf.Price = 0 if pf.Position <=0 else cost / vm / pf.Position				
 				
 			self.__posi.clear()
@@ -574,7 +565,4 @@ class ctp_trade(object):
 		OnRspPosition = CFUNCTYPE(c_void_p, POINTER(CThostFtdcInvestorPositionField), POINTER(CThostFtdcRspInfoField), c_int, c_bool)
 		self.evOnRspPosition = OnRspPosition(self.__onQryPosition)
 		self.__RegDele(EnumDelegate.OnRspQryInvestorPosition, self.evOnRspPosition)
-		
 
-
-	
