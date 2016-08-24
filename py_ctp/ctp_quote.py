@@ -7,6 +7,9 @@
 """
 
 import os
+from asyncio.queues import Queue
+
+import _thread
 
 from py_ctp.common_field import *
 from py_ctp.ctp_struct import *
@@ -14,6 +17,44 @@ from py_ctp.enum_dele_quote import EnumDelegate
 from py_ctp.enum_req_quote import EnumReq
 
 class ctp_quote:
+	# ----------------------------------------------------------------------
+	def __init__(self):
+		"""main function"""
+		self.DicTick = {}
+
+		cur_path = os.getcwd()
+		# change work directory
+		os.chdir(os.path.join(os.getcwd(), "dll"))
+		# make log dir for api log
+		if not os.path.exists("log"):
+			os.mkdir("log")
+
+		self.h = CDLL("ctp_quote.dll")
+
+		# define command types
+		self.h.ReqCommand.argtypes = [c_void_p, c_int, c_void_p]
+		self.h.ReqCommand.restype = c_void_p
+
+		self.h.RegDelegate.argtypes = [c_void_p, c_int, c_void_p]
+		self.h.RegDelegate.restype = c_void_p
+
+		self.h.CreateApi.argtypes = []
+		self.h.CreateApi.restype = c_void_p
+
+		self.h.CreateSpi.argtypes = [c_void_p]
+		self.h.CreateSpi.restype = c_void_p
+
+		self.api = self.h.CreateApi()
+		self.spi = self.h.CreateSpi(self.api)
+
+		# self.Reg()	#注册事件
+		self.__RegDelegate()
+
+		# restore work directory
+		os.chdir(cur_path)
+		self._queue = Queue(1024)
+		_thread.start_new_thread(self._trdTick, ())
+
 	#RegDele(IntPtr classPtr, int cbType, IntPtr cbPtr);
 	def __RegDele(self, dele_type, dele_ptr):
 		self.h.RegDelegate(self.spi, int(dele_type), dele_ptr)
@@ -25,9 +66,7 @@ class ctp_quote:
 			return
 		
 		self.h.ReqCommand(self.api, int(cmd_type), cmd_params)
-	
-	
-	
+
 	#----------------------------------------------------------------------
 	def ReqConnect(self, front_addr):
 		"""connect to server """
@@ -77,15 +116,22 @@ class ctp_quote:
 		i.ErrorID = f.getErrorID()
 		i.ErrorMsg = f.getErrorMsg()
 		self.OnUserLogin(i)
-			
-	
+
+	def _trdTick(self):
+		while(True):
+			if self._queue.qsize() > 0:
+				tick = self._queue.get()    #get函数返回有问题
+				print(self._queue.qsize())
+				self.OnRtnTick(tick)
+
 	#----------------------------------------------------------------------
-	def __OnTick(self, tick):
+	def _OnTick(self, tick):
 		"""response of tick"""
 		f = CThostFtdcDepthMarketDataField()
 		r = POINTER(CThostFtdcDepthMarketDataField).from_param(tick).contents
 		f = r
-
+		if f.getInstrumentID() == '':
+			return
 		tick = MarketData()
 		tick.AskPrice = f.getAskPrice1()
 		tick.AskVolume = f.getAskVolume1()
@@ -102,7 +148,11 @@ class ctp_quote:
 		tick.Volume = f.getVolume()
 		
 		self.DicTick[f.getInstrumentID()] = tick
-		self.OnRtnTick(tick)
+
+		#self._queue.put(tick)    #使用queue
+		#print(tick.InstrumentID)
+		_thread.start_new_thread(self.OnRtnTick, (tick,)) #tick后加','表示为Tuple
+		#self.OnRtnTick(tick)
 		
 	#----------------------------------------------------------------------
 	def __RegDelegate(self):
@@ -117,47 +167,5 @@ class ctp_quote:
 		self.__RegDele(EnumDelegate.OnRspUserLogin, self.evLog)
 	
 		tick = CFUNCTYPE(c_void_p, POINTER(CThostFtdcDepthMarketDataField))
-		self.evTick = tick(self.__OnTick)
+		self.evTick = tick(self._OnTick)
 		self.__RegDele(EnumDelegate.OnRtnDepthMarketData, self.evTick)			
-		
-	
-	#----------------------------------------------------------------------
-	def __init__(self):
-		"""main function"""
-		self.DicTick = {}
-	
-		cur_path = os.getcwd()
-		#change work directory
-		os.chdir(os.path.join(os.getcwd(), "dll"))
-		#make log dir for api log
-		if not os.path.exists("log"):
-			os.mkdir("log")
-		
-		self.h = CDLL("ctp_quote.dll")
-		
-		
-		#define command types
-		self.h.ReqCommand.argtypes = [c_void_p, c_int, c_void_p]
-		self.h.ReqCommand.restype = c_void_p
-		
-		self.h.RegDelegate.argtypes = [c_void_p, c_int, c_void_p]
-		self.h.RegDelegate.restype = c_void_p
-		
-		self.h.CreateApi.argtypes = []
-		self.h.CreateApi.restype = c_void_p
-		
-		self.h.CreateSpi.argtypes = [c_void_p]
-		self.h.CreateSpi.restype = c_void_p
-		
-		self.api = self.h.CreateApi()
-		self.spi = self.h.CreateSpi(self.api)
-		
-		#self.Reg()	#注册事件
-		self.__RegDelegate()
-		
-		#restore work directory
-		os.chdir(cur_path)
-		
-		#os.system("pause")	#必须的,否则会报异常.可能是由此导致某些变量被回收 ##改用Self...注册即可 ^_^
-
-	

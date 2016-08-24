@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from py_ctp.ctp_enum import *
+#coding:utf-8
+from ctypes import *
+from ctp_enum import *
 
 class CThostFtdcDisseminationField(Structure):
 	"""信息分发"""
@@ -43,25 +43,25 @@ class CThostFtdcReqUserLoginField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getUserProductInfo(self):
-		return self.UserProductInfo.decode('GB2312')
+		return self.UserProductInfo.decode('ascii')
 	def getInterfaceProductInfo(self):
-		return self.InterfaceProductInfo.decode('GB2312')
+		return self.InterfaceProductInfo.decode('ascii')
 	def getProtocolInfo(self):
-		return self.ProtocolInfo.decode('GB2312')
+		return self.ProtocolInfo.decode('ascii')
 	def getMacAddress(self):
-		return self.MacAddress.decode('GB2312')
+		return self.MacAddress.decode('ascii')
 	def getOneTimePassword(self):
-		return self.OneTimePassword.decode('GB2312')
+		return self.OneTimePassword.decode('ascii')
 	def getClientIPAddress(self):
-		return self.ClientIPAddress.decode('GB2312')
+		return self.ClientIPAddress.decode('ascii')
 
 class CThostFtdcRspUserLoginField(Structure):
 	"""用户登录应答"""
@@ -95,31 +95,31 @@ class CThostFtdcRspUserLoginField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getLoginTime(self):
-		return self.LoginTime.decode('GB2312')
+		return self.LoginTime.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getSystemName(self):
-		return self.SystemName.decode('GB2312')
+		return self.SystemName.decode('ascii')
 	def getFrontID(self):
 		return self.FrontID
 	def getSessionID(self):
 		return self.SessionID
 	def getMaxOrderRef(self):
-		return self.MaxOrderRef.decode('GB2312')
+		return self.MaxOrderRef.decode('ascii')
 	def getSHFETime(self):
-		return self.SHFETime.decode('GB2312')
+		return self.SHFETime.decode('ascii')
 	def getDCETime(self):
-		return self.DCETime.decode('GB2312')
+		return self.DCETime.decode('ascii')
 	def getCZCETime(self):
-		return self.CZCETime.decode('GB2312')
+		return self.CZCETime.decode('ascii')
 	def getFFEXTime(self):
-		return self.FFEXTime.decode('GB2312')
+		return self.FFEXTime.decode('ascii')
 	def getINETime(self):
-		return self.INETime.decode('GB2312')
+		return self.INETime.decode('ascii')
 
 class CThostFtdcUserLogoutField(Structure):
 	"""用户登出请求"""
@@ -131,9 +131,9 @@ class CThostFtdcUserLogoutField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcForceUserLogoutField(Structure):
 	"""强制交易员退出"""
@@ -145,9 +145,9 @@ class CThostFtdcForceUserLogoutField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcReqAuthenticateField(Structure):
 	"""客户端认证请求"""
@@ -163,13 +163,13 @@ class CThostFtdcReqAuthenticateField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getUserProductInfo(self):
-		return self.UserProductInfo.decode('GB2312')
+		return self.UserProductInfo.decode('ascii')
 	def getAuthCode(self):
-		return self.AuthCode.decode('GB2312')
+		return self.AuthCode.decode('ascii')
 
 class CThostFtdcRspAuthenticateField(Structure):
 	"""客户端认证响应"""
@@ -183,11 +183,11 @@ class CThostFtdcRspAuthenticateField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getUserProductInfo(self):
-		return self.UserProductInfo.decode('GB2312')
+		return self.UserProductInfo.decode('ascii')
 
 class CThostFtdcAuthenticationInfoField(Structure):
 	"""客户端认证信息"""
@@ -205,13 +205,13 @@ class CThostFtdcAuthenticationInfoField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getUserProductInfo(self):
-		return self.UserProductInfo.decode('GB2312')
+		return self.UserProductInfo.decode('ascii')
 	def getAuthInfo(self):
-		return self.AuthInfo.decode('GB2312')
+		return self.AuthInfo.decode('ascii')
 	def getIsResult(self):
 		return self.IsResult
 
@@ -247,27 +247,27 @@ class CThostFtdcTransferHeaderField(Structure):
 		]
 
 	def getVersion(self):
-		return self.Version.decode('GB2312')
+		return self.Version.decode('ascii')
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getTradeSerial(self):
-		return self.TradeSerial.decode('GB2312')
+		return self.TradeSerial.decode('ascii')
 	def getFutureID(self):
-		return self.FutureID.decode('GB2312')
+		return self.FutureID.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBrchID(self):
-		return self.BankBrchID.decode('GB2312')
+		return self.BankBrchID.decode('ascii')
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getRecordNum(self):
-		return self.RecordNum.decode('GB2312')
+		return self.RecordNum.decode('ascii')
 	def getSessionID(self):
 		return self.SessionID
 	def getRequestID(self):
@@ -291,17 +291,17 @@ class CThostFtdcTransferBankToFutureReqField(Structure):
 		]
 
 	def getFutureAccount(self):
-		return self.FutureAccount.decode('GB2312')
+		return self.FutureAccount.decode('ascii')
 	def getFuturePwdFlag(self):
 		return FuturePwdFlagType(ord(self.FuturePwdFlag))
 	def getFutureAccPwd(self):
-		return self.FutureAccPwd.decode('GB2312')
+		return self.FutureAccPwd.decode('ascii')
 	def getTradeAmt(self):
 		return self.TradeAmt
 	def getCustFee(self):
 		return self.CustFee
 	def getCurrencyCode(self):
-		return self.CurrencyCode.decode('GB2312')
+		return self.CurrencyCode.decode('ascii')
 
 class CThostFtdcTransferBankToFutureRspField(Structure):
 	"""银行资金转期货请求响应"""
@@ -321,17 +321,17 @@ class CThostFtdcTransferBankToFutureRspField(Structure):
 		]
 
 	def getRetCode(self):
-		return self.RetCode.decode('GB2312')
+		return self.RetCode.decode('ascii')
 	def getRetInfo(self):
-		return self.RetInfo.decode('GB2312')
+		return self.RetInfo.decode('ascii')
 	def getFutureAccount(self):
-		return self.FutureAccount.decode('GB2312')
+		return self.FutureAccount.decode('ascii')
 	def getTradeAmt(self):
 		return self.TradeAmt
 	def getCustFee(self):
 		return self.CustFee
 	def getCurrencyCode(self):
-		return self.CurrencyCode.decode('GB2312')
+		return self.CurrencyCode.decode('ascii')
 
 class CThostFtdcTransferFutureToBankReqField(Structure):
 	"""期货资金转银行请求，TradeCode=202002"""
@@ -351,17 +351,17 @@ class CThostFtdcTransferFutureToBankReqField(Structure):
 		]
 
 	def getFutureAccount(self):
-		return self.FutureAccount.decode('GB2312')
+		return self.FutureAccount.decode('ascii')
 	def getFuturePwdFlag(self):
 		return FuturePwdFlagType(ord(self.FuturePwdFlag))
 	def getFutureAccPwd(self):
-		return self.FutureAccPwd.decode('GB2312')
+		return self.FutureAccPwd.decode('ascii')
 	def getTradeAmt(self):
 		return self.TradeAmt
 	def getCustFee(self):
 		return self.CustFee
 	def getCurrencyCode(self):
-		return self.CurrencyCode.decode('GB2312')
+		return self.CurrencyCode.decode('ascii')
 
 class CThostFtdcTransferFutureToBankRspField(Structure):
 	"""期货资金转银行请求响应"""
@@ -381,17 +381,17 @@ class CThostFtdcTransferFutureToBankRspField(Structure):
 		]
 
 	def getRetCode(self):
-		return self.RetCode.decode('GB2312')
+		return self.RetCode.decode('ascii')
 	def getRetInfo(self):
-		return self.RetInfo.decode('GB2312')
+		return self.RetInfo.decode('ascii')
 	def getFutureAccount(self):
-		return self.FutureAccount.decode('GB2312')
+		return self.FutureAccount.decode('ascii')
 	def getTradeAmt(self):
 		return self.TradeAmt
 	def getCustFee(self):
 		return self.CustFee
 	def getCurrencyCode(self):
-		return self.CurrencyCode.decode('GB2312')
+		return self.CurrencyCode.decode('ascii')
 
 class CThostFtdcTransferQryBankReqField(Structure):
 	"""查询银行资金请求，TradeCode=204002"""
@@ -407,13 +407,13 @@ class CThostFtdcTransferQryBankReqField(Structure):
 		]
 
 	def getFutureAccount(self):
-		return self.FutureAccount.decode('GB2312')
+		return self.FutureAccount.decode('ascii')
 	def getFuturePwdFlag(self):
 		return FuturePwdFlagType(ord(self.FuturePwdFlag))
 	def getFutureAccPwd(self):
-		return self.FutureAccPwd.decode('GB2312')
+		return self.FutureAccPwd.decode('ascii')
 	def getCurrencyCode(self):
-		return self.CurrencyCode.decode('GB2312')
+		return self.CurrencyCode.decode('ascii')
 
 class CThostFtdcTransferQryBankRspField(Structure):
 	"""查询银行资金请求响应"""
@@ -435,11 +435,11 @@ class CThostFtdcTransferQryBankRspField(Structure):
 		]
 
 	def getRetCode(self):
-		return self.RetCode.decode('GB2312')
+		return self.RetCode.decode('ascii')
 	def getRetInfo(self):
-		return self.RetInfo.decode('GB2312')
+		return self.RetInfo.decode('ascii')
 	def getFutureAccount(self):
-		return self.FutureAccount.decode('GB2312')
+		return self.FutureAccount.decode('ascii')
 	def getTradeAmt(self):
 		return self.TradeAmt
 	def getUseAmt(self):
@@ -447,7 +447,7 @@ class CThostFtdcTransferQryBankRspField(Structure):
 	def getFetchAmt(self):
 		return self.FetchAmt
 	def getCurrencyCode(self):
-		return self.CurrencyCode.decode('GB2312')
+		return self.CurrencyCode.decode('ascii')
 
 class CThostFtdcTransferQryDetailReqField(Structure):
 	"""查询银行交易明细请求，TradeCode=204999"""
@@ -457,7 +457,7 @@ class CThostFtdcTransferQryDetailReqField(Structure):
 		]
 
 	def getFutureAccount(self):
-		return self.FutureAccount.decode('GB2312')
+		return self.FutureAccount.decode('ascii')
 
 class CThostFtdcTransferQryDetailRspField(Structure):
 	"""查询银行交易明细请求响应"""
@@ -493,29 +493,29 @@ class CThostFtdcTransferQryDetailRspField(Structure):
 		]
 
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getFutureSerial(self):
 		return self.FutureSerial
 	def getFutureID(self):
-		return self.FutureID.decode('GB2312')
+		return self.FutureID.decode('ascii')
 	def getFutureAccount(self):
-		return self.FutureAccount.decode('GB2312')
+		return self.FutureAccount.decode('ascii')
 	def getBankSerial(self):
 		return self.BankSerial
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBrchID(self):
-		return self.BankBrchID.decode('GB2312')
+		return self.BankBrchID.decode('ascii')
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getCertCode(self):
-		return self.CertCode.decode('GB2312')
+		return self.CertCode.decode('ascii')
 	def getCurrencyCode(self):
-		return self.CurrencyCode.decode('GB2312')
+		return self.CurrencyCode.decode('ascii')
 	def getTxAmount(self):
 		return self.TxAmount
 	def getFlag(self):
@@ -547,9 +547,9 @@ class CThostFtdcExchangeField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getExchangeName(self):
-		return self.ExchangeName.decode('GB2312')
+		return self.ExchangeName.decode('ascii')
 	def getExchangeProperty(self):
 		return ExchangePropertyType(ord(self.ExchangeProperty))
 
@@ -593,11 +593,11 @@ class CThostFtdcProductField(Structure):
 		]
 
 	def getProductID(self):
-		return self.ProductID.decode('GB2312')
+		return self.ProductID.decode('ascii')
 	def getProductName(self):
-		return self.ProductName.decode('GB2312')
+		return self.ProductName.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getProductClass(self):
 		return ProductClassType(ord(self.ProductClass))
 	def getVolumeMultiple(self):
@@ -619,11 +619,11 @@ class CThostFtdcProductField(Structure):
 	def getCloseDealType(self):
 		return CloseDealTypeType(ord(self.CloseDealType))
 	def getTradeCurrencyID(self):
-		return self.TradeCurrencyID.decode('GB2312')
+		return self.TradeCurrencyID.decode('ascii')
 	def getMortgageFundUseRange(self):
 		return MortgageFundUseRangeType(ord(self.MortgageFundUseRange))
 	def getExchangeProductID(self):
-		return self.ExchangeProductID.decode('GB2312')
+		return self.ExchangeProductID.decode('ascii')
 	def getUnderlyingMultiple(self):
 		return self.UnderlyingMultiple
 
@@ -695,15 +695,15 @@ class CThostFtdcInstrumentField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getInstrumentName(self):
-		return self.InstrumentName.decode('GB2312')
+		return self.InstrumentName.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getProductID(self):
-		return self.ProductID.decode('GB2312')
+		return self.ProductID.decode('ascii')
 	def getProductClass(self):
 		return ProductClassType(ord(self.ProductClass))
 	def getDeliveryYear(self):
@@ -723,15 +723,15 @@ class CThostFtdcInstrumentField(Structure):
 	def getPriceTick(self):
 		return self.PriceTick
 	def getCreateDate(self):
-		return self.CreateDate.decode('GB2312')
+		return self.CreateDate.decode('ascii')
 	def getOpenDate(self):
-		return self.OpenDate.decode('GB2312')
+		return self.OpenDate.decode('ascii')
 	def getExpireDate(self):
-		return self.ExpireDate.decode('GB2312')
+		return self.ExpireDate.decode('ascii')
 	def getStartDelivDate(self):
-		return self.StartDelivDate.decode('GB2312')
+		return self.StartDelivDate.decode('ascii')
 	def getEndDelivDate(self):
-		return self.EndDelivDate.decode('GB2312')
+		return self.EndDelivDate.decode('ascii')
 	def getInstLifePhase(self):
 		return InstLifePhaseType(ord(self.InstLifePhase))
 	def getIsTrading(self):
@@ -747,7 +747,7 @@ class CThostFtdcInstrumentField(Structure):
 	def getMaxMarginSideAlgorithm(self):
 		return MaxMarginSideAlgorithmType(ord(self.MaxMarginSideAlgorithm))
 	def getUnderlyingInstrID(self):
-		return self.UnderlyingInstrID.decode('GB2312')
+		return self.UnderlyingInstrID.decode('ascii')
 	def getStrikePrice(self):
 		return self.StrikePrice
 	def getOptionsType(self):
@@ -771,11 +771,11 @@ class CThostFtdcBrokerField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerAbbr(self):
-		return self.BrokerAbbr.decode('GB2312')
+		return self.BrokerAbbr.decode('ascii')
 	def getBrokerName(self):
-		return self.BrokerName.decode('GB2312')
+		return self.BrokerName.decode('ascii')
 	def getIsActive(self):
 		return self.IsActive
 
@@ -797,17 +797,17 @@ class CThostFtdcTraderField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getInstallCount(self):
 		return self.InstallCount
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 
 class CThostFtdcInvestorField(Structure):
 	"""投资者"""
@@ -841,31 +841,31 @@ class CThostFtdcInvestorField(Structure):
 		]
 
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorGroupID(self):
-		return self.InvestorGroupID.decode('GB2312')
+		return self.InvestorGroupID.decode('ascii')
 	def getInvestorName(self):
-		return self.InvestorName.decode('GB2312')
+		return self.InvestorName.decode('ascii')
 	def getIdentifiedCardType(self):
 		return IdCardTypeType(ord(self.IdentifiedCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getIsActive(self):
 		return self.IsActive
 	def getTelephone(self):
-		return self.Telephone.decode('GB2312')
+		return self.Telephone.decode('ascii')
 	def getAddress(self):
-		return self.Address.decode('GB2312')
+		return self.Address.decode('ascii')
 	def getOpenDate(self):
-		return self.OpenDate.decode('GB2312')
+		return self.OpenDate.decode('ascii')
 	def getMobile(self):
-		return self.Mobile.decode('GB2312')
+		return self.Mobile.decode('ascii')
 	def getCommModelID(self):
-		return self.CommModelID.decode('GB2312')
+		return self.CommModelID.decode('ascii')
 	def getMarginModelID(self):
-		return self.MarginModelID.decode('GB2312')
+		return self.MarginModelID.decode('ascii')
 
 class CThostFtdcTradingCodeField(Structure):
 	"""交易编码"""
@@ -885,13 +885,13 @@ class CThostFtdcTradingCodeField(Structure):
 		]
 
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getIsActive(self):
 		return self.IsActive
 	def getClientIDType(self):
@@ -911,11 +911,11 @@ class CThostFtdcPartBrokerField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getIsActive(self):
 		return self.IsActive
 
@@ -933,11 +933,11 @@ class CThostFtdcSuperUserField(Structure):
 		]
 
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getUserName(self):
-		return self.UserName.decode('GB2312')
+		return self.UserName.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getIsActive(self):
 		return self.IsActive
 
@@ -951,7 +951,7 @@ class CThostFtdcSuperUserFunctionField(Structure):
 		]
 
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getFunctionCode(self):
 		return FunctionCodeType(ord(self.FunctionCode))
 
@@ -967,11 +967,11 @@ class CThostFtdcInvestorGroupField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorGroupID(self):
-		return self.InvestorGroupID.decode('GB2312')
+		return self.InvestorGroupID.decode('ascii')
 	def getInvestorGroupName(self):
-		return self.InvestorGroupName.decode('GB2312')
+		return self.InvestorGroupName.decode('ascii')
 
 class CThostFtdcTradingAccountField(Structure):
 	"""资金账户"""
@@ -1071,9 +1071,9 @@ class CThostFtdcTradingAccountField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPreMortgage(self):
 		return self.PreMortgage
 	def getPreCredit(self):
@@ -1117,7 +1117,7 @@ class CThostFtdcTradingAccountField(Structure):
 	def getReserve(self):
 		return self.Reserve
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getCredit(self):
@@ -1133,7 +1133,7 @@ class CThostFtdcTradingAccountField(Structure):
 	def getReserveBalance(self):
 		return self.ReserveBalance
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getPreFundMortgageIn(self):
 		return self.PreFundMortgageIn
 	def getPreFundMortgageOut(self):
@@ -1255,11 +1255,11 @@ class CThostFtdcInvestorPositionField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getPosiDirection(self):
 		return PosiDirectionType(ord(self.PosiDirection))
 	def getHedgeFlag(self):
@@ -1311,7 +1311,7 @@ class CThostFtdcInvestorPositionField(Structure):
 	def getSettlementPrice(self):
 		return self.SettlementPrice
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getOpenCost(self):
@@ -1367,13 +1367,13 @@ class CThostFtdcInstrumentMarginRateField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getHedgeFlag(self):
 		return HedgeFlagType(ord(self.HedgeFlag))
 	def getLongMarginRatioByMoney(self):
@@ -1413,13 +1413,13 @@ class CThostFtdcInstrumentCommissionRateField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getOpenRatioByMoney(self):
 		return self.OpenRatioByMoney
 	def getOpenRatioByVolume(self):
@@ -1527,13 +1527,13 @@ class CThostFtdcDepthMarketDataField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getLastPrice(self):
 		return self.LastPrice
 	def getPreSettlementPrice(self):
@@ -1567,7 +1567,7 @@ class CThostFtdcDepthMarketDataField(Structure):
 	def getCurrDelta(self):
 		return self.CurrDelta
 	def getUpdateTime(self):
-		return self.UpdateTime.decode('GB2312')
+		return self.UpdateTime.decode('ascii')
 	def getUpdateMillisec(self):
 		return self.UpdateMillisec
 	def getBidPrice1(self):
@@ -1613,7 +1613,7 @@ class CThostFtdcDepthMarketDataField(Structure):
 	def getAveragePrice(self):
 		return self.AveragePrice
 	def getActionDay(self):
-		return self.ActionDay.decode('GB2312')
+		return self.ActionDay.decode('ascii')
 
 class CThostFtdcInstrumentTradingRightField(Structure):
 	"""投资者合约交易权限"""
@@ -1631,13 +1631,13 @@ class CThostFtdcInstrumentTradingRightField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getTradingRight(self):
 		return TradingRightType(ord(self.TradingRight))
 
@@ -1659,11 +1659,11 @@ class CThostFtdcBrokerUserField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getUserName(self):
-		return self.UserName.decode('GB2312')
+		return self.UserName.decode('ascii')
 	def getUserType(self):
 		return UserTypeType(ord(self.UserType))
 	def getIsActive(self):
@@ -1683,11 +1683,11 @@ class CThostFtdcBrokerUserPasswordField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 
 class CThostFtdcBrokerUserFunctionField(Structure):
 	"""经纪公司用户功能权限"""
@@ -1701,9 +1701,9 @@ class CThostFtdcBrokerUserFunctionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getBrokerFunctionCode(self):
 		return BrokerFunctionCodeType(ord(self.BrokerFunctionCode))
 
@@ -1751,43 +1751,43 @@ class CThostFtdcTraderOfferField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getOrderLocalID(self):
-		return self.OrderLocalID.decode('GB2312')
+		return self.OrderLocalID.decode('ascii')
 	def getTraderConnectStatus(self):
 		return TraderConnectStatusType(ord(self.TraderConnectStatus))
 	def getConnectRequestDate(self):
-		return self.ConnectRequestDate.decode('GB2312')
+		return self.ConnectRequestDate.decode('ascii')
 	def getConnectRequestTime(self):
-		return self.ConnectRequestTime.decode('GB2312')
+		return self.ConnectRequestTime.decode('ascii')
 	def getLastReportDate(self):
-		return self.LastReportDate.decode('GB2312')
+		return self.LastReportDate.decode('ascii')
 	def getLastReportTime(self):
-		return self.LastReportTime.decode('GB2312')
+		return self.LastReportTime.decode('ascii')
 	def getConnectDate(self):
-		return self.ConnectDate.decode('GB2312')
+		return self.ConnectDate.decode('ascii')
 	def getConnectTime(self):
-		return self.ConnectTime.decode('GB2312')
+		return self.ConnectTime.decode('ascii')
 	def getStartDate(self):
-		return self.StartDate.decode('GB2312')
+		return self.StartDate.decode('ascii')
 	def getStartTime(self):
-		return self.StartTime.decode('GB2312')
+		return self.StartTime.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getMaxTradeID(self):
-		return self.MaxTradeID.decode('GB2312')
+		return self.MaxTradeID.decode('ascii')
 	def getMaxOrderMessageReference(self):
-		return self.MaxOrderMessageReference.decode('GB2312')
+		return self.MaxOrderMessageReference.decode('ascii')
 
 class CThostFtdcSettlementInfoField(Structure):
 	"""投资者结算结果"""
@@ -1807,17 +1807,17 @@ class CThostFtdcSettlementInfoField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getSequenceNo(self):
 		return self.SequenceNo
 	def getContent(self):
-		return self.Content.decode('GB2312')
+		return self.Content.decode('ascii')
 
 class CThostFtdcInstrumentMarginRateAdjustField(Structure):
 	"""合约保证金率调整"""
@@ -1845,13 +1845,13 @@ class CThostFtdcInstrumentMarginRateAdjustField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getHedgeFlag(self):
 		return HedgeFlagType(ord(self.HedgeFlag))
 	def getLongMarginRatioByMoney(self):
@@ -1885,9 +1885,9 @@ class CThostFtdcExchangeMarginRateField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getHedgeFlag(self):
 		return HedgeFlagType(ord(self.HedgeFlag))
 	def getLongMarginRatioByMoney(self):
@@ -1935,9 +1935,9 @@ class CThostFtdcExchangeMarginRateAdjustField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getHedgeFlag(self):
 		return HedgeFlagType(ord(self.HedgeFlag))
 	def getLongMarginRatioByMoney(self):
@@ -1981,13 +1981,13 @@ class CThostFtdcExchangeRateField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getFromCurrencyID(self):
-		return self.FromCurrencyID.decode('GB2312')
+		return self.FromCurrencyID.decode('ascii')
 	def getFromCurrencyUnit(self):
 		return self.FromCurrencyUnit
 	def getToCurrencyID(self):
-		return self.ToCurrencyID.decode('GB2312')
+		return self.ToCurrencyID.decode('ascii')
 	def getExchangeRate(self):
 		return self.ExchangeRate
 
@@ -2001,7 +2001,7 @@ class CThostFtdcSettlementRefField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 
@@ -2019,13 +2019,13 @@ class CThostFtdcCurrentTimeField(Structure):
 		]
 
 	def getCurrDate(self):
-		return self.CurrDate.decode('GB2312')
+		return self.CurrDate.decode('ascii')
 	def getCurrTime(self):
-		return self.CurrTime.decode('GB2312')
+		return self.CurrTime.decode('ascii')
 	def getCurrMillisec(self):
 		return self.CurrMillisec
 	def getActionDay(self):
-		return self.ActionDay.decode('GB2312')
+		return self.ActionDay.decode('ascii')
 
 class CThostFtdcCommPhaseField(Structure):
 	"""通讯阶段"""
@@ -2039,11 +2039,11 @@ class CThostFtdcCommPhaseField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getCommPhaseNo(self):
 		return self.CommPhaseNo
 	def getSystemID(self):
-		return self.SystemID.decode('GB2312')
+		return self.SystemID.decode('ascii')
 
 class CThostFtdcLoginInfoField(Structure):
 	"""登录信息"""
@@ -2095,41 +2095,41 @@ class CThostFtdcLoginInfoField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getLoginDate(self):
-		return self.LoginDate.decode('GB2312')
+		return self.LoginDate.decode('ascii')
 	def getLoginTime(self):
-		return self.LoginTime.decode('GB2312')
+		return self.LoginTime.decode('ascii')
 	def getIPAddress(self):
-		return self.IPAddress.decode('GB2312')
+		return self.IPAddress.decode('ascii')
 	def getUserProductInfo(self):
-		return self.UserProductInfo.decode('GB2312')
+		return self.UserProductInfo.decode('ascii')
 	def getInterfaceProductInfo(self):
-		return self.InterfaceProductInfo.decode('GB2312')
+		return self.InterfaceProductInfo.decode('ascii')
 	def getProtocolInfo(self):
-		return self.ProtocolInfo.decode('GB2312')
+		return self.ProtocolInfo.decode('ascii')
 	def getSystemName(self):
-		return self.SystemName.decode('GB2312')
+		return self.SystemName.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getMaxOrderRef(self):
-		return self.MaxOrderRef.decode('GB2312')
+		return self.MaxOrderRef.decode('ascii')
 	def getSHFETime(self):
-		return self.SHFETime.decode('GB2312')
+		return self.SHFETime.decode('ascii')
 	def getDCETime(self):
-		return self.DCETime.decode('GB2312')
+		return self.DCETime.decode('ascii')
 	def getCZCETime(self):
-		return self.CZCETime.decode('GB2312')
+		return self.CZCETime.decode('ascii')
 	def getFFEXTime(self):
-		return self.FFEXTime.decode('GB2312')
+		return self.FFEXTime.decode('ascii')
 	def getMacAddress(self):
-		return self.MacAddress.decode('GB2312')
+		return self.MacAddress.decode('ascii')
 	def getOneTimePassword(self):
-		return self.OneTimePassword.decode('GB2312')
+		return self.OneTimePassword.decode('ascii')
 	def getINETime(self):
-		return self.INETime.decode('GB2312')
+		return self.INETime.decode('ascii')
 
 class CThostFtdcLogoutAllField(Structure):
 	"""登录信息"""
@@ -2147,7 +2147,7 @@ class CThostFtdcLogoutAllField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getSystemName(self):
-		return self.SystemName.decode('GB2312')
+		return self.SystemName.decode('ascii')
 
 class CThostFtdcFrontStatusField(Structure):
 	"""前置状态"""
@@ -2165,9 +2165,9 @@ class CThostFtdcFrontStatusField(Structure):
 	def getFrontID(self):
 		return self.FrontID
 	def getLastReportDate(self):
-		return self.LastReportDate.decode('GB2312')
+		return self.LastReportDate.decode('ascii')
 	def getLastReportTime(self):
-		return self.LastReportTime.decode('GB2312')
+		return self.LastReportTime.decode('ascii')
 	def getIsActive(self):
 		return self.IsActive
 
@@ -2185,13 +2185,13 @@ class CThostFtdcUserPasswordUpdateField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getOldPassword(self):
-		return self.OldPassword.decode('GB2312')
+		return self.OldPassword.decode('ascii')
 	def getNewPassword(self):
-		return self.NewPassword.decode('GB2312')
+		return self.NewPassword.decode('ascii')
 
 class CThostFtdcInputOrderField(Structure):
 	"""输入报单"""
@@ -2245,23 +2245,23 @@ class CThostFtdcInputOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getOrderRef(self):
-		return self.OrderRef.decode('GB2312')
+		return self.OrderRef.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getOrderPriceType(self):
 		return OrderPriceTypeType(ord(self.OrderPriceType))
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getCombOffsetFlag(self):
-		return self.CombOffsetFlag.decode('GB2312')
+		return self.CombOffsetFlag.decode('ascii')
 	def getCombHedgeFlag(self):
-		return self.CombHedgeFlag.decode('GB2312')
+		return self.CombHedgeFlag.decode('ascii')
 	def getLimitPrice(self):
 		return self.LimitPrice
 	def getVolumeTotalOriginal(self):
@@ -2269,7 +2269,7 @@ class CThostFtdcInputOrderField(Structure):
 	def getTimeCondition(self):
 		return TimeConditionType(ord(self.TimeCondition))
 	def getGTDDate(self):
-		return self.GTDDate.decode('GB2312')
+		return self.GTDDate.decode('ascii')
 	def getVolumeCondition(self):
 		return VolumeConditionType(ord(self.VolumeCondition))
 	def getMinVolume(self):
@@ -2283,7 +2283,7 @@ class CThostFtdcInputOrderField(Structure):
 	def getIsAutoSuspend(self):
 		return self.IsAutoSuspend
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getUserForceClose(self):
@@ -2411,23 +2411,23 @@ class CThostFtdcOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getOrderRef(self):
-		return self.OrderRef.decode('GB2312')
+		return self.OrderRef.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getOrderPriceType(self):
 		return OrderPriceTypeType(ord(self.OrderPriceType))
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getCombOffsetFlag(self):
-		return self.CombOffsetFlag.decode('GB2312')
+		return self.CombOffsetFlag.decode('ascii')
 	def getCombHedgeFlag(self):
-		return self.CombHedgeFlag.decode('GB2312')
+		return self.CombHedgeFlag.decode('ascii')
 	def getLimitPrice(self):
 		return self.LimitPrice
 	def getVolumeTotalOriginal(self):
@@ -2435,7 +2435,7 @@ class CThostFtdcOrderField(Structure):
 	def getTimeCondition(self):
 		return TimeConditionType(ord(self.TimeCondition))
 	def getGTDDate(self):
-		return self.GTDDate.decode('GB2312')
+		return self.GTDDate.decode('ascii')
 	def getVolumeCondition(self):
 		return VolumeConditionType(ord(self.VolumeCondition))
 	def getMinVolume(self):
@@ -2449,21 +2449,21 @@ class CThostFtdcOrderField(Structure):
 	def getIsAutoSuspend(self):
 		return self.IsAutoSuspend
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getOrderLocalID(self):
-		return self.OrderLocalID.decode('GB2312')
+		return self.OrderLocalID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getOrderSubmitStatus(self):
@@ -2471,11 +2471,11 @@ class CThostFtdcOrderField(Structure):
 	def getNotifySequence(self):
 		return self.NotifySequence
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getOrderSysID(self):
-		return self.OrderSysID.decode('GB2312')
+		return self.OrderSysID.decode('ascii')
 	def getOrderSource(self):
 		return OrderSourceType(ord(self.OrderSource))
 	def getOrderStatus(self):
@@ -2487,21 +2487,21 @@ class CThostFtdcOrderField(Structure):
 	def getVolumeTotal(self):
 		return self.VolumeTotal
 	def getInsertDate(self):
-		return self.InsertDate.decode('GB2312')
+		return self.InsertDate.decode('ascii')
 	def getInsertTime(self):
-		return self.InsertTime.decode('GB2312')
+		return self.InsertTime.decode('ascii')
 	def getActiveTime(self):
-		return self.ActiveTime.decode('GB2312')
+		return self.ActiveTime.decode('ascii')
 	def getSuspendTime(self):
-		return self.SuspendTime.decode('GB2312')
+		return self.SuspendTime.decode('ascii')
 	def getUpdateTime(self):
-		return self.UpdateTime.decode('GB2312')
+		return self.UpdateTime.decode('ascii')
 	def getCancelTime(self):
-		return self.CancelTime.decode('GB2312')
+		return self.CancelTime.decode('ascii')
 	def getActiveTraderID(self):
-		return self.ActiveTraderID.decode('GB2312')
+		return self.ActiveTraderID.decode('ascii')
 	def getClearingPartID(self):
-		return self.ClearingPartID.decode('GB2312')
+		return self.ClearingPartID.decode('ascii')
 	def getSequenceNo(self):
 		return self.SequenceNo
 	def getFrontID(self):
@@ -2509,17 +2509,17 @@ class CThostFtdcOrderField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getUserProductInfo(self):
-		return self.UserProductInfo.decode('GB2312')
+		return self.UserProductInfo.decode('ascii')
 	def getStatusMsg(self):
 		return self.StatusMsg.decode('GB2312')
 	def getUserForceClose(self):
 		return self.UserForceClose
 	def getActiveUserID(self):
-		return self.ActiveUserID.decode('GB2312')
+		return self.ActiveUserID.decode('ascii')
 	def getBrokerOrderSeq(self):
 		return self.BrokerOrderSeq
 	def getRelativeOrderSysID(self):
-		return self.RelativeOrderSysID.decode('GB2312')
+		return self.RelativeOrderSysID.decode('ascii')
 	def getZCETotalTradedVolume(self):
 		return self.ZCETotalTradedVolume
 	def getIsSwapOrder(self):
@@ -2619,9 +2619,9 @@ class CThostFtdcExchangeOrderField(Structure):
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getCombOffsetFlag(self):
-		return self.CombOffsetFlag.decode('GB2312')
+		return self.CombOffsetFlag.decode('ascii')
 	def getCombHedgeFlag(self):
-		return self.CombHedgeFlag.decode('GB2312')
+		return self.CombHedgeFlag.decode('ascii')
 	def getLimitPrice(self):
 		return self.LimitPrice
 	def getVolumeTotalOriginal(self):
@@ -2629,7 +2629,7 @@ class CThostFtdcExchangeOrderField(Structure):
 	def getTimeCondition(self):
 		return TimeConditionType(ord(self.TimeCondition))
 	def getGTDDate(self):
-		return self.GTDDate.decode('GB2312')
+		return self.GTDDate.decode('ascii')
 	def getVolumeCondition(self):
 		return VolumeConditionType(ord(self.VolumeCondition))
 	def getMinVolume(self):
@@ -2643,21 +2643,21 @@ class CThostFtdcExchangeOrderField(Structure):
 	def getIsAutoSuspend(self):
 		return self.IsAutoSuspend
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getOrderLocalID(self):
-		return self.OrderLocalID.decode('GB2312')
+		return self.OrderLocalID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getOrderSubmitStatus(self):
@@ -2665,11 +2665,11 @@ class CThostFtdcExchangeOrderField(Structure):
 	def getNotifySequence(self):
 		return self.NotifySequence
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getOrderSysID(self):
-		return self.OrderSysID.decode('GB2312')
+		return self.OrderSysID.decode('ascii')
 	def getOrderSource(self):
 		return OrderSourceType(ord(self.OrderSource))
 	def getOrderStatus(self):
@@ -2681,21 +2681,21 @@ class CThostFtdcExchangeOrderField(Structure):
 	def getVolumeTotal(self):
 		return self.VolumeTotal
 	def getInsertDate(self):
-		return self.InsertDate.decode('GB2312')
+		return self.InsertDate.decode('ascii')
 	def getInsertTime(self):
-		return self.InsertTime.decode('GB2312')
+		return self.InsertTime.decode('ascii')
 	def getActiveTime(self):
-		return self.ActiveTime.decode('GB2312')
+		return self.ActiveTime.decode('ascii')
 	def getSuspendTime(self):
-		return self.SuspendTime.decode('GB2312')
+		return self.SuspendTime.decode('ascii')
 	def getUpdateTime(self):
-		return self.UpdateTime.decode('GB2312')
+		return self.UpdateTime.decode('ascii')
 	def getCancelTime(self):
-		return self.CancelTime.decode('GB2312')
+		return self.CancelTime.decode('ascii')
 	def getActiveTraderID(self):
-		return self.ActiveTraderID.decode('GB2312')
+		return self.ActiveTraderID.decode('ascii')
 	def getClearingPartID(self):
-		return self.ClearingPartID.decode('GB2312')
+		return self.ClearingPartID.decode('ascii')
 	def getSequenceNo(self):
 		return self.SequenceNo
 
@@ -2719,15 +2719,15 @@ class CThostFtdcExchangeOrderInsertErrorField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getOrderLocalID(self):
-		return self.OrderLocalID.decode('GB2312')
+		return self.OrderLocalID.decode('ascii')
 	def getErrorID(self):
 		return self.ErrorID
 	def getErrorMsg(self):
@@ -2767,13 +2767,13 @@ class CThostFtdcInputOrderActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getOrderActionRef(self):
 		return self.OrderActionRef
 	def getOrderRef(self):
-		return self.OrderRef.decode('GB2312')
+		return self.OrderRef.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getFrontID(self):
@@ -2781,9 +2781,9 @@ class CThostFtdcInputOrderActionField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getOrderSysID(self):
-		return self.OrderSysID.decode('GB2312')
+		return self.OrderSysID.decode('ascii')
 	def getActionFlag(self):
 		return ActionFlagType(ord(self.ActionFlag))
 	def getLimitPrice(self):
@@ -2791,9 +2791,9 @@ class CThostFtdcInputOrderActionField(Structure):
 	def getVolumeChange(self):
 		return self.VolumeChange
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcOrderActionField(Structure):
 	"""报单操作"""
@@ -2851,13 +2851,13 @@ class CThostFtdcOrderActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getOrderActionRef(self):
 		return self.OrderActionRef
 	def getOrderRef(self):
-		return self.OrderRef.decode('GB2312')
+		return self.OrderRef.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getFrontID(self):
@@ -2865,9 +2865,9 @@ class CThostFtdcOrderActionField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getOrderSysID(self):
-		return self.OrderSysID.decode('GB2312')
+		return self.OrderSysID.decode('ascii')
 	def getActionFlag(self):
 		return ActionFlagType(ord(self.ActionFlag))
 	def getLimitPrice(self):
@@ -2875,31 +2875,31 @@ class CThostFtdcOrderActionField(Structure):
 	def getVolumeChange(self):
 		return self.VolumeChange
 	def getActionDate(self):
-		return self.ActionDate.decode('GB2312')
+		return self.ActionDate.decode('ascii')
 	def getActionTime(self):
-		return self.ActionTime.decode('GB2312')
+		return self.ActionTime.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getOrderLocalID(self):
-		return self.OrderLocalID.decode('GB2312')
+		return self.OrderLocalID.decode('ascii')
 	def getActionLocalID(self):
-		return self.ActionLocalID.decode('GB2312')
+		return self.ActionLocalID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getOrderActionStatus(self):
 		return OrderActionStatusType(ord(self.OrderActionStatus))
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getStatusMsg(self):
 		return self.StatusMsg.decode('GB2312')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcExchangeOrderActionField(Structure):
 	"""交易所报单操作"""
@@ -2939,9 +2939,9 @@ class CThostFtdcExchangeOrderActionField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getOrderSysID(self):
-		return self.OrderSysID.decode('GB2312')
+		return self.OrderSysID.decode('ascii')
 	def getActionFlag(self):
 		return ActionFlagType(ord(self.ActionFlag))
 	def getLimitPrice(self):
@@ -2949,27 +2949,27 @@ class CThostFtdcExchangeOrderActionField(Structure):
 	def getVolumeChange(self):
 		return self.VolumeChange
 	def getActionDate(self):
-		return self.ActionDate.decode('GB2312')
+		return self.ActionDate.decode('ascii')
 	def getActionTime(self):
-		return self.ActionTime.decode('GB2312')
+		return self.ActionTime.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getOrderLocalID(self):
-		return self.OrderLocalID.decode('GB2312')
+		return self.OrderLocalID.decode('ascii')
 	def getActionLocalID(self):
-		return self.ActionLocalID.decode('GB2312')
+		return self.ActionLocalID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getOrderActionStatus(self):
 		return OrderActionStatusType(ord(self.OrderActionStatus))
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcExchangeOrderActionErrorField(Structure):
 	"""交易所报单操作失败"""
@@ -2993,17 +2993,17 @@ class CThostFtdcExchangeOrderActionErrorField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getOrderSysID(self):
-		return self.OrderSysID.decode('GB2312')
+		return self.OrderSysID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getOrderLocalID(self):
-		return self.OrderLocalID.decode('GB2312')
+		return self.OrderLocalID.decode('ascii')
 	def getActionLocalID(self):
-		return self.ActionLocalID.decode('GB2312')
+		return self.ActionLocalID.decode('ascii')
 	def getErrorID(self):
 		return self.ErrorID
 	def getErrorMsg(self):
@@ -3059,21 +3059,21 @@ class CThostFtdcExchangeTradeField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getTradeID(self):
-		return self.TradeID.decode('GB2312')
+		return self.TradeID.decode('ascii')
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getOrderSysID(self):
-		return self.OrderSysID.decode('GB2312')
+		return self.OrderSysID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getTradingRole(self):
 		return TradingRoleType(ord(self.TradingRole))
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getOffsetFlag(self):
 		return OffsetFlagType(ord(self.OffsetFlag))
 	def getHedgeFlag(self):
@@ -3083,21 +3083,21 @@ class CThostFtdcExchangeTradeField(Structure):
 	def getVolume(self):
 		return self.Volume
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getTradeType(self):
 		return TradeTypeType(ord(self.TradeType))
 	def getPriceSource(self):
 		return PriceSourceType(ord(self.PriceSource))
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getOrderLocalID(self):
-		return self.OrderLocalID.decode('GB2312')
+		return self.OrderLocalID.decode('ascii')
 	def getClearingPartID(self):
-		return self.ClearingPartID.decode('GB2312')
+		return self.ClearingPartID.decode('ascii')
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getSequenceNo(self):
 		return self.SequenceNo
 	def getTradeSource(self):
@@ -3169,31 +3169,31 @@ class CThostFtdcTradeField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getOrderRef(self):
-		return self.OrderRef.decode('GB2312')
+		return self.OrderRef.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getTradeID(self):
-		return self.TradeID.decode('GB2312')
+		return self.TradeID.decode('ascii')
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getOrderSysID(self):
-		return self.OrderSysID.decode('GB2312')
+		return self.OrderSysID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getTradingRole(self):
 		return TradingRoleType(ord(self.TradingRole))
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getOffsetFlag(self):
 		return OffsetFlagType(ord(self.OffsetFlag))
 	def getHedgeFlag(self):
@@ -3203,25 +3203,25 @@ class CThostFtdcTradeField(Structure):
 	def getVolume(self):
 		return self.Volume
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getTradeType(self):
 		return TradeTypeType(ord(self.TradeType))
 	def getPriceSource(self):
 		return PriceSourceType(ord(self.PriceSource))
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getOrderLocalID(self):
-		return self.OrderLocalID.decode('GB2312')
+		return self.OrderLocalID.decode('ascii')
 	def getClearingPartID(self):
-		return self.ClearingPartID.decode('GB2312')
+		return self.ClearingPartID.decode('ascii')
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getSequenceNo(self):
 		return self.SequenceNo
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getBrokerOrderSeq(self):
@@ -3261,23 +3261,23 @@ class CThostFtdcUserSessionField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getLoginDate(self):
-		return self.LoginDate.decode('GB2312')
+		return self.LoginDate.decode('ascii')
 	def getLoginTime(self):
-		return self.LoginTime.decode('GB2312')
+		return self.LoginTime.decode('ascii')
 	def getIPAddress(self):
-		return self.IPAddress.decode('GB2312')
+		return self.IPAddress.decode('ascii')
 	def getUserProductInfo(self):
-		return self.UserProductInfo.decode('GB2312')
+		return self.UserProductInfo.decode('ascii')
 	def getInterfaceProductInfo(self):
-		return self.InterfaceProductInfo.decode('GB2312')
+		return self.InterfaceProductInfo.decode('ascii')
 	def getProtocolInfo(self):
-		return self.ProtocolInfo.decode('GB2312')
+		return self.ProtocolInfo.decode('ascii')
 	def getMacAddress(self):
-		return self.MacAddress.decode('GB2312')
+		return self.MacAddress.decode('ascii')
 
 class CThostFtdcQueryMaxOrderVolumeField(Structure):
 	"""查询最大报单数量"""
@@ -3299,11 +3299,11 @@ class CThostFtdcQueryMaxOrderVolumeField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getOffsetFlag(self):
@@ -3327,13 +3327,13 @@ class CThostFtdcSettlementInfoConfirmField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getConfirmDate(self):
-		return self.ConfirmDate.decode('GB2312')
+		return self.ConfirmDate.decode('ascii')
 	def getConfirmTime(self):
-		return self.ConfirmTime.decode('GB2312')
+		return self.ConfirmTime.decode('ascii')
 
 class CThostFtdcSyncDepositField(Structure):
 	"""出入金同步"""
@@ -3353,17 +3353,17 @@ class CThostFtdcSyncDepositField(Structure):
 		]
 
 	def getDepositSeqNo(self):
-		return self.DepositSeqNo.decode('GB2312')
+		return self.DepositSeqNo.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getDeposit(self):
 		return self.Deposit
 	def getIsForce(self):
 		return self.IsForce
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 
 class CThostFtdcSyncFundMortgageField(Structure):
 	"""货币质押同步"""
@@ -3383,17 +3383,17 @@ class CThostFtdcSyncFundMortgageField(Structure):
 		]
 
 	def getMortgageSeqNo(self):
-		return self.MortgageSeqNo.decode('GB2312')
+		return self.MortgageSeqNo.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getFromCurrencyID(self):
-		return self.FromCurrencyID.decode('GB2312')
+		return self.FromCurrencyID.decode('ascii')
 	def getMortgageAmount(self):
 		return self.MortgageAmount
 	def getToCurrencyID(self):
-		return self.ToCurrencyID.decode('GB2312')
+		return self.ToCurrencyID.decode('ascii')
 
 class CThostFtdcBrokerSyncField(Structure):
 	"""经纪公司同步"""
@@ -3403,7 +3403,7 @@ class CThostFtdcBrokerSyncField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 
 class CThostFtdcSyncingInvestorField(Structure):
 	"""正在同步中的投资者"""
@@ -3437,31 +3437,31 @@ class CThostFtdcSyncingInvestorField(Structure):
 		]
 
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorGroupID(self):
-		return self.InvestorGroupID.decode('GB2312')
+		return self.InvestorGroupID.decode('ascii')
 	def getInvestorName(self):
-		return self.InvestorName.decode('GB2312')
+		return self.InvestorName.decode('ascii')
 	def getIdentifiedCardType(self):
 		return IdCardTypeType(ord(self.IdentifiedCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getIsActive(self):
 		return self.IsActive
 	def getTelephone(self):
-		return self.Telephone.decode('GB2312')
+		return self.Telephone.decode('ascii')
 	def getAddress(self):
-		return self.Address.decode('GB2312')
+		return self.Address.decode('ascii')
 	def getOpenDate(self):
-		return self.OpenDate.decode('GB2312')
+		return self.OpenDate.decode('ascii')
 	def getMobile(self):
-		return self.Mobile.decode('GB2312')
+		return self.Mobile.decode('ascii')
 	def getCommModelID(self):
-		return self.CommModelID.decode('GB2312')
+		return self.CommModelID.decode('ascii')
 	def getMarginModelID(self):
-		return self.MarginModelID.decode('GB2312')
+		return self.MarginModelID.decode('ascii')
 
 class CThostFtdcSyncingTradingCodeField(Structure):
 	"""正在同步中的交易代码"""
@@ -3481,13 +3481,13 @@ class CThostFtdcSyncingTradingCodeField(Structure):
 		]
 
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getIsActive(self):
 		return self.IsActive
 	def getClientIDType(self):
@@ -3505,11 +3505,11 @@ class CThostFtdcSyncingInvestorGroupField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorGroupID(self):
-		return self.InvestorGroupID.decode('GB2312')
+		return self.InvestorGroupID.decode('ascii')
 	def getInvestorGroupName(self):
-		return self.InvestorGroupName.decode('GB2312')
+		return self.InvestorGroupName.decode('ascii')
 
 class CThostFtdcSyncingTradingAccountField(Structure):
 	"""正在同步中的交易账号"""
@@ -3609,9 +3609,9 @@ class CThostFtdcSyncingTradingAccountField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPreMortgage(self):
 		return self.PreMortgage
 	def getPreCredit(self):
@@ -3655,7 +3655,7 @@ class CThostFtdcSyncingTradingAccountField(Structure):
 	def getReserve(self):
 		return self.Reserve
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getCredit(self):
@@ -3671,7 +3671,7 @@ class CThostFtdcSyncingTradingAccountField(Structure):
 	def getReserveBalance(self):
 		return self.ReserveBalance
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getPreFundMortgageIn(self):
 		return self.PreFundMortgageIn
 	def getPreFundMortgageOut(self):
@@ -3793,11 +3793,11 @@ class CThostFtdcSyncingInvestorPositionField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getPosiDirection(self):
 		return PosiDirectionType(ord(self.PosiDirection))
 	def getHedgeFlag(self):
@@ -3849,7 +3849,7 @@ class CThostFtdcSyncingInvestorPositionField(Structure):
 	def getSettlementPrice(self):
 		return self.SettlementPrice
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getOpenCost(self):
@@ -3905,13 +3905,13 @@ class CThostFtdcSyncingInstrumentMarginRateField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getHedgeFlag(self):
 		return HedgeFlagType(ord(self.HedgeFlag))
 	def getLongMarginRatioByMoney(self):
@@ -3951,13 +3951,13 @@ class CThostFtdcSyncingInstrumentCommissionRateField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getOpenRatioByMoney(self):
 		return self.OpenRatioByMoney
 	def getOpenRatioByVolume(self):
@@ -3987,13 +3987,13 @@ class CThostFtdcSyncingInstrumentTradingRightField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getTradingRight(self):
 		return TradingRightType(ord(self.TradingRight))
 
@@ -4017,19 +4017,19 @@ class CThostFtdcQryOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getOrderSysID(self):
-		return self.OrderSysID.decode('GB2312')
+		return self.OrderSysID.decode('ascii')
 	def getInsertTimeStart(self):
-		return self.InsertTimeStart.decode('GB2312')
+		return self.InsertTimeStart.decode('ascii')
 	def getInsertTimeEnd(self):
-		return self.InsertTimeEnd.decode('GB2312')
+		return self.InsertTimeEnd.decode('ascii')
 
 class CThostFtdcQryTradeField(Structure):
 	"""查询成交"""
@@ -4051,19 +4051,19 @@ class CThostFtdcQryTradeField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getTradeID(self):
-		return self.TradeID.decode('GB2312')
+		return self.TradeID.decode('ascii')
 	def getTradeTimeStart(self):
-		return self.TradeTimeStart.decode('GB2312')
+		return self.TradeTimeStart.decode('ascii')
 	def getTradeTimeEnd(self):
-		return self.TradeTimeEnd.decode('GB2312')
+		return self.TradeTimeEnd.decode('ascii')
 
 class CThostFtdcQryInvestorPositionField(Structure):
 	"""查询投资者持仓"""
@@ -4077,11 +4077,11 @@ class CThostFtdcQryInvestorPositionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcQryTradingAccountField(Structure):
 	"""查询资金账户"""
@@ -4095,11 +4095,11 @@ class CThostFtdcQryTradingAccountField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 
 class CThostFtdcQryInvestorField(Structure):
 	"""查询投资者"""
@@ -4111,9 +4111,9 @@ class CThostFtdcQryInvestorField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 
 class CThostFtdcQryTradingCodeField(Structure):
 	"""查询交易编码"""
@@ -4131,13 +4131,13 @@ class CThostFtdcQryTradingCodeField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getClientIDType(self):
 		return ClientIDTypeType(ord(self.ClientIDType))
 
@@ -4149,7 +4149,7 @@ class CThostFtdcQryInvestorGroupField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 
 class CThostFtdcQryInstrumentMarginRateField(Structure):
 	"""查询合约保证金率"""
@@ -4165,11 +4165,11 @@ class CThostFtdcQryInstrumentMarginRateField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getHedgeFlag(self):
 		return HedgeFlagType(ord(self.HedgeFlag))
 
@@ -4185,11 +4185,11 @@ class CThostFtdcQryInstrumentCommissionRateField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcQryInstrumentTradingRightField(Structure):
 	"""查询合约交易权限"""
@@ -4203,11 +4203,11 @@ class CThostFtdcQryInstrumentTradingRightField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcQryBrokerField(Structure):
 	"""查询经纪公司"""
@@ -4217,7 +4217,7 @@ class CThostFtdcQryBrokerField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 
 class CThostFtdcQryTraderField(Structure):
 	"""查询交易员"""
@@ -4231,11 +4231,11 @@ class CThostFtdcQryTraderField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 
 class CThostFtdcQrySuperUserFunctionField(Structure):
 	"""查询管理用户功能权限"""
@@ -4245,7 +4245,7 @@ class CThostFtdcQrySuperUserFunctionField(Structure):
 		]
 
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcQryUserSessionField(Structure):
 	"""查询用户会话"""
@@ -4265,9 +4265,9 @@ class CThostFtdcQryUserSessionField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcQryPartBrokerField(Structure):
 	"""查询经纪公司会员代码"""
@@ -4281,11 +4281,11 @@ class CThostFtdcQryPartBrokerField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 
 class CThostFtdcQryFrontStatusField(Structure):
 	"""查询前置状态"""
@@ -4313,15 +4313,15 @@ class CThostFtdcQryExchangeOrderField(Structure):
 		]
 
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 
 class CThostFtdcQryOrderActionField(Structure):
 	"""查询报单操作"""
@@ -4335,11 +4335,11 @@ class CThostFtdcQryOrderActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 
 class CThostFtdcQryExchangeOrderActionField(Structure):
 	"""查询交易所报单操作"""
@@ -4355,13 +4355,13 @@ class CThostFtdcQryExchangeOrderActionField(Structure):
 		]
 
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 
 class CThostFtdcQrySuperUserField(Structure):
 	"""查询管理用户"""
@@ -4371,7 +4371,7 @@ class CThostFtdcQrySuperUserField(Structure):
 		]
 
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcQryExchangeField(Structure):
 	"""查询交易所"""
@@ -4381,7 +4381,7 @@ class CThostFtdcQryExchangeField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 
 class CThostFtdcQryProductField(Structure):
 	"""查询产品"""
@@ -4393,7 +4393,7 @@ class CThostFtdcQryProductField(Structure):
 		]
 
 	def getProductID(self):
-		return self.ProductID.decode('GB2312')
+		return self.ProductID.decode('ascii')
 	def getProductClass(self):
 		return ProductClassType(ord(self.ProductClass))
 
@@ -4411,13 +4411,13 @@ class CThostFtdcQryInstrumentField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getProductID(self):
-		return self.ProductID.decode('GB2312')
+		return self.ProductID.decode('ascii')
 
 class CThostFtdcQryDepthMarketDataField(Structure):
 	"""查询行情"""
@@ -4427,7 +4427,7 @@ class CThostFtdcQryDepthMarketDataField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcQryBrokerUserField(Structure):
 	"""查询经纪公司用户"""
@@ -4439,9 +4439,9 @@ class CThostFtdcQryBrokerUserField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcQryBrokerUserFunctionField(Structure):
 	"""查询经纪公司用户权限"""
@@ -4453,9 +4453,9 @@ class CThostFtdcQryBrokerUserFunctionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcQryTraderOfferField(Structure):
 	"""查询交易员报盘机"""
@@ -4469,11 +4469,11 @@ class CThostFtdcQryTraderOfferField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 
 class CThostFtdcQrySyncDepositField(Structure):
 	"""查询出入金流水"""
@@ -4485,9 +4485,9 @@ class CThostFtdcQrySyncDepositField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getDepositSeqNo(self):
-		return self.DepositSeqNo.decode('GB2312')
+		return self.DepositSeqNo.decode('ascii')
 
 class CThostFtdcQrySettlementInfoField(Structure):
 	"""查询投资者结算结果"""
@@ -4501,11 +4501,11 @@ class CThostFtdcQrySettlementInfoField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 
 class CThostFtdcQryExchangeMarginRateField(Structure):
 	"""查询交易所保证金率"""
@@ -4519,9 +4519,9 @@ class CThostFtdcQryExchangeMarginRateField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getHedgeFlag(self):
 		return HedgeFlagType(ord(self.HedgeFlag))
 
@@ -4537,9 +4537,9 @@ class CThostFtdcQryExchangeMarginRateAdjustField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getHedgeFlag(self):
 		return HedgeFlagType(ord(self.HedgeFlag))
 
@@ -4555,11 +4555,11 @@ class CThostFtdcQryExchangeRateField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getFromCurrencyID(self):
-		return self.FromCurrencyID.decode('GB2312')
+		return self.FromCurrencyID.decode('ascii')
 	def getToCurrencyID(self):
-		return self.ToCurrencyID.decode('GB2312')
+		return self.ToCurrencyID.decode('ascii')
 
 class CThostFtdcQrySyncFundMortgageField(Structure):
 	"""查询货币质押流水"""
@@ -4571,9 +4571,9 @@ class CThostFtdcQrySyncFundMortgageField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getMortgageSeqNo(self):
-		return self.MortgageSeqNo.decode('GB2312')
+		return self.MortgageSeqNo.decode('ascii')
 
 class CThostFtdcQryHisOrderField(Structure):
 	"""查询报单"""
@@ -4599,21 +4599,21 @@ class CThostFtdcQryHisOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getOrderSysID(self):
-		return self.OrderSysID.decode('GB2312')
+		return self.OrderSysID.decode('ascii')
 	def getInsertTimeStart(self):
-		return self.InsertTimeStart.decode('GB2312')
+		return self.InsertTimeStart.decode('ascii')
 	def getInsertTimeEnd(self):
-		return self.InsertTimeEnd.decode('GB2312')
+		return self.InsertTimeEnd.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 
@@ -4637,13 +4637,13 @@ class CThostFtdcOptionInstrMiniMarginField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getMinMargin(self):
 		return self.MinMargin
 	def getValueMethod(self):
@@ -4679,13 +4679,13 @@ class CThostFtdcOptionInstrMarginAdjustField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getSShortMarginRatioByMoney(self):
 		return self.SShortMarginRatioByMoney
 	def getSShortMarginRatioByVolume(self):
@@ -4731,13 +4731,13 @@ class CThostFtdcOptionInstrCommRateField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getOpenRatioByMoney(self):
 		return self.OpenRatioByMoney
 	def getOpenRatioByVolume(self):
@@ -4779,11 +4779,11 @@ class CThostFtdcOptionInstrTradeCostField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getHedgeFlag(self):
 		return HedgeFlagType(ord(self.HedgeFlag))
 	def getFixedMargin(self):
@@ -4815,11 +4815,11 @@ class CThostFtdcQryOptionInstrTradeCostField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getHedgeFlag(self):
 		return HedgeFlagType(ord(self.HedgeFlag))
 	def getInputPrice(self):
@@ -4839,11 +4839,11 @@ class CThostFtdcQryOptionInstrCommRateField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcIndexPriceField(Structure):
 	"""股指现货指数"""
@@ -4857,9 +4857,9 @@ class CThostFtdcIndexPriceField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getClosePrice(self):
 		return self.ClosePrice
 
@@ -4897,21 +4897,21 @@ class CThostFtdcInputExecOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExecOrderRef(self):
-		return self.ExecOrderRef.decode('GB2312')
+		return self.ExecOrderRef.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getVolume(self):
 		return self.Volume
 	def getRequestID(self):
 		return self.RequestID
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getOffsetFlag(self):
 		return OffsetFlagType(ord(self.OffsetFlag))
 	def getHedgeFlag(self):
@@ -4955,13 +4955,13 @@ class CThostFtdcInputExecOrderActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getExecOrderActionRef(self):
 		return self.ExecOrderActionRef
 	def getExecOrderRef(self):
-		return self.ExecOrderRef.decode('GB2312')
+		return self.ExecOrderRef.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getFrontID(self):
@@ -4969,15 +4969,15 @@ class CThostFtdcInputExecOrderActionField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getExecOrderSysID(self):
-		return self.ExecOrderSysID.decode('GB2312')
+		return self.ExecOrderSysID.decode('ascii')
 	def getActionFlag(self):
 		return ActionFlagType(ord(self.ActionFlag))
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcExecOrderField(Structure):
 	"""执行宣告"""
@@ -5061,21 +5061,21 @@ class CThostFtdcExecOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExecOrderRef(self):
-		return self.ExecOrderRef.decode('GB2312')
+		return self.ExecOrderRef.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getVolume(self):
 		return self.Volume
 	def getRequestID(self):
 		return self.RequestID
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getOffsetFlag(self):
 		return OffsetFlagType(ord(self.OffsetFlag))
 	def getHedgeFlag(self):
@@ -5089,17 +5089,17 @@ class CThostFtdcExecOrderField(Structure):
 	def getCloseFlag(self):
 		return ExecOrderCloseFlagType(ord(self.CloseFlag))
 	def getExecOrderLocalID(self):
-		return self.ExecOrderLocalID.decode('GB2312')
+		return self.ExecOrderLocalID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getOrderSubmitStatus(self):
@@ -5107,21 +5107,21 @@ class CThostFtdcExecOrderField(Structure):
 	def getNotifySequence(self):
 		return self.NotifySequence
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getExecOrderSysID(self):
-		return self.ExecOrderSysID.decode('GB2312')
+		return self.ExecOrderSysID.decode('ascii')
 	def getInsertDate(self):
-		return self.InsertDate.decode('GB2312')
+		return self.InsertDate.decode('ascii')
 	def getInsertTime(self):
-		return self.InsertTime.decode('GB2312')
+		return self.InsertTime.decode('ascii')
 	def getCancelTime(self):
-		return self.CancelTime.decode('GB2312')
+		return self.CancelTime.decode('ascii')
 	def getExecResult(self):
 		return ExecResultType(ord(self.ExecResult))
 	def getClearingPartID(self):
-		return self.ClearingPartID.decode('GB2312')
+		return self.ClearingPartID.decode('ascii')
 	def getSequenceNo(self):
 		return self.SequenceNo
 	def getFrontID(self):
@@ -5129,11 +5129,11 @@ class CThostFtdcExecOrderField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getUserProductInfo(self):
-		return self.UserProductInfo.decode('GB2312')
+		return self.UserProductInfo.decode('ascii')
 	def getStatusMsg(self):
 		return self.StatusMsg.decode('GB2312')
 	def getActiveUserID(self):
-		return self.ActiveUserID.decode('GB2312')
+		return self.ActiveUserID.decode('ascii')
 	def getBrokerExecOrderSeq(self):
 		return self.BrokerExecOrderSeq
 
@@ -5191,13 +5191,13 @@ class CThostFtdcExecOrderActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getExecOrderActionRef(self):
 		return self.ExecOrderActionRef
 	def getExecOrderRef(self):
-		return self.ExecOrderRef.decode('GB2312')
+		return self.ExecOrderRef.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getFrontID(self):
@@ -5205,39 +5205,39 @@ class CThostFtdcExecOrderActionField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getExecOrderSysID(self):
-		return self.ExecOrderSysID.decode('GB2312')
+		return self.ExecOrderSysID.decode('ascii')
 	def getActionFlag(self):
 		return ActionFlagType(ord(self.ActionFlag))
 	def getActionDate(self):
-		return self.ActionDate.decode('GB2312')
+		return self.ActionDate.decode('ascii')
 	def getActionTime(self):
-		return self.ActionTime.decode('GB2312')
+		return self.ActionTime.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getExecOrderLocalID(self):
-		return self.ExecOrderLocalID.decode('GB2312')
+		return self.ExecOrderLocalID.decode('ascii')
 	def getActionLocalID(self):
-		return self.ActionLocalID.decode('GB2312')
+		return self.ActionLocalID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getOrderActionStatus(self):
 		return OrderActionStatusType(ord(self.OrderActionStatus))
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getActionType(self):
 		return ActionTypeType(ord(self.ActionType))
 	def getStatusMsg(self):
 		return self.StatusMsg.decode('GB2312')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcQryExecOrderField(Structure):
 	"""执行宣告查询"""
@@ -5259,19 +5259,19 @@ class CThostFtdcQryExecOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getExecOrderSysID(self):
-		return self.ExecOrderSysID.decode('GB2312')
+		return self.ExecOrderSysID.decode('ascii')
 	def getInsertTimeStart(self):
-		return self.InsertTimeStart.decode('GB2312')
+		return self.InsertTimeStart.decode('ascii')
 	def getInsertTimeEnd(self):
-		return self.InsertTimeEnd.decode('GB2312')
+		return self.InsertTimeEnd.decode('ascii')
 
 class CThostFtdcExchangeExecOrderField(Structure):
 	"""交易所执行宣告信息"""
@@ -5337,7 +5337,7 @@ class CThostFtdcExchangeExecOrderField(Structure):
 	def getRequestID(self):
 		return self.RequestID
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getOffsetFlag(self):
 		return OffsetFlagType(ord(self.OffsetFlag))
 	def getHedgeFlag(self):
@@ -5351,17 +5351,17 @@ class CThostFtdcExchangeExecOrderField(Structure):
 	def getCloseFlag(self):
 		return ExecOrderCloseFlagType(ord(self.CloseFlag))
 	def getExecOrderLocalID(self):
-		return self.ExecOrderLocalID.decode('GB2312')
+		return self.ExecOrderLocalID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getOrderSubmitStatus(self):
@@ -5369,21 +5369,21 @@ class CThostFtdcExchangeExecOrderField(Structure):
 	def getNotifySequence(self):
 		return self.NotifySequence
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getExecOrderSysID(self):
-		return self.ExecOrderSysID.decode('GB2312')
+		return self.ExecOrderSysID.decode('ascii')
 	def getInsertDate(self):
-		return self.InsertDate.decode('GB2312')
+		return self.InsertDate.decode('ascii')
 	def getInsertTime(self):
-		return self.InsertTime.decode('GB2312')
+		return self.InsertTime.decode('ascii')
 	def getCancelTime(self):
-		return self.CancelTime.decode('GB2312')
+		return self.CancelTime.decode('ascii')
 	def getExecResult(self):
 		return ExecResultType(ord(self.ExecResult))
 	def getClearingPartID(self):
-		return self.ClearingPartID.decode('GB2312')
+		return self.ClearingPartID.decode('ascii')
 	def getSequenceNo(self):
 		return self.SequenceNo
 
@@ -5403,15 +5403,15 @@ class CThostFtdcQryExchangeExecOrderField(Structure):
 		]
 
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 
 class CThostFtdcQryExecOrderActionField(Structure):
 	"""执行宣告操作查询"""
@@ -5425,11 +5425,11 @@ class CThostFtdcQryExecOrderActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 
 class CThostFtdcExchangeExecOrderActionField(Structure):
 	"""交易所执行宣告操作"""
@@ -5467,33 +5467,33 @@ class CThostFtdcExchangeExecOrderActionField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getExecOrderSysID(self):
-		return self.ExecOrderSysID.decode('GB2312')
+		return self.ExecOrderSysID.decode('ascii')
 	def getActionFlag(self):
 		return ActionFlagType(ord(self.ActionFlag))
 	def getActionDate(self):
-		return self.ActionDate.decode('GB2312')
+		return self.ActionDate.decode('ascii')
 	def getActionTime(self):
-		return self.ActionTime.decode('GB2312')
+		return self.ActionTime.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getExecOrderLocalID(self):
-		return self.ExecOrderLocalID.decode('GB2312')
+		return self.ExecOrderLocalID.decode('ascii')
 	def getActionLocalID(self):
-		return self.ActionLocalID.decode('GB2312')
+		return self.ActionLocalID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getOrderActionStatus(self):
 		return OrderActionStatusType(ord(self.OrderActionStatus))
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getActionType(self):
 		return ActionTypeType(ord(self.ActionType))
 
@@ -5511,13 +5511,13 @@ class CThostFtdcQryExchangeExecOrderActionField(Structure):
 		]
 
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 
 class CThostFtdcErrExecOrderField(Structure):
 	"""错误执行宣告"""
@@ -5557,21 +5557,21 @@ class CThostFtdcErrExecOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExecOrderRef(self):
-		return self.ExecOrderRef.decode('GB2312')
+		return self.ExecOrderRef.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getVolume(self):
 		return self.Volume
 	def getRequestID(self):
 		return self.RequestID
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getOffsetFlag(self):
 		return OffsetFlagType(ord(self.OffsetFlag))
 	def getHedgeFlag(self):
@@ -5599,9 +5599,9 @@ class CThostFtdcQryErrExecOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 
 class CThostFtdcErrExecOrderActionField(Structure):
 	"""错误执行宣告操作"""
@@ -5637,13 +5637,13 @@ class CThostFtdcErrExecOrderActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getExecOrderActionRef(self):
 		return self.ExecOrderActionRef
 	def getExecOrderRef(self):
-		return self.ExecOrderRef.decode('GB2312')
+		return self.ExecOrderRef.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getFrontID(self):
@@ -5651,15 +5651,15 @@ class CThostFtdcErrExecOrderActionField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getExecOrderSysID(self):
-		return self.ExecOrderSysID.decode('GB2312')
+		return self.ExecOrderSysID.decode('ascii')
 	def getActionFlag(self):
 		return ActionFlagType(ord(self.ActionFlag))
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getErrorID(self):
 		return self.ErrorID
 	def getErrorMsg(self):
@@ -5675,9 +5675,9 @@ class CThostFtdcQryErrExecOrderActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 
 class CThostFtdcOptionInstrTradingRightField(Structure):
 	"""投资者期权合约交易权限"""
@@ -5697,13 +5697,13 @@ class CThostFtdcOptionInstrTradingRightField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getTradingRight(self):
@@ -5723,11 +5723,11 @@ class CThostFtdcQryOptionInstrTradingRightField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 
@@ -5747,15 +5747,15 @@ class CThostFtdcInputForQuoteField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getForQuoteRef(self):
-		return self.ForQuoteRef.decode('GB2312')
+		return self.ForQuoteRef.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcForQuoteField(Structure):
 	"""询价"""
@@ -5803,33 +5803,33 @@ class CThostFtdcForQuoteField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getForQuoteRef(self):
-		return self.ForQuoteRef.decode('GB2312')
+		return self.ForQuoteRef.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getForQuoteLocalID(self):
-		return self.ForQuoteLocalID.decode('GB2312')
+		return self.ForQuoteLocalID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getInsertDate(self):
-		return self.InsertDate.decode('GB2312')
+		return self.InsertDate.decode('ascii')
 	def getInsertTime(self):
-		return self.InsertTime.decode('GB2312')
+		return self.InsertTime.decode('ascii')
 	def getForQuoteStatus(self):
 		return ForQuoteStatusType(ord(self.ForQuoteStatus))
 	def getFrontID(self):
@@ -5839,7 +5839,7 @@ class CThostFtdcForQuoteField(Structure):
 	def getStatusMsg(self):
 		return self.StatusMsg.decode('GB2312')
 	def getActiveUserID(self):
-		return self.ActiveUserID.decode('GB2312')
+		return self.ActiveUserID.decode('ascii')
 	def getBrokerForQutoSeq(self):
 		return self.BrokerForQutoSeq
 
@@ -5861,17 +5861,17 @@ class CThostFtdcQryForQuoteField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getInsertTimeStart(self):
-		return self.InsertTimeStart.decode('GB2312')
+		return self.InsertTimeStart.decode('ascii')
 	def getInsertTimeEnd(self):
-		return self.InsertTimeEnd.decode('GB2312')
+		return self.InsertTimeEnd.decode('ascii')
 
 class CThostFtdcExchangeForQuoteField(Structure):
 	"""交易所询价信息"""
@@ -5899,23 +5899,23 @@ class CThostFtdcExchangeForQuoteField(Structure):
 		]
 
 	def getForQuoteLocalID(self):
-		return self.ForQuoteLocalID.decode('GB2312')
+		return self.ForQuoteLocalID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getInsertDate(self):
-		return self.InsertDate.decode('GB2312')
+		return self.InsertDate.decode('ascii')
 	def getInsertTime(self):
-		return self.InsertTime.decode('GB2312')
+		return self.InsertTime.decode('ascii')
 	def getForQuoteStatus(self):
 		return ForQuoteStatusType(ord(self.ForQuoteStatus))
 
@@ -5935,15 +5935,15 @@ class CThostFtdcQryExchangeForQuoteField(Structure):
 		]
 
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 
 class CThostFtdcInputQuoteField(Structure):
 	"""输入的报价"""
@@ -5985,15 +5985,15 @@ class CThostFtdcInputQuoteField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getQuoteRef(self):
-		return self.QuoteRef.decode('GB2312')
+		return self.QuoteRef.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getAskPrice(self):
 		return self.AskPrice
 	def getBidPrice(self):
@@ -6005,7 +6005,7 @@ class CThostFtdcInputQuoteField(Structure):
 	def getRequestID(self):
 		return self.RequestID
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getAskOffsetFlag(self):
 		return OffsetFlagType(ord(self.AskOffsetFlag))
 	def getBidOffsetFlag(self):
@@ -6015,9 +6015,9 @@ class CThostFtdcInputQuoteField(Structure):
 	def getBidHedgeFlag(self):
 		return HedgeFlagType(ord(self.BidHedgeFlag))
 	def getAskOrderRef(self):
-		return self.AskOrderRef.decode('GB2312')
+		return self.AskOrderRef.decode('ascii')
 	def getBidOrderRef(self):
-		return self.BidOrderRef.decode('GB2312')
+		return self.BidOrderRef.decode('ascii')
 
 class CThostFtdcInputQuoteActionField(Structure):
 	"""输入报价操作"""
@@ -6049,13 +6049,13 @@ class CThostFtdcInputQuoteActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getQuoteActionRef(self):
 		return self.QuoteActionRef
 	def getQuoteRef(self):
-		return self.QuoteRef.decode('GB2312')
+		return self.QuoteRef.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getFrontID(self):
@@ -6063,15 +6063,15 @@ class CThostFtdcInputQuoteActionField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getQuoteSysID(self):
-		return self.QuoteSysID.decode('GB2312')
+		return self.QuoteSysID.decode('ascii')
 	def getActionFlag(self):
 		return ActionFlagType(ord(self.ActionFlag))
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcQuoteField(Structure):
 	"""报价"""
@@ -6165,15 +6165,15 @@ class CThostFtdcQuoteField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getQuoteRef(self):
-		return self.QuoteRef.decode('GB2312')
+		return self.QuoteRef.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getAskPrice(self):
 		return self.AskPrice
 	def getBidPrice(self):
@@ -6185,7 +6185,7 @@ class CThostFtdcQuoteField(Structure):
 	def getRequestID(self):
 		return self.RequestID
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getAskOffsetFlag(self):
 		return OffsetFlagType(ord(self.AskOffsetFlag))
 	def getBidOffsetFlag(self):
@@ -6195,17 +6195,17 @@ class CThostFtdcQuoteField(Structure):
 	def getBidHedgeFlag(self):
 		return HedgeFlagType(ord(self.BidHedgeFlag))
 	def getQuoteLocalID(self):
-		return self.QuoteLocalID.decode('GB2312')
+		return self.QuoteLocalID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getNotifySequence(self):
@@ -6213,43 +6213,43 @@ class CThostFtdcQuoteField(Structure):
 	def getOrderSubmitStatus(self):
 		return OrderSubmitStatusType(ord(self.OrderSubmitStatus))
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getQuoteSysID(self):
-		return self.QuoteSysID.decode('GB2312')
+		return self.QuoteSysID.decode('ascii')
 	def getInsertDate(self):
-		return self.InsertDate.decode('GB2312')
+		return self.InsertDate.decode('ascii')
 	def getInsertTime(self):
-		return self.InsertTime.decode('GB2312')
+		return self.InsertTime.decode('ascii')
 	def getCancelTime(self):
-		return self.CancelTime.decode('GB2312')
+		return self.CancelTime.decode('ascii')
 	def getQuoteStatus(self):
 		return OrderStatusType(ord(self.QuoteStatus))
 	def getClearingPartID(self):
-		return self.ClearingPartID.decode('GB2312')
+		return self.ClearingPartID.decode('ascii')
 	def getSequenceNo(self):
 		return self.SequenceNo
 	def getAskOrderSysID(self):
-		return self.AskOrderSysID.decode('GB2312')
+		return self.AskOrderSysID.decode('ascii')
 	def getBidOrderSysID(self):
-		return self.BidOrderSysID.decode('GB2312')
+		return self.BidOrderSysID.decode('ascii')
 	def getFrontID(self):
 		return self.FrontID
 	def getSessionID(self):
 		return self.SessionID
 	def getUserProductInfo(self):
-		return self.UserProductInfo.decode('GB2312')
+		return self.UserProductInfo.decode('ascii')
 	def getStatusMsg(self):
 		return self.StatusMsg.decode('GB2312')
 	def getActiveUserID(self):
-		return self.ActiveUserID.decode('GB2312')
+		return self.ActiveUserID.decode('ascii')
 	def getBrokerQuoteSeq(self):
 		return self.BrokerQuoteSeq
 	def getAskOrderRef(self):
-		return self.AskOrderRef.decode('GB2312')
+		return self.AskOrderRef.decode('ascii')
 	def getBidOrderRef(self):
-		return self.BidOrderRef.decode('GB2312')
+		return self.BidOrderRef.decode('ascii')
 
 class CThostFtdcQuoteActionField(Structure):
 	"""报价操作"""
@@ -6303,13 +6303,13 @@ class CThostFtdcQuoteActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getQuoteActionRef(self):
 		return self.QuoteActionRef
 	def getQuoteRef(self):
-		return self.QuoteRef.decode('GB2312')
+		return self.QuoteRef.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getFrontID(self):
@@ -6317,37 +6317,37 @@ class CThostFtdcQuoteActionField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getQuoteSysID(self):
-		return self.QuoteSysID.decode('GB2312')
+		return self.QuoteSysID.decode('ascii')
 	def getActionFlag(self):
 		return ActionFlagType(ord(self.ActionFlag))
 	def getActionDate(self):
-		return self.ActionDate.decode('GB2312')
+		return self.ActionDate.decode('ascii')
 	def getActionTime(self):
-		return self.ActionTime.decode('GB2312')
+		return self.ActionTime.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getQuoteLocalID(self):
-		return self.QuoteLocalID.decode('GB2312')
+		return self.QuoteLocalID.decode('ascii')
 	def getActionLocalID(self):
-		return self.ActionLocalID.decode('GB2312')
+		return self.ActionLocalID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getOrderActionStatus(self):
 		return OrderActionStatusType(ord(self.OrderActionStatus))
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getStatusMsg(self):
 		return self.StatusMsg.decode('GB2312')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcQryQuoteField(Structure):
 	"""报价查询"""
@@ -6369,19 +6369,19 @@ class CThostFtdcQryQuoteField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getQuoteSysID(self):
-		return self.QuoteSysID.decode('GB2312')
+		return self.QuoteSysID.decode('ascii')
 	def getInsertTimeStart(self):
-		return self.InsertTimeStart.decode('GB2312')
+		return self.InsertTimeStart.decode('ascii')
 	def getInsertTimeEnd(self):
-		return self.InsertTimeEnd.decode('GB2312')
+		return self.InsertTimeEnd.decode('ascii')
 
 class CThostFtdcExchangeQuoteField(Structure):
 	"""交易所报价信息"""
@@ -6459,7 +6459,7 @@ class CThostFtdcExchangeQuoteField(Structure):
 	def getRequestID(self):
 		return self.RequestID
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getAskOffsetFlag(self):
 		return OffsetFlagType(ord(self.AskOffsetFlag))
 	def getBidOffsetFlag(self):
@@ -6469,17 +6469,17 @@ class CThostFtdcExchangeQuoteField(Structure):
 	def getBidHedgeFlag(self):
 		return HedgeFlagType(ord(self.BidHedgeFlag))
 	def getQuoteLocalID(self):
-		return self.QuoteLocalID.decode('GB2312')
+		return self.QuoteLocalID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getNotifySequence(self):
@@ -6487,27 +6487,27 @@ class CThostFtdcExchangeQuoteField(Structure):
 	def getOrderSubmitStatus(self):
 		return OrderSubmitStatusType(ord(self.OrderSubmitStatus))
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getQuoteSysID(self):
-		return self.QuoteSysID.decode('GB2312')
+		return self.QuoteSysID.decode('ascii')
 	def getInsertDate(self):
-		return self.InsertDate.decode('GB2312')
+		return self.InsertDate.decode('ascii')
 	def getInsertTime(self):
-		return self.InsertTime.decode('GB2312')
+		return self.InsertTime.decode('ascii')
 	def getCancelTime(self):
-		return self.CancelTime.decode('GB2312')
+		return self.CancelTime.decode('ascii')
 	def getQuoteStatus(self):
 		return OrderStatusType(ord(self.QuoteStatus))
 	def getClearingPartID(self):
-		return self.ClearingPartID.decode('GB2312')
+		return self.ClearingPartID.decode('ascii')
 	def getSequenceNo(self):
 		return self.SequenceNo
 	def getAskOrderSysID(self):
-		return self.AskOrderSysID.decode('GB2312')
+		return self.AskOrderSysID.decode('ascii')
 	def getBidOrderSysID(self):
-		return self.BidOrderSysID.decode('GB2312')
+		return self.BidOrderSysID.decode('ascii')
 
 class CThostFtdcQryExchangeQuoteField(Structure):
 	"""交易所报价查询"""
@@ -6525,15 +6525,15 @@ class CThostFtdcQryExchangeQuoteField(Structure):
 		]
 
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 
 class CThostFtdcQryQuoteActionField(Structure):
 	"""报价操作查询"""
@@ -6547,11 +6547,11 @@ class CThostFtdcQryQuoteActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 
 class CThostFtdcExchangeQuoteActionField(Structure):
 	"""交易所报价操作"""
@@ -6587,33 +6587,33 @@ class CThostFtdcExchangeQuoteActionField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getQuoteSysID(self):
-		return self.QuoteSysID.decode('GB2312')
+		return self.QuoteSysID.decode('ascii')
 	def getActionFlag(self):
 		return ActionFlagType(ord(self.ActionFlag))
 	def getActionDate(self):
-		return self.ActionDate.decode('GB2312')
+		return self.ActionDate.decode('ascii')
 	def getActionTime(self):
-		return self.ActionTime.decode('GB2312')
+		return self.ActionTime.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getQuoteLocalID(self):
-		return self.QuoteLocalID.decode('GB2312')
+		return self.QuoteLocalID.decode('ascii')
 	def getActionLocalID(self):
-		return self.ActionLocalID.decode('GB2312')
+		return self.ActionLocalID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getOrderActionStatus(self):
 		return OrderActionStatusType(ord(self.OrderActionStatus))
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcQryExchangeQuoteActionField(Structure):
 	"""交易所报价操作查询"""
@@ -6629,13 +6629,13 @@ class CThostFtdcQryExchangeQuoteActionField(Structure):
 		]
 
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 
 class CThostFtdcOptionInstrDeltaField(Structure):
 	"""期权合约delta值"""
@@ -6653,13 +6653,13 @@ class CThostFtdcOptionInstrDeltaField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getDelta(self):
 		return self.Delta
 
@@ -6681,17 +6681,17 @@ class CThostFtdcForQuoteRspField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getForQuoteSysID(self):
-		return self.ForQuoteSysID.decode('GB2312')
+		return self.ForQuoteSysID.decode('ascii')
 	def getForQuoteTime(self):
-		return self.ForQuoteTime.decode('GB2312')
+		return self.ForQuoteTime.decode('ascii')
 	def getActionDay(self):
-		return self.ActionDay.decode('GB2312')
+		return self.ActionDay.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 
 class CThostFtdcStrikeOffsetField(Structure):
 	"""当前期权合约执行偏移值的详细内容"""
@@ -6709,13 +6709,13 @@ class CThostFtdcStrikeOffsetField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getOffset(self):
 		return self.Offset
 
@@ -6731,11 +6731,11 @@ class CThostFtdcQryStrikeOffsetField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcMarketDataField(Structure):
 	"""市场行情"""
@@ -6789,13 +6789,13 @@ class CThostFtdcMarketDataField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getLastPrice(self):
 		return self.LastPrice
 	def getPreSettlementPrice(self):
@@ -6829,11 +6829,11 @@ class CThostFtdcMarketDataField(Structure):
 	def getCurrDelta(self):
 		return self.CurrDelta
 	def getUpdateTime(self):
-		return self.UpdateTime.decode('GB2312')
+		return self.UpdateTime.decode('ascii')
 	def getUpdateMillisec(self):
 		return self.UpdateMillisec
 	def getActionDay(self):
-		return self.ActionDay.decode('GB2312')
+		return self.ActionDay.decode('ascii')
 
 class CThostFtdcMarketDataBaseField(Structure):
 	"""行情基础属性"""
@@ -6851,7 +6851,7 @@ class CThostFtdcMarketDataBaseField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPreSettlementPrice(self):
 		return self.PreSettlementPrice
 	def getPreClosePrice(self):
@@ -7045,13 +7045,13 @@ class CThostFtdcMarketDataUpdateTimeField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getUpdateTime(self):
-		return self.UpdateTime.decode('GB2312')
+		return self.UpdateTime.decode('ascii')
 	def getUpdateMillisec(self):
 		return self.UpdateMillisec
 	def getActionDay(self):
-		return self.ActionDay.decode('GB2312')
+		return self.ActionDay.decode('ascii')
 
 class CThostFtdcMarketDataExchangeField(Structure):
 	"""行情交易所代码属性"""
@@ -7061,7 +7061,7 @@ class CThostFtdcMarketDataExchangeField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 
 class CThostFtdcSpecificInstrumentField(Structure):
 	"""指定的合约"""
@@ -7071,7 +7071,7 @@ class CThostFtdcSpecificInstrumentField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcInstrumentStatusField(Structure):
 	"""合约状态"""
@@ -7095,19 +7095,19 @@ class CThostFtdcInstrumentStatusField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getSettlementGroupID(self):
-		return self.SettlementGroupID.decode('GB2312')
+		return self.SettlementGroupID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getInstrumentStatus(self):
 		return InstrumentStatusType(ord(self.InstrumentStatus))
 	def getTradingSegmentSN(self):
 		return self.TradingSegmentSN
 	def getEnterTime(self):
-		return self.EnterTime.decode('GB2312')
+		return self.EnterTime.decode('ascii')
 	def getEnterReason(self):
 		return InstStatusEnterReasonType(ord(self.EnterReason))
 
@@ -7121,9 +7121,9 @@ class CThostFtdcQryInstrumentStatusField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 
 class CThostFtdcInvestorAccountField(Structure):
 	"""投资者账户"""
@@ -7139,13 +7139,13 @@ class CThostFtdcInvestorAccountField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 
 class CThostFtdcPositionProfitAlgorithmField(Structure):
 	"""浮动盈亏算法"""
@@ -7163,15 +7163,15 @@ class CThostFtdcPositionProfitAlgorithmField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getAlgorithm(self):
 		return AlgorithmType(ord(self.Algorithm))
 	def getMemo(self):
-		return self.Memo.decode('GB2312')
+		return self.Memo.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 
 class CThostFtdcDiscountField(Structure):
 	"""会员资金折扣"""
@@ -7187,11 +7187,11 @@ class CThostFtdcDiscountField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getDiscount(self):
 		return self.Discount
 
@@ -7205,9 +7205,9 @@ class CThostFtdcQryTransferBankField(Structure):
 		]
 
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBrchID(self):
-		return self.BankBrchID.decode('GB2312')
+		return self.BankBrchID.decode('ascii')
 
 class CThostFtdcTransferBankField(Structure):
 	"""转帐银行"""
@@ -7223,11 +7223,11 @@ class CThostFtdcTransferBankField(Structure):
 		]
 
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBrchID(self):
-		return self.BankBrchID.decode('GB2312')
+		return self.BankBrchID.decode('ascii')
 	def getBankName(self):
-		return self.BankName.decode('GB2312')
+		return self.BankName.decode('ascii')
 	def getIsActive(self):
 		return self.IsActive
 
@@ -7243,11 +7243,11 @@ class CThostFtdcQryInvestorPositionDetailField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcInvestorPositionDetailField(Structure):
 	"""投资者持仓明细"""
@@ -7307,33 +7307,33 @@ class CThostFtdcInvestorPositionDetailField(Structure):
 		]
 
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getHedgeFlag(self):
 		return HedgeFlagType(ord(self.HedgeFlag))
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getOpenDate(self):
-		return self.OpenDate.decode('GB2312')
+		return self.OpenDate.decode('ascii')
 	def getTradeID(self):
-		return self.TradeID.decode('GB2312')
+		return self.TradeID.decode('ascii')
 	def getVolume(self):
 		return self.Volume
 	def getOpenPrice(self):
 		return self.OpenPrice
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getTradeType(self):
 		return TradeTypeType(ord(self.TradeType))
 	def getCombInstrumentID(self):
-		return self.CombInstrumentID.decode('GB2312')
+		return self.CombInstrumentID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getCloseProfitByDate(self):
 		return self.CloseProfitByDate
 	def getCloseProfitByTrade(self):
@@ -7373,13 +7373,13 @@ class CThostFtdcTradingAccountPasswordField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 
 class CThostFtdcMDTraderOfferField(Structure):
 	"""交易所行情报盘机"""
@@ -7425,43 +7425,43 @@ class CThostFtdcMDTraderOfferField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getOrderLocalID(self):
-		return self.OrderLocalID.decode('GB2312')
+		return self.OrderLocalID.decode('ascii')
 	def getTraderConnectStatus(self):
 		return TraderConnectStatusType(ord(self.TraderConnectStatus))
 	def getConnectRequestDate(self):
-		return self.ConnectRequestDate.decode('GB2312')
+		return self.ConnectRequestDate.decode('ascii')
 	def getConnectRequestTime(self):
-		return self.ConnectRequestTime.decode('GB2312')
+		return self.ConnectRequestTime.decode('ascii')
 	def getLastReportDate(self):
-		return self.LastReportDate.decode('GB2312')
+		return self.LastReportDate.decode('ascii')
 	def getLastReportTime(self):
-		return self.LastReportTime.decode('GB2312')
+		return self.LastReportTime.decode('ascii')
 	def getConnectDate(self):
-		return self.ConnectDate.decode('GB2312')
+		return self.ConnectDate.decode('ascii')
 	def getConnectTime(self):
-		return self.ConnectTime.decode('GB2312')
+		return self.ConnectTime.decode('ascii')
 	def getStartDate(self):
-		return self.StartDate.decode('GB2312')
+		return self.StartDate.decode('ascii')
 	def getStartTime(self):
-		return self.StartTime.decode('GB2312')
+		return self.StartTime.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getMaxTradeID(self):
-		return self.MaxTradeID.decode('GB2312')
+		return self.MaxTradeID.decode('ascii')
 	def getMaxOrderMessageReference(self):
-		return self.MaxOrderMessageReference.decode('GB2312')
+		return self.MaxOrderMessageReference.decode('ascii')
 
 class CThostFtdcQryMDTraderOfferField(Structure):
 	"""查询行情报盘机"""
@@ -7475,11 +7475,11 @@ class CThostFtdcQryMDTraderOfferField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 
 class CThostFtdcQryNoticeField(Structure):
 	"""查询客户通知"""
@@ -7489,7 +7489,7 @@ class CThostFtdcQryNoticeField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 
 class CThostFtdcNoticeField(Structure):
 	"""客户通知"""
@@ -7503,11 +7503,11 @@ class CThostFtdcNoticeField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getContent(self):
-		return self.Content.decode('GB2312')
+		return self.Content.decode('ascii')
 	def getSequenceLabel(self):
-		return self.SequenceLabel.decode('GB2312')
+		return self.SequenceLabel.decode('ascii')
 
 class CThostFtdcUserRightField(Structure):
 	"""用户权限"""
@@ -7523,9 +7523,9 @@ class CThostFtdcUserRightField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getUserRightType(self):
 		return UserRightTypeType(ord(self.UserRightType))
 	def getIsForbidden(self):
@@ -7541,9 +7541,9 @@ class CThostFtdcQrySettlementInfoConfirmField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 
 class CThostFtdcLoadSettlementInfoField(Structure):
 	"""装载结算信息"""
@@ -7553,7 +7553,7 @@ class CThostFtdcLoadSettlementInfoField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 
 class CThostFtdcBrokerWithdrawAlgorithmField(Structure):
 	"""经纪公司可提资金算法表"""
@@ -7581,7 +7581,7 @@ class CThostFtdcBrokerWithdrawAlgorithmField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getWithdrawAlgorithm(self):
 		return AlgorithmType(ord(self.WithdrawAlgorithm))
 	def getUsingRatio(self):
@@ -7595,7 +7595,7 @@ class CThostFtdcBrokerWithdrawAlgorithmField(Structure):
 	def getIsBrokerUserEvent(self):
 		return self.IsBrokerUserEvent
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getFundMortgageRatio(self):
 		return self.FundMortgageRatio
 	def getBalanceAlgorithm(self):
@@ -7615,13 +7615,13 @@ class CThostFtdcTradingAccountPasswordUpdateV1Field(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getOldPassword(self):
-		return self.OldPassword.decode('GB2312')
+		return self.OldPassword.decode('ascii')
 	def getNewPassword(self):
-		return self.NewPassword.decode('GB2312')
+		return self.NewPassword.decode('ascii')
 
 class CThostFtdcTradingAccountPasswordUpdateField(Structure):
 	"""资金账户口令变更域"""
@@ -7639,15 +7639,15 @@ class CThostFtdcTradingAccountPasswordUpdateField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getOldPassword(self):
-		return self.OldPassword.decode('GB2312')
+		return self.OldPassword.decode('ascii')
 	def getNewPassword(self):
-		return self.NewPassword.decode('GB2312')
+		return self.NewPassword.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 
 class CThostFtdcQryCombinationLegField(Structure):
 	"""查询组合合约分腿"""
@@ -7661,11 +7661,11 @@ class CThostFtdcQryCombinationLegField(Structure):
 		]
 
 	def getCombInstrumentID(self):
-		return self.CombInstrumentID.decode('GB2312')
+		return self.CombInstrumentID.decode('ascii')
 	def getLegID(self):
 		return self.LegID
 	def getLegInstrumentID(self):
-		return self.LegInstrumentID.decode('GB2312')
+		return self.LegInstrumentID.decode('ascii')
 
 class CThostFtdcQrySyncStatusField(Structure):
 	"""查询组合合约分腿"""
@@ -7675,7 +7675,7 @@ class CThostFtdcQrySyncStatusField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 
 class CThostFtdcCombinationLegField(Structure):
 	"""组合交易合约的单腿"""
@@ -7695,11 +7695,11 @@ class CThostFtdcCombinationLegField(Structure):
 		]
 
 	def getCombInstrumentID(self):
-		return self.CombInstrumentID.decode('GB2312')
+		return self.CombInstrumentID.decode('ascii')
 	def getLegID(self):
 		return self.LegID
 	def getLegInstrumentID(self):
-		return self.LegInstrumentID.decode('GB2312')
+		return self.LegInstrumentID.decode('ascii')
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getLegMultiple(self):
@@ -7717,7 +7717,7 @@ class CThostFtdcSyncStatusField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getDataSyncStatus(self):
 		return DataSyncStatusType(ord(self.DataSyncStatus))
 
@@ -7731,9 +7731,9 @@ class CThostFtdcQryLinkManField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 
 class CThostFtdcLinkManField(Structure):
 	"""联系人"""
@@ -7765,29 +7765,29 @@ class CThostFtdcLinkManField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getPersonType(self):
 		return PersonTypeType(ord(self.PersonType))
 	def getIdentifiedCardType(self):
 		return IdCardTypeType(ord(self.IdentifiedCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getPersonName(self):
-		return self.PersonName.decode('GB2312')
+		return self.PersonName.decode('ascii')
 	def getTelephone(self):
-		return self.Telephone.decode('GB2312')
+		return self.Telephone.decode('ascii')
 	def getAddress(self):
-		return self.Address.decode('GB2312')
+		return self.Address.decode('ascii')
 	def getZipCode(self):
-		return self.ZipCode.decode('GB2312')
+		return self.ZipCode.decode('ascii')
 	def getPriority(self):
 		return self.Priority
 	def getUOAZipCode(self):
-		return self.UOAZipCode.decode('GB2312')
+		return self.UOAZipCode.decode('ascii')
 	def getPersonFullName(self):
-		return self.PersonFullName.decode('GB2312')
+		return self.PersonFullName.decode('ascii')
 
 class CThostFtdcQryBrokerUserEventField(Structure):
 	"""查询经纪公司用户事件"""
@@ -7801,9 +7801,9 @@ class CThostFtdcQryBrokerUserEventField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getUserEventType(self):
 		return UserEventTypeType(ord(self.UserEventType))
 
@@ -7831,23 +7831,23 @@ class CThostFtdcBrokerUserEventField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getUserEventType(self):
 		return UserEventTypeType(ord(self.UserEventType))
 	def getEventSequenceNo(self):
 		return self.EventSequenceNo
 	def getEventDate(self):
-		return self.EventDate.decode('GB2312')
+		return self.EventDate.decode('ascii')
 	def getEventTime(self):
-		return self.EventTime.decode('GB2312')
+		return self.EventTime.decode('ascii')
 	def getUserEventInfo(self):
-		return self.UserEventInfo.decode('GB2312')
+		return self.UserEventInfo.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcQryContractBankField(Structure):
 	"""查询签约银行请求"""
@@ -7861,11 +7861,11 @@ class CThostFtdcQryContractBankField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBrchID(self):
-		return self.BankBrchID.decode('GB2312')
+		return self.BankBrchID.decode('ascii')
 
 class CThostFtdcContractBankField(Structure):
 	"""查询签约银行响应"""
@@ -7881,13 +7881,13 @@ class CThostFtdcContractBankField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBrchID(self):
-		return self.BankBrchID.decode('GB2312')
+		return self.BankBrchID.decode('ascii')
 	def getBankName(self):
-		return self.BankName.decode('GB2312')
+		return self.BankName.decode('ascii')
 
 class CThostFtdcInvestorPositionCombineDetailField(Structure):
 	"""投资者组合持仓明细"""
@@ -7935,23 +7935,23 @@ class CThostFtdcInvestorPositionCombineDetailField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getOpenDate(self):
-		return self.OpenDate.decode('GB2312')
+		return self.OpenDate.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getComTradeID(self):
-		return self.ComTradeID.decode('GB2312')
+		return self.ComTradeID.decode('ascii')
 	def getTradeID(self):
-		return self.TradeID.decode('GB2312')
+		return self.TradeID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getHedgeFlag(self):
 		return HedgeFlagType(ord(self.HedgeFlag))
 	def getDirection(self):
@@ -7971,7 +7971,7 @@ class CThostFtdcInvestorPositionCombineDetailField(Structure):
 	def getLegMultiple(self):
 		return self.LegMultiple
 	def getCombInstrumentID(self):
-		return self.CombInstrumentID.decode('GB2312')
+		return self.CombInstrumentID.decode('ascii')
 	def getTradeGroupID(self):
 		return self.TradeGroupID
 
@@ -8039,23 +8039,23 @@ class CThostFtdcParkedOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getOrderRef(self):
-		return self.OrderRef.decode('GB2312')
+		return self.OrderRef.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getOrderPriceType(self):
 		return OrderPriceTypeType(ord(self.OrderPriceType))
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getCombOffsetFlag(self):
-		return self.CombOffsetFlag.decode('GB2312')
+		return self.CombOffsetFlag.decode('ascii')
 	def getCombHedgeFlag(self):
-		return self.CombHedgeFlag.decode('GB2312')
+		return self.CombHedgeFlag.decode('ascii')
 	def getLimitPrice(self):
 		return self.LimitPrice
 	def getVolumeTotalOriginal(self):
@@ -8063,7 +8063,7 @@ class CThostFtdcParkedOrderField(Structure):
 	def getTimeCondition(self):
 		return TimeConditionType(ord(self.TimeCondition))
 	def getGTDDate(self):
-		return self.GTDDate.decode('GB2312')
+		return self.GTDDate.decode('ascii')
 	def getVolumeCondition(self):
 		return VolumeConditionType(ord(self.VolumeCondition))
 	def getMinVolume(self):
@@ -8077,15 +8077,15 @@ class CThostFtdcParkedOrderField(Structure):
 	def getIsAutoSuspend(self):
 		return self.IsAutoSuspend
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getUserForceClose(self):
 		return self.UserForceClose
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParkedOrderID(self):
-		return self.ParkedOrderID.decode('GB2312')
+		return self.ParkedOrderID.decode('ascii')
 	def getUserType(self):
 		return UserTypeType(ord(self.UserType))
 	def getStatus(self):
@@ -8141,13 +8141,13 @@ class CThostFtdcParkedOrderActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getOrderActionRef(self):
 		return self.OrderActionRef
 	def getOrderRef(self):
-		return self.OrderRef.decode('GB2312')
+		return self.OrderRef.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getFrontID(self):
@@ -8155,9 +8155,9 @@ class CThostFtdcParkedOrderActionField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getOrderSysID(self):
-		return self.OrderSysID.decode('GB2312')
+		return self.OrderSysID.decode('ascii')
 	def getActionFlag(self):
 		return ActionFlagType(ord(self.ActionFlag))
 	def getLimitPrice(self):
@@ -8165,11 +8165,11 @@ class CThostFtdcParkedOrderActionField(Structure):
 	def getVolumeChange(self):
 		return self.VolumeChange
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getParkedOrderActionID(self):
-		return self.ParkedOrderActionID.decode('GB2312')
+		return self.ParkedOrderActionID.decode('ascii')
 	def getUserType(self):
 		return UserTypeType(ord(self.UserType))
 	def getStatus(self):
@@ -8193,13 +8193,13 @@ class CThostFtdcQryParkedOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 
 class CThostFtdcQryParkedOrderActionField(Structure):
 	"""查询预埋撤单"""
@@ -8215,13 +8215,13 @@ class CThostFtdcQryParkedOrderActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 
 class CThostFtdcRemoveParkedOrderField(Structure):
 	"""删除预埋单"""
@@ -8235,11 +8235,11 @@ class CThostFtdcRemoveParkedOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getParkedOrderID(self):
-		return self.ParkedOrderID.decode('GB2312')
+		return self.ParkedOrderID.decode('ascii')
 
 class CThostFtdcRemoveParkedOrderActionField(Structure):
 	"""删除预埋撤单"""
@@ -8253,11 +8253,11 @@ class CThostFtdcRemoveParkedOrderActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getParkedOrderActionID(self):
-		return self.ParkedOrderActionID.decode('GB2312')
+		return self.ParkedOrderActionID.decode('ascii')
 
 class CThostFtdcInvestorWithdrawAlgorithmField(Structure):
 	"""经纪公司可提资金算法表"""
@@ -8277,15 +8277,15 @@ class CThostFtdcInvestorWithdrawAlgorithmField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getUsingRatio(self):
 		return self.UsingRatio
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getFundMortgageRatio(self):
 		return self.FundMortgageRatio
 
@@ -8301,11 +8301,11 @@ class CThostFtdcQryInvestorPositionCombineDetailField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getCombInstrumentID(self):
-		return self.CombInstrumentID.decode('GB2312')
+		return self.CombInstrumentID.decode('ascii')
 
 class CThostFtdcMarketDataAveragePriceField(Structure):
 	"""成交均价"""
@@ -8329,11 +8329,11 @@ class CThostFtdcVerifyInvestorPasswordField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 
 class CThostFtdcUserIPField(Structure):
 	"""用户IP"""
@@ -8351,15 +8351,15 @@ class CThostFtdcUserIPField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getIPAddress(self):
-		return self.IPAddress.decode('GB2312')
+		return self.IPAddress.decode('ascii')
 	def getIPMask(self):
-		return self.IPMask.decode('GB2312')
+		return self.IPMask.decode('ascii')
 	def getMacAddress(self):
-		return self.MacAddress.decode('GB2312')
+		return self.MacAddress.decode('ascii')
 
 class CThostFtdcTradingNoticeInfoField(Structure):
 	"""用户事件通知信息"""
@@ -8379,13 +8379,13 @@ class CThostFtdcTradingNoticeInfoField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getSendTime(self):
-		return self.SendTime.decode('GB2312')
+		return self.SendTime.decode('ascii')
 	def getFieldContent(self):
-		return self.FieldContent.decode('GB2312')
+		return self.FieldContent.decode('ascii')
 	def getSequenceSeries(self):
 		return self.SequenceSeries
 	def getSequenceNo(self):
@@ -8413,21 +8413,21 @@ class CThostFtdcTradingNoticeField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorRange(self):
 		return InvestorRangeType(ord(self.InvestorRange))
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getSequenceSeries(self):
 		return self.SequenceSeries
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getSendTime(self):
-		return self.SendTime.decode('GB2312')
+		return self.SendTime.decode('ascii')
 	def getSequenceNo(self):
 		return self.SequenceNo
 	def getFieldContent(self):
-		return self.FieldContent.decode('GB2312')
+		return self.FieldContent.decode('ascii')
 
 class CThostFtdcQryTradingNoticeField(Structure):
 	"""查询交易事件通知"""
@@ -8439,9 +8439,9 @@ class CThostFtdcQryTradingNoticeField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 
 class CThostFtdcQryErrOrderField(Structure):
 	"""查询错误报单"""
@@ -8453,9 +8453,9 @@ class CThostFtdcQryErrOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 
 class CThostFtdcErrOrderField(Structure):
 	"""错误报单"""
@@ -8513,23 +8513,23 @@ class CThostFtdcErrOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getOrderRef(self):
-		return self.OrderRef.decode('GB2312')
+		return self.OrderRef.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getOrderPriceType(self):
 		return OrderPriceTypeType(ord(self.OrderPriceType))
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getCombOffsetFlag(self):
-		return self.CombOffsetFlag.decode('GB2312')
+		return self.CombOffsetFlag.decode('ascii')
 	def getCombHedgeFlag(self):
-		return self.CombHedgeFlag.decode('GB2312')
+		return self.CombHedgeFlag.decode('ascii')
 	def getLimitPrice(self):
 		return self.LimitPrice
 	def getVolumeTotalOriginal(self):
@@ -8537,7 +8537,7 @@ class CThostFtdcErrOrderField(Structure):
 	def getTimeCondition(self):
 		return TimeConditionType(ord(self.TimeCondition))
 	def getGTDDate(self):
-		return self.GTDDate.decode('GB2312')
+		return self.GTDDate.decode('ascii')
 	def getVolumeCondition(self):
 		return VolumeConditionType(ord(self.VolumeCondition))
 	def getMinVolume(self):
@@ -8551,7 +8551,7 @@ class CThostFtdcErrOrderField(Structure):
 	def getIsAutoSuspend(self):
 		return self.IsAutoSuspend
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getUserForceClose(self):
@@ -8687,23 +8687,23 @@ class CThostFtdcErrorConditionalOrderField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getOrderRef(self):
-		return self.OrderRef.decode('GB2312')
+		return self.OrderRef.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getOrderPriceType(self):
 		return OrderPriceTypeType(ord(self.OrderPriceType))
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getCombOffsetFlag(self):
-		return self.CombOffsetFlag.decode('GB2312')
+		return self.CombOffsetFlag.decode('ascii')
 	def getCombHedgeFlag(self):
-		return self.CombHedgeFlag.decode('GB2312')
+		return self.CombHedgeFlag.decode('ascii')
 	def getLimitPrice(self):
 		return self.LimitPrice
 	def getVolumeTotalOriginal(self):
@@ -8711,7 +8711,7 @@ class CThostFtdcErrorConditionalOrderField(Structure):
 	def getTimeCondition(self):
 		return TimeConditionType(ord(self.TimeCondition))
 	def getGTDDate(self):
-		return self.GTDDate.decode('GB2312')
+		return self.GTDDate.decode('ascii')
 	def getVolumeCondition(self):
 		return VolumeConditionType(ord(self.VolumeCondition))
 	def getMinVolume(self):
@@ -8725,21 +8725,21 @@ class CThostFtdcErrorConditionalOrderField(Structure):
 	def getIsAutoSuspend(self):
 		return self.IsAutoSuspend
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getOrderLocalID(self):
-		return self.OrderLocalID.decode('GB2312')
+		return self.OrderLocalID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getExchangeInstID(self):
-		return self.ExchangeInstID.decode('GB2312')
+		return self.ExchangeInstID.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getOrderSubmitStatus(self):
@@ -8747,11 +8747,11 @@ class CThostFtdcErrorConditionalOrderField(Structure):
 	def getNotifySequence(self):
 		return self.NotifySequence
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getOrderSysID(self):
-		return self.OrderSysID.decode('GB2312')
+		return self.OrderSysID.decode('ascii')
 	def getOrderSource(self):
 		return OrderSourceType(ord(self.OrderSource))
 	def getOrderStatus(self):
@@ -8763,21 +8763,21 @@ class CThostFtdcErrorConditionalOrderField(Structure):
 	def getVolumeTotal(self):
 		return self.VolumeTotal
 	def getInsertDate(self):
-		return self.InsertDate.decode('GB2312')
+		return self.InsertDate.decode('ascii')
 	def getInsertTime(self):
-		return self.InsertTime.decode('GB2312')
+		return self.InsertTime.decode('ascii')
 	def getActiveTime(self):
-		return self.ActiveTime.decode('GB2312')
+		return self.ActiveTime.decode('ascii')
 	def getSuspendTime(self):
-		return self.SuspendTime.decode('GB2312')
+		return self.SuspendTime.decode('ascii')
 	def getUpdateTime(self):
-		return self.UpdateTime.decode('GB2312')
+		return self.UpdateTime.decode('ascii')
 	def getCancelTime(self):
-		return self.CancelTime.decode('GB2312')
+		return self.CancelTime.decode('ascii')
 	def getActiveTraderID(self):
-		return self.ActiveTraderID.decode('GB2312')
+		return self.ActiveTraderID.decode('ascii')
 	def getClearingPartID(self):
-		return self.ClearingPartID.decode('GB2312')
+		return self.ClearingPartID.decode('ascii')
 	def getSequenceNo(self):
 		return self.SequenceNo
 	def getFrontID(self):
@@ -8785,17 +8785,17 @@ class CThostFtdcErrorConditionalOrderField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getUserProductInfo(self):
-		return self.UserProductInfo.decode('GB2312')
+		return self.UserProductInfo.decode('ascii')
 	def getStatusMsg(self):
 		return self.StatusMsg.decode('GB2312')
 	def getUserForceClose(self):
 		return self.UserForceClose
 	def getActiveUserID(self):
-		return self.ActiveUserID.decode('GB2312')
+		return self.ActiveUserID.decode('ascii')
 	def getBrokerOrderSeq(self):
 		return self.BrokerOrderSeq
 	def getRelativeOrderSysID(self):
-		return self.RelativeOrderSysID.decode('GB2312')
+		return self.RelativeOrderSysID.decode('ascii')
 	def getZCETotalTradedVolume(self):
 		return self.ZCETotalTradedVolume
 	def getErrorID(self):
@@ -8815,9 +8815,9 @@ class CThostFtdcQryErrOrderActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 
 class CThostFtdcErrOrderActionField(Structure):
 	"""错误报单操作"""
@@ -8879,13 +8879,13 @@ class CThostFtdcErrOrderActionField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getOrderActionRef(self):
 		return self.OrderActionRef
 	def getOrderRef(self):
-		return self.OrderRef.decode('GB2312')
+		return self.OrderRef.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getFrontID(self):
@@ -8893,9 +8893,9 @@ class CThostFtdcErrOrderActionField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getOrderSysID(self):
-		return self.OrderSysID.decode('GB2312')
+		return self.OrderSysID.decode('ascii')
 	def getActionFlag(self):
 		return ActionFlagType(ord(self.ActionFlag))
 	def getLimitPrice(self):
@@ -8903,31 +8903,31 @@ class CThostFtdcErrOrderActionField(Structure):
 	def getVolumeChange(self):
 		return self.VolumeChange
 	def getActionDate(self):
-		return self.ActionDate.decode('GB2312')
+		return self.ActionDate.decode('ascii')
 	def getActionTime(self):
-		return self.ActionTime.decode('GB2312')
+		return self.ActionTime.decode('ascii')
 	def getTraderID(self):
-		return self.TraderID.decode('GB2312')
+		return self.TraderID.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getOrderLocalID(self):
-		return self.OrderLocalID.decode('GB2312')
+		return self.OrderLocalID.decode('ascii')
 	def getActionLocalID(self):
-		return self.ActionLocalID.decode('GB2312')
+		return self.ActionLocalID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getClientID(self):
-		return self.ClientID.decode('GB2312')
+		return self.ClientID.decode('ascii')
 	def getBusinessUnit(self):
-		return self.BusinessUnit.decode('GB2312')
+		return self.BusinessUnit.decode('ascii')
 	def getOrderActionStatus(self):
 		return OrderActionStatusType(ord(self.OrderActionStatus))
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getStatusMsg(self):
 		return self.StatusMsg.decode('GB2312')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getErrorID(self):
 		return self.ErrorID
 	def getErrorMsg(self):
@@ -8941,7 +8941,7 @@ class CThostFtdcQryExchangeSequenceField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 
 class CThostFtdcExchangeSequenceField(Structure):
 	"""交易所状态"""
@@ -8955,7 +8955,7 @@ class CThostFtdcExchangeSequenceField(Structure):
 		]
 
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getSequenceNo(self):
 		return self.SequenceNo
 	def getMarketStatus(self):
@@ -8983,11 +8983,11 @@ class CThostFtdcQueryMaxOrderVolumeWithPriceField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getOffsetFlag(self):
@@ -9011,11 +9011,11 @@ class CThostFtdcQryBrokerTradingParamsField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 
 class CThostFtdcBrokerTradingParamsField(Structure):
 	"""经纪公司交易参数"""
@@ -9037,9 +9037,9 @@ class CThostFtdcBrokerTradingParamsField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getMarginPriceType(self):
 		return MarginPriceTypeType(ord(self.MarginPriceType))
 	def getAlgorithm(self):
@@ -9047,7 +9047,7 @@ class CThostFtdcBrokerTradingParamsField(Structure):
 	def getAvailIncludeCloseProfit(self):
 		return IncludeCloseProfitType(ord(self.AvailIncludeCloseProfit))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getOptionRoyaltyPriceType(self):
 		return OptionRoyaltyPriceTypeType(ord(self.OptionRoyaltyPriceType))
 
@@ -9063,11 +9063,11 @@ class CThostFtdcQryBrokerTradingAlgosField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcBrokerTradingAlgosField(Structure):
 	"""经纪公司交易算法"""
@@ -9087,11 +9087,11 @@ class CThostFtdcBrokerTradingAlgosField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getHandlePositionAlgoID(self):
 		return HandlePositionAlgoIDType(ord(self.HandlePositionAlgoID))
 	def getFindMarginRateAlgoID(self):
@@ -9109,9 +9109,9 @@ class CThostFtdcQueryBrokerDepositField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 
 class CThostFtdcBrokerDepositField(Structure):
 	"""经纪公司资金"""
@@ -9145,13 +9145,13 @@ class CThostFtdcBrokerDepositField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getPreBalance(self):
 		return self.PreBalance
 	def getCurrMargin(self):
@@ -9179,7 +9179,7 @@ class CThostFtdcQryCFMMCBrokerKeyField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 
 class CThostFtdcCFMMCBrokerKeyField(Structure):
 	"""保证金监管系统经纪公司密钥"""
@@ -9201,17 +9201,17 @@ class CThostFtdcCFMMCBrokerKeyField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getCreateDate(self):
-		return self.CreateDate.decode('GB2312')
+		return self.CreateDate.decode('ascii')
 	def getCreateTime(self):
-		return self.CreateTime.decode('GB2312')
+		return self.CreateTime.decode('ascii')
 	def getKeyID(self):
 		return self.KeyID
 	def getCurrentKey(self):
-		return self.CurrentKey.decode('GB2312')
+		return self.CurrentKey.decode('ascii')
 	def getKeyKind(self):
 		return CFMMCKeyKindType(ord(self.KeyKind))
 
@@ -9231,15 +9231,15 @@ class CThostFtdcCFMMCTradingAccountKeyField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getKeyID(self):
 		return self.KeyID
 	def getCurrentKey(self):
-		return self.CurrentKey.decode('GB2312')
+		return self.CurrentKey.decode('ascii')
 
 class CThostFtdcQryCFMMCTradingAccountKeyField(Structure):
 	"""请求查询保证金监管系统经纪公司资金账户密钥"""
@@ -9251,9 +9251,9 @@ class CThostFtdcQryCFMMCTradingAccountKeyField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 
 class CThostFtdcBrokerUserOTPParamField(Structure):
 	"""用户动态令牌参数"""
@@ -9277,15 +9277,15 @@ class CThostFtdcBrokerUserOTPParamField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getOTPVendorsID(self):
-		return self.OTPVendorsID.decode('GB2312')
+		return self.OTPVendorsID.decode('ascii')
 	def getSerialNumber(self):
-		return self.SerialNumber.decode('GB2312')
+		return self.SerialNumber.decode('ascii')
 	def getAuthKey(self):
-		return self.AuthKey.decode('GB2312')
+		return self.AuthKey.decode('ascii')
 	def getLastDrift(self):
 		return self.LastDrift
 	def getLastSuccess(self):
@@ -9309,15 +9309,15 @@ class CThostFtdcManualSyncBrokerUserOTPField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getOTPType(self):
 		return OTPTypeType(ord(self.OTPType))
 	def getFirstOTP(self):
-		return self.FirstOTP.decode('GB2312')
+		return self.FirstOTP.decode('ascii')
 	def getSecondOTP(self):
-		return self.SecondOTP.decode('GB2312')
+		return self.SecondOTP.decode('ascii')
 
 class CThostFtdcCommRateModelField(Structure):
 	"""投资者手续费率模板"""
@@ -9331,11 +9331,11 @@ class CThostFtdcCommRateModelField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getCommModelID(self):
-		return self.CommModelID.decode('GB2312')
+		return self.CommModelID.decode('ascii')
 	def getCommModelName(self):
-		return self.CommModelName.decode('GB2312')
+		return self.CommModelName.decode('ascii')
 
 class CThostFtdcQryCommRateModelField(Structure):
 	"""请求查询投资者手续费率模板"""
@@ -9347,9 +9347,9 @@ class CThostFtdcQryCommRateModelField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getCommModelID(self):
-		return self.CommModelID.decode('GB2312')
+		return self.CommModelID.decode('ascii')
 
 class CThostFtdcMarginModelField(Structure):
 	"""投资者保证金率模板"""
@@ -9363,11 +9363,11 @@ class CThostFtdcMarginModelField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getMarginModelID(self):
-		return self.MarginModelID.decode('GB2312')
+		return self.MarginModelID.decode('ascii')
 	def getMarginModelName(self):
-		return self.MarginModelName.decode('GB2312')
+		return self.MarginModelName.decode('ascii')
 
 class CThostFtdcQryMarginModelField(Structure):
 	"""请求查询投资者保证金率模板"""
@@ -9379,9 +9379,9 @@ class CThostFtdcQryMarginModelField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getMarginModelID(self):
-		return self.MarginModelID.decode('GB2312')
+		return self.MarginModelID.decode('ascii')
 
 class CThostFtdcEWarrantOffsetField(Structure):
 	"""仓单折抵信息"""
@@ -9405,15 +9405,15 @@ class CThostFtdcEWarrantOffsetField(Structure):
 		]
 
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 	def getDirection(self):
 		return DirectionType(ord(self.Direction))
 	def getHedgeFlag(self):
@@ -9435,13 +9435,13 @@ class CThostFtdcQryEWarrantOffsetField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getExchangeID(self):
-		return self.ExchangeID.decode('GB2312')
+		return self.ExchangeID.decode('ascii')
 	def getInstrumentID(self):
-		return self.InstrumentID.decode('GB2312')
+		return self.InstrumentID.decode('ascii')
 
 class CThostFtdcQryInvestorProductGroupMarginField(Structure):
 	"""查询投资者品种/跨品种保证金"""
@@ -9457,11 +9457,11 @@ class CThostFtdcQryInvestorProductGroupMarginField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getProductGroupID(self):
-		return self.ProductGroupID.decode('GB2312')
+		return self.ProductGroupID.decode('ascii')
 	def getHedgeFlag(self):
 		return HedgeFlagType(ord(self.HedgeFlag))
 
@@ -9525,13 +9525,13 @@ class CThostFtdcInvestorProductGroupMarginField(Structure):
 		]
 
 	def getProductGroupID(self):
-		return self.ProductGroupID.decode('GB2312')
+		return self.ProductGroupID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getSettlementID(self):
 		return self.SettlementID
 	def getFrozenMargin(self):
@@ -9589,9 +9589,9 @@ class CThostFtdcQueryCFMMCTradingAccountTokenField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 
 class CThostFtdcCFMMCTradingAccountTokenField(Structure):
 	"""监控中心用户令牌"""
@@ -9609,15 +9609,15 @@ class CThostFtdcCFMMCTradingAccountTokenField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getParticipantID(self):
-		return self.ParticipantID.decode('GB2312')
+		return self.ParticipantID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getKeyID(self):
 		return self.KeyID
 	def getToken(self):
-		return self.Token.decode('GB2312')
+		return self.Token.decode('ascii')
 
 class CThostFtdcReqOpenAccountField(Structure):
 	"""转帐开户请求"""
@@ -9713,23 +9713,23 @@ class CThostFtdcReqOpenAccountField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -9737,69 +9737,69 @@ class CThostFtdcReqOpenAccountField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getGender(self):
 		return GenderType(ord(self.Gender))
 	def getCountryCode(self):
-		return self.CountryCode.decode('GB2312')
+		return self.CountryCode.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getAddress(self):
-		return self.Address.decode('GB2312')
+		return self.Address.decode('ascii')
 	def getZipCode(self):
-		return self.ZipCode.decode('GB2312')
+		return self.ZipCode.decode('ascii')
 	def getTelephone(self):
-		return self.Telephone.decode('GB2312')
+		return self.Telephone.decode('ascii')
 	def getMobilePhone(self):
-		return self.MobilePhone.decode('GB2312')
+		return self.MobilePhone.decode('ascii')
 	def getFax(self):
-		return self.Fax.decode('GB2312')
+		return self.Fax.decode('ascii')
 	def getEMail(self):
-		return self.EMail.decode('GB2312')
+		return self.EMail.decode('ascii')
 	def getMoneyAccountStatus(self):
 		return MoneyAccountStatusType(ord(self.MoneyAccountStatus))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getVerifyCertNoFlag(self):
 		return YesNoIndicatorType(ord(self.VerifyCertNoFlag))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getCashExchangeCode(self):
 		return CashExchangeCodeType(ord(self.CashExchangeCode))
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBankSecuAccType(self):
 		return BankAccTypeType(ord(self.BankSecuAccType))
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getBankSecuAcc(self):
-		return self.BankSecuAcc.decode('GB2312')
+		return self.BankSecuAcc.decode('ascii')
 	def getBankPwdFlag(self):
 		return PwdFlagType(ord(self.BankPwdFlag))
 	def getSecuPwdFlag(self):
 		return PwdFlagType(ord(self.SecuPwdFlag))
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getTID(self):
 		return self.TID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcReqCancelAccountField(Structure):
 	"""转帐销户请求"""
@@ -9895,23 +9895,23 @@ class CThostFtdcReqCancelAccountField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -9919,69 +9919,69 @@ class CThostFtdcReqCancelAccountField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getGender(self):
 		return GenderType(ord(self.Gender))
 	def getCountryCode(self):
-		return self.CountryCode.decode('GB2312')
+		return self.CountryCode.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getAddress(self):
-		return self.Address.decode('GB2312')
+		return self.Address.decode('ascii')
 	def getZipCode(self):
-		return self.ZipCode.decode('GB2312')
+		return self.ZipCode.decode('ascii')
 	def getTelephone(self):
-		return self.Telephone.decode('GB2312')
+		return self.Telephone.decode('ascii')
 	def getMobilePhone(self):
-		return self.MobilePhone.decode('GB2312')
+		return self.MobilePhone.decode('ascii')
 	def getFax(self):
-		return self.Fax.decode('GB2312')
+		return self.Fax.decode('ascii')
 	def getEMail(self):
-		return self.EMail.decode('GB2312')
+		return self.EMail.decode('ascii')
 	def getMoneyAccountStatus(self):
 		return MoneyAccountStatusType(ord(self.MoneyAccountStatus))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getVerifyCertNoFlag(self):
 		return YesNoIndicatorType(ord(self.VerifyCertNoFlag))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getCashExchangeCode(self):
 		return CashExchangeCodeType(ord(self.CashExchangeCode))
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBankSecuAccType(self):
 		return BankAccTypeType(ord(self.BankSecuAccType))
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getBankSecuAcc(self):
-		return self.BankSecuAcc.decode('GB2312')
+		return self.BankSecuAcc.decode('ascii')
 	def getBankPwdFlag(self):
 		return PwdFlagType(ord(self.BankPwdFlag))
 	def getSecuPwdFlag(self):
 		return PwdFlagType(ord(self.SecuPwdFlag))
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getTID(self):
 		return self.TID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcReqChangeAccountField(Structure):
 	"""变更银行账户请求"""
@@ -10069,23 +10069,23 @@ class CThostFtdcReqChangeAccountField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -10093,43 +10093,43 @@ class CThostFtdcReqChangeAccountField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getGender(self):
 		return GenderType(ord(self.Gender))
 	def getCountryCode(self):
-		return self.CountryCode.decode('GB2312')
+		return self.CountryCode.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getAddress(self):
-		return self.Address.decode('GB2312')
+		return self.Address.decode('ascii')
 	def getZipCode(self):
-		return self.ZipCode.decode('GB2312')
+		return self.ZipCode.decode('ascii')
 	def getTelephone(self):
-		return self.Telephone.decode('GB2312')
+		return self.Telephone.decode('ascii')
 	def getMobilePhone(self):
-		return self.MobilePhone.decode('GB2312')
+		return self.MobilePhone.decode('ascii')
 	def getFax(self):
-		return self.Fax.decode('GB2312')
+		return self.Fax.decode('ascii')
 	def getEMail(self):
-		return self.EMail.decode('GB2312')
+		return self.EMail.decode('ascii')
 	def getMoneyAccountStatus(self):
 		return MoneyAccountStatusType(ord(self.MoneyAccountStatus))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getNewBankAccount(self):
-		return self.NewBankAccount.decode('GB2312')
+		return self.NewBankAccount.decode('ascii')
 	def getNewBankPassWord(self):
-		return self.NewBankPassWord.decode('GB2312')
+		return self.NewBankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getInstallID(self):
@@ -10137,9 +10137,9 @@ class CThostFtdcReqChangeAccountField(Structure):
 	def getVerifyCertNoFlag(self):
 		return YesNoIndicatorType(ord(self.VerifyCertNoFlag))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getBankPwdFlag(self):
 		return PwdFlagType(ord(self.BankPwdFlag))
 	def getSecuPwdFlag(self):
@@ -10147,7 +10147,7 @@ class CThostFtdcReqChangeAccountField(Structure):
 	def getTID(self):
 		return self.TID
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 
 class CThostFtdcReqTransferField(Structure):
 	"""转账请求"""
@@ -10241,23 +10241,23 @@ class CThostFtdcReqTransferField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -10265,31 +10265,31 @@ class CThostFtdcReqTransferField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getFutureSerial(self):
 		return self.FutureSerial
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getVerifyCertNoFlag(self):
 		return YesNoIndicatorType(ord(self.VerifyCertNoFlag))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getTradeAmount(self):
 		return self.TradeAmount
 	def getFutureFetchAmount(self):
@@ -10301,25 +10301,25 @@ class CThostFtdcReqTransferField(Structure):
 	def getBrokerFee(self):
 		return self.BrokerFee
 	def getMessage(self):
-		return self.Message.decode('GB2312')
+		return self.Message.decode('ascii')
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBankSecuAccType(self):
 		return BankAccTypeType(ord(self.BankSecuAccType))
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getBankSecuAcc(self):
-		return self.BankSecuAcc.decode('GB2312')
+		return self.BankSecuAcc.decode('ascii')
 	def getBankPwdFlag(self):
 		return PwdFlagType(ord(self.BankPwdFlag))
 	def getSecuPwdFlag(self):
 		return PwdFlagType(ord(self.SecuPwdFlag))
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -10423,23 +10423,23 @@ class CThostFtdcRspTransferField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -10447,31 +10447,31 @@ class CThostFtdcRspTransferField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getFutureSerial(self):
 		return self.FutureSerial
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getVerifyCertNoFlag(self):
 		return YesNoIndicatorType(ord(self.VerifyCertNoFlag))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getTradeAmount(self):
 		return self.TradeAmount
 	def getFutureFetchAmount(self):
@@ -10483,25 +10483,25 @@ class CThostFtdcRspTransferField(Structure):
 	def getBrokerFee(self):
 		return self.BrokerFee
 	def getMessage(self):
-		return self.Message.decode('GB2312')
+		return self.Message.decode('ascii')
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBankSecuAccType(self):
 		return BankAccTypeType(ord(self.BankSecuAccType))
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getBankSecuAcc(self):
-		return self.BankSecuAcc.decode('GB2312')
+		return self.BankSecuAcc.decode('ascii')
 	def getBankPwdFlag(self):
 		return PwdFlagType(ord(self.BankPwdFlag))
 	def getSecuPwdFlag(self):
 		return PwdFlagType(ord(self.SecuPwdFlag))
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -10629,27 +10629,27 @@ class CThostFtdcReqRepealField(Structure):
 	def getPlateRepealSerial(self):
 		return self.PlateRepealSerial
 	def getBankRepealSerial(self):
-		return self.BankRepealSerial.decode('GB2312')
+		return self.BankRepealSerial.decode('ascii')
 	def getFutureRepealSerial(self):
 		return self.FutureRepealSerial
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -10657,31 +10657,31 @@ class CThostFtdcReqRepealField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getFutureSerial(self):
 		return self.FutureSerial
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getVerifyCertNoFlag(self):
 		return YesNoIndicatorType(ord(self.VerifyCertNoFlag))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getTradeAmount(self):
 		return self.TradeAmount
 	def getFutureFetchAmount(self):
@@ -10693,25 +10693,25 @@ class CThostFtdcReqRepealField(Structure):
 	def getBrokerFee(self):
 		return self.BrokerFee
 	def getMessage(self):
-		return self.Message.decode('GB2312')
+		return self.Message.decode('ascii')
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBankSecuAccType(self):
 		return BankAccTypeType(ord(self.BankSecuAccType))
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getBankSecuAcc(self):
-		return self.BankSecuAcc.decode('GB2312')
+		return self.BankSecuAcc.decode('ascii')
 	def getBankPwdFlag(self):
 		return PwdFlagType(ord(self.BankPwdFlag))
 	def getSecuPwdFlag(self):
 		return PwdFlagType(ord(self.SecuPwdFlag))
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -10839,27 +10839,27 @@ class CThostFtdcRspRepealField(Structure):
 	def getPlateRepealSerial(self):
 		return self.PlateRepealSerial
 	def getBankRepealSerial(self):
-		return self.BankRepealSerial.decode('GB2312')
+		return self.BankRepealSerial.decode('ascii')
 	def getFutureRepealSerial(self):
 		return self.FutureRepealSerial
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -10867,31 +10867,31 @@ class CThostFtdcRspRepealField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getFutureSerial(self):
 		return self.FutureSerial
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getVerifyCertNoFlag(self):
 		return YesNoIndicatorType(ord(self.VerifyCertNoFlag))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getTradeAmount(self):
 		return self.TradeAmount
 	def getFutureFetchAmount(self):
@@ -10903,25 +10903,25 @@ class CThostFtdcRspRepealField(Structure):
 	def getBrokerFee(self):
 		return self.BrokerFee
 	def getMessage(self):
-		return self.Message.decode('GB2312')
+		return self.Message.decode('ascii')
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBankSecuAccType(self):
 		return BankAccTypeType(ord(self.BankSecuAccType))
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getBankSecuAcc(self):
-		return self.BankSecuAcc.decode('GB2312')
+		return self.BankSecuAcc.decode('ascii')
 	def getBankPwdFlag(self):
 		return PwdFlagType(ord(self.BankPwdFlag))
 	def getSecuPwdFlag(self):
 		return PwdFlagType(ord(self.SecuPwdFlag))
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -11011,23 +11011,23 @@ class CThostFtdcReqQueryAccountField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -11035,49 +11035,49 @@ class CThostFtdcReqQueryAccountField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getFutureSerial(self):
 		return self.FutureSerial
 	def getInstallID(self):
 		return self.InstallID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getVerifyCertNoFlag(self):
 		return YesNoIndicatorType(ord(self.VerifyCertNoFlag))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBankSecuAccType(self):
 		return BankAccTypeType(ord(self.BankSecuAccType))
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getBankSecuAcc(self):
-		return self.BankSecuAcc.decode('GB2312')
+		return self.BankSecuAcc.decode('ascii')
 	def getBankPwdFlag(self):
 		return PwdFlagType(ord(self.BankPwdFlag))
 	def getSecuPwdFlag(self):
 		return PwdFlagType(ord(self.SecuPwdFlag))
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -11165,23 +11165,23 @@ class CThostFtdcRspQueryAccountField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -11189,49 +11189,49 @@ class CThostFtdcRspQueryAccountField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getFutureSerial(self):
 		return self.FutureSerial
 	def getInstallID(self):
 		return self.InstallID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getVerifyCertNoFlag(self):
 		return YesNoIndicatorType(ord(self.VerifyCertNoFlag))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBankSecuAccType(self):
 		return BankAccTypeType(ord(self.BankSecuAccType))
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getBankSecuAcc(self):
-		return self.BankSecuAcc.decode('GB2312')
+		return self.BankSecuAcc.decode('ascii')
 	def getBankPwdFlag(self):
 		return PwdFlagType(ord(self.BankPwdFlag))
 	def getSecuPwdFlag(self):
 		return PwdFlagType(ord(self.SecuPwdFlag))
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -11289,23 +11289,23 @@ class CThostFtdcFutureSignIOField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -11315,17 +11315,17 @@ class CThostFtdcFutureSignIOField(Structure):
 	def getInstallID(self):
 		return self.InstallID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -11387,23 +11387,23 @@ class CThostFtdcRspFutureSignInField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -11413,17 +11413,17 @@ class CThostFtdcRspFutureSignInField(Structure):
 	def getInstallID(self):
 		return self.InstallID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -11433,9 +11433,9 @@ class CThostFtdcRspFutureSignInField(Structure):
 	def getErrorMsg(self):
 		return self.ErrorMsg.decode('GB2312')
 	def getPinKey(self):
-		return self.PinKey.decode('GB2312')
+		return self.PinKey.decode('ascii')
 	def getMacKey(self):
-		return self.MacKey.decode('GB2312')
+		return self.MacKey.decode('ascii')
 
 class CThostFtdcReqFutureSignOutField(Structure):
 	"""期商签退请求"""
@@ -11485,23 +11485,23 @@ class CThostFtdcReqFutureSignOutField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -11511,17 +11511,17 @@ class CThostFtdcReqFutureSignOutField(Structure):
 	def getInstallID(self):
 		return self.InstallID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -11579,23 +11579,23 @@ class CThostFtdcRspFutureSignOutField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -11605,17 +11605,17 @@ class CThostFtdcRspFutureSignOutField(Structure):
 	def getInstallID(self):
 		return self.InstallID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -11683,23 +11683,23 @@ class CThostFtdcReqQueryTradeResultBySerialField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -11711,29 +11711,29 @@ class CThostFtdcReqQueryTradeResultBySerialField(Structure):
 	def getRefrenceIssureType(self):
 		return InstitutionTypeType(ord(self.RefrenceIssureType))
 	def getRefrenceIssure(self):
-		return self.RefrenceIssure.decode('GB2312')
+		return self.RefrenceIssure.decode('ascii')
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getTradeAmount(self):
 		return self.TradeAmount
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 
 class CThostFtdcRspQueryTradeResultBySerialField(Structure):
 	"""查询指定流水号的交易结果响应"""
@@ -11793,23 +11793,23 @@ class CThostFtdcRspQueryTradeResultBySerialField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -11825,25 +11825,25 @@ class CThostFtdcRspQueryTradeResultBySerialField(Structure):
 	def getRefrenceIssureType(self):
 		return InstitutionTypeType(ord(self.RefrenceIssureType))
 	def getRefrenceIssure(self):
-		return self.RefrenceIssure.decode('GB2312')
+		return self.RefrenceIssure.decode('ascii')
 	def getOriginReturnCode(self):
-		return self.OriginReturnCode.decode('GB2312')
+		return self.OriginReturnCode.decode('ascii')
 	def getOriginDescrInfoForReturnCode(self):
-		return self.OriginDescrInfoForReturnCode.decode('GB2312')
+		return self.OriginDescrInfoForReturnCode.decode('ascii')
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getTradeAmount(self):
 		return self.TradeAmount
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 
 class CThostFtdcReqDayEndFileReadyField(Structure):
 	"""日终文件就绪请求"""
@@ -11879,23 +11879,23 @@ class CThostFtdcReqDayEndFileReadyField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -11905,7 +11905,7 @@ class CThostFtdcReqDayEndFileReadyField(Structure):
 	def getFileBusinessCode(self):
 		return FileBusinessCodeType(ord(self.FileBusinessCode))
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 
 class CThostFtdcReturnResultField(Structure):
 	"""返回结果"""
@@ -11917,9 +11917,9 @@ class CThostFtdcReturnResultField(Structure):
 		]
 
 	def getReturnCode(self):
-		return self.ReturnCode.decode('GB2312')
+		return self.ReturnCode.decode('ascii')
 	def getDescrInfoForReturnCode(self):
-		return self.DescrInfoForReturnCode.decode('GB2312')
+		return self.DescrInfoForReturnCode.decode('ascii')
 
 class CThostFtdcVerifyFuturePasswordField(Structure):
 	"""验证期货资金密码"""
@@ -11965,23 +11965,23 @@ class CThostFtdcVerifyFuturePasswordField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -11989,19 +11989,19 @@ class CThostFtdcVerifyFuturePasswordField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getTID(self):
 		return self.TID
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 
 class CThostFtdcVerifyCustInfoField(Structure):
 	"""验证客户信息"""
@@ -12017,11 +12017,11 @@ class CThostFtdcVerifyCustInfoField(Structure):
 		]
 
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 
@@ -12045,19 +12045,19 @@ class CThostFtdcVerifyFuturePasswordAndCustInfoField(Structure):
 		]
 
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 
 class CThostFtdcDepositResultInformField(Structure):
 	"""验证期货资金密码和客户信息"""
@@ -12079,19 +12079,19 @@ class CThostFtdcDepositResultInformField(Structure):
 		]
 
 	def getDepositSeqNo(self):
-		return self.DepositSeqNo.decode('GB2312')
+		return self.DepositSeqNo.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getDeposit(self):
 		return self.Deposit
 	def getRequestID(self):
 		return self.RequestID
 	def getReturnCode(self):
-		return self.ReturnCode.decode('GB2312')
+		return self.ReturnCode.decode('ascii')
 	def getDescrInfoForReturnCode(self):
-		return self.DescrInfoForReturnCode.decode('GB2312')
+		return self.DescrInfoForReturnCode.decode('ascii')
 
 class CThostFtdcReqSyncKeyField(Structure):
 	"""交易核心向银期报盘发出密钥同步请求"""
@@ -12139,23 +12139,23 @@ class CThostFtdcReqSyncKeyField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -12165,15 +12165,15 @@ class CThostFtdcReqSyncKeyField(Structure):
 	def getInstallID(self):
 		return self.InstallID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getMessage(self):
-		return self.Message.decode('GB2312')
+		return self.Message.decode('ascii')
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -12229,23 +12229,23 @@ class CThostFtdcRspSyncKeyField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -12255,15 +12255,15 @@ class CThostFtdcRspSyncKeyField(Structure):
 	def getInstallID(self):
 		return self.InstallID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getMessage(self):
-		return self.Message.decode('GB2312')
+		return self.Message.decode('ascii')
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -12359,23 +12359,23 @@ class CThostFtdcNotifyQueryAccountField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -12383,49 +12383,49 @@ class CThostFtdcNotifyQueryAccountField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getFutureSerial(self):
 		return self.FutureSerial
 	def getInstallID(self):
 		return self.InstallID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getVerifyCertNoFlag(self):
 		return YesNoIndicatorType(ord(self.VerifyCertNoFlag))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBankSecuAccType(self):
 		return BankAccTypeType(ord(self.BankSecuAccType))
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getBankSecuAcc(self):
-		return self.BankSecuAcc.decode('GB2312')
+		return self.BankSecuAcc.decode('ascii')
 	def getBankPwdFlag(self):
 		return PwdFlagType(ord(self.BankPwdFlag))
 	def getSecuPwdFlag(self):
 		return PwdFlagType(ord(self.SecuPwdFlag))
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -12503,43 +12503,43 @@ class CThostFtdcTransferSerialField(Structure):
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getSessionID(self):
 		return self.SessionID
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getFutureAccType(self):
 		return FutureAccTypeType(ord(self.FutureAccType))
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getInvestorID(self):
-		return self.InvestorID.decode('GB2312')
+		return self.InvestorID.decode('ascii')
 	def getFutureSerial(self):
 		return self.FutureSerial
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getTradeAmount(self):
 		return self.TradeAmount
 	def getCustFee(self):
@@ -12549,9 +12549,9 @@ class CThostFtdcTransferSerialField(Structure):
 	def getAvailabilityFlag(self):
 		return AvailabilityFlagType(ord(self.AvailabilityFlag))
 	def getOperatorCode(self):
-		return self.OperatorCode.decode('GB2312')
+		return self.OperatorCode.decode('ascii')
 	def getBankNewAccount(self):
-		return self.BankNewAccount.decode('GB2312')
+		return self.BankNewAccount.decode('ascii')
 	def getErrorID(self):
 		return self.ErrorID
 	def getErrorMsg(self):
@@ -12571,13 +12571,13 @@ class CThostFtdcQryTransferSerialField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 
 class CThostFtdcNotifyFutureSignInField(Structure):
 	"""期商签到通知"""
@@ -12635,23 +12635,23 @@ class CThostFtdcNotifyFutureSignInField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -12661,17 +12661,17 @@ class CThostFtdcNotifyFutureSignInField(Structure):
 	def getInstallID(self):
 		return self.InstallID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -12681,9 +12681,9 @@ class CThostFtdcNotifyFutureSignInField(Structure):
 	def getErrorMsg(self):
 		return self.ErrorMsg.decode('GB2312')
 	def getPinKey(self):
-		return self.PinKey.decode('GB2312')
+		return self.PinKey.decode('ascii')
 	def getMacKey(self):
-		return self.MacKey.decode('GB2312')
+		return self.MacKey.decode('ascii')
 
 class CThostFtdcNotifyFutureSignOutField(Structure):
 	"""期商签退通知"""
@@ -12737,23 +12737,23 @@ class CThostFtdcNotifyFutureSignOutField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -12763,17 +12763,17 @@ class CThostFtdcNotifyFutureSignOutField(Structure):
 	def getInstallID(self):
 		return self.InstallID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -12833,23 +12833,23 @@ class CThostFtdcNotifySyncKeyField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -12859,15 +12859,15 @@ class CThostFtdcNotifySyncKeyField(Structure):
 	def getInstallID(self):
 		return self.InstallID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getMessage(self):
-		return self.Message.decode('GB2312')
+		return self.Message.decode('ascii')
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getRequestID(self):
 		return self.RequestID
 	def getTID(self):
@@ -12893,15 +12893,15 @@ class CThostFtdcQryAccountregisterField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 
 class CThostFtdcAccountregisterField(Structure):
 	"""客户开销户信息表"""
@@ -12943,33 +12943,33 @@ class CThostFtdcAccountregisterField(Structure):
 		]
 
 	def getTradeDay(self):
-		return self.TradeDay.decode('GB2312')
+		return self.TradeDay.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getOpenOrDestroy(self):
 		return OpenOrDestroyType(ord(self.OpenOrDestroy))
 	def getRegDate(self):
-		return self.RegDate.decode('GB2312')
+		return self.RegDate.decode('ascii')
 	def getOutDate(self):
-		return self.OutDate.decode('GB2312')
+		return self.OutDate.decode('ascii')
 	def getTID(self):
 		return self.TID
 	def getCustType(self):
@@ -13075,23 +13075,23 @@ class CThostFtdcOpenAccountField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -13099,69 +13099,69 @@ class CThostFtdcOpenAccountField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getGender(self):
 		return GenderType(ord(self.Gender))
 	def getCountryCode(self):
-		return self.CountryCode.decode('GB2312')
+		return self.CountryCode.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getAddress(self):
-		return self.Address.decode('GB2312')
+		return self.Address.decode('ascii')
 	def getZipCode(self):
-		return self.ZipCode.decode('GB2312')
+		return self.ZipCode.decode('ascii')
 	def getTelephone(self):
-		return self.Telephone.decode('GB2312')
+		return self.Telephone.decode('ascii')
 	def getMobilePhone(self):
-		return self.MobilePhone.decode('GB2312')
+		return self.MobilePhone.decode('ascii')
 	def getFax(self):
-		return self.Fax.decode('GB2312')
+		return self.Fax.decode('ascii')
 	def getEMail(self):
-		return self.EMail.decode('GB2312')
+		return self.EMail.decode('ascii')
 	def getMoneyAccountStatus(self):
 		return MoneyAccountStatusType(ord(self.MoneyAccountStatus))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getVerifyCertNoFlag(self):
 		return YesNoIndicatorType(ord(self.VerifyCertNoFlag))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getCashExchangeCode(self):
 		return CashExchangeCodeType(ord(self.CashExchangeCode))
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBankSecuAccType(self):
 		return BankAccTypeType(ord(self.BankSecuAccType))
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getBankSecuAcc(self):
-		return self.BankSecuAcc.decode('GB2312')
+		return self.BankSecuAcc.decode('ascii')
 	def getBankPwdFlag(self):
 		return PwdFlagType(ord(self.BankPwdFlag))
 	def getSecuPwdFlag(self):
 		return PwdFlagType(ord(self.SecuPwdFlag))
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getTID(self):
 		return self.TID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getErrorID(self):
 		return self.ErrorID
 	def getErrorMsg(self):
@@ -13265,23 +13265,23 @@ class CThostFtdcCancelAccountField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -13289,69 +13289,69 @@ class CThostFtdcCancelAccountField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getGender(self):
 		return GenderType(ord(self.Gender))
 	def getCountryCode(self):
-		return self.CountryCode.decode('GB2312')
+		return self.CountryCode.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getAddress(self):
-		return self.Address.decode('GB2312')
+		return self.Address.decode('ascii')
 	def getZipCode(self):
-		return self.ZipCode.decode('GB2312')
+		return self.ZipCode.decode('ascii')
 	def getTelephone(self):
-		return self.Telephone.decode('GB2312')
+		return self.Telephone.decode('ascii')
 	def getMobilePhone(self):
-		return self.MobilePhone.decode('GB2312')
+		return self.MobilePhone.decode('ascii')
 	def getFax(self):
-		return self.Fax.decode('GB2312')
+		return self.Fax.decode('ascii')
 	def getEMail(self):
-		return self.EMail.decode('GB2312')
+		return self.EMail.decode('ascii')
 	def getMoneyAccountStatus(self):
 		return MoneyAccountStatusType(ord(self.MoneyAccountStatus))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getInstallID(self):
 		return self.InstallID
 	def getVerifyCertNoFlag(self):
 		return YesNoIndicatorType(ord(self.VerifyCertNoFlag))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getCashExchangeCode(self):
 		return CashExchangeCodeType(ord(self.CashExchangeCode))
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getDeviceID(self):
-		return self.DeviceID.decode('GB2312')
+		return self.DeviceID.decode('ascii')
 	def getBankSecuAccType(self):
 		return BankAccTypeType(ord(self.BankSecuAccType))
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getBankSecuAcc(self):
-		return self.BankSecuAcc.decode('GB2312')
+		return self.BankSecuAcc.decode('ascii')
 	def getBankPwdFlag(self):
 		return PwdFlagType(ord(self.BankPwdFlag))
 	def getSecuPwdFlag(self):
 		return PwdFlagType(ord(self.SecuPwdFlag))
 	def getOperNo(self):
-		return self.OperNo.decode('GB2312')
+		return self.OperNo.decode('ascii')
 	def getTID(self):
 		return self.TID
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getErrorID(self):
 		return self.ErrorID
 	def getErrorMsg(self):
@@ -13447,23 +13447,23 @@ class CThostFtdcChangeAccountField(Structure):
 		]
 
 	def getTradeCode(self):
-		return self.TradeCode.decode('GB2312')
+		return self.TradeCode.decode('ascii')
 	def getBankID(self):
-		return self.BankID.decode('GB2312')
+		return self.BankID.decode('ascii')
 	def getBankBranchID(self):
-		return self.BankBranchID.decode('GB2312')
+		return self.BankBranchID.decode('ascii')
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getBrokerBranchID(self):
-		return self.BrokerBranchID.decode('GB2312')
+		return self.BrokerBranchID.decode('ascii')
 	def getTradeDate(self):
-		return self.TradeDate.decode('GB2312')
+		return self.TradeDate.decode('ascii')
 	def getTradeTime(self):
-		return self.TradeTime.decode('GB2312')
+		return self.TradeTime.decode('ascii')
 	def getBankSerial(self):
-		return self.BankSerial.decode('GB2312')
+		return self.BankSerial.decode('ascii')
 	def getTradingDay(self):
-		return self.TradingDay.decode('GB2312')
+		return self.TradingDay.decode('ascii')
 	def getPlateSerial(self):
 		return self.PlateSerial
 	def getLastFragment(self):
@@ -13471,43 +13471,43 @@ class CThostFtdcChangeAccountField(Structure):
 	def getSessionID(self):
 		return self.SessionID
 	def getCustomerName(self):
-		return self.CustomerName.decode('GB2312')
+		return self.CustomerName.decode('ascii')
 	def getIdCardType(self):
 		return IdCardTypeType(ord(self.IdCardType))
 	def getIdentifiedCardNo(self):
-		return self.IdentifiedCardNo.decode('GB2312')
+		return self.IdentifiedCardNo.decode('ascii')
 	def getGender(self):
 		return GenderType(ord(self.Gender))
 	def getCountryCode(self):
-		return self.CountryCode.decode('GB2312')
+		return self.CountryCode.decode('ascii')
 	def getCustType(self):
 		return CustTypeType(ord(self.CustType))
 	def getAddress(self):
-		return self.Address.decode('GB2312')
+		return self.Address.decode('ascii')
 	def getZipCode(self):
-		return self.ZipCode.decode('GB2312')
+		return self.ZipCode.decode('ascii')
 	def getTelephone(self):
-		return self.Telephone.decode('GB2312')
+		return self.Telephone.decode('ascii')
 	def getMobilePhone(self):
-		return self.MobilePhone.decode('GB2312')
+		return self.MobilePhone.decode('ascii')
 	def getFax(self):
-		return self.Fax.decode('GB2312')
+		return self.Fax.decode('ascii')
 	def getEMail(self):
-		return self.EMail.decode('GB2312')
+		return self.EMail.decode('ascii')
 	def getMoneyAccountStatus(self):
 		return MoneyAccountStatusType(ord(self.MoneyAccountStatus))
 	def getBankAccount(self):
-		return self.BankAccount.decode('GB2312')
+		return self.BankAccount.decode('ascii')
 	def getBankPassWord(self):
-		return self.BankPassWord.decode('GB2312')
+		return self.BankPassWord.decode('ascii')
 	def getNewBankAccount(self):
-		return self.NewBankAccount.decode('GB2312')
+		return self.NewBankAccount.decode('ascii')
 	def getNewBankPassWord(self):
-		return self.NewBankPassWord.decode('GB2312')
+		return self.NewBankPassWord.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getPassword(self):
-		return self.Password.decode('GB2312')
+		return self.Password.decode('ascii')
 	def getBankAccType(self):
 		return BankAccTypeType(ord(self.BankAccType))
 	def getInstallID(self):
@@ -13515,9 +13515,9 @@ class CThostFtdcChangeAccountField(Structure):
 	def getVerifyCertNoFlag(self):
 		return YesNoIndicatorType(ord(self.VerifyCertNoFlag))
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getBrokerIDByBank(self):
-		return self.BrokerIDByBank.decode('GB2312')
+		return self.BrokerIDByBank.decode('ascii')
 	def getBankPwdFlag(self):
 		return PwdFlagType(ord(self.BankPwdFlag))
 	def getSecuPwdFlag(self):
@@ -13525,7 +13525,7 @@ class CThostFtdcChangeAccountField(Structure):
 	def getTID(self):
 		return self.TID
 	def getDigest(self):
-		return self.Digest.decode('GB2312')
+		return self.Digest.decode('ascii')
 	def getErrorID(self):
 		return self.ErrorID
 	def getErrorMsg(self):
@@ -13547,15 +13547,15 @@ class CThostFtdcSecAgentACIDMapField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 	def getBrokerSecAgentID(self):
-		return self.BrokerSecAgentID.decode('GB2312')
+		return self.BrokerSecAgentID.decode('ascii')
 
 class CThostFtdcQrySecAgentACIDMapField(Structure):
 	"""二级代理操作员银期权限查询"""
@@ -13571,13 +13571,13 @@ class CThostFtdcQrySecAgentACIDMapField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 
 class CThostFtdcUserRightsAssignField(Structure):
 	"""灾备中心交易权限"""
@@ -13591,9 +13591,9 @@ class CThostFtdcUserRightsAssignField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getDRIdentityID(self):
 		return self.DRIdentityID
 
@@ -13609,7 +13609,7 @@ class CThostFtdcBrokerUserRightAssignField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getDRIdentityID(self):
 		return self.DRIdentityID
 	def getTradeable(self):
@@ -13633,9 +13633,9 @@ class CThostFtdcDRTransferField(Structure):
 	def getDestDRIdentityID(self):
 		return self.DestDRIdentityID
 	def getOrigBrokerID(self):
-		return self.OrigBrokerID.decode('GB2312')
+		return self.OrigBrokerID.decode('ascii')
 	def getDestBrokerID(self):
-		return self.DestBrokerID.decode('GB2312')
+		return self.DestBrokerID.decode('ascii')
 
 class CThostFtdcFensUserInfoField(Structure):
 	"""Fens用户信息"""
@@ -13649,9 +13649,9 @@ class CThostFtdcFensUserInfoField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 	def getLoginMode(self):
 		return LoginModeType(ord(self.LoginMode))
 
@@ -13675,9 +13675,9 @@ class CThostFtdcLoginForbiddenUserField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcQryLoginForbiddenUserField(Structure):
 	"""查询禁止登录用户"""
@@ -13689,9 +13689,9 @@ class CThostFtdcQryLoginForbiddenUserField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getUserID(self):
-		return self.UserID.decode('GB2312')
+		return self.UserID.decode('ascii')
 
 class CThostFtdcMulticastGroupInfoField(Structure):
 	"""UDP组播组信息"""
@@ -13705,11 +13705,11 @@ class CThostFtdcMulticastGroupInfoField(Structure):
 		]
 
 	def getGroupIP(self):
-		return self.GroupIP.decode('GB2312')
+		return self.GroupIP.decode('ascii')
 	def getGroupPort(self):
 		return self.GroupPort
 	def getSourceIP(self):
-		return self.SourceIP.decode('GB2312')
+		return self.SourceIP.decode('ascii')
 
 class CThostFtdcTradingAccountReserveField(Structure):
 	"""资金账户基本准备金"""
@@ -13725,11 +13725,11 @@ class CThostFtdcTradingAccountReserveField(Structure):
 		]
 
 	def getBrokerID(self):
-		return self.BrokerID.decode('GB2312')
+		return self.BrokerID.decode('ascii')
 	def getAccountID(self):
-		return self.AccountID.decode('GB2312')
+		return self.AccountID.decode('ascii')
 	def getReserve(self):
 		return self.Reserve
 	def getCurrencyID(self):
-		return self.CurrencyID.decode('GB2312')
+		return self.CurrencyID.decode('ascii')
 

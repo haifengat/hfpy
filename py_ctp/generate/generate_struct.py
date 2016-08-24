@@ -55,7 +55,10 @@ def main():
             
             #
             if type_.find('c_char*') >= 0:
-                py_get +="\tdef get%s(self):\n\t\treturn self.%s.decode('GB2312')\n" % (variable, variable)
+                if variable.find('Msg') >= 0:
+                    py_get += "\tdef get%s(self):\n\t\treturn self.%s.decode('GB2312')\n" % (variable, variable)
+                else:
+                    py_get +="\tdef get%s(self):\n\t\treturn self.%s.decode('ascii')\n" % (variable, variable)
             elif type_.find('c_char') >= 0:
                 py_get +="\tdef get{0}(self):\n\t\treturn {1}(ord(self.{0}))\n".format(variable, typedef[typedef.find('Ftdc')+4:])
             else:
