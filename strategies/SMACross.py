@@ -9,7 +9,7 @@ from py_at.EnumDefine import *
 from strategies.SMA import SMA
 from py_at.Data import Data
 
-class SMACross(Data):
+class SMACross:
 	def __init__(self):
 		super().__init__()
 		self.p_ma1 = self.Params['MA1'] = 5

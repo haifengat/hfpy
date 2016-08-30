@@ -36,6 +36,7 @@ class at_test:
 		"""Constructor"""
 
 		self.log = open('orders.csv', 'w')
+		self.log.write('')#清空内容
 		self.real = False  #控制实际下单
 		
 		self.stra_instances= []		
@@ -140,7 +141,7 @@ class at_test:
 	#----------------------------------------------------------------------
 	def read_data_test(self):
 		"""取历史和实时K线数据,并执行策略回测"""
-		
+		stra = Data()
 		for stra in self.stra_instances:
 			#取数据
 			ddoc = self.read_from_mq(stra)
@@ -150,9 +151,10 @@ class at_test:
 			for p in stra.Params:
 				print("{0}:{1}".format(p, stra.Params[p]), end =' ')
 
+			bars = []
 			for doc in ddoc:
 				bar = Bar(doc["_id"], doc["High"], doc["Low"], doc["Open"], doc["Close"], doc["Volume"], doc["OpenInterest"])
-				stra.__new_min_bar__(bar)	#调Data的onbar
+				stra.__new_min_bar__(bar)  # 调Data的onbar
 
 			self.q.ReqSubscribe(stra.Instrument)
 

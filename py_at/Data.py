@@ -30,6 +30,12 @@ class Data(object):
 		self.V = []
 		self.I = []
 
+		self.DateD = []
+		self.OpenD = []
+		self.HighD = []
+		self.LowD = []
+		self.CloseD = []
+
 		self.Instrument = ''
 		self.Interval = 1
 		self.IntervalType = IntervalType.Minute
@@ -200,7 +206,8 @@ class Data(object):
 				# 用周号替换日期
 				day = time.strftime('%W', bar_time)
 				break
-		bar_time = time.strptime('{0}{1}{2}{3}{4}'.format(year,mon,day,hour,mins), '%Y%m%d%H%M')
+
+		bar_time = time.strptime('{0}-{1}-{2} {3}:{4}'.format(year, mon, day, hour, mins), '%Y-%m-%d %H:%M')
 		#time -> str
 		bar_time = time.strftime('%Y-%m-%d %H:%M:%S', bar_time)
 		if len(self.Bars) == 0 or self.Bars[0].D != bar_time:
@@ -222,6 +229,19 @@ class Data(object):
 			bar.V += old_bar.V
 			#bar.I = .OpenInterest
 			#bar.A = tick.AveragePrice
+		#日线数据处理
+		date = '{0}-{1}-{2}'.format(year, mon, day)
+		if len(self.DateD) == 0 or self.DateD[0] != date:
+			self.DateD.insert(0, date)
+			self.OpenD.insert(0, bar.O)
+			self.HighD.insert(0, bar.H)
+			self.LowD.insert(0, bar.L)
+			self.CloseD.insert(0, bar.C)
+		else:
+			self.HighD[0] = max(self.HighD[0], bar.H)
+			self.LowD[0] = min(self.LowD[0], bar.L)
+			self.CloseD[0] = bar.C
+
 		self.BarUpdate(bar)
 
 	def __update_bar__(self, bar):
@@ -234,6 +254,10 @@ class Data(object):
 		self.C[0] = bar.C
 		self.V[0] = bar.V
 		self.I[0] = bar.I
+
+		self.HighD[0] = max(self.HighD[0], bar.H)
+		self.LowD[0] = min(self.LowD[0], bar.L)
+		self.CloseD[0] = bar.C
 
 		self.BarUpdate(bar)
 
