@@ -34,3 +34,4 @@ _ReSharper*/
 __pycache__*
 py_ctp/dll/log*/*
 py_at/dll/*
+private*/

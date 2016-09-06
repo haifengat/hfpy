@@ -10,7 +10,6 @@ import _thread
 import sys
 
 from py_at.Bar import Bar
-from py_at.Data import Data
 from py_at.EnumDefine import *
 from py_at.OrderItem import OrderItem
 from py_at.Tick import Tick
@@ -83,25 +82,27 @@ class at_test:
 		"""加载../strategy目录下的策略"""
 
 		"""通过文件名取到对应的继承Data的类并实例"""
-		files = os.listdir("../strategies/")
-		for f in files:
-			if os.path.isdir(f) or os.path.splitext(f)[-1] != ".py":
-				continue
-			#目录结构???
-			module_name = "strategies.{0}".format(os.path.splitext(f)[0])
-			class_name = os.path.splitext(f)[0]
+		#for path in ['strategies', 'private']:
+		for path in ['private']:
+			files = os.listdir("../{0}/".format(path))
+			for f in files:
+				if os.path.isdir(f) or os.path.splitext(f)[0] == '__init__' or os.path.splitext(f)[-1] != ".py":
+					continue
+				#目录结构???
+				module_name = "{1}.{0}".format(os.path.splitext(f)[0], path)
+				class_name = os.path.splitext(f)[0]
 
-			module = __import__(module_name) # import module  
+				module = __import__(module_name) # import module
 
-			c = getattr(getattr(module,class_name),class_name) #双层调用才是class,单层是为module
+				c = getattr(getattr(module, class_name), class_name) #双层调用才是class,单层是为module
 
-			if not issubclass(c, Data): #类c是Data的子类
-				continue
-			print("#c:{0}", c)
-			obj = Data()
-			obj = c() # new class  
-			print("#obj:{0}",obj)
-			self.stra_instances.append(obj)
+				if not issubclass(c, Data): #类c是Data的子类
+					continue
+				print("#c:{0}", c)
+				obj = Data()
+				obj = c() # new class
+				print("#obj:{0}", obj)
+				self.stra_instances.append(obj)
 
 
 	#----------------------------------------------------------------------
