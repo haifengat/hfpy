@@ -34,4 +34,8 @@ _ReSharper*/
 __pycache__*
 py_ctp/dll/log*/*
 py_at/dll/*
+py_at/log*/
+py_ctp/log*/
 private*/
+py_at/orders.csv
+py_ctp/ctp_data_type.py

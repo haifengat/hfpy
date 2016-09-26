@@ -7,18 +7,17 @@
 """
 
 import _thread
-import sys
+
+from py_at.ctp_quote import *
 
 from py_at.Bar import Bar
 from py_at.EnumDefine import *
 from py_at.OrderItem import OrderItem
-from py_at.Tick import Tick
-
+from py_at.adapters.ctp_trade import *
 
 sys.path.append('..')	 #调用父目录下的模块
-sys.path.append('../py_ctp/')	 #调用父目录下的模块
-from ctp_quote import *
-from ctp_trade import *
+#sys.path.append('..\\..\\hf_py_ctp')	 #调用父目录下的模块
+
 from py_at.Data import Data
 import zmq  	#netMQ
 import gzip		#解压
@@ -34,14 +33,19 @@ class at_test:
 	def __init__(self):
 		"""Constructor"""
 
+		self.TradingDay = ''
 		self.log = open('orders.csv', 'w')
 		self.log.write('')#清空内容
 		self.real = False  #控制实际下单
 		
-		self.stra_instances= []		
+		self.stra_instances= []
 
-		self.q = ctp_quote()
-		self.t = ctp_trade()
+		cur_path = os.getcwd()
+		#目录到接口下
+		os.chdir(os.path.join(os.getcwd(), '../py_ctp/'))
+		self.q = CtpQuote()
+		self.t = CtpTrade()
+		os.chdir(cur_path)
 
 	
 	#-------此处调用ctp接口即可实现实际下单---------------------------------------------------------------
@@ -75,7 +79,7 @@ class at_test:
 					if volClose > 0:
 						self.t.ReqOrderInsert(_order.Instrument, dire, OffsetFlagType.Close, _order.Price, volClose, OrderType.Limit, 100)						
 			else:
-				self.t.ReqOrderInsert(_order.Instrument, dire, OffsetFlagType.Open, _order.Price, _order.Volume, OrderType.Limit, 100)
+				self.t.ReqOrderInsert(stra.Instrument, dire, OffsetFlagType.Open, _order.Price, _order.Volume, OrderType.Limit, 100)
 
 	#----------------------------------------------------------------------
 	def load_strategy(self):
@@ -157,8 +161,6 @@ class at_test:
 				bar = Bar(doc["_id"], doc["High"], doc["Low"], doc["Open"], doc["Close"], doc["Volume"], doc["OpenInterest"])
 				stra.__new_min_bar__(bar)  # 调Data的onbar
 
-			self.q.ReqSubscribe(stra.Instrument)
-
 		print("\ntest history is end.")
 		
 		self.real = True
@@ -168,7 +170,7 @@ class at_test:
 	def OnFrontConnected(self):
 		""""""
 		print("t:connected by client")
-		self.t.ReqUserLogin("008105", "1", "9999")
+		self.t.ReqUserLogin('008105', '1', '9999')
 
 	#----------------------------------------------------------------------
 	def relogin(self):
@@ -176,89 +178,83 @@ class at_test:
 		self.t.ReqRelease()
 		print('sleep 60 seconds to wait try connect next time')
 		sleep(60)
-		front = 'tcp://180.168.146.187:10000'
-		self.t.ReqConnect(front)
+		#front = 'tcp://180.168.146.187:10000'
+		self.t.Init()
 
 	#----------------------------------------------------------------------
-	def OnRspUserLogin(self, info):
+	def OnRspUserLogin(self, pRspUserLogin = CThostFtdcRspUserLoginField, pRspInfo = CThostFtdcRspInfoField, nRequestID = int, bIsLast = bool):
 		""""""
-		r = InfoField()
-		r = info
-		print('{0},{1}'.format(r.ErrorID, r.ErrorMsg))
-		if r.ErrorID == 7:
+		print(pRspInfo)
+		if pRspInfo.getErrorID() == 7:
 			_thread.start_new_thread(self.relogin, ())
-		elif r.ErrorID == 0:		
+		elif pRspInfo.ErrorID == 0:
+			f = CThostFtdcRspUserLoginField()
+			f = pRspUserLogin
+			self.TradingDay = f.getTradingDay()
+			self.q.CreateApi()
+			spi = self.q.CreateSpi()
+
+			self.q.OnFrontConnected = self.q_OnFrontConnected
+			self.q.OnRspUserLogin = self.q_OnRspUserLogin
+			self.q.OnRtnDepthMarketData = self.q_Tick
+			self.q.RegCB()
+
+			self.q.RegisterSpi(spi)
 			front = 'tcp://180.168.146.187:10010'
-			self.q.ReqConnect(front)
+			self.q.RegisterFront(front)
+			self.q.Init()
 
 
 	#----------------------------------------------------------------------
-	def OnOrder(self, field):
+	def OnOrder(self, pOrder = CThostFtdcOrderField):
 		""""""
-		f = OrderField()
-		f = field
-		print('Order:\t{0},{1}'.format(f.Status, f.StatusMsg))
+		print(pOrder)
 
 
 	#----------------------------------------------------------------------
-	def OnTrade(self, field):
+	def OnTrade(self, pTrade = CThostFtdcTradeField):
 		""""""
-		f = OrderField()
-		f = field
-		print('Trade:\t{0},{1},{2}'.format(f.TradeID, f.InstrumentID, f.Price))
-
+		print(pTrade)
 
 	#----------------------------------------------------------------------
-	def OnCancel(self, field):
+	def OnErrorOrder(self, pInputOrder = CThostFtdcInputOrderField, pRspInfo = CThostFtdcRspInfoField, nRequestID = int, bIsLast = bool):
 		""""""
-		f = OrderField()
-		f = field
-		print('Cancel:\t{0},{1}'.format(f.Status, f.StatusMsg))
-
-
-	#----------------------------------------------------------------------
-	def OnErrorOrder(self, field, info):
-		""""""
-		f = OrderField()
-		f = field
-		i = InfoField()
-		i = info
-		print('Error:\t{0},{1},{2},{3}'.format(i.ErrorID, i.ErrorMsg, f.InstrumentID, f.LimitPrice))
+		print(pRspInfo)
 
 	################# quote 
 	#----------------------------------------------------------------------
 	def q_OnFrontConnected(self):
 		""""""
 		print("q:connected by client")
-		self.q.ReqUserLogin("008105", "1", "9999")
+		self.q.ReqUserLogin(BrokerID='9999', UserID='008105', Password='1')
 
 	#----------------------------------------------------------------------
-	def q_OnRspUserLogin(self, info):
+	def q_OnRspUserLogin(self,  pRspUserLogin = CThostFtdcRspUserLoginField, pRspInfo = CThostFtdcRspInfoField, nRequestID = int, bIsLast = bool):
 		""""""
-		i = InfoField()
-		i = info
-		print('{0}, {1}'.format(i.ErrorID, i.ErrorMsg))
+		print(pRspInfo)
 		for stra in self.stra_instances:
-			self.q.ReqSubscribe(stra.Instrument)
+			self.q.SubscribeMarketData(stra.Instrument)
 
 	#----------------------------------------------------------------------
-	def q_Tick(self, field):
+	def q_Tick(self,  pDepthMarketData = CThostFtdcDepthMarketDataField):
 		""""""
-		f = MarketData()
-		f = field
-		print(f)
+		f = pDepthMarketData
+
 		tick = Tick()
-		tick.Instrument = f.InstrumentID
-		tick.LastPrice = f.LastPrice
-		tick.BidPrice = f.BidPrice
-		tick.BidVolume = f.BidVolume
-		str = self.t.TradingDay + ' ' + f.UpdateTime
-		if not self.t.TradingDay or self.t.TradingDay == ' ':
-			str = time.strftime('%Y%m%d', time.localtime())
+		tick.Instrument = f.getInstrumentID()
+		tick.LastPrice = f.getLastPrice()
+		tick.BidPrice = f.getBidPrice1()
+		tick.BidVolume = f.getBidVolume1()
+		tick.AskPrice = f.getAskPrice1()
+		tick.AskVolume = f.getAskVolume1()
+		day = self.TradingDay
+		str = day + ' ' + f.getUpdateTime()
+		if day == None or day == ' ':
+			str = time.strftime('%Y%m%d %H:%M:%S', time.localtime())
 		tick.UpdateTime = time.strptime(str, '%Y%m%d %H:%M:%S')
-		tick.Volume = f.Volume
-		tick.OpenInterest = f.OpenInterest
-		tick.AveragePrice = f.AveragePrice
+		tick.Volume = f.getVolume()
+		tick.OpenInterest = f.getOpenInterest()
+		tick.AveragePrice = f.getAveragePrice()
 		for stra in self.stra_instances:
 			if stra.Instrument == tick.Instrument:
 				stra.on_tick(tick)
@@ -268,24 +264,20 @@ class at_test:
 	#----------------------------------------------------------------------
 	def main(self):
 		""""""
-
-		self.q.OnFrontConnected = self.q_OnFrontConnected
-		self.q.OnUserLogin = self.q_OnRspUserLogin
-		self.q.OnRtnTick = self.q_Tick
-
 		self.t.OnFrontConnected = self.OnFrontConnected
-		self.t.OnUserLogin = self.OnRspUserLogin
-		self.t.OnRtnOrder = self.OnOrder
-		self.t.OnRtnTrade = self.OnTrade
-		self.t.OnRtnCancel = self.OnCancel
-		self.t.OnRtnErrOrder = self.OnErrorOrder
+		self.t.OnRspUserLogin = self.OnRspUserLogin
+		#self.t.OnRtnOrder = self.OnOrder
+		#self.t.OnRtnTrade = self.OnTrade
+		#self.t.OnRtnCancel = self.OnCancel
+		#self.t.OnRtnErrOrder = self.OnErrOrder
 
 		front = 'tcp://180.168.146.187:10000'
 		self.t.ReqConnect(front)
 
 if __name__ == '__main__':
 	p = at_test()
-	p.load_strategy()
-	p.read_data_test()
-	#p.main()
+	#p.load_strategy()
+	#p.read_data_test()
+
+	p.main()
 	input()

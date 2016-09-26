@@ -8,10 +8,10 @@ __mtime__ = '2016/8/16'
 
 import time
 
+from py_at.at_struct import *
 from py_at.OrderItem import OrderItem
 from py_at.EnumDefine import *
 from py_at.Bar import Bar
-from py_at.Tick import Tick
 from py_at.switch import switch
 
 
@@ -149,7 +149,7 @@ class Data(object):
 		self.Tick = tick
 		''' 取此tick对应的分钟时间'''
 		#bar_time = time.strptime(time.strftime("%Y-%m-%d %H:%M", tick.UpdateTime), "%Y-%m-%d %H:%M")
-		bar_time = time.strftime("%Y-%m-%d %H:%M:00", tick.UpdateTime)
+		bar_time = time.strftime("%Y%m%d %H:%M:00", tick.UpdateTime)
 		if len(self.Bars) == 0 or self.Bars[0].D != bar_time:  # 新数据
 			# bar_time, h, l, o, c, v, i, a)
 			bar = Bar(bar_time, tick.LastPrice, tick.LastPrice, tick.LastPrice, tick.LastPrice, tick.Volume, tick.OpenInterest)

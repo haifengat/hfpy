@@ -3,8 +3,6 @@
 
 from ctypes import *
 from enum import Enum
-
-
 class ExchangePropertyType(Enum):
 	"""交易所属性类型"""
 	Normal = 48
@@ -17,8 +15,8 @@ class ExchangePropertyType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class IdCardTypeType(Enum):
 	"""证件类型类型"""
@@ -50,8 +48,8 @@ class IdCardTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class InvestorRangeType(Enum):
 	"""投资者范围类型"""
@@ -66,8 +64,8 @@ class InvestorRangeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class DepartmentRangeType(Enum):
 	"""投资者范围类型"""
@@ -82,8 +80,8 @@ class DepartmentRangeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class DataSyncStatusType(Enum):
 	"""数据同步状态类型"""
@@ -98,8 +96,8 @@ class DataSyncStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BrokerDataSyncStatusType(Enum):
 	"""经纪公司数据同步状态类型"""
@@ -113,8 +111,8 @@ class BrokerDataSyncStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ExchangeConnectStatusType(Enum):
 	"""交易所连接状态类型"""
@@ -129,8 +127,8 @@ class ExchangeConnectStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TraderConnectStatusType(Enum):
 	"""交易所交易员连接状态类型"""
@@ -146,8 +144,8 @@ class TraderConnectStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FunctionCodeType(Enum):
 	"""功能代码类型"""
@@ -174,8 +172,8 @@ class FunctionCodeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BrokerFunctionCodeType(Enum):
 	"""经纪公司功能代码类型"""
@@ -223,6 +221,7 @@ class BrokerFunctionCodeType(Enum):
 	DeleteOrder = 74
 	ParkedOrderInsert = 75
 	ParkedOrderAction = 76
+	ExecOrderNoCheck = 77
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -231,8 +230,8 @@ class BrokerFunctionCodeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OrderActionStatusType(Enum):
 	"""报单操作状态类型"""
@@ -247,8 +246,8 @@ class OrderActionStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OrderStatusType(Enum):
 	"""报单状态类型"""
@@ -269,8 +268,8 @@ class OrderStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OrderSubmitStatusType(Enum):
 	"""报单提交状态类型"""
@@ -289,8 +288,8 @@ class OrderSubmitStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class PositionDateType(Enum):
 	"""持仓日期类型"""
@@ -304,8 +303,8 @@ class PositionDateType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class PositionDateTypeType(Enum):
 	"""持仓日期类型类型"""
@@ -319,8 +318,8 @@ class PositionDateTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TradingRoleType(Enum):
 	"""交易角色类型"""
@@ -335,8 +334,8 @@ class TradingRoleType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ProductClassType(Enum):
 	"""产品类型类型"""
@@ -346,6 +345,8 @@ class ProductClassType(Enum):
 	Spot = 52
 	EFP = 53
 	SpotOption = 54
+	ETFOption = 55
+	Stock = 56
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -354,8 +355,8 @@ class ProductClassType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class InstLifePhaseType(Enum):
 	"""合约生命周期状态类型"""
@@ -371,8 +372,8 @@ class InstLifePhaseType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class DirectionType(Enum):
 	"""买卖方向类型"""
@@ -386,8 +387,8 @@ class DirectionType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class PositionTypeType(Enum):
 	"""持仓类型类型"""
@@ -401,8 +402,8 @@ class PositionTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class PosiDirectionType(Enum):
 	"""持仓多空方向类型"""
@@ -417,8 +418,8 @@ class PosiDirectionType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SysSettlementStatusType(Enum):
 	"""系统结算状态类型"""
@@ -435,8 +436,8 @@ class SysSettlementStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class RatioAttrType(Enum):
 	"""费率属性类型"""
@@ -450,14 +451,16 @@ class RatioAttrType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class HedgeFlagType(Enum):
 	"""投机套保标志类型"""
 	Speculation = 49
 	Arbitrage = 50
 	Hedge = 51
+	Covered = 52
+	MarketMaker = 53
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -466,8 +469,8 @@ class HedgeFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BillHedgeFlagType(Enum):
 	"""投机套保标志类型"""
@@ -482,14 +485,15 @@ class BillHedgeFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ClientIDTypeType(Enum):
 	"""交易编码类型类型"""
 	Speculation = 49
 	Arbitrage = 50
 	Hedge = 51
+	MarketMaker = 53
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -498,8 +502,8 @@ class ClientIDTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OrderPriceTypeType(Enum):
 	"""报单价格条件类型"""
@@ -519,6 +523,7 @@ class OrderPriceTypeType(Enum):
 	BidPrice1PlusTwoTicks = 69
 	BidPrice1PlusThreeTicks = 70
 	FiveLevelPrice = 71
+	BestPriceThisSide = 72
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -527,8 +532,8 @@ class OrderPriceTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OffsetFlagType(Enum):
 	"""开平标志类型"""
@@ -547,8 +552,8 @@ class OffsetFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ForceCloseReasonType(Enum):
 	"""强平原因类型"""
@@ -568,8 +573,8 @@ class ForceCloseReasonType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OrderTypeType(Enum):
 	"""报单类型类型"""
@@ -587,8 +592,8 @@ class OrderTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TimeConditionType(Enum):
 	"""有效期类型类型"""
@@ -606,8 +611,8 @@ class TimeConditionType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class VolumeConditionType(Enum):
 	"""成交量类型类型"""
@@ -622,8 +627,8 @@ class VolumeConditionType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ContingentConditionType(Enum):
 	"""触发条件类型"""
@@ -651,8 +656,8 @@ class ContingentConditionType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ActionFlagType(Enum):
 	"""操作标志类型"""
@@ -666,8 +671,8 @@ class ActionFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TradingRightType(Enum):
 	"""交易权限类型"""
@@ -682,8 +687,8 @@ class TradingRightType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OrderSourceType(Enum):
 	"""报单来源类型"""
@@ -697,8 +702,8 @@ class OrderSourceType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TradeTypeType(Enum):
 	"""成交类型类型"""
@@ -716,8 +721,8 @@ class TradeTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class PriceSourceType(Enum):
 	"""成交价来源类型"""
@@ -732,8 +737,8 @@ class PriceSourceType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class InstrumentStatusType(Enum):
 	"""合约交易状态类型"""
@@ -752,8 +757,8 @@ class InstrumentStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class InstStatusEnterReasonType(Enum):
 	"""品种进入交易状态原因类型"""
@@ -768,8 +773,8 @@ class InstStatusEnterReasonType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BatchStatusType(Enum):
 	"""处理状态类型"""
@@ -784,8 +789,8 @@ class BatchStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ReturnStyleType(Enum):
 	"""按品种返还方式类型"""
@@ -799,8 +804,8 @@ class ReturnStyleType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ReturnPatternType(Enum):
 	"""返还模式类型"""
@@ -814,8 +819,8 @@ class ReturnPatternType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ReturnLevelType(Enum):
 	"""返还级别类型"""
@@ -836,8 +841,8 @@ class ReturnLevelType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ReturnStandardType(Enum):
 	"""返还标准类型"""
@@ -851,8 +856,8 @@ class ReturnStandardType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class MortgageTypeType(Enum):
 	"""质押类型类型"""
@@ -866,8 +871,8 @@ class MortgageTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class InvestorSettlementParamIDType(Enum):
 	"""投资者结算参数代码类型"""
@@ -882,8 +887,8 @@ class InvestorSettlementParamIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ExchangeSettlementParamIDType(Enum):
 	"""交易所结算参数代码类型"""
@@ -906,8 +911,8 @@ class ExchangeSettlementParamIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SystemParamIDType(Enum):
 	"""系统参数代码类型"""
@@ -942,8 +947,8 @@ class SystemParamIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TradeParamIDType(Enum):
 	"""交易系统参数代码类型"""
@@ -955,6 +960,13 @@ class TradeParamIDType(Enum):
 	SingleUserSessionMaxNum = 83
 	LoginFailMaxNum = 76
 	IsAuthForce = 65
+	IsPosiFreeze = 70
+	IsPosiLimit = 77
+	ForQuoteTimeInterval = 81
+	IsFuturePosiLimit = 66
+	IsFutureOrderFreq = 67
+	IsOrderTypeLimit = 68
+	IsExecOrderProfit = 72
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -963,8 +975,8 @@ class TradeParamIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FileIDType(Enum):
 	"""文件标识类型"""
@@ -988,8 +1000,8 @@ class FileIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FileTypeType(Enum):
 	"""文件上传类型类型"""
@@ -1003,8 +1015,8 @@ class FileTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FileFormatType(Enum):
 	"""文件格式类型"""
@@ -1019,8 +1031,8 @@ class FileFormatType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FileUploadStatusType(Enum):
 	"""文件状态类型"""
@@ -1037,8 +1049,8 @@ class FileUploadStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TransferDirectionType(Enum):
 	"""移仓方向类型"""
@@ -1052,8 +1064,8 @@ class TransferDirectionType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SpecialCreateRuleType(Enum):
 	"""特殊的创建规则类型"""
@@ -1067,8 +1079,8 @@ class SpecialCreateRuleType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BasisPriceTypeType(Enum):
 	"""挂牌基准价类型类型"""
@@ -1082,8 +1094,8 @@ class BasisPriceTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ProductLifePhaseType(Enum):
 	"""产品生命周期状态类型"""
@@ -1098,8 +1110,8 @@ class ProductLifePhaseType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class DeliveryModeType(Enum):
 	"""交割方式类型"""
@@ -1113,8 +1125,8 @@ class DeliveryModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FundIOTypeType(Enum):
 	"""出入金类型类型"""
@@ -1129,8 +1141,8 @@ class FundIOTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FundTypeType(Enum):
 	"""资金类型类型"""
@@ -1146,8 +1158,8 @@ class FundTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FundDirectionType(Enum):
 	"""出入金方向类型"""
@@ -1161,8 +1173,8 @@ class FundDirectionType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FundStatusType(Enum):
 	"""资金状态类型"""
@@ -1177,12 +1189,12 @@ class FundStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class PublishStatusType(Enum):
 	"""发布状态类型"""
-	_None = 49
+	Zero = 49
 	Publishing = 50
 	Published = 51
 
@@ -1193,8 +1205,8 @@ class PublishStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SystemStatusType(Enum):
 	"""系统状态类型"""
@@ -1213,8 +1225,8 @@ class SystemStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SettlementStatusType(Enum):
 	"""结算状态类型"""
@@ -1230,8 +1242,8 @@ class SettlementStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class InvestorTypeType(Enum):
 	"""投资者类型类型"""
@@ -1248,8 +1260,8 @@ class InvestorTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BrokerTypeType(Enum):
 	"""经纪公司类型类型"""
@@ -1263,8 +1275,8 @@ class BrokerTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class RiskLevelType(Enum):
 	"""风险等级类型"""
@@ -1280,14 +1292,14 @@ class RiskLevelType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FeeAcceptStyleType(Enum):
 	"""手续费收取方式类型"""
 	ByTrade = 49
 	ByDeliv = 50
-	_None = 51
+	Zero = 51
 	FixFee = 52
 
 	#----------------------------------------------------------------------
@@ -1297,8 +1309,8 @@ class FeeAcceptStyleType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class PasswordTypeType(Enum):
 	"""密码类型类型"""
@@ -1312,15 +1324,15 @@ class PasswordTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class AlgorithmType(Enum):
 	"""盈亏算法类型"""
 	All = 49
 	OnlyLost = 50
 	OnlyGain = 51
-	_None = 52
+	Zero = 52
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -1329,8 +1341,8 @@ class AlgorithmType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class IncludeCloseProfitType(Enum):
 	"""是否包含平仓盈利类型"""
@@ -1344,8 +1356,8 @@ class IncludeCloseProfitType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class AllWithoutTradeType(Enum):
 	"""是否受可提比例限制类型"""
@@ -1360,8 +1372,8 @@ class AllWithoutTradeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FuturePwdFlagType(Enum):
 	"""资金密码核对标志类型"""
@@ -1375,8 +1387,8 @@ class FuturePwdFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TransferTypeType(Enum):
 	"""银期转账类型类型"""
@@ -1390,8 +1402,8 @@ class TransferTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TransferValidFlagType(Enum):
 	"""转账有效标志类型"""
@@ -1406,8 +1418,8 @@ class TransferValidFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ReasonType(Enum):
 	"""事由类型"""
@@ -1422,12 +1434,12 @@ class ReasonType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SexType(Enum):
 	"""性别类型"""
-	_None = 48
+	Zero = 48
 	Man = 49
 	Woman = 50
 
@@ -1438,8 +1450,8 @@ class SexType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class UserTypeType(Enum):
 	"""用户类型类型"""
@@ -1454,8 +1466,8 @@ class UserTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class RateTypeType(Enum):
 	"""费率类型类型"""
@@ -1468,8 +1480,8 @@ class RateTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class NoteTypeType(Enum):
 	"""通知类型类型"""
@@ -1487,8 +1499,8 @@ class NoteTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SettlementStyleType(Enum):
 	"""结算单方式类型"""
@@ -1502,8 +1514,8 @@ class SettlementStyleType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SettlementBillTypeType(Enum):
 	"""结算单类型类型"""
@@ -1517,8 +1529,8 @@ class SettlementBillTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class UserRightTypeType(Enum):
 	"""客户权限类型类型"""
@@ -1535,8 +1547,8 @@ class UserRightTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class MarginPriceTypeType(Enum):
 	"""保证金价格类型类型"""
@@ -1552,12 +1564,12 @@ class MarginPriceTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BillGenStatusType(Enum):
 	"""结算单生成状态类型"""
-	_None = 48
+	Zero = 48
 	NoGenerated = 49
 	Generated = 50
 
@@ -1568,8 +1580,8 @@ class BillGenStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class AlgoTypeType(Enum):
 	"""算法类型类型"""
@@ -1583,8 +1595,8 @@ class AlgoTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class HandlePositionAlgoIDType(Enum):
 	"""持仓处理算法编号类型"""
@@ -1599,8 +1611,8 @@ class HandlePositionAlgoIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FindMarginRateAlgoIDType(Enum):
 	"""寻找保证金率算法编号类型"""
@@ -1615,8 +1627,8 @@ class FindMarginRateAlgoIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class HandleTradingAccountAlgoIDType(Enum):
 	"""资金处理算法编号类型"""
@@ -1631,8 +1643,8 @@ class HandleTradingAccountAlgoIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class PersonTypeType(Enum):
 	"""联系人类型类型"""
@@ -1658,8 +1670,8 @@ class PersonTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class QueryInvestorRangeType(Enum):
 	"""查询范围类型"""
@@ -1674,8 +1686,8 @@ class QueryInvestorRangeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class InvestorRiskStatusType(Enum):
 	"""投资者风险状态类型"""
@@ -1692,8 +1704,8 @@ class InvestorRiskStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class UserEventTypeType(Enum):
 	"""用户事件类型类型"""
@@ -1712,8 +1724,8 @@ class UserEventTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CloseStyleType(Enum):
 	"""平仓方式类型"""
@@ -1727,8 +1739,8 @@ class CloseStyleType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class StatModeType(Enum):
 	"""统计方式类型"""
@@ -1744,8 +1756,8 @@ class StatModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ParkedOrderStatusType(Enum):
 	"""预埋单状态类型"""
@@ -1760,8 +1772,8 @@ class ParkedOrderStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class VirDealStatusType(Enum):
 	"""处理状态类型"""
@@ -1775,8 +1787,8 @@ class VirDealStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OrgSystemIDType(Enum):
 	"""原有系统代码类型"""
@@ -1791,8 +1803,8 @@ class OrgSystemIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class VirTradeStatusType(Enum):
 	"""交易状态类型"""
@@ -1811,8 +1823,8 @@ class VirTradeStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class VirBankAccTypeType(Enum):
 	"""银行帐户类型类型"""
@@ -1827,8 +1839,8 @@ class VirBankAccTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class VirementStatusType(Enum):
 	"""银行帐户类型类型"""
@@ -1842,8 +1854,8 @@ class VirementStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class VirementAvailAbilityType(Enum):
 	"""有效标志类型"""
@@ -1858,8 +1870,8 @@ class VirementAvailAbilityType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class VirementTradeCodeType(Enum):
 	"""交易代码类型"""
@@ -1875,8 +1887,8 @@ class VirementTradeCodeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class AMLGenStatusType(Enum):
 	"""Aml生成方式类型"""
@@ -1890,8 +1902,8 @@ class AMLGenStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CFMMCKeyKindType(Enum):
 	"""动态密钥类别(保证金监管)类型"""
@@ -1906,8 +1918,8 @@ class CFMMCKeyKindType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CertificationTypeType(Enum):
 	"""证件类型类型"""
@@ -1931,8 +1943,8 @@ class CertificationTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FileBusinessCodeType(Enum):
 	"""文件业务功能类型"""
@@ -1960,8 +1972,8 @@ class FileBusinessCodeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CashExchangeCodeType(Enum):
 	"""汇钞标志类型"""
@@ -1975,8 +1987,8 @@ class CashExchangeCodeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class YesNoIndicatorType(Enum):
 	"""是或否标识类型"""
@@ -1990,8 +2002,8 @@ class YesNoIndicatorType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BanlanceTypeType(Enum):
 	"""余额类型类型"""
@@ -2007,8 +2019,8 @@ class BanlanceTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class GenderType(Enum):
 	"""性别类型"""
@@ -2023,8 +2035,8 @@ class GenderType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FeePayFlagType(Enum):
 	"""费用支付标志类型"""
@@ -2039,8 +2051,8 @@ class FeePayFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class PassWordKeyTypeType(Enum):
 	"""密钥类型类型"""
@@ -2056,8 +2068,8 @@ class PassWordKeyTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FBTPassWordTypeType(Enum):
 	"""密码类型类型"""
@@ -2073,8 +2085,8 @@ class FBTPassWordTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FBTEncryModeType(Enum):
 	"""加密方式类型"""
@@ -2089,8 +2101,8 @@ class FBTEncryModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BankRepealFlagType(Enum):
 	"""银行冲正标志类型"""
@@ -2105,8 +2117,8 @@ class BankRepealFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BrokerRepealFlagType(Enum):
 	"""期商冲正标志类型"""
@@ -2121,8 +2133,8 @@ class BrokerRepealFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class InstitutionTypeType(Enum):
 	"""机构类别类型"""
@@ -2137,8 +2149,8 @@ class InstitutionTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class LastFragmentType(Enum):
 	"""最后分片标志类型"""
@@ -2152,8 +2164,8 @@ class LastFragmentType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BankAccStatusType(Enum):
 	"""银行账户状态类型"""
@@ -2168,8 +2180,8 @@ class BankAccStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class MoneyAccountStatusType(Enum):
 	"""资金账户状态类型"""
@@ -2183,8 +2195,8 @@ class MoneyAccountStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ManageStatusType(Enum):
 	"""存管状态类型"""
@@ -2199,8 +2211,8 @@ class ManageStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SystemTypeType(Enum):
 	"""应用系统类型类型"""
@@ -2215,8 +2227,8 @@ class SystemTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TxnEndFlagType(Enum):
 	"""银期转帐划转结果标志类型"""
@@ -2235,8 +2247,8 @@ class TxnEndFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ProcessStatusType(Enum):
 	"""银期转帐服务处理状态类型"""
@@ -2251,8 +2263,8 @@ class ProcessStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CustTypeType(Enum):
 	"""客户类型类型"""
@@ -2266,8 +2278,8 @@ class CustTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FBTTransferDirectionType(Enum):
 	"""银期转帐方向类型"""
@@ -2281,8 +2293,8 @@ class FBTTransferDirectionType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OpenOrDestroyType(Enum):
 	"""开销户类别类型"""
@@ -2296,8 +2308,8 @@ class OpenOrDestroyType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class AvailabilityFlagType(Enum):
 	"""有效标志类型"""
@@ -2312,8 +2324,8 @@ class AvailabilityFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OrganTypeType(Enum):
 	"""机构类型类型"""
@@ -2328,8 +2340,8 @@ class OrganTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OrganLevelType(Enum):
 	"""机构级别类型"""
@@ -2343,8 +2355,8 @@ class OrganLevelType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ProtocalIDType(Enum):
 	"""协议类型类型"""
@@ -2363,8 +2375,8 @@ class ProtocalIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ConnectModeType(Enum):
 	"""套接字连接方式类型"""
@@ -2378,8 +2390,8 @@ class ConnectModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SyncModeType(Enum):
 	"""套接字通信方式类型"""
@@ -2393,8 +2405,8 @@ class SyncModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BankAccTypeType(Enum):
 	"""银行帐号类型类型"""
@@ -2409,8 +2421,8 @@ class BankAccTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FutureAccTypeType(Enum):
 	"""期货公司帐号类型类型"""
@@ -2425,8 +2437,8 @@ class FutureAccTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OrganStatusType(Enum):
 	"""接入机构状态类型"""
@@ -2445,8 +2457,8 @@ class OrganStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CCBFeeModeType(Enum):
 	"""建行收费模式类型"""
@@ -2460,8 +2472,8 @@ class CCBFeeModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CommApiTypeType(Enum):
 	"""通讯API类型类型"""
@@ -2476,8 +2488,8 @@ class CommApiTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class LinkStatusType(Enum):
 	"""连接状态类型"""
@@ -2491,8 +2503,8 @@ class LinkStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class PwdFlagType(Enum):
 	"""密码核对标志类型"""
@@ -2507,8 +2519,8 @@ class PwdFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SecuAccTypeType(Enum):
 	"""期货帐号类型类型"""
@@ -2524,8 +2536,8 @@ class SecuAccTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TransferStatusType(Enum):
 	"""转账交易状态类型"""
@@ -2539,8 +2551,8 @@ class TransferStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SponsorTypeType(Enum):
 	"""发起方类型"""
@@ -2554,8 +2566,8 @@ class SponsorTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ReqRspTypeType(Enum):
 	"""请求响应类别类型"""
@@ -2569,8 +2581,8 @@ class ReqRspTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FBTUserEventTypeType(Enum):
 	"""银期转帐用户事件类型类型"""
@@ -2595,8 +2607,8 @@ class FBTUserEventTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class DBOperationType(Enum):
 	"""记录操作类型类型"""
@@ -2611,8 +2623,8 @@ class DBOperationType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SyncFlagType(Enum):
 	"""同步标记类型"""
@@ -2626,8 +2638,8 @@ class SyncFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SyncTypeType(Enum):
 	"""同步类型类型"""
@@ -2642,8 +2654,8 @@ class SyncTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ExDirectionType(Enum):
 	"""换汇方向类型"""
@@ -2657,8 +2669,8 @@ class ExDirectionType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FBEResultFlagType(Enum):
 	"""换汇成功标志类型"""
@@ -2674,8 +2686,8 @@ class FBEResultFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FBEExchStatusType(Enum):
 	"""换汇交易状态类型"""
@@ -2689,8 +2701,8 @@ class FBEExchStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FBEFileFlagType(Enum):
 	"""换汇文件标志类型"""
@@ -2704,8 +2716,8 @@ class FBEFileFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FBEAlreadyTradeType(Enum):
 	"""换汇已交易标志类型"""
@@ -2719,8 +2731,8 @@ class FBEAlreadyTradeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FBEUserEventTypeType(Enum):
 	"""银期换汇用户事件类型类型"""
@@ -2742,8 +2754,8 @@ class FBEUserEventTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FBEReqFlagType(Enum):
 	"""换汇发送标志类型"""
@@ -2760,8 +2772,8 @@ class FBEReqFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class NotifyClassType(Enum):
 	"""风险通知类型类型"""
@@ -2779,8 +2791,8 @@ class NotifyClassType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ForceCloseTypeType(Enum):
 	"""强平单类型类型"""
@@ -2795,8 +2807,8 @@ class ForceCloseTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class RiskNotifyMethodType(Enum):
 	"""风险通知途径类型"""
@@ -2812,8 +2824,8 @@ class RiskNotifyMethodType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class RiskNotifyStatusType(Enum):
 	"""风险通知状态类型"""
@@ -2831,8 +2843,8 @@ class RiskNotifyStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class RiskUserEventType(Enum):
 	"""风控用户操作事件类型"""
@@ -2845,8 +2857,8 @@ class RiskUserEventType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ConditionalOrderSortTypeType(Enum):
 	"""条件单索引条件类型"""
@@ -2864,8 +2876,8 @@ class ConditionalOrderSortTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SendTypeType(Enum):
 	"""报送状态类型"""
@@ -2884,8 +2896,8 @@ class SendTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ClientIDStatusType(Enum):
 	"""交易编码状态类型"""
@@ -2903,8 +2915,8 @@ class ClientIDStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class QuestionTypeType(Enum):
 	"""特有信息类型类型"""
@@ -2919,8 +2931,8 @@ class QuestionTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BusinessTypeType(Enum):
 	"""业务类型类型"""
@@ -2935,8 +2947,8 @@ class BusinessTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CfmmcReturnCodeType(Enum):
 	"""监控中心返回码类型"""
@@ -2953,8 +2965,8 @@ class CfmmcReturnCodeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ClientTypeType(Enum):
 	"""客户类型类型"""
@@ -2972,8 +2984,8 @@ class ClientTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ExchangeIDTypeType(Enum):
 	"""交易所编号类型"""
@@ -2982,6 +2994,8 @@ class ExchangeIDTypeType(Enum):
 	DCE = 68
 	CFFEX = 74
 	INE = 78
+	SSE = 65
+	SZSE = 69
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -2990,8 +3004,8 @@ class ExchangeIDTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ExClientIDTypeType(Enum):
 	"""交易编码类型类型"""
@@ -3006,8 +3020,8 @@ class ExClientIDTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class UpdateFlagType(Enum):
 	"""更新状态类型"""
@@ -3025,8 +3039,8 @@ class UpdateFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ApplyOperateIDType(Enum):
 	"""申请动作类型"""
@@ -3046,8 +3060,8 @@ class ApplyOperateIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ApplyStatusIDType(Enum):
 	"""申请状态类型"""
@@ -3064,8 +3078,8 @@ class ApplyStatusIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SendMethodType(Enum):
 	"""发送方式类型"""
@@ -3079,8 +3093,8 @@ class SendMethodType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class EventModeType(Enum):
 	"""操作方法类型"""
@@ -3099,8 +3113,8 @@ class EventModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class UOAAutoSendType(Enum):
 	"""统一开户申请自动发送类型"""
@@ -3116,8 +3130,8 @@ class UOAAutoSendType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FlowIDType(Enum):
 	"""流程ID类型"""
@@ -3132,8 +3146,8 @@ class FlowIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CheckLevelType(Enum):
 	"""复核级别类型"""
@@ -3148,8 +3162,8 @@ class CheckLevelType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CheckStatusType(Enum):
 	"""复核级别类型"""
@@ -3166,8 +3180,8 @@ class CheckStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class UsedStatusType(Enum):
 	"""生效状态类型"""
@@ -3182,8 +3196,8 @@ class UsedStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BankAcountOriginType(Enum):
 	"""账户来源类型"""
@@ -3197,8 +3211,8 @@ class BankAcountOriginType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class MonthBillTradeSumType(Enum):
 	"""结算单月报成交汇总方式类型"""
@@ -3213,8 +3227,8 @@ class MonthBillTradeSumType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FBTTradeCodeEnumType(Enum):
 	"""银期交易代码枚举类型"""
@@ -3230,12 +3244,12 @@ class FBTTradeCodeEnumType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OTPTypeType(Enum):
 	"""动态令牌类型类型"""
-	_None = 48
+	NONE = 48
 	TOTP = 49
 
 	#----------------------------------------------------------------------
@@ -3245,8 +3259,8 @@ class OTPTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OTPStatusType(Enum):
 	"""动态令牌状态类型"""
@@ -3261,8 +3275,8 @@ class OTPStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BrokerUserTypeType(Enum):
 	"""经济公司用户类型类型"""
@@ -3276,8 +3290,8 @@ class BrokerUserTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FutureTypeType(Enum):
 	"""期货类型类型"""
@@ -3291,8 +3305,8 @@ class FutureTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FundEventTypeType(Enum):
 	"""资金管理操作类型类型"""
@@ -3313,8 +3327,8 @@ class FundEventTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class AccountSourceTypeType(Enum):
 	"""资金账户来源类型"""
@@ -3328,8 +3342,8 @@ class AccountSourceTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CodeSourceTypeType(Enum):
 	"""交易编码来源类型"""
@@ -3343,8 +3357,8 @@ class CodeSourceTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class UserRangeType(Enum):
 	"""操作员范围类型"""
@@ -3358,8 +3372,8 @@ class UserRangeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ByGroupType(Enum):
 	"""交易统计表按客户统计方式类型"""
@@ -3373,8 +3387,8 @@ class ByGroupType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TradeSumStatModeType(Enum):
 	"""交易统计表按范围统计方式类型"""
@@ -3389,8 +3403,8 @@ class TradeSumStatModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ExprSetModeType(Enum):
 	"""日期表达式设置类型类型"""
@@ -3404,8 +3418,8 @@ class ExprSetModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class RateInvestorRangeType(Enum):
 	"""投资者范围类型"""
@@ -3420,8 +3434,8 @@ class RateInvestorRangeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SyncDataStatusType(Enum):
 	"""主次用系统数据同步状态类型"""
@@ -3436,8 +3450,8 @@ class SyncDataStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TradeSourceType(Enum):
 	"""成交来源类型"""
@@ -3451,8 +3465,8 @@ class TradeSourceType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FlexStatModeType(Enum):
 	"""产品合约统计方式类型"""
@@ -3467,8 +3481,8 @@ class FlexStatModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ByInvestorRangeType(Enum):
 	"""投资者范围统计方式类型"""
@@ -3482,8 +3496,8 @@ class ByInvestorRangeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class PropertyInvestorRangeType(Enum):
 	"""投资者范围类型"""
@@ -3498,8 +3512,8 @@ class PropertyInvestorRangeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FileStatusType(Enum):
 	"""文件状态类型"""
@@ -3514,8 +3528,8 @@ class FileStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FileGenStyleType(Enum):
 	"""文件生成方式类型"""
@@ -3529,8 +3543,8 @@ class FileGenStyleType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SysOperModeType(Enum):
 	"""系统日志操作方法类型"""
@@ -3549,8 +3563,8 @@ class SysOperModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SysOperTypeType(Enum):
 	"""系统日志操作类型类型"""
@@ -3578,8 +3592,8 @@ class SysOperTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CSRCDataQueyTypeType(Enum):
 	"""上报数据查询类型类型"""
@@ -3593,8 +3607,8 @@ class CSRCDataQueyTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FreezeStatusType(Enum):
 	"""休眠状态类型"""
@@ -3608,8 +3622,8 @@ class FreezeStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class StandardStatusType(Enum):
 	"""规范状态类型"""
@@ -3623,8 +3637,8 @@ class StandardStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class RightParamTypeType(Enum):
 	"""配置类型类型"""
@@ -3640,8 +3654,8 @@ class RightParamTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class DataStatusType(Enum):
 	"""反洗钱审核表数据状态类型"""
@@ -3655,8 +3669,8 @@ class DataStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class AMLCheckStatusType(Enum):
 	"""审核状态类型"""
@@ -3672,8 +3686,8 @@ class AMLCheckStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class AmlDateTypeType(Enum):
 	"""日期类型类型"""
@@ -3687,8 +3701,8 @@ class AmlDateTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class AmlCheckLevelType(Enum):
 	"""审核级别类型"""
@@ -3704,8 +3718,8 @@ class AmlCheckLevelType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ExportFileTypeType(Enum):
 	"""导出文件类型类型"""
@@ -3720,8 +3734,8 @@ class ExportFileTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SettleManagerTypeType(Enum):
 	"""结算配置类型类型"""
@@ -3737,8 +3751,8 @@ class SettleManagerTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SettleManagerLevelType(Enum):
 	"""结算配置等级类型"""
@@ -3754,8 +3768,8 @@ class SettleManagerLevelType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SettleManagerGroupType(Enum):
 	"""模块分组类型"""
@@ -3770,8 +3784,8 @@ class SettleManagerGroupType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class LimitUseTypeType(Enum):
 	"""保值额度使用类型类型"""
@@ -3785,8 +3799,8 @@ class LimitUseTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class DataResourceType(Enum):
 	"""数据来源类型"""
@@ -3801,8 +3815,8 @@ class DataResourceType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class MarginTypeType(Enum):
 	"""保证金类型类型"""
@@ -3817,8 +3831,8 @@ class MarginTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ActiveTypeType(Enum):
 	"""生效类型类型"""
@@ -3832,8 +3846,8 @@ class ActiveTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class MarginRateTypeType(Enum):
 	"""冲突保证金率类型类型"""
@@ -3848,8 +3862,8 @@ class MarginRateTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BackUpStatusType(Enum):
 	"""备份数据状态类型"""
@@ -3865,8 +3879,8 @@ class BackUpStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class InitSettlementType(Enum):
 	"""结算初始化状态类型"""
@@ -3881,8 +3895,8 @@ class InitSettlementType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ReportStatusType(Enum):
 	"""报表数据生成状态类型"""
@@ -3898,8 +3912,8 @@ class ReportStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SaveStatusType(Enum):
 	"""数据归档状态类型"""
@@ -3913,8 +3927,8 @@ class SaveStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SettArchiveStatusType(Enum):
 	"""结算确认数据归档状态类型"""
@@ -3930,8 +3944,8 @@ class SettArchiveStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CTPTypeType(Enum):
 	"""CTP交易系统类型类型"""
@@ -3946,8 +3960,8 @@ class CTPTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CloseDealTypeType(Enum):
 	"""平仓处理类型类型"""
@@ -3961,12 +3975,12 @@ class CloseDealTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class MortgageFundUseRangeType(Enum):
 	"""货币质押资金可用范围类型"""
-	_None = 48
+	Zero = 48
 	Margin = 49
 	All = 50
 
@@ -3977,8 +3991,8 @@ class MortgageFundUseRangeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SpecProductTypeType(Enum):
 	"""特殊产品类型类型"""
@@ -3993,8 +4007,8 @@ class SpecProductTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FundMortgageTypeType(Enum):
 	"""货币质押类型类型"""
@@ -4008,8 +4022,8 @@ class FundMortgageTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class AccountSettlementParamIDType(Enum):
 	"""投资者账户结算参数代码类型"""
@@ -4023,8 +4037,8 @@ class AccountSettlementParamIDType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FundMortDirectionType(Enum):
 	"""货币质押方向类型"""
@@ -4038,8 +4052,8 @@ class FundMortDirectionType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BusinessClassType(Enum):
 	"""换汇类别类型"""
@@ -4054,8 +4068,8 @@ class BusinessClassType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SwapSourceTypeType(Enum):
 	"""换汇数据来源类型"""
@@ -4069,8 +4083,8 @@ class SwapSourceTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CurrExDirectionType(Enum):
 	"""换汇类型类型"""
@@ -4084,8 +4098,8 @@ class CurrExDirectionType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CurrencySwapStatusType(Enum):
 	"""申请状态类型"""
@@ -4104,8 +4118,8 @@ class CurrencySwapStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ReqFlagType(Enum):
 	"""换汇发送标志类型"""
@@ -4121,8 +4135,8 @@ class ReqFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ResFlagType(Enum):
 	"""换汇返回成功标志类型"""
@@ -4137,8 +4151,8 @@ class ResFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ExStatusType(Enum):
 	"""修改状态类型"""
@@ -4152,8 +4166,8 @@ class ExStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ClientRegionType(Enum):
 	"""开户客户地域类型"""
@@ -4168,8 +4182,8 @@ class ClientRegionType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class HasBoardType(Enum):
 	"""是否有董事会类型"""
@@ -4183,8 +4197,8 @@ class HasBoardType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class StartModeType(Enum):
 	"""启动模式类型"""
@@ -4199,8 +4213,8 @@ class StartModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class TemplateTypeType(Enum):
 	"""模型类型类型"""
@@ -4215,8 +4229,8 @@ class TemplateTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class LoginModeType(Enum):
 	"""登录模式类型"""
@@ -4230,8 +4244,8 @@ class LoginModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class PromptTypeType(Enum):
 	"""日历提示类型类型"""
@@ -4245,8 +4259,8 @@ class PromptTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class HasTrusteeType(Enum):
 	"""是否有托管人类型"""
@@ -4260,8 +4274,8 @@ class HasTrusteeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class AmTypeType(Enum):
 	"""机构类型类型"""
@@ -4279,8 +4293,8 @@ class AmTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CSRCFundIOTypeType(Enum):
 	"""出入金类型类型"""
@@ -4294,8 +4308,8 @@ class CSRCFundIOTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CusAccountTypeType(Enum):
 	"""结算账户类型类型"""
@@ -4311,8 +4325,8 @@ class CusAccountTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class LanguageTypeType(Enum):
 	"""通知语言类型类型"""
@@ -4326,8 +4340,8 @@ class LanguageTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class AssetmgrClientTypeType(Enum):
 	"""资产管理客户类型类型"""
@@ -4342,8 +4356,8 @@ class AssetmgrClientTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class AssetmgrTypeType(Enum):
 	"""投资类型类型"""
@@ -4357,8 +4371,8 @@ class AssetmgrTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CheckInstrTypeType(Enum):
 	"""合约比较类型类型"""
@@ -4373,8 +4387,8 @@ class CheckInstrTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class DeliveryTypeType(Enum):
 	"""交割类型类型"""
@@ -4388,8 +4402,8 @@ class DeliveryTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class MaxMarginSideAlgorithmType(Enum):
 	"""大额单边保证金算法类型"""
@@ -4403,8 +4417,8 @@ class MaxMarginSideAlgorithmType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class DAClientTypeType(Enum):
 	"""资产管理客户类型类型"""
@@ -4419,8 +4433,8 @@ class DAClientTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class UOAAssetmgrTypeType(Enum):
 	"""投资类型类型"""
@@ -4434,8 +4448,8 @@ class UOAAssetmgrTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class DirectionEnType(Enum):
 	"""买卖方向类型"""
@@ -4449,8 +4463,8 @@ class DirectionEnType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OffsetFlagEnType(Enum):
 	"""开平标志类型"""
@@ -4469,8 +4483,8 @@ class OffsetFlagEnType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class HedgeFlagEnType(Enum):
 	"""投机套保标志类型"""
@@ -4485,8 +4499,8 @@ class HedgeFlagEnType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FundIOTypeEnType(Enum):
 	"""出入金类型类型"""
@@ -4501,8 +4515,8 @@ class FundIOTypeEnType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FundTypeEnType(Enum):
 	"""资金类型类型"""
@@ -4518,8 +4532,8 @@ class FundTypeEnType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FundDirectionEnType(Enum):
 	"""出入金方向类型"""
@@ -4533,8 +4547,8 @@ class FundDirectionEnType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class FundMortDirectionEnType(Enum):
 	"""货币质押方向类型"""
@@ -4548,8 +4562,8 @@ class FundMortDirectionEnType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OptionsTypeType(Enum):
 	"""期权类型类型"""
@@ -4563,8 +4577,8 @@ class OptionsTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class StrikeModeType(Enum):
 	"""执行方式类型"""
@@ -4579,8 +4593,8 @@ class StrikeModeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class StrikeTypeType(Enum):
 	"""执行类型类型"""
@@ -4594,8 +4608,8 @@ class StrikeTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ApplyTypeType(Enum):
 	"""中金所期权放弃执行申请类型类型"""
@@ -4608,8 +4622,8 @@ class ApplyTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class GiveUpDataSourceType(Enum):
 	"""放弃执行申请数据来源类型"""
@@ -4623,8 +4637,8 @@ class GiveUpDataSourceType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ExecResultType(Enum):
 	"""执行结果类型"""
@@ -4648,8 +4662,8 @@ class ExecResultType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CombinationTypeType(Enum):
 	"""组合类型类型"""
@@ -4659,6 +4673,7 @@ class CombinationTypeType(Enum):
 	STD = 51
 	STG = 52
 	PRT = 53
+	CLD = 54
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -4667,8 +4682,8 @@ class CombinationTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class OptionRoyaltyPriceTypeType(Enum):
 	"""期权权利金价格类型类型"""
@@ -4682,8 +4697,8 @@ class OptionRoyaltyPriceTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class BalanceAlgorithmType(Enum):
 	"""权益算法类型"""
@@ -4697,8 +4712,8 @@ class BalanceAlgorithmType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ActionTypeType(Enum):
 	"""执行类型类型"""
@@ -4712,8 +4727,8 @@ class ActionTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ForQuoteStatusType(Enum):
 	"""询价状态类型"""
@@ -4728,24 +4743,8 @@ class ForQuoteStatusType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
-
-class QuotStatusType(Enum):
-	"""报价状态类型"""
-	Unknown = 97
-	Accepted = 98
-	Canceled = 99
-
-	#----------------------------------------------------------------------
-	def __int__(self):
-		"""return int value"""
-		return self.value
-
-	#----------------------------------------------------------------------
-	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ValueMethodType(Enum):
 	"""取值方式类型"""
@@ -4759,8 +4758,8 @@ class ValueMethodType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ExecOrderPositionFlagType(Enum):
 	"""期权行权后是否保留期货头寸的标记类型"""
@@ -4774,8 +4773,8 @@ class ExecOrderPositionFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ExecOrderCloseFlagType(Enum):
 	"""期权行权后生成的头寸是否自动平仓类型"""
@@ -4789,8 +4788,8 @@ class ExecOrderCloseFlagType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class ProductTypeType(Enum):
 	"""产品类型类型"""
@@ -4804,19 +4803,19 @@ class ProductTypeType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CZCEUploadFileNameType(Enum):
 	"""郑商所结算文件名类型"""
-	O = 79
-	T = 84
-	P = 80
-	N = 78
-	L = 76
-	F = 70
-	C = 67
-	M = 77
+	CUFN_O = 79
+	CUFN_T = 84
+	CUFN_P = 80
+	CUFN_N = 78
+	CUFN_L = 76
+	CUFN_F = 70
+	CUFN_C = 67
+	CUFN_M = 77
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -4825,19 +4824,19 @@ class CZCEUploadFileNameType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class DCEUploadFileNameType(Enum):
 	"""大商所结算文件名类型"""
-	O = 79
-	T = 84
-	P = 80
-	F = 70
-	C = 67
-	D = 68
-	M = 77
-	S = 83
+	DUFN_O = 79
+	DUFN_T = 84
+	DUFN_P = 80
+	DUFN_F = 70
+	DUFN_C = 67
+	DUFN_D = 68
+	DUFN_M = 77
+	DUFN_S = 83
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -4846,15 +4845,15 @@ class DCEUploadFileNameType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class SHFEUploadFileNameType(Enum):
 	"""上期所结算文件名类型"""
-	O = 79
-	T = 84
-	P = 80
-	F = 70
+	SUFN_O = 79
+	SUFN_T = 84
+	SUFN_P = 80
+	SUFN_F = 70
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -4863,15 +4862,15 @@ class SHFEUploadFileNameType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
 
 class CFFEXUploadFileNameType(Enum):
 	"""中金所结算文件名类型"""
-	T = 84
-	P = 80
-	F = 70
-	S = 83
+	SUFN_T = 84
+	SUFN_P = 80
+	SUFN_F = 70
+	SUFN_S = 83
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -4880,6 +4879,214 @@ class CFFEXUploadFileNameType(Enum):
 
 	#----------------------------------------------------------------------
 	def __char__(self):
-		"""return c_char value"""
-		return c_char(self.value)
+		"""return char value"""
+		return chr(self.value)
+
+class CombDirectionType(Enum):
+	"""组合指令方向类型"""
+	Comb = 48
+	UnComb = 49
+
+	#----------------------------------------------------------------------
+	def __int__(self):
+		"""return int value"""
+		return self.value
+
+	#----------------------------------------------------------------------
+	def __char__(self):
+		"""return char value"""
+		return chr(self.value)
+
+class LockTypeType(Enum):
+	"""锁定方向类型"""
+	Lock = 49
+	Unlock = 50
+
+	#----------------------------------------------------------------------
+	def __int__(self):
+		"""return int value"""
+		return self.value
+
+	#----------------------------------------------------------------------
+	def __char__(self):
+		"""return char value"""
+		return chr(self.value)
+
+class BizTypeType(Enum):
+	"""业务类型类型"""
+	Future = 49
+	Stock = 50
+
+	#----------------------------------------------------------------------
+	def __int__(self):
+		"""return int value"""
+		return self.value
+
+	#----------------------------------------------------------------------
+	def __char__(self):
+		"""return char value"""
+		return chr(self.value)
+
+class DesignateTypeType(Enum):
+	"""指定类型类型"""
+	Register = 49
+	Cancel = 50
+
+	#----------------------------------------------------------------------
+	def __int__(self):
+		"""return int value"""
+		return self.value
+
+	#----------------------------------------------------------------------
+	def __char__(self):
+		"""return char value"""
+		return chr(self.value)
+
+class FreezeReasonTypeType(Enum):
+	"""冻结原因类型"""
+	Init = 49
+	Lock = 50
+	Exec = 51
+	Check = 52
+	ExecFreeze = 53
+
+	#----------------------------------------------------------------------
+	def __int__(self):
+		"""return int value"""
+		return self.value
+
+	#----------------------------------------------------------------------
+	def __char__(self):
+		"""return char value"""
+		return chr(self.value)
+
+class FreezeTypeType(Enum):
+	"""冻结类型类型"""
+	Freeze = 49
+	Unfreeze = 50
+	Force = 51
+
+	#----------------------------------------------------------------------
+	def __int__(self):
+		"""return int value"""
+		return self.value
+
+	#----------------------------------------------------------------------
+	def __char__(self):
+		"""return char value"""
+		return chr(self.value)
+
+class TradeSystemTypeType(Enum):
+	"""交易系统类型类型"""
+	Unknow = 48
+	Future = 49
+	IShare = 50
+
+	#----------------------------------------------------------------------
+	def __int__(self):
+		"""return int value"""
+		return self.value
+
+	#----------------------------------------------------------------------
+	def __char__(self):
+		"""return char value"""
+		return chr(self.value)
+
+class StockDisposalTypeType(Enum):
+	"""证券处置方向类型"""
+	ToBroker = 49
+	ToInvestor = 50
+
+	#----------------------------------------------------------------------
+	def __int__(self):
+		"""return int value"""
+		return self.value
+
+	#----------------------------------------------------------------------
+	def __char__(self):
+		"""return char value"""
+		return chr(self.value)
+
+class StockDisposalStatusType(Enum):
+	"""证券处置状态类型"""
+	Submitted = 97
+	Accepted = 98
+	Rejected = 99
+	Cancelled = 100
+
+	#----------------------------------------------------------------------
+	def __int__(self):
+		"""return int value"""
+		return self.value
+
+	#----------------------------------------------------------------------
+	def __char__(self):
+		"""return char value"""
+		return chr(self.value)
+
+class InstructionRightTypeType(Enum):
+	"""指令权限类型类型"""
+	Limit = 49
+	Limit_FOK = 50
+	Market_RemainLimit = 51
+	Market_FAK = 52
+	Market_FOK = 53
+	Lock = 54
+	Unlock = 55
+
+	#----------------------------------------------------------------------
+	def __int__(self):
+		"""return int value"""
+		return self.value
+
+	#----------------------------------------------------------------------
+	def __char__(self):
+		"""return char value"""
+		return chr(self.value)
+
+class LevelTypeType(Enum):
+	"""投资者分级类型类型"""
+	FirstLevel = 49
+	SecondLevel = 50
+	ThirdLevel = 51
+
+	#----------------------------------------------------------------------
+	def __int__(self):
+		"""return int value"""
+		return self.value
+
+	#----------------------------------------------------------------------
+	def __char__(self):
+		"""return char value"""
+		return chr(self.value)
+
+class StrikeOffsetTypeType(Enum):
+	"""行权偏移类型类型"""
+	RealValue = 49
+	ProfitValue = 50
+	RealRatio = 51
+	ProfitRatio = 52
+
+	#----------------------------------------------------------------------
+	def __int__(self):
+		"""return int value"""
+		return self.value
+
+	#----------------------------------------------------------------------
+	def __char__(self):
+		"""return char value"""
+		return chr(self.value)
+
+class NewsUrgencyType(Enum):
+	"""紧急程度类型"""
+
+	#----------------------------------------------------------------------
+	def __int__(self):
+		"""return int value"""
+		return self.value
+
+	#----------------------------------------------------------------------
+	def __char__(self):
+		"""return char value"""
+		return chr(self.value)
 

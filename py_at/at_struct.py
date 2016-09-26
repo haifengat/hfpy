@@ -1,13 +1,20 @@
 #!/usr/bin/env python
-# coding:utf-8
+# -*- coding: utf-8 -*-
 """
-  Author:  HaiFeng --<galaxy>
-  Purpose: order fields type of all api of trade
-  Created: 2016/7/28
+__title__ = ''
+__author__ = 'HaiFeng'
+__mtime__ = '2016/9/21'
 """
 
-from py_ctp.ctp_enum import *
+from enum import Enum
 
+class DirectionType(Enum):
+	""""""
+	Buy = 0
+	Sell = 1
+
+	def __int__(self):
+		return self.value
 
 class OffsetType(Enum):
 	""""""
@@ -57,6 +64,9 @@ class InfoField:
 		self.ErrorID = 0
 		self.ErrorMsg = '正确'
 
+	def __str__(self):
+		return 'ErrorID:{0}, ErrorMsg:{1}'.format(self.ErrorID, self.ErrorMsg)
+
 
 ########################################################################
 class OrderField:
@@ -69,7 +79,7 @@ class OrderField:
 		self.OrderID = ""
 		self.InstrumentID = ""
 		self.Direction = DirectionType.Buy
-		self.Offset = OffsetFlagType.Open
+		self.Offset = OffsetType.Open
 		self.LimitPrice = 0.0
 		self.AvgPrice = 0.0
 		self.InsertTime = ""
@@ -186,29 +196,26 @@ class PositionField:
 
 
 ########################################################################
-class MarketData(object):
-	"""行情"""
+class Tick:
+	"""Tick数据"""
 
 	# ----------------------------------------------------------------------
 	def __init__(self):
 		"""Constructor"""
 
-		self.InstrumentID = ''
+		self.Instrument = ''
 		self.LastPrice = 0.0
-		self.BidPrice = 0.0
-		self.BidVolume = 1
 		self.AskPrice = 0.0
+		self.BidPrice = 0.0
 		self.AskVolume = 1
-		self.AveragePrice = 0.0
+		self.BidVolume = 1
+		self.UpdateTime = None
 		self.Volume = 1
-		self.OpenInterest = 0.0
-		self.UpdateTime = ''
-		self.UpdateMillisec = 0
-		self.UpperLimitPrice = 0.0
-		self.LowerLimitPrice = 0.0
+		self.OpenInterest = 1.0
+		self.AveragePrice = 0.0
 
 	# ----------------------------------------------------------------------
 	def __str__(self):
 		""""""
-		return '{self.InstrumentID}, {self.LastPrice}, {self.BidPrice}, {self.BidVolume}, {self.AskPrice}, {self.AskVolume}, {self.AveragePrice}, {self.Volume}, {self.OpenInterest}, {self.UpdateTime}, {self.UpdateMillisec}, {self.UpperLimitPrice}, {self.LowerLimitPrice}'.format(
-			self=self)
+		return '{self.Instrument}, {self.LastPrice}, {self.BidPrice}, {self.BidVolume}, {self.UpdateTime}, {self.Volume}, {self.OpenInterest}, {self.AveragePrice}'.format(self=self)
+
