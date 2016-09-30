@@ -30,17 +30,17 @@ class OrderItem(object):
 		self.AvgEntryPriceLong = 0.0
 		self.PositionLong = 0
 		self.PositionShort = 0
-		self.EntryDateLong = 0.0
+		self.EntryDateLong = ''
 		self.EntryPriceLong = 0.0
-		self.ExitDateShort = 0.0
+		self.ExitDateShort = ''
 		self.ExitPriceShort = 0.0
-		self.EntryDateShort = 0.0
+		self.EntryDateShort = ''
 		self.EntryPriceShort = 0.0
-		self.ExitDateLong = 0.0
+		self.ExitDateLong = ''
 		self.ExitPriceLong = 0.0
-		self.LastEntryDateShort = 0.0
+		self.LastEntryDateShort = ''
 		self.LastEntryPriceShort = 0.0
-		self.LastEntryDateLong = 0.0
+		self.LastEntryDateLong = ''
 		self.LastEntryPriceLong = 0.0
 
 		self.IndexEntryLong = -1

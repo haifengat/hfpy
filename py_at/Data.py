@@ -14,6 +14,9 @@ from py_at.EnumDefine import *
 from py_at.Bar import Bar
 from py_at.switch import switch
 
+import numpy as np
+import talib
+
 
 class Data(object):
 	'''数据类, 策略继承此类'''
@@ -21,14 +24,23 @@ class Data(object):
 	def __init__(self):
 		'''初始所有变量'''
 		# 序列变量
+		self.inputs = {
+			'date':np.array([]),
+			'open':np.array([]),
+			'high':np.array([]),
+			'low':np.array([]),
+			'close':np.array([]),
+			'volume':np.array([]),
+			'openinterest':np.array([]),
+		}
 		self.Bars = []
-		self.D = []
-		self.H = []
-		self.L = []
-		self.O = []
-		self.C = []
-		self.V = []
-		self.I = []
+		self.D = self.inputs['date']
+		self.H = self.inputs['high']
+		self.L = self.inputs['low']
+		self.O = self.inputs['open']
+		self.C = self.inputs['close']
+		self.V = self.inputs['volume']
+		self.I = self.inputs['openinterest']
 
 		self.DateD = []
 		self.OpenD = []
@@ -47,6 +59,8 @@ class Data(object):
 		self.Orders = []
 
 		self._lastOrder = OrderItem()
+
+		self.SingleOrderOneBar = True
 
 	# 当前策略相关
 	@property
@@ -150,14 +164,14 @@ class Data(object):
 		''' 取此tick对应的分钟时间'''
 		#bar_time = time.strptime(time.strftime("%Y-%m-%d %H:%M", tick.UpdateTime), "%Y-%m-%d %H:%M")
 		bar_time = time.strftime("%Y%m%d %H:%M:00", tick.UpdateTime)
-		if len(self.Bars) == 0 or self.Bars[0].D != bar_time:  # 新数据
+		if len(self.Bars) == 0 or self.Bars[-1].D != bar_time:  # 新数据
 			# bar_time, h, l, o, c, v, i, a)
 			bar = Bar(bar_time, tick.LastPrice, tick.LastPrice, tick.LastPrice, tick.LastPrice, tick.Volume, tick.OpenInterest)
 			bar._pre_volume = tick.Volume
 
 			self.__new_min_bar__(bar)  # 新K线数据插入
 		else:
-			bar = self.Bars[0]
+			bar = self.Bars[-1]
 			bar.H = max(bar.H, tick.LastPrice)
 			bar.L = min(bar.L, tick.LastPrice)
 			bar.C = tick.LastPrice
@@ -210,54 +224,55 @@ class Data(object):
 		bar_time = time.strptime('{0}-{1}-{2} {3}:{4}'.format(year, mon, day, hour, mins), '%Y-%m-%d %H:%M')
 		#time -> str
 		bar_time = time.strftime('%Y-%m-%d %H:%M:%S', bar_time)
-		if len(self.Bars) == 0 or self.Bars[0].D != bar_time:
+		if len(self.Bars) == 0 or self.Bars[-1].D != bar_time:
 			bar.D = bar_time
-			self.Bars.insert(0, bar)
+			self.Bars.append(bar)
 
-			self.D.insert(0, bar.D)
-			self.H.insert(0, bar.H)
-			self.L.insert(0, bar.L)
-			self.O.insert(0, bar.O)
-			self.C.insert(0, bar.C)
-			self.V.insert(0, bar.V)
-			self.I.insert(0, bar.I)
+			self.D = np.append(self.D, bar.D)
+			self.H = np.append(self.H, bar.H)
+			self.L = np.append(self.L, bar.L)
+			self.O = np.append(self.O, bar.O)
+			self.C = np.append(self.C, bar.C)
+			self.V = np.append(self.V, bar.V)
+			self.I = np.append(self.I, bar.I)
 		else:
-			old_bar = self.Bars[0]
-			bar.H = max(bar.H, old_bar.H)
-			bar.L = min(bar.L, old_bar.L)
-			bar.C = old_bar.C
+			old_bar = self.Bars[-1]
+			self.H[-1] = bar.H = max(bar.H, old_bar.H)
+			self.L[-1] = bar.L = min(bar.L, old_bar.L)
+			self.C[-1] = bar.C = old_bar.C
 			bar.V += old_bar.V
-			#bar.I = .OpenInterest
+			self.V[-1] = bar.V
+			self.I[-1] = bar.I = bar.I
 			#bar.A = tick.AveragePrice
 		#日线数据处理
 		date = '{0}-{1}-{2}'.format(year, mon, day)
-		if len(self.DateD) == 0 or self.DateD[0] != date:
+		if len(self.DateD) == 0 or self.DateD[-1] != date:
 			self.DateD.insert(0, date)
 			self.OpenD.insert(0, bar.O)
 			self.HighD.insert(0, bar.H)
 			self.LowD.insert(0, bar.L)
 			self.CloseD.insert(0, bar.C)
 		else:
-			self.HighD[0] = max(self.HighD[0], bar.H)
-			self.LowD[0] = min(self.LowD[0], bar.L)
-			self.CloseD[0] = bar.C
+			self.HighD[-1] = max(self.HighD[-1], bar.H)
+			self.LowD[-1] = min(self.LowD[-1], bar.L)
+			self.CloseD[-1] = bar.C
 
-		self.BarUpdate(bar)
+		self.BarUpdate()
 
 	def __update_bar__(self, bar):
 		"""更新当前数据序列"""
 
-		self.D[0] = bar.D
-		self.H[0] = bar.H
-		self.L[0] = bar.L
-		self.O[0] = bar.O
-		self.C[0] = bar.C
-		self.V[0] = bar.V
-		self.I[0] = bar.I
+		self.D[-1] = bar.D
+		self.H[-1] = bar.H
+		self.L[-1] = bar.L
+		self.O[-1] = bar.O
+		self.C[-1] = bar.C
+		self.V[-1] = bar.V
+		self.I[-1] = bar.I
 
-		self.HighD[0] = max(self.HighD[0], bar.H)
-		self.LowD[0] = min(self.LowD[0], bar.L)
-		self.CloseD[0] = bar.C
+		self.HighD[-1] = max(self.HighD[-1], bar.H)
+		self.LowD[-1] = min(self.LowD[-1], bar.L)
+		self.CloseD[-1] = bar.C
 
 		self.BarUpdate(bar)
 
@@ -272,9 +287,11 @@ class Data(object):
 	def __order__(self, direction, offset, price, volume, remark):
 		"""策略执行信号"""
 
+		if self.SingleOrderOneBar and (self.LastEntryDateLong == self.D[-1] or self.LastEntryDateShort == self.D[-1] or self.ExitDateLong == self.D[-1] or self.ExitDateShort == self.D[-1]):
+			return
 		order = OrderItem()
 		order.Instrument = self.Instrument
-		order.DateTime = self.D[0]
+		order.DateTime = self.D[-1]
 		order.Direction = direction
 		order.Offset = offset
 		order.Price = price
@@ -314,11 +331,11 @@ class Data(object):
 				order.AvgEntryPriceLong = (self._lastOrder.PositionLong * self._lastOrder.AvgEntryPriceLong + order.Volume * order.Price) / (self._lastOrder.Volume + order.Volume)
 				if self._lastOrder.PositionLong == 0:
 					order.IndexEntryLong = len(self.Bars) - 1
-					order.EntryDateLong = self.D[0]  # str '20160630 21:25:00'
+					order.EntryDateLong = self.D[-1]  # str '20160630 21:25:00'
 					order.EntryPriceLong = order.Price
 				order.IndexLastEntryLong = len(self.Bars) - 1
 				order.LastEntryPriceLong = order.Price
-				order.LastEntryDateLong = self.D[0]
+				order.LastEntryDateLong = self.D[-1]
 				break
 
 			if case('Buy-Close'):
@@ -329,7 +346,7 @@ class Data(object):
 				order.PositionShort -= c_lots
 
 				order.IndexExitShort = len(self.Bars) - 1
-				order.ExitDateShort = self.D[0]
+				order.ExitDateShort = self.D[-1]
 				order.ExitPriceShort = order.Price
 				break
 
@@ -338,11 +355,11 @@ class Data(object):
 				order.AvgEntryPriceShort = (self._lastOrder.PositionShort * self._lastOrder.AvgEntryPriceShort + order.Volume * order.Price) / (self._lastOrder.Volume + order.Volume)
 				if self._lastOrder.PositionShort == 0:
 					order.IndexEntryShort = len(self.Bars) - 1
-					order.EntryDateShort = self.D[0]  # time or double or str ???
+					order.EntryDateShort = self.D[-1]  # time or double or str ???
 					order.EntryPriceShort = order.Price
 				order.IndexLastEntryShort = len(self.Bars) - 1
 				order.LastEntryPriceShort = order.Price
-				order.LastEntryDateShort = self.D[0]
+				order.LastEntryDateShort = self.D[-1]
 				break
 
 			if case('Sell-Close'):
@@ -353,7 +370,7 @@ class Data(object):
 				order.PositionLong -= c_lots
 
 				order.IndexExitLong = len(self.Bars) - 1
-				order.ExitDateLong = self.D[0]
+				order.ExitDateLong = self.D[-1]
 				order.ExitPriceLong = order.Price
 				break
 

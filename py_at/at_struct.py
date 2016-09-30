@@ -96,8 +96,7 @@ class OrderField:
 	# ----------------------------------------------------------------------
 	def __str__(self):
 		""""""
-		return 'self.OrderID, self.InstrumentID, self.Direction, self.Offset, self.LimitPrice, self.AvgPrice, self.InsertTime, self.TradeTime, self.TradeVolume, self.Volume, self.VolumeLeft, self.Status, self.StatusMsg, self.IsLocal, self.Custom, self.SysID'.format(
-			self=self)
+		return '{self.OrderID}, {self.InstrumentID}, {self.Direction}, {self.Offset}, {self.LimitPrice}, {self.AvgPrice}, {self.InsertTime}, {self.TradeTime}, {self.TradeVolume}, {self.Volume}, {self.VolumeLeft}, {self.Status}, {self.StatusMsg}, {self.IsLocal}, {self.Custom}, {self.SysID'.format(self=self)
 
 
 ########################################################################
@@ -111,7 +110,7 @@ class TradeField:
 		self.InstrumentID = ''
 		self.ExchangeID = ''
 		self.Direction = DirectionType.Buy
-		self.Offset = OffsetFlagType.Open
+		self.Offset = OffsetType.Open
 		self.Price = 0.0
 		self.Volume = 0
 		self.TradeTime = ''

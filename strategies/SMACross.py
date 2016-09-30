@@ -5,11 +5,12 @@ __title__ = ''
 __author__ = 'HaiFeng'
 __mtime__ = '2016/8/16'
 """
+import talib
+
 from py_at.EnumDefine import *
-from strategies.SMA import SMA
 from py_at.Data import Data
 
-class SMACross:
+class SMACross(Data):
 	def __init__(self):
 		super().__init__()
 		self.p_ma1 = self.Params['MA1'] = 5
@@ -22,27 +23,23 @@ class SMACross:
 		self.BeginDate = '20160701'
 		#self.EndDate= ''
 
-		self.sma1 = SMA(self.C, self.p_ma1)
-		self.sma2 = SMA(self.C, self.p_ma2)
-
 		self.flog = open('ma1', 'w')
-	def BarUpdate(self, bar):
 
-		self.sma1.Update()
-		self.sma2.Update()
-		if len(self.sma1.Result) < self.p_ma1 or len(self.sma2.Result) < self.p_ma2:
+	def BarUpdate(self):
+
+		if len(self.C) < self.p_ma2:
 			return
-		ma1 = self.sma1.Result
-		ma2 = self.sma2.Result
+		ma1 = talib.SMA(self.C, self.p_ma1)
+		ma2 = talib.SMA(self.C, self.p_ma2)
 
 		if self.PositionLong == 0:
-			if ma1[1] >= ma2[1] and ma1[2] < ma2[2]:
+			if ma1[-1] >= ma2[-1] and ma1[-2] < ma2[-2]:
 				if self.PositionShort > 0:
-					self.BuyToCover(self.O[0], self.p_lots, '买平')
-				self.Buy(self.O[0], self.p_lots, '买开')
+					self.BuyToCover(self.O[-1], self.p_lots, '买平')
+				self.Buy(self.O[-1], self.p_lots, '买开')
 		elif self.PositionShort == 0:
-			if ma1[1] <= ma2[1] and ma1[2] > ma2[2]:
+			if ma1[-1] <= ma2[-1] and ma1[-2] > ma2[-2]:
 				if self.PositionLong > 0:
-					self.Sell(self.O[0], self.p_lots, '卖平')
-				self.SellShort(self.O[0], self.p_lots, '卖开')
+					self.Sell(self.O[-1], self.p_lots, '卖平')
+				self.SellShort(self.O[-1], self.p_lots, '卖开')
 

@@ -24,6 +24,7 @@ class CtpTrade(TradeAdapter):
 	""""""
 	def __init__(self):
 		super().__init__()
+		self._req = 0
 		self.__dic_orderid_sysid = {}
 		self.__posi = []
 		self.t = Trade()
@@ -244,7 +245,7 @@ class CtpTrade(TradeAdapter):
 			l = int(pInputOrder.getOrderRef())
 			of.Custom = l % 1000000
 			of.InstrumentID = pInputOrder.getInstrumentID()
-			of.InsertTime = time()
+			of.InsertTime = time.strftime('%Y%M%d %H:%M:%S', time.localtime())
 			of.Direction = pInputOrder.getDirection()
 			of.Offset = pInputOrder.getCombOffsetFlag()[0]
 			# of.Status = OrderStatus.Normal
@@ -271,7 +272,7 @@ class CtpTrade(TradeAdapter):
 
 		if of and of.IsLocal:
 			of.Status = OrderStatus.Error
-			of.StatusMsg = pRspInfo.getErrorID() + ':' + pRspInfo.getErrorMsg()
+			of.StatusMsg = '{0}:{1}'.format(pRspInfo.getErrorID(), pRspInfo.getErrorMsg())
 			_thread.start_new_thread(self.OnRtnErrOrder, (of, info))
 
 
@@ -345,6 +346,7 @@ class CtpTrade(TradeAdapter):
 				VolumeCondition = VolumeConditionType.CV  # 全部数量
 				break
 
+		self._req += 1
 		self.t.ReqOrderInsert(
 			self.BrokerID,
 			self.Investor,
@@ -353,8 +355,8 @@ class CtpTrade(TradeAdapter):
 			self.Investor,
 			#此处ctp_enum与at_struct名称冲突
 			Direction = DirectionType.Buy,
-			CombOffsetFlag= OffsetFlagType.Open if pOffset==OffsetType.Open else (OffsetFlagType.CloseToday if pOffset == OffsetType.CloseToday else OffsetFlagType.Close),
-			CombHedgeFlag=HedgeFlagType.Speculation,
+			CombOffsetFlag= chr(OffsetFlagType.Open if pOffset==OffsetType.Open else (OffsetFlagType.CloseToday if pOffset == OffsetType.CloseToday else OffsetFlagType.Close)),
+			CombHedgeFlag=HedgeFlagType.Speculation.__char__(),
 			IsAutoSuspend=0,
 			ForceCloseReason= ForceCloseReasonType.NotForceClose,
 			IsSwapOrder=0,
@@ -431,4 +433,5 @@ class CtpTrade(TradeAdapter):
 
 	def OnRtnErrOrder(self, f = OrderField, info = InfoField):
 		""""""
-		pass
+		print(f)
+		print(info)

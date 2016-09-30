@@ -2,11 +2,12 @@
 #coding:utf-8
 
 import time
-from Data import Data
-from EnumDefine import *
-from Bar import *
+from py_at.Data import Data
 
-class Strategy():
+from py_at.EnumDefine import *
+
+
+class Strategy(Data):
 	"""继承数据完成策略"""
 	
 	def __init__(self):
@@ -22,7 +23,7 @@ class Strategy():
 		self.IntervalType = BarType.Min
     
 	#----------------------------------------------------------------------
-	def BarUpdate(self, bar):
+	def BarUpdate(self):
 		"""strategy on_bar"""
 		bar = self.Bars[0]
 		#print(bar)
@@ -31,6 +32,6 @@ class Strategy():
 		if self.Tick.Instrument:
 			if not self.order or self.Tick.UpdateTime.tm_sec == 0:
 				self.order = True
-				#self.BuyToCover(bar.C, 1, "test")#平今与平昨处理
+				self.Buy(self.C[-1], 1, "test")#平今与平昨处理
 		
 		

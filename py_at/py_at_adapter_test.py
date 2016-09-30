@@ -49,35 +49,32 @@ class AdapterTest:
 	# -------此处调用ctp接口即可实现实际下单---------------------------------------------------------------
 	def on_order(self, stra, order):
 		"""strategy's order"""
-		p = Data()
 		p = stra
-		_order = OrderItem()
-		_order = order
-		print('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}'.format(len(p.Orders), stra.Bars[0].D, _order.Direction, _order.Offset, _order.Price, _order.Volume, _order.Remark))
-		self.log.write('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n'.format(len(p.Orders), stra.Bars[0].D, _order.Direction, _order.Offset, _order.Price, _order.Volume, _order.Remark))
+		print('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}'.format(type(stra), len(p.Orders), order.DateTime, order.Direction, order.Offset, order.Price, order.Volume, order.Remark))
+		self.log.write('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\n'.format(type(stra), len(p.Orders), order.DateTime, order.Direction, order.Offset, order.Price, order.Volume, order.Remark))
 
 		if self.real:
 			print(order)
 			# 平今与平昨;逻辑从C#抄过来;没提示...不知道为啥,只能盲码了.
-			dire = DirectionType.Buy if _order.Direction == Direction.Buy else DirectionType.Sell
-			if _order.Offset != Offset.Open:
-				key = '{0}_{1}'.format(_order.Instrument, int(DirectionType.Sell if _order.Direction == Direction.Buy else DirectionType.Buy))
+			dire = DirectionType.Buy if order.Direction == Direction.Buy else DirectionType.Sell
+			if order.Offset != Offset.Open:
+				key = '{0}_{1}'.format(order.Instrument, int(DirectionType.Sell if order.Direction == Direction.Buy else DirectionType.Buy))
 				# 无效,没提示...pf = PositionField()
 				pf = self.t.DicPositionField.get(key)
 				if not pf or pf.Position <= 0:
 					print('没有对应的持仓')
 				else:
-					volClose = min(pf.Position, _order.Volume)  # 可平量
-					instField = self.t.DicInstrument[_order.Instrument]
+					volClose = min(pf.Position, order.Volume)  # 可平量
+					instField = self.t.DicInstrument[order.Instrument]
 					if instField.ExchangeID == 'SHFE':
 						tdClose = min(volClose, pf.TdPosition)
 						if tdClose > 0:
-							self.t.ReqOrderInsert(_order.Instrument, dire, OffsetFlagType.CloseToday, _order.Price, tdClose, OrderType.Limit, 100)
+							self.t.ReqOrderInsert(order.Instrument, dire, OffsetType.CloseToday, order.Price, tdClose, OrderType.Limit, 100)
 							volClose -= tdClose
 					if volClose > 0:
-						self.t.ReqOrderInsert(_order.Instrument, dire, OffsetFlagType.Close, _order.Price, volClose, OrderType.Limit, 100)
+						self.t.ReqOrderInsert(order.Instrument, dire, OffsetType.Close, order.Price, volClose, OrderType.Limit, 100)
 			else:
-				self.t.ReqOrderInsert(stra.Instrument, dire, OffsetFlagType.Open, _order.Price, _order.Volume, OrderType.Limit, 100)
+				self.t.ReqOrderInsert(stra.Instrument, dire, OffsetType.Open, order.Price, order.Volume, OrderType.Limit, 100)
 
 	# ----------------------------------------------------------------------
 	def load_strategy(self):
@@ -85,7 +82,7 @@ class AdapterTest:
 
 		"""通过文件名取到对应的继承Data的类并实例"""
 		# for path in ['strategies', 'private']:
-		for path in ['private']:
+		for path in ['strategies']:
 			files = os.listdir("../{0}/".format(path))
 			for f in files:
 				if os.path.isdir(f) or os.path.splitext(f)[0] == '__init__' or os.path.splitext(f)[-1] != ".py":
@@ -189,11 +186,10 @@ class AdapterTest:
 
 	def q_Tick(self, field = Tick):
 		""""""
-		print(field)
 		for stra in self.stra_instances:
 			if stra.Instrument == field.Instrument:
 				stra.on_tick(field)
-				print(field)
+				#print(field)
 
 	def Run(self):
 		""""""
