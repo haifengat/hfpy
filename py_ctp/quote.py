@@ -1,17 +1,25 @@
 
 from py_ctp.ctp_struct import *
 import os
+import sys
 
 class Quote:
 
 	def __init__(self):
 
-		cur_path = os.getcwd()
 		# make log dir for api log
-		if not os.path.exists("log"):
-			os.mkdir("log")
+		logdir = os.path.join(sys.path[0], "log")
+		if not os.path.exists(logdir):
+			os.mkdir(logdir)
+
+		dlldir = os.path.join(sys.path[0], "dll")
+		if not os.path.exists(dlldir):
+			print('缺少DLL借口文件')
+			return
+
 		# change work directory
-		os.chdir(os.path.join(os.getcwd(), "dll"))
+		cur_path = os.getcwd()
+		os.chdir(dlldir)
 
 		self.h = CDLL("ctp_Quote.dll")
 

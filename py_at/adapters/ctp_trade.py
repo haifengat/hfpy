@@ -361,12 +361,11 @@ class CtpTrade(TradeAdapter):
 			ForceCloseReason= ForceCloseReasonType.NotForceClose,
 			IsSwapOrder=0,
 			ContingentCondition = ContingentConditionType.Immediately,
-			VolumeCondition= VolumeConditionType.AV,
+			VolumeCondition= VolumeCondition,
 			MinVolume= 1,
-
+			VolumeTotalOriginal=pVolume,
 			OrderPriceType = OrderPriceType,
 			TimeCondition = TimeCondition,
-			VolumeTotalOriginal=VolumeCondition,
 			LimitPrice=LimitPrice,
 		)
 
