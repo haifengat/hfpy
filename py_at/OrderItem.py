@@ -18,7 +18,7 @@ class OrderItem(object):
 		"""Constructor"""
 		
 		self.Instrument = ''
-		self.DateTime = time.localtime(time.time())
+		self.DateTime = time.strftime('%Y%m%d %H:%Mm:%S', time.localtime(time.time()))
 		self.Direction = Direction.Buy
 		self.Offset = Offset.Open
 		self.Price = 0.0

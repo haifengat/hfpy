@@ -11,7 +11,7 @@ from py_at.EnumDefine import *
 import talib
 
 
-class HaiGui(Data):
+class HaiGui():
 	""""""
 
 	def __init__(self):

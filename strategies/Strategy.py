@@ -7,7 +7,7 @@ from py_at.Data import Data
 from py_at.EnumDefine import *
 
 
-class Strategy(Data):
+class Strategy():
 	"""继承数据完成策略"""
 	
 	def __init__(self):

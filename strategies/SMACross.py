@@ -13,8 +13,8 @@ from py_at.Data import Data
 class SMACross(Data):
 	def __init__(self):
 		super().__init__()
-		self.p_ma1 = self.Params['MA1'] = 5
-		self.p_ma2 = self.Params['MA2'] = 10
+		self.p_ma1 = self.Params['MA1'] = 10
+		self.p_ma2 = self.Params['MA2'] = 60
 		self.p_lots = self.Params['Lots'] = 1
 
 		self.Instrument = 'rb1610'
@@ -23,7 +23,7 @@ class SMACross(Data):
 		self.BeginDate = '20160701'
 		#self.EndDate= ''
 
-		self.flog = open('ma1', 'w')
+		#self.flog = open('ma1', 'w')
 
 	def BarUpdate(self):
 
