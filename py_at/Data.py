@@ -56,6 +56,7 @@ class Data(object):
 
 		self.Tick = Tick()
 		self.Params = {}
+		self.IndexDict = {}
 		self.Orders = []
 
 		self._lastOrder = OrderItem()

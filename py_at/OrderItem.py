@@ -16,7 +16,7 @@ class OrderItem(object):
 	#----------------------------------------------------------------------
 	def __init__(self):
 		"""Constructor"""
-		
+
 		self.Instrument = ''
 		self.DateTime = time.strftime('%Y%m%d %H:%Mm:%S', time.localtime(time.time()))
 		self.Direction = Direction.Buy

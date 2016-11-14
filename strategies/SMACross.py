@@ -17,20 +17,29 @@ class SMACross(Data):
 		self.p_ma2 = self.Params['MA2'] = 60
 		self.p_lots = self.Params['Lots'] = 1
 
-		self.Instrument = 'rb1610'
-		self.Interval = 5
+		self.IndexDict = {}
+
+		self.Instrument = 'rb1701'
+		self.Interval = 15
 		self.IntervalType = IntervalType.Minute
 		self.BeginDate = '20160701'
 		#self.EndDate= ''
-
 		#self.flog = open('ma1', 'w')
 
-	def BarUpdate(self):
+	def UpdateParams(self):
+		self.p_ma1 = self.Params['MA1']
+		self.p_ma2 = self.Params['MA2']
+		self.p_lots = self.Params['Lots']
 
+	def BarUpdate(self):
 		if len(self.C) < self.p_ma2:
 			return
+
 		ma1 = talib.SMA(self.C, self.p_ma1)
 		ma2 = talib.SMA(self.C, self.p_ma2)
+
+		self.IndexDict['ma5'] = ma1
+		self.IndexDict['ma10'] = ma2
 
 		if self.PositionLong == 0:
 			if ma1[-1] >= ma2[-1] and ma1[-2] < ma2[-2]:

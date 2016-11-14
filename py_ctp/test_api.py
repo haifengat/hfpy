@@ -30,7 +30,7 @@ class Test:
 		print(info)
 
 		#insts = create_string_buffer(b'cu', 5)
-		self.q.SubscribeMarketData('rb1610')
+		self.q.SubscribeMarketData('rb1701')
 
 	def q_OnTick(self, tick):
 		f = CThostFtdcMarketDataField()

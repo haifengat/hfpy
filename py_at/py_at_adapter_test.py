@@ -7,9 +7,9 @@ __mtime__ = '2016/9/23'
 """
 import sys
 import os
-import urllib
-import webbrowser
-from urllib import request
+
+import py_at.Statistics
+
 sys.path.append(os.path.join(sys.path[0], '..'))	 #调用父目录下的模块
 
 from py_at.EnumDefine import *
@@ -48,6 +48,8 @@ class AdapterTest:
 		self.t.OnRspUserLogin = self.OnRspUserLogin
 
 		os.chdir(cur_path)
+
+
 
 	# -------此处调用ctp接口即可实现实际下单---------------------------------------------------------------
 	def on_order(self, stra, order):
@@ -107,14 +109,12 @@ class AdapterTest:
 				self.stra_instances.append(obj)
 
 	# ----------------------------------------------------------------------
-	def read_from_mq(self, stra):
+	def read_from_mq(self, stra=Data):
 		"""netMQ"""
-		_stra = Data()
 		_stra = stra
 		# pip install pyzmq即可安装
 		context = zmq.Context()
 		socket = context.socket(zmq.REQ)  # REQ模式,即REQ-RSP  CS结构
-		# socket.connect('tcp://localhost:8888')	#连接本地测试
 		socket.connect('tcp://58.247.171.146:5055')  # 实际netMQ数据服务器地址
 		# 请求数据格式
 		req = ReqPackage()
@@ -157,8 +157,6 @@ class AdapterTest:
 				bar = Bar(doc["_id"], doc["High"], doc["Low"], doc["Open"], doc["Close"], doc["Volume"], doc["OpenInterest"])
 				stra.__new_min_bar__(bar)  # 调Data的onbar
 
-			self.ShowWeb(stra)
-
 		print("\ntest history is end.")
 
 		self.real = True
@@ -199,50 +197,6 @@ class AdapterTest:
 		""""""
 		self.t.ReqConnect('tcp://180.168.146.187:10000')
 
-	def ShowWeb(self, stra=Data):
-		""""""
-		orders = stra.Orders
-		# orders = [{"Direction": 0, "DateTime": "20161019 14:00:00", "Price": 2300},
-		# # 		{"Direction":1,"DateTime":"20161019 09:00:00","Price":2400}]
-		orders_json = []
-		for i in range(0, len(orders)):
-			#遇到diction=Diction.Buy转换后:diction:<Diction.Buy:1> 后面报错
-			#orders_str.append(ord.__dict__)
-			ord = orders[i]
-			orders_json.append(
-				{"Direction": (0 if ord.Direction==Direction.Buy else 1), "DateTime": ord.DateTime.replace('-', ''), "Price": ord.Price}
-			)
-
-		it = 'year'
-		for case in switch(stra.IntervalType):
-			if case(IntervalType.Minute):
-				it = 'min'
-				break
-			if case(IntervalType.Hour):
-				it = 'hour'
-				break
-			if case(IntervalType.Day):
-				it = 'day'
-				break
-			if case(IntervalType.Month):
-				it = 'month'
-				break
-
-		data_req = {'instrument': stra.Instrument, 'begin': stra.BeginDate, 'end': stra.EndDate, 'interval': stra.Interval, 'intervalType': it, }
-
-		# value = parse.urlencode(req) 不要用这种方式，无法解析还原为object
-
-		#上传orders，取回标识
-		req = request.Request(url='http://localhost:8008', data=urllib.parse.urlencode({'orders':orders_json}).encode('utf-8'), method='POST')
-		rsp = request.urlopen(req)
-		orders_id = rsp.read().decode()
-		print(orders_id)
-
-		url = 'http://localhost:63343/web_client/echarts_show.html?_ijt=ju9oalmqmbidc642p1n7t1m4fr'
-		webbrowser.open(url + '&data=' + urllib.parse.quote(json.dumps(data_req)) + '&orders=' + orders_id)
-
-
-
 
 if __name__ == '__main__':
 	""""""
@@ -266,4 +220,7 @@ if __name__ == '__main__':
 	a.load_strategy()
 	a.read_data_test()
 	a.Run()
+	#显示报告
+	for stra in a.stra_instances:
+		py_at.Statistics.Statistics(stra).ShowWeb()
 	input()
