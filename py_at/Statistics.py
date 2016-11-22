@@ -257,7 +257,8 @@ class Statistics():
 		# indexes_json = json.dumps(indexes_json)
 		# report = json.dumps(report, ensure_ascii=False)
 
-		url_report = 'http://58.247.171.146:27017/report'
+		#url_report = 'http://58.247.171.146:27017/report'
+		url_report = 'http://127.0.0.1:5000/report' #flask
 		data = json.dumps({'data_req': data_req, 'orders': orders_json, 'indexes': indexes_json, 'report': report_json})
 		tmp = open('tmp.html', 'w', encoding='utf-8')
 		tmp.write('''

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+
+	<title>策略报告</title>
+
+	<script src="http://cdn.bootcss.com/echarts/3.3.1/echarts.js"></script>
+
+	<script src="http://cdn.bootcss.com/socket.io/1.5.1/socket.io.js"></script>
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="//g.alicdn.com/sui/sui3/0.0.18/css/sui.min.css">
+	<!--多标签-->
+	<link rel='stylesheet' href="{{ url_for('static', filename='css/style.css')}}" media="screen" />
+
+</head>
+
+<body onload="init()">
+	<script type="text/javascript" src="//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="//g.alicdn.com/sui/sui3/0.0.18/js/sui.min.js"></script>
+	<div style="text-align:center;clear:both;"></div>
+
+	<!--临时用-->
+	<div id="report_json">haifeng</div>
+
+
+	<!--多标签-->
+	<article class="tabs">
+		<input checked id="one" name="tabs" type="radio">
+		<label for="one">综合统计</label>
+
+		<input id="two" name="tabs" type="radio" value="Two">
+		<label for="two">行情及信号</label>
+
+		<div class="panels">
+
+			<div class="panel">
+				<div class="sui-grid" data-role="grid">
+					<table id="report" class="table table-striped table-bordered table-primary">
+
+					</table>
+				</div>
+			</div>
+
+			<div class="panel">
+				<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+				<div id="main" style="width: 100%;height: 600px;"></div>
+			</div>
+		</div>
+	</article>
+
+
+
+	<script  type="text/javascript">
+		var myChart = echarts.init(document.getElementById('main'));
+		function init() {
+			var data = {{data|tojson}};    //加入safe后变成str,此处不需要!!!
+			var bars = {{bars|tojson}};
+			//report = eval('(' + report + ')');
+			//data = JSON.parse(data);
+			//bars = JSON.parse(bars);
+
+			var report = data.report[0];
+			var tab = document.getElementById('report');
+			for (var o in report) {
+				var tr = tab.insertRow(-1);
+				var td1 = tr.insertCell(-1);
+				var td2 = tr.insertCell(-1);
+				td1.innerHTML = o;
+				td2.innerHTML = report[o];
+			}
+
+			var categoryData = [];
+			var values = [];
+			var orders = data.orders;
+			var indexes = data.indexes;
+			for (var i = 0; i < bars.length; i++) {
+				var bar = bars[i]
+				categoryData.push(bar['Date'].replace(/-/g,'')); //yyyy-mm-dd -> yyyymmdd
+				values.push([bar['Open'], bar['Close'], bar['Low'], bar['High']]);
+			}
+
+			var data0 = {
+				data_req: data.data_req,
+				categoryData: categoryData,
+				values: values
+			};
+
+			var points = [];
+			var marklines = [];
+			//构造数据点
+			for (var i = 0; i < orders.length; i++) {
+				var order = orders[i];
+				var x = data0.categoryData.indexOf(order['DateTime']);
+				//sell
+				if (order.Direction == 1){
+					points.push({
+						dire: 1,
+						order: order,
+						price: order['Price'],
+						symbolRotate: 180,
+						itemStyle: {
+							normal: {
+								color: 'green',
+								label: {
+									position: 'top',
+									show: true,
+								}
+							}
+						},
+						coord: [x, data0.values[x][3]]
+					});
+				}
+				else { //buy
+					points.push({
+						dire: 0,
+						order: order,
+						price: order['Price'],
+						symbolRotate: 0,
+						itemStyle: {
+							normal: {
+								tooltip: order['Price'],
+								color: 'orange',
+								label: {
+									position: 'bottom',
+									show: true,
+								}
+							}
+						},
+						coord: [x, data0.values[x][2]]
+					});
+				}
+			}
+
+			//构造连线
+			for(var i=0; i<points.length; i++){
+				order = points[i].order;
+				if(order['Offset'] != 0){
+					marklines.push([
+						{
+							lineStyle:{
+								normal: {
+									type: 'solid',
+									color: order['Price'] > points[i-1].order['Price']?'red':'green'
+								}
+							},
+							coord: points[i]['coord']
+						},
+						{
+							coord: points[i-1]['coord']
+						}
+					]);
+				}
+			}
+
+			//计算盈亏
+			//countProfit(data0.values, orders);
+
+			setEchart(data0, points, marklines, indexes);
+			orders = null;    //避免重新加载时错误的信号
+		}
+	</script>
+	<script>
+		function setEchart(data0, points, marklines, indexes) {
+			var yvalues = [];//数据
+			var legends = [];//图示
+			var data_req = data0.data_req;
+			var kshow = data_req['instrument'] + ' ' + data_req['interval'] + data_req['intervalType']; JSON.stringify(data_req).replace(/["{}]/g,"");
+			legends.push(kshow);
+
+			yvalues.push({
+						name: kshow,
+						type: 'candlestick',
+						data: data0.values,
+						markPoint: {
+							symbol: 'arrow',
+							symbolSize: 10,
+							showDelay:0,
+							itemStyle:{
+								normal: {
+									label:{
+										show:true,
+										backColor:'blue',
+										//position:'top',
+										formatter: function (param) {
+											//return param != null ? Math.round(param.value) : '';
+											return (param.data.order['Direction'] == 0?'B':'S') + (param.data.order['Offset'] == 0?'K':'P');
+										}
+									}
+								}
+							},
+							data: points,
+							tooltip: {
+								formatter: function (param) {
+									return (param.data.order['Direction'] == 0?'B':'S') + (param.data.order['Offset'] == 0?'K':'P') + ':' + param.data.order['Price'];
+								}
+							}
+						},
+						markLine: {
+							symbol: false,
+							silent: true,
+							label:{
+								normal:{
+									show: false
+								}
+							},
+							data: marklines,
+							/*[
+								[
+									{
+										name: 'from lowest to lowest',
+										type: 'min',
+										valueDim: 'lowest',
+										symbol: 'circle',
+										symbolSize: 10,
+										label: {
+											normal: {show: false},
+											emphasis: {show: false}
+										}
+									},
+									{
+										type: 'max',
+										valueDim: 'highest',
+										symbol: 'circle',
+										symbolSize: 10,
+										label: {
+											normal: {show: false},
+											emphasis: {show: false}
+										}
+									}
+								],
+								{
+									name: 'min line on close',
+									type: 'min',
+									valueDim: 'lowest'
+								},
+								{
+									name: 'max line on close',
+									type: 'max',
+									valueDim: 'highest'
+								}
+							]*/
+						}
+					});
+
+			for(var i=0; i<indexes.length; i++){
+				yvalues.push({
+					"name": indexes[i]['name'],
+					type: 'line',
+					smooth: true,
+					data: indexes[i]['array']
+				});
+				legends.push(indexes[i]['name']);
+			}
+
+			option = {
+				title: {
+					text: kshow,
+					left: 0,
+					show: false,
+				},
+				tooltip: {
+					trigger: 'axis',
+					axisPointer: {
+						type: 'line'
+					}
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						dataZoom: {
+							yAxisIndex: 'none'
+						},
+						dataView: {readOnly: false},
+						magicType: {type: ['line', 'bar']},
+						restore: {},
+						saveAsImage: {}
+					}
+				},
+				legend: {
+					formatter: function (name) {
+						return echarts.format.truncateText(name, 200, '14px Microsoft Yahei', '…');
+					},
+					tooltip: {
+						show: true
+					},
+					data: legends,
+				},
+				grid: {
+					left: '10%',
+					right: '10%',
+					bottom: '15%'
+				},
+				xAxis: {
+					type: 'category',
+					data: data0.categoryData,
+					scale: true,
+					boundaryGap: false,
+					axisLine: {onZero: false},
+					splitLine: {show: false},
+					splitNumber: 20,
+					min: 'dataMin',
+					max: 'dataMax'
+				},
+				yAxis: {
+					scale: true,
+					splitArea: {
+						show: true
+					}
+				},
+				dataZoom: [
+					{
+						type: 'inside',
+						start: 90,
+						end: 100
+					},
+					{
+						show: true,
+						type: 'slider',
+						y: '90%',
+						start: 90,
+						end: 100
+					}
+				],
+				series: yvalues
+			};
+		// 使用刚指定的配置项和数据显示图表。
+		//option.xAxis[0].data.shift();
+		//option.yAxis[0].data.shift();
+		myChart.setOption(option, true);
+		}
+	</script>
+</body>
+
+</html>
