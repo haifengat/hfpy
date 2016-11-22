@@ -15,6 +15,8 @@ from functools import reduce
 import zmq
 import gzip
 import json
+import os
+import sys
 
 class Statistics():
 	""""""
@@ -32,7 +34,6 @@ class Statistics():
 			if prod['_id'] == stra.Instrument[0: len(prod['_id'])]:
 				self.Product = prod
 				break
-		print(self.Product)
 
 		self.CalculateProfit()
 
@@ -167,7 +168,6 @@ class Statistics():
 								#1开1平（多开多平待完善）
 								break
 		#报表
-		print(records)
 		recordsLong = [n for n in records if n["多空"] == "多"]
 		recordsShort = [n for n in records if n["多空"] == "空"]
 
@@ -205,8 +205,6 @@ class Statistics():
 			"最大连续亏损次数": maxContinueTradeLossTimesLong,
 			"最大回撤": max_down,
 		})
-		print(self.Report)
-
 
 
 	def ShowWeb(self):
@@ -239,17 +237,6 @@ class Statistics():
 
 		data_req = {'instrument': stra.Instrument, 'begin': stra.BeginDate, 'end': stra.EndDate, 'interval': stra.Interval, 'intervalType': it, }
 
-		# value = parse.urlencode(req) 不要用这种方式，无法解析还原为object
-
-		# 上传orders，取回标识
-		orders_json = json.dumps(orders_json)
-		req = request.Request(url='http://58.247.171.146:27017', data=urllib.parse.urlencode({'orders': orders_json}).encode('utf-8'), method='POST')
-		print(req.full_url)
-		rsp = request.urlopen(req)
-		orders_id = rsp.read().decode()
-		orders_id = json.loads(orders_id.replace('\'', '"'))['orders_id']
-
-		indexes_id = ''
 		indexes_json = []
 		for key, values in stra.IndexDict.items():
 			array = []
@@ -257,23 +244,47 @@ class Statistics():
 				array.append(value)
 			indexes_json.append({'name': key, 'array': array})
 
-		indexes_json = json.dumps(indexes_json)
-		print(indexes_json)
-		req = request.Request(url='http://58.247.171.146:27017', data=urllib.parse.urlencode({'indexes': indexes_json}).encode('utf-8'), method='POST')
-		rsp = request.urlopen(req)
-		indexes_id = rsp.read().decode()
-		print(type(indexes_id))
-		indexes_id = json.loads(indexes_id.replace('\'', '"'))['indexes_id']
+		bars_json = []
+		for bar in stra.Bars:
+			bars_json.append({"Open":bar.O, "High":bar.H, "Low": bar.L, "Close": bar.C, "Date": bar.D})
+		bars_json = json.dumps(bars_json)
 
-		report = json.dumps(self.Report, ensure_ascii=False)
-		#for r in self.Report:
-		#	print(r)
-		#	report += json.JSONEncoder.default(r)
-		print(report)
-		url = 'http://58.247.171.146:27017/at_show/report.html?'
-		data_req = urllib.parse.quote(json.dumps(data_req))
-		report = urllib.parse.quote(report)     #传输前转换
-		webbrowser.open(url + 'data=' + data_req + '&orders=' + orders_id + '&indexes=' + indexes_id + '&report=' + report)
+		report_json = self.Report
+
+
+		# data_req = json.dumps(data_req)
+		# orders_json = json.dumps(orders_json)
+		# indexes_json = json.dumps(indexes_json)
+		# report = json.dumps(report, ensure_ascii=False)
+
+		url_report = 'http://58.247.171.146:27017/report'
+		data = json.dumps({'data_req': data_req, 'orders': orders_json, 'indexes': indexes_json, 'report': report_json})
+		tmp = open('tmp.html', 'w', encoding='utf-8')
+		tmp.write('''
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta Content-Type="application/json">
+		<title>galaxy data</title>
+	</head>
+	<body onload="init()">
+		<form id="postToReport" action="{0}" method="post">
+			<input type="text" id="txt_data" name="data" />
+			<input type="text" id="txt_bars" name="bars" />
+		</form>
+		<script>
+			function init(){{
+				document.getElementById('txt_data').value='{1}';
+				document.getElementById('txt_bars').value='{2}';
+				document.getElementById('postToReport').submit();
+			}}
+		</script>
+	</body>
+	</html>'''.format(url_report, data, bars_json))  # 赋值时用',避免与json的"冲突
+		tmp.close()
+
+		os.system('"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" {0}'.format(os.path.join(sys.path[0], 'tmp.html')))
 
 if __name__ == '__main__':
 	stat = Statistics(None)

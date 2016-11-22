@@ -24,7 +24,6 @@ class SMACross(Data):
 		self.IntervalType = IntervalType.Minute
 		self.BeginDate = '20160701'
 		#self.EndDate= ''
-		#self.flog = open('ma1', 'w')
 
 	def UpdateParams(self):
 		self.p_ma1 = self.Params['MA1']

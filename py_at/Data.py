@@ -238,12 +238,12 @@ class Data(object):
 			self.I = np.append(self.I, bar.I)
 		else:
 			old_bar = self.Bars[-1]
-			self.H[-1] = bar.H = max(bar.H, old_bar.H)
-			self.L[-1] = bar.L = min(bar.L, old_bar.L)
-			self.C[-1] = bar.C = old_bar.C
-			bar.V += old_bar.V
-			self.V[-1] = bar.V
-			self.I[-1] = bar.I = bar.I
+			self.H[-1] = old_bar.H = max(bar.H, old_bar.H)
+			self.L[-1] = old_bar.L = min(bar.L, old_bar.L)
+			self.C[-1] = old_bar.C = bar.C
+			old_bar.V += bar.V
+			self.V[-1] = old_bar.V
+			self.I[-1] = old_bar.I = bar.I
 			#bar.A = tick.AveragePrice
 		#日线数据处理
 		date = '{0}-{1}-{2}'.format(year, mon, day)

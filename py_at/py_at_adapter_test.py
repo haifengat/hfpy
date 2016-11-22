@@ -8,7 +8,7 @@ __mtime__ = '2016/9/23'
 import sys
 import os
 
-import py_at.Statistics
+from py_at.Statistics import Statistics
 
 sys.path.append(os.path.join(sys.path[0], '..'))	 #调用父目录下的模块
 
@@ -200,7 +200,7 @@ class AdapterTest:
 
 if __name__ == '__main__':
 	""""""
-	# orders = [{"Direction":0,"DateTime":"20161019 14:00:00","Price":2300},
+	#orders = [{"Direction":0,"DateTime":"20161019 14:00:00","Price":2300}]
 	# 		{"Direction":1,"DateTime":"20161019 09:00:00","Price":2400}]
 	#
 	# req = {'instrument':'rb1701',
@@ -219,8 +219,8 @@ if __name__ == '__main__':
 	a = AdapterTest()
 	a.load_strategy()
 	a.read_data_test()
-	a.Run()
+	#a.Run()
 	#显示报告
 	for stra in a.stra_instances:
-		py_at.Statistics.Statistics(stra).ShowWeb()
+		Statistics(stra).ShowWeb()
 	input()
