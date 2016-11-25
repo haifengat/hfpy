@@ -29,8 +29,6 @@ class AdapterTest:
 		"""Constructor"""
 
 		self.TradingDay = ''
-		self.log = open('orders.csv', 'w')
-		self.log.write('')  # 清空内容
 		self.real = False  # 控制实际下单
 
 		self.stra_instances = []
@@ -56,7 +54,6 @@ class AdapterTest:
 		"""strategy's order"""
 		p = stra
 		print('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}'.format(type(stra), len(p.Orders), order.DateTime, order.Direction, order.Offset, order.Price, order.Volume, order.Remark))
-		self.log.write('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\n'.format(type(stra), len(p.Orders), order.DateTime, order.Direction, order.Offset, order.Price, order.Volume, order.Remark))
 
 		if self.real:
 			print(order)

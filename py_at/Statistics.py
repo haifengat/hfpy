@@ -271,8 +271,8 @@ class Statistics():
 	</head>
 	<body onload="init()">
 		<form id="postToReport" action="{0}" method="post">
-			<input type="text" id="txt_data" name="data" />
-			<input type="text" id="txt_bars" name="bars" />
+			<input type="hidden" id="txt_data" name="data" />
+			<input type="hidden" id="txt_bars" name="bars" />
 		</form>
 		<script>
 			function init(){{
@@ -285,7 +285,8 @@ class Statistics():
 	</html>'''.format(url_report, data, bars_json))  # 赋值时用',避免与json的"冲突
 		tmp.close()
 
-		os.system('"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" {0}'.format(os.path.join(sys.path[0], 'tmp.html')))
+		webbrowser.open(os.path.join(sys.path[0], 'tmp.html'))
+		#os.system('"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" {0}'.format(os.path.join(sys.path[0], 'tmp.html')))
 
 if __name__ == '__main__':
 	stat = Statistics(None)

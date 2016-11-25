@@ -6,7 +6,7 @@ __author__ = 'HaiFeng'
 __mtime__ = '2016/11/16'
 """
 import flask
-from app import app
+from app import app, socketio
 from flask import make_response, render_template, request, session, redirect, url_for, escape, jsonify
 import os
 from datetime import timedelta
@@ -29,3 +29,7 @@ def report():
 @app.route('/echarts')
 def echarts():
 	return render_template('echarts.html')
+
+@app.route('/shfe')
+def shfe():
+	return render_template('shfe_multi_level.html', async_mode=socketio.async_mode)

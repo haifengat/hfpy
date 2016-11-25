@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>上期所深度行情</title>
+	<script src="http://cdn.bootcss.com/socket.io/1.5.1/socket.io.js"></script>
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="//g.alicdn.com/sui/sui3/0.0.18/css/sui.min.css">
+</head>
+<body>
+	<script type="text/javascript" src="//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="//g.alicdn.com/sui/sui3/0.0.18/js/sui.min.js"></script>
+	<div class="sui-grid" data-role="grid" align="center">
+		<div id="tmp"></div>
+		<select name="" id="insts" onchange="subscribe(this)"></select>
+
+		<table id="report" class="table table-bordered table-primary">
+			<tr bgcolor="#6495ed"><td id="a1" align="right"></td><td id="av1" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a2" align="right"></td><td id="av2" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a3" align="right"></td><td id="av3" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a4" align="right"></td><td id="av4" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a5" align="right"></td><td id="av5" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a6" align="right"></td><td id="av6" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a7" align="right"></td><td id="av7" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a8" align="right"></td><td id="av8" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a9" align="right"></td><td id="av9" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a10" align="right"></td><td id="av10" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a11" align="right"></td><td id="av11" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a12" align="right"></td><td id="av12" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a13" align="right"></td><td id="av13" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a14" align="right"></td><td id="av14" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a15" align="right"></td><td id="av15" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a16" align="right"></td><td id="av16" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a17" align="right"></td><td id="av17" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a18" align="right"></td><td id="av18" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a19" align="right"></td><td id="av19" align="left"></td></tr>
+			<tr bgcolor="#6495ed"><td id="a20" align="right"></td><td id="av20" align="left"></td></tr>
+
+			<tr bgcolor="#db7093"><td id="b1" align="right"></td><td id="bv1" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b2" align="right"></td><td id="bv2" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b3" align="right"></td><td id="bv3" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b4" align="right"></td><td id="bv4" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b5" align="right"></td><td id="bv5" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b6" align="right"></td><td id="bv6" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b7" align="right"></td><td id="bv7" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b8" align="right"></td><td id="bv8" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b9" align="right"></td><td id="bv9" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b10" align="right"></td><td id="bv10" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b11" align="right"></td><td id="bv11" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b12" align="right"></td><td id="bv12" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b13" align="right"></td><td id="bv13" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b14" align="right"></td><td id="bv14" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b15" align="right"></td><td id="bv15" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b16" align="right"></td><td id="bv16" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b17" align="right"></td><td id="bv17" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b18" align="right"></td><td id="bv18" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b19" align="right"></td><td id="bv19" align="left"></td></tr>
+			<tr bgcolor="#db7093"><td id="b20" align="right"></td><td id="bv20" align="left"></td></tr>
+		</table>
+	</div>
+
+	<script type="text/javascript" charset="utf-8">
+		var inst = "";
+		var socket = io.connect('http://127.0.0.1:5000/shfe_multi', {'reconnect':true, 'auto connect':true,'force new connection':true}); //此处的ip影响访问
+
+		socket.on('connect', function () {
+			socket.emit('getinsts','');
+			//socket.emit('sub_instrument', 'rb1701');
+		});
+		socket.on('disconnect', function(){
+			console.log('disconnect');
+			socket.socket.reconnect();
+		});
+		socket.on('rtninsts', function (insts) {
+			for(var i=0; i< insts.sort().length; i++){
+				if(insts[i] == 'finish') continue;
+				var sele = document.getElementById('insts');
+				sele.options.add(new Option(insts[i], insts[i]));
+			}
+		});
+		socket.on('rsp_data', function (msg) {
+			var data = msg['data'];
+			//if(document.getElementById('insts').value = data['instrument']) return;
+
+			var as = data['askprice'];
+			var avs = data['askvolume'];
+			var bs = data['bidprice'];
+			var bvs = data['bidvolume'];
+
+			for(var i=0; i<20; i++) {
+				document.getElementById('a' + (20-i)).innerHTML = as[i].toFixed(2);
+			}
+			for(var i=0; i<20; i++) {
+				document.getElementById('av' + (20-i)).innerHTML = avs[i];
+			}
+			for(var i=0; i<20; i++) {
+				document.getElementById('b' + (i+1)).innerHTML = bs[i].toFixed(2);
+			}
+			for(var i=0; i<20; i++) {
+				document.getElementById('bv' + (i+1)).innerHTML = bvs[i];
+			}
+		});
+
+		function subscribe(obj) {
+			if(obj.value != null)
+				if(inst != ""){
+					socket.emit('unsub_instrument', inst);
+				}
+				inst = obj.value;
+				socket.emit('sub_instrument', inst);
+		}
+
+	</script>
+</body>
+</html>
