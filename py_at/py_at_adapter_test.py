@@ -53,7 +53,7 @@ class AdapterTest:
 	def on_order(self, stra, order):
 		"""strategy's order"""
 		p = stra
-		print('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}'.format(type(stra), len(p.Orders), order.DateTime, order.Direction, order.Offset, order.Price, order.Volume, order.Remark))
+		#print('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}'.format(type(stra), len(p.Orders), order.DateTime, order.Direction, order.Offset, order.Price, order.Volume, order.Remark))
 
 		if self.real:
 			print(order)
@@ -100,8 +100,8 @@ class AdapterTest:
 				if not issubclass(c, Data):  # 类c是Data的子类
 					continue
 				print("#c:{0}", c)
-				obj = Data()
 				obj = c()  # new class
+				obj.ID = '{0}_{1}'.format(class_name, len(self.stra_instances))
 				print("#obj:{0}", obj)
 				self.stra_instances.append(obj)
 
@@ -138,25 +138,24 @@ class AdapterTest:
 		return bars
 
 	# ----------------------------------------------------------------------
-	def read_data_test(self):
+	def read_data_test(self, stra):
 		"""取历史和实时K线数据,并执行策略回测"""
-		stra = Data()
-		for stra in self.stra_instances:
-			# 取数据
-			ddoc = self.read_from_mq(stra)
+		# 取数据
+		ddoc = self.read_from_mq(stra)
 
-			# print params os strategy
-			stra.OnOrder = self.on_order
-			for p in stra.Params:
-				print("{0}:{1}".format(p, stra.Params[p]), end=' ')
+		# print params os strategy
+		stra.OnOrder = self.on_order
+		for p in stra.Params:
+			print("{0}:{1}".format(p, stra.Params[p]), end=' ')
 
-			for doc in ddoc:
-				bar = Bar(doc["_id"], doc["High"], doc["Low"], doc["Open"], doc["Close"], doc["Volume"], doc["OpenInterest"])
-				stra.__new_min_bar__(bar)  # 调Data的onbar
+		for doc in ddoc:
+			bar = Bar(doc["_id"], doc["High"], doc["Low"], doc["Open"], doc["Close"], doc["Volume"], doc["OpenInterest"])
+			stra.__new_min_bar__(bar)  # 调Data的onbar
+		print("orders:{0}, bars:{1}".format(len(stra.Orders),len(stra.Bars)))
 
-		print("\ntest history is end.")
+		print("test history is end.")
 
-		self.real = True
+		#self.real = True
 
 
 	def OnFrontConnected(self):
@@ -215,7 +214,9 @@ if __name__ == '__main__':
 
 	a = AdapterTest()
 	a.load_strategy()
-	a.read_data_test()
+
+	for stra in a.stra_instances:
+		a.read_data_test(stra)
 	#a.Run()
 	#显示报告
 	for stra in a.stra_instances:

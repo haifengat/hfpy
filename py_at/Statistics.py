@@ -207,7 +207,7 @@ class Statistics():
 		})
 
 
-	def ShowWeb(self):
+	def GetDataAndBars(self):
 		""""""
 		stra = self.stra
 		orders = stra.Orders
@@ -247,20 +247,25 @@ class Statistics():
 		bars_json = []
 		for bar in stra.Bars:
 			bars_json.append({"Open":bar.O, "High":bar.H, "Low": bar.L, "Close": bar.C, "Date": bar.D})
-		bars_json = json.dumps(bars_json)
 
 		report_json = self.Report
-
 
 		# data_req = json.dumps(data_req)
 		# orders_json = json.dumps(orders_json)
 		# indexes_json = json.dumps(indexes_json)
 		# report = json.dumps(report, ensure_ascii=False)
 
+		data = {'data_req': data_req, 'orders': orders_json, 'indexes': indexes_json, 'report': report_json}
+		return data, bars_json
+
+	def ShowWeb(self):
+		data,bars_json = self.GetDataAndBars()
+		data = json.dumps(data)
+		bars_json = json.dumps(bars_json)
+		tmp = open('tmp.html', 'w', encoding='utf-8')
+
 		#url_report = 'http://58.247.171.146:27017/report'
 		url_report = 'http://127.0.0.1:5000/report' #flask
-		data = json.dumps({'data_req': data_req, 'orders': orders_json, 'indexes': indexes_json, 'report': report_json})
-		tmp = open('tmp.html', 'w', encoding='utf-8')
 		tmp.write('''
 	<!DOCTYPE html>
 	<html lang="en">

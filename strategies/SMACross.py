@@ -17,8 +17,6 @@ class SMACross(Data):
 		self.p_ma2 = self.Params['MA2'] = 60
 		self.p_lots = self.Params['Lots'] = 1
 
-		self.IndexDict = {}
-
 		self.Instrument = 'rb1701'
 		self.Interval = 15
 		self.IntervalType = IntervalType.Minute
@@ -31,6 +29,8 @@ class SMACross(Data):
 		self.p_lots = self.Params['Lots']
 
 	def BarUpdate(self):
+		if len(self.C) == 1:
+			self.UpdateParams()
 		if len(self.C) < self.p_ma2:
 			return
 

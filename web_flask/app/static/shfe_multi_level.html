@@ -63,7 +63,8 @@
 
 	<script type="text/javascript" charset="utf-8">
 		var inst = "";
-		var socket = io.connect('http://127.0.0.1:5000/shfe_multi', {'reconnect':true, 'auto connect':true,'force new connection':true}); //此处的ip影响访问
+		var socket = io.connect('http://192.168.105.203:5000/shfe_multi',
+			{'reconnect':true, 'auto connect':true,'force new connection':true}); //此处的ip影响访问
 
 		socket.on('connect', function () {
 			socket.emit('getinsts','');
@@ -71,7 +72,7 @@
 		});
 		socket.on('disconnect', function(){
 			console.log('disconnect');
-			socket.socket.reconnect();
+			//socket.socket.reconnect();
 		});
 		socket.on('rtninsts', function (insts) {
 			for(var i=0; i< insts.sort().length; i++){

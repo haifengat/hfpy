@@ -61,7 +61,14 @@ class Data(object):
 
 		self._lastOrder = OrderItem()
 
+		self.ID = None
+		'''策略标识'''
+
+		self.EnableOrder = False
+		'''允许委托下单'''
+
 		self.SingleOrderOneBar = True
+		'''每bar只执行一次交易'''
 
 	# 当前策略相关
 	@property

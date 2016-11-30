@@ -19,7 +19,6 @@ def background_thread():
 	insts = []
 	@socketio.on('getinsts', namespace='/shfe_multi')
 	def get_insts(message):
-		print(insts)
 		socketio.emit('rtninsts', insts, namespace='/shfe_multi')
 
 	@socketio.on('sub_instrument', namespace='/shfe_multi')
@@ -45,34 +44,36 @@ def background_thread():
 	poller.register(socket, zmq.POLLIN)
 
 	count = 0
-	while True:
-		#因为C#是sendrame所以会收到两次消息:instrument 和 array
-		if poller.poll(3*1000): #set timeout
-			msg = socket.recv()
-			if len(msg) > 6:
-				array = struct.unpack('@16s20d20i20d20i', msg)
-				if array[0].decode('utf-8')[0:6] == 'finish':
-					count += 1
-					#print(count)
-					#print(len(insts))
-					socketio.sleep(0.1)#必须的,不然会卡死
-				else:
-					data = {
-						'instrument': array[0].decode().replace('\0',''),#去掉尾部的空
-						'askprice': array[1:21],
-						'askvolume': array[21:41],
-						'bidprice': array[41:61],
-						'bidvolume': array[61:]
-					}
-					if data['instrument'] not in insts:
-						insts.append(data['instrument'])
-					#print(len(array))
-					socketio.emit('rsp_data', {'data': data, 'count': count},
-								namespace='/shfe_multi', room=data['instrument'])
-		else:
-			print('sleep 3s')
-			socketio.sleep(3)
+	try:
+		while True:
+			#因为C#是sendrame所以会收到两次消息:instrument 和 array
+			if poller.poll(3*1000): #set timeout
+				msg = socket.recv()
+				if len(msg) > 6:
+					array = struct.unpack('@16s20d20i20d20i', msg)
+					if array[0].decode('utf-8')[0:6] == 'finish':
+						count += 1
+						socketio.sleep(0.1)#必须的,不然会卡死
+					else:
+						data = {
+							'instrument': array[0].decode().replace('\0',''),#去掉尾部的空
+							'askprice': array[1:21],
+							'askvolume': array[21:41],
+							'bidprice': array[41:61],
+							'bidvolume': array[61:]
+						}
+						if data['instrument'] not in insts:
+							insts.append(data['instrument'])
 
+						socketio.emit('rsp_data', {'data': data, 'count': count},
+									namespace='/shfe_multi', room=data['instrument'])
+			else:
+				#print('sleep 3s')
+				socketio.sleep(3)
+	finally:
+		poller.unregister(socket)
+		poller.close()
+		socket.close()
 
 
 @socketio.on_error()
@@ -87,9 +88,9 @@ def connect():
 		thread = socketio.start_background_task(target=background_thread)
 	print("connected")
 
-@socketio.on('disconnect', namespace='/shfe_multi')
-def disconnected():
-	pass
+# @socketio.on('disconnect', namespace='/shfe_multi')
+# def disconnected():
+# 	pass
 
 
 

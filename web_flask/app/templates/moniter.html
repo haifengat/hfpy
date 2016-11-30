@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>策略监控</title>
+
+	<script src="http://cdn.bootcss.com/echarts/3.3.1/echarts.js"></script>
+	<script src="http://cdn.bootcss.com/socket.io/1.5.1/socket.io.js"></script>
+
+	<!--下面的CSS放在 HEAD 中-->
+	<link rel="stylesheet" href="//g.alicdn.com/sui/sui3/0.0.18/css/sui.css">
+
+</head>
+<body onload="init()">
+	<!--下面的JS放在 body 的最后-->
+	<script type="text/javascript" src="//g.alicdn.com/sj/lib/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="//g.alicdn.com/sui/sui3/0.0.18/js/sui.js"></script>
+
+	<div>
+		<form action="/test_stra" method="post">
+			<!--<input type="hidden" id="ID" />-->
+			策略: <select name="strategies" id="strategies" onchange="stra_change(this.value)"></select>
+			参数: <input type="text" id="params" name="params">
+			<!--<select name="params" id="params"></select>-->
+			<input type="submit" id="submit" value="提交">
+		</form>
+	</div>
+	<div>
+		<ul id="tabs" class="nav nav-pills">
+			<!--class="sui-nav nav-tabs">-->
+			<li class="active"><a href="#stra_main">策略</a></li>
+			<li><a href="#report_table">综合统计</a></li>
+			<li><a href="#report_echarts">行情及信号</a></li>
+		</ul>
+	</div>
+
+	<div class="tab-content">
+		<div id="stra_main" class="tab-pane active">
+		</div>
+		<div id="report_table" class="tab-pane">
+			<p>123
+			<div class="sui-grid" data-role="grid">
+				<table id="report" class="table table-striped table-bordered table-primary"></table>
+			</div>
+			</p>
+		</div>
+		<div id="report_echarts" class="tab-pane">
+			<div id="main" style="width: 100%;height: 600px;">456</div>
+		</div>
+	</div>
+
+	<script>
+		$('#tabs a').click(function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+		})
+	</script>
+
+	<script type="text/javascript" charset="utf-8">
+		var stras = {{stras|tojson}};
+		function init() {
+			//读取本地策略
+			var seles = document.getElementById('strategies');
+			for(var i=0; i<stras.length; i++){
+				seles.options.add(new Option(stras[i].name, stras[i].id)); //策略标识作为返回的值
+			}
+			stra_change(stras[0]);
+		}
+		function stra_change(stra) {
+			var ps = stra['params'];
+			var params = document.getElementById('params');
+			params.value = JSON.stringify(ps);
+//			for (var p in ps) {
+//				document.getElementById('tmp').innerHTML = JSON.stringify(p) + JSON.stringify(ps[p]);
+//				params.options.add(new Option(p, ps[p]));
+//			}
+		}
+	</script>
+</body>
+</html>
