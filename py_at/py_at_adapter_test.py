@@ -27,27 +27,11 @@ class AdapterTest:
 	""""""
 	def __init__(self):
 		"""Constructor"""
-
+		self.stra_instances = []
+		self.q = None
+		self.t = None
 		self.TradingDay = ''
 		self.real = False  # 控制实际下单
-
-		self.stra_instances = []
-
-		cur_path = os.getcwd()
-		# 目录到接口下
-		os.chdir(os.path.join(os.getcwd(), '../py_ctp/'))
-		self.q = CtpQuote()
-		self.q.OnFrontConnected = self.q_OnFrontConnected
-		self.q.OnRspUserLogin = self.q_OnRspUserLogin
-		self.q.OnRtnTick = self.q_Tick
-
-		self.t = CtpTrade()
-		self.t.OnFrontConnected = self.OnFrontConnected
-		self.t.OnRspUserLogin = self.OnRspUserLogin
-
-		os.chdir(cur_path)
-
-
 
 	# -------此处调用ctp接口即可实现实际下单---------------------------------------------------------------
 	def on_order(self, stra, order):
@@ -155,7 +139,19 @@ class AdapterTest:
 
 		print("test history is end.")
 
-		#self.real = True
+
+	def TradeInit(self):
+		# 目录到接口下
+		self.q = CtpQuote()
+		self.q.OnFrontConnected = self.q_OnFrontConnected
+		self.q.OnRspUserLogin = self.q_OnRspUserLogin
+		self.q.OnRtnTick = self.q_Tick
+
+		self.t = CtpTrade()
+		self.t.OnFrontConnected = self.OnFrontConnected
+		self.t.OnRspUserLogin = self.OnRspUserLogin
+
+		self.t.ReqConnect('tcp://180.168.146.187:10000')
 
 
 	def OnFrontConnected(self):
@@ -189,9 +185,6 @@ class AdapterTest:
 				stra.on_tick(field)
 				#print(field)
 
-	def Run(self):
-		""""""
-		self.t.ReqConnect('tcp://180.168.146.187:10000')
 
 
 if __name__ == '__main__':

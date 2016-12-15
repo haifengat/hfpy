@@ -25,6 +25,7 @@ class TradeAdapter:
 		self.DicOrderField = {}
 		self.DicTradeField = {}
 		self.DicPositionField = {}
+		self.DicInstrumentStatus = {}
 		self.Account = None
 		self.IsLogin = False
 
@@ -35,7 +36,7 @@ class TradeAdapter:
 		pass
 
 
-	def ReqOrderInsert(self, pInstrument='', pDirection=DirectionType, pOffset=OffsetType, pPrice=0.0, pVolume=1, pType=OrderType, pCustom=0):
+	def ReqOrderInsert(self, pInstrument='', pDirection=DirectType, pOffset=OffsetType, pPrice=0.0, pVolume=1, pType=OrderType, pCustom=0):
 		pass
 
 
@@ -64,7 +65,7 @@ class TradeAdapter:
 
 	def OnRtnOrder(self, f=OrderField):
 		""""""
-		pass
+		print(f.__dict__)
 
 
 	def OnRtnTrade(self, f=TradeField):

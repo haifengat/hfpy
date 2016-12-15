@@ -3,7 +3,7 @@
 """
 __title__ = ''
 __author__ = 'HaiFeng'
-__mtime__ = '2016/11/22'
+__mtime__ = '2016/12/15'
 """
 
 from app import socketio
@@ -13,24 +13,9 @@ import struct
 
 thread = None
 
-#示例: https://github.com/miguelgrinberg/Flask-SocketIO/tree/master/example
 
+################################### shfe_multi ###################################
 def background_thread():
-	insts = []
-	@socketio.on('getinsts', namespace='/shfe_multi')
-	def get_insts(message):
-		socketio.emit('rtninsts', insts, namespace='/shfe_multi')
-
-	@socketio.on('sub_instrument', namespace='/shfe_multi')
-	def sub_instrument(message):
-		print('{0}:join_room'.format(message))
-		join_room(message)
-
-	@socketio.on('unsub_instrument', namespace='/shfe_multi')
-	def unsub_instrument(message):
-		print('{0}:leave_room'.format(message))
-		leave_room(message)
-
 	context = zmq.Context()
 	socket = context.socket(zmq.SUB)
 	socket.setsockopt(zmq.LINGER, 0)
@@ -75,22 +60,37 @@ def background_thread():
 		poller.close()
 		socket.close()
 
-
-@socketio.on_error()
-def error_handler(e):
-	print("error:" + e)
-
-#this fires
+# shfe depth quote
+insts = []
 @socketio.on("connect", namespace='/shfe_multi')
 def connect():
 	global thread
 	if thread is None:
 		thread = socketio.start_background_task(target=background_thread)
-	print("connected")
+	print("connected{0}".format(socketio.__dict__))
 
-# @socketio.on('disconnect', namespace='/shfe_multi')
-# def disconnected():
-# 	pass
+
+@socketio.on("disconnect", namespace='/shfe_multi')
+def disconnect():
+	print("dis_connected{0}".format(socketio.__dict__))
+
+
+@socketio.on('getinsts', namespace='/shfe_multi')
+def get_insts(message):
+	socketio.emit('rtninsts', insts, namespace='/shfe_multi')
+
+
+@socketio.on('sub_instrument', namespace='/shfe_multi')
+def sub_instrument(message):
+	print('{0}:join_room'.format(message))
+	join_room(message)
+
+
+@socketio.on('unsub_instrument', namespace='/shfe_multi')
+def unsub_instrument(message):
+	print('{0}:leave_room'.format(message))
+	leave_room(message)
+
 
 
 

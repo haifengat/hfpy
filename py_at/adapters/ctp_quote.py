@@ -9,7 +9,6 @@ import _thread
 import sys
 import time
 
-sys.path.append('..')
 
 from py_at.adapters.QuoteAdapter import *
 from py_ctp.quote import *

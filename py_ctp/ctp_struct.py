@@ -20,6 +20,16 @@ class CThostFtdcDisseminationField(Structure):
 	def __str__(self):
 		return 'SequenceSeries={0}, SequenceNo={1}'.format(self.SequenceSeries, self.SequenceNo)
 
+	@property
+	def __dict__(self):
+		return {'SequenceSeries':self.SequenceSeries,'SequenceNo':self.SequenceNo}
+
+	def clone(self):
+		obj=CThostFtdcDisseminationField()
+		obj.SequenceSeries=self.SequenceSeries
+		obj.SequenceNo=self.SequenceNo
+		return obj
+
 class CThostFtdcReqUserLoginField(Structure):
 	"""用户登录请求"""
 	_fields_ = [
@@ -72,6 +82,25 @@ class CThostFtdcReqUserLoginField(Structure):
 
 	def __str__(self):
 		return 'TradingDay=\'{0}\', BrokerID=\'{1}\', UserID=\'{2}\', Password=\'{3}\', UserProductInfo=\'{4}\', InterfaceProductInfo=\'{5}\', ProtocolInfo=\'{6}\', MacAddress=\'{7}\', OneTimePassword=\'{8}\', ClientIPAddress=\'{9}\', LoginRemark=\'{10}\''.format(str(self.TradingDay, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.Password, 'GB2312'), str(self.UserProductInfo, 'GB2312'), str(self.InterfaceProductInfo, 'GB2312'), str(self.ProtocolInfo, 'GB2312'), str(self.MacAddress, 'GB2312'), str(self.OneTimePassword, 'GB2312'), str(self.ClientIPAddress, 'GB2312'), str(self.LoginRemark, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'UserProductInfo':str(self.UserProductInfo, 'GB2312'),'InterfaceProductInfo':str(self.InterfaceProductInfo, 'GB2312'),'ProtocolInfo':str(self.ProtocolInfo, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312'),'OneTimePassword':str(self.OneTimePassword, 'GB2312'),'ClientIPAddress':str(self.ClientIPAddress, 'GB2312'),'LoginRemark':str(self.LoginRemark, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcReqUserLoginField()
+		obj.TradingDay=self.TradingDay
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.Password=self.Password
+		obj.UserProductInfo=self.UserProductInfo
+		obj.InterfaceProductInfo=self.InterfaceProductInfo
+		obj.ProtocolInfo=self.ProtocolInfo
+		obj.MacAddress=self.MacAddress
+		obj.OneTimePassword=self.OneTimePassword
+		obj.ClientIPAddress=self.ClientIPAddress
+		obj.LoginRemark=self.LoginRemark
+		return obj
 
 class CThostFtdcRspUserLoginField(Structure):
 	"""用户登录应答"""
@@ -134,6 +163,27 @@ class CThostFtdcRspUserLoginField(Structure):
 	def __str__(self):
 		return 'TradingDay=\'{0}\', LoginTime=\'{1}\', BrokerID=\'{2}\', UserID=\'{3}\', SystemName=\'{4}\', FrontID={5}, SessionID={6}, MaxOrderRef=\'{7}\', SHFETime=\'{8}\', DCETime=\'{9}\', CZCETime=\'{10}\', FFEXTime=\'{11}\', INETime=\'{12}\''.format(str(self.TradingDay, 'GB2312'), str(self.LoginTime, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.SystemName, 'GB2312'), self.FrontID, self.SessionID, str(self.MaxOrderRef, 'GB2312'), str(self.SHFETime, 'GB2312'), str(self.DCETime, 'GB2312'), str(self.CZCETime, 'GB2312'), str(self.FFEXTime, 'GB2312'), str(self.INETime, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312'),'LoginTime':str(self.LoginTime, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'SystemName':str(self.SystemName, 'GB2312'),'FrontID':self.FrontID,'SessionID':self.SessionID,'MaxOrderRef':str(self.MaxOrderRef, 'GB2312'),'SHFETime':str(self.SHFETime, 'GB2312'),'DCETime':str(self.DCETime, 'GB2312'),'CZCETime':str(self.CZCETime, 'GB2312'),'FFEXTime':str(self.FFEXTime, 'GB2312'),'INETime':str(self.INETime, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcRspUserLoginField()
+		obj.TradingDay=self.TradingDay
+		obj.LoginTime=self.LoginTime
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.SystemName=self.SystemName
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.MaxOrderRef=self.MaxOrderRef
+		obj.SHFETime=self.SHFETime
+		obj.DCETime=self.DCETime
+		obj.CZCETime=self.CZCETime
+		obj.FFEXTime=self.FFEXTime
+		obj.INETime=self.INETime
+		return obj
+
 class CThostFtdcUserLogoutField(Structure):
 	"""用户登出请求"""
 	_fields_ = [
@@ -151,6 +201,16 @@ class CThostFtdcUserLogoutField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcUserLogoutField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		return obj
+
 class CThostFtdcForceUserLogoutField(Structure):
 	"""强制交易员退出"""
 	_fields_ = [
@@ -167,6 +227,16 @@ class CThostFtdcForceUserLogoutField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcForceUserLogoutField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		return obj
 
 class CThostFtdcReqAuthenticateField(Structure):
 	"""客户端认证请求"""
@@ -193,6 +263,18 @@ class CThostFtdcReqAuthenticateField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', UserProductInfo=\'{2}\', AuthCode=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.UserProductInfo, 'GB2312'), str(self.AuthCode, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'UserProductInfo':str(self.UserProductInfo, 'GB2312'),'AuthCode':str(self.AuthCode, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcReqAuthenticateField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.UserProductInfo=self.UserProductInfo
+		obj.AuthCode=self.AuthCode
+		return obj
+
 class CThostFtdcRspAuthenticateField(Structure):
 	"""客户端认证响应"""
 	_fields_ = [
@@ -213,6 +295,17 @@ class CThostFtdcRspAuthenticateField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', UserProductInfo=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.UserProductInfo, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'UserProductInfo':str(self.UserProductInfo, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcRspAuthenticateField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.UserProductInfo=self.UserProductInfo
+		return obj
 
 class CThostFtdcAuthenticationInfoField(Structure):
 	"""客户端认证信息"""
@@ -242,6 +335,19 @@ class CThostFtdcAuthenticationInfoField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', UserProductInfo=\'{2}\', AuthInfo=\'{3}\', IsResult={4}'.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.UserProductInfo, 'GB2312'), str(self.AuthInfo, 'GB2312'), self.IsResult)
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'UserProductInfo':str(self.UserProductInfo, 'GB2312'),'AuthInfo':str(self.AuthInfo, 'GB2312'),'IsResult':self.IsResult}
+
+	def clone(self):
+		obj=CThostFtdcAuthenticationInfoField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.UserProductInfo=self.UserProductInfo
+		obj.AuthInfo=self.AuthInfo
+		obj.IsResult=self.IsResult
+		return obj
 
 class CThostFtdcTransferHeaderField(Structure):
 	"""银期转帐报文头"""
@@ -304,6 +410,27 @@ class CThostFtdcTransferHeaderField(Structure):
 	def __str__(self):
 		return 'Version=\'{0}\', TradeCode=\'{1}\', TradeDate=\'{2}\', TradeTime=\'{3}\', TradeSerial=\'{4}\', FutureID=\'{5}\', BankID=\'{6}\', BankBrchID=\'{7}\', OperNo=\'{8}\', DeviceID=\'{9}\', RecordNum=\'{10}\', SessionID={11}, RequestID={12}'.format(str(self.Version, 'GB2312'), str(self.TradeCode, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.TradeSerial, 'GB2312'), str(self.FutureID, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBrchID, 'GB2312'), str(self.OperNo, 'GB2312'), str(self.DeviceID, 'GB2312'), str(self.RecordNum, 'GB2312'), self.SessionID, self.RequestID)
 
+	@property
+	def __dict__(self):
+		return {'Version':str(self.Version, 'GB2312'),'TradeCode':str(self.TradeCode, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'TradeSerial':str(self.TradeSerial, 'GB2312'),'FutureID':str(self.FutureID, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBrchID':str(self.BankBrchID, 'GB2312'),'OperNo':str(self.OperNo, 'GB2312'),'DeviceID':str(self.DeviceID, 'GB2312'),'RecordNum':str(self.RecordNum, 'GB2312'),'SessionID':self.SessionID,'RequestID':self.RequestID}
+
+	def clone(self):
+		obj=CThostFtdcTransferHeaderField()
+		obj.Version=self.Version
+		obj.TradeCode=self.TradeCode
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.TradeSerial=self.TradeSerial
+		obj.FutureID=self.FutureID
+		obj.BankID=self.BankID
+		obj.BankBrchID=self.BankBrchID
+		obj.OperNo=self.OperNo
+		obj.DeviceID=self.DeviceID
+		obj.RecordNum=self.RecordNum
+		obj.SessionID=self.SessionID
+		obj.RequestID=self.RequestID
+		return obj
+
 class CThostFtdcTransferBankToFutureReqField(Structure):
 	"""银行资金转期货请求，TradeCode=202001"""
 	_fields_ = [
@@ -336,6 +463,20 @@ class CThostFtdcTransferBankToFutureReqField(Structure):
 
 	def __str__(self):
 		return 'FutureAccount=\'{0}\', FuturePwdFlag=FuturePwdFlagType.{1}, FutureAccPwd=\'{2}\', TradeAmt={3}, CustFee={4}, CurrencyCode=\'{5}\''.format(str(self.FutureAccount, 'GB2312'), '' if ord(self.FuturePwdFlag) == 0 else FuturePwdFlagType(ord(self.FuturePwdFlag)).name, str(self.FutureAccPwd, 'GB2312'), self.TradeAmt, self.CustFee, str(self.CurrencyCode, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'FutureAccount':str(self.FutureAccount, 'GB2312'),'FuturePwdFlag':'' if ord(self.FuturePwdFlag) == 0 else FuturePwdFlagType(ord(self.FuturePwdFlag)).name,'FutureAccPwd':str(self.FutureAccPwd, 'GB2312'),'TradeAmt':self.TradeAmt,'CustFee':self.CustFee,'CurrencyCode':str(self.CurrencyCode, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTransferBankToFutureReqField()
+		obj.FutureAccount=self.FutureAccount
+		obj.FuturePwdFlag=self.FuturePwdFlag
+		obj.FutureAccPwd=self.FutureAccPwd
+		obj.TradeAmt=self.TradeAmt
+		obj.CustFee=self.CustFee
+		obj.CurrencyCode=self.CurrencyCode
+		return obj
 
 class CThostFtdcTransferBankToFutureRspField(Structure):
 	"""银行资金转期货请求响应"""
@@ -370,6 +511,20 @@ class CThostFtdcTransferBankToFutureRspField(Structure):
 	def __str__(self):
 		return 'RetCode=\'{0}\', RetInfo=\'{1}\', FutureAccount=\'{2}\', TradeAmt={3}, CustFee={4}, CurrencyCode=\'{5}\''.format(str(self.RetCode, 'GB2312'), str(self.RetInfo, 'GB2312'), str(self.FutureAccount, 'GB2312'), self.TradeAmt, self.CustFee, str(self.CurrencyCode, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'RetCode':str(self.RetCode, 'GB2312'),'RetInfo':str(self.RetInfo, 'GB2312'),'FutureAccount':str(self.FutureAccount, 'GB2312'),'TradeAmt':self.TradeAmt,'CustFee':self.CustFee,'CurrencyCode':str(self.CurrencyCode, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTransferBankToFutureRspField()
+		obj.RetCode=self.RetCode
+		obj.RetInfo=self.RetInfo
+		obj.FutureAccount=self.FutureAccount
+		obj.TradeAmt=self.TradeAmt
+		obj.CustFee=self.CustFee
+		obj.CurrencyCode=self.CurrencyCode
+		return obj
+
 class CThostFtdcTransferFutureToBankReqField(Structure):
 	"""期货资金转银行请求，TradeCode=202002"""
 	_fields_ = [
@@ -402,6 +557,20 @@ class CThostFtdcTransferFutureToBankReqField(Structure):
 
 	def __str__(self):
 		return 'FutureAccount=\'{0}\', FuturePwdFlag=FuturePwdFlagType.{1}, FutureAccPwd=\'{2}\', TradeAmt={3}, CustFee={4}, CurrencyCode=\'{5}\''.format(str(self.FutureAccount, 'GB2312'), '' if ord(self.FuturePwdFlag) == 0 else FuturePwdFlagType(ord(self.FuturePwdFlag)).name, str(self.FutureAccPwd, 'GB2312'), self.TradeAmt, self.CustFee, str(self.CurrencyCode, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'FutureAccount':str(self.FutureAccount, 'GB2312'),'FuturePwdFlag':'' if ord(self.FuturePwdFlag) == 0 else FuturePwdFlagType(ord(self.FuturePwdFlag)).name,'FutureAccPwd':str(self.FutureAccPwd, 'GB2312'),'TradeAmt':self.TradeAmt,'CustFee':self.CustFee,'CurrencyCode':str(self.CurrencyCode, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTransferFutureToBankReqField()
+		obj.FutureAccount=self.FutureAccount
+		obj.FuturePwdFlag=self.FuturePwdFlag
+		obj.FutureAccPwd=self.FutureAccPwd
+		obj.TradeAmt=self.TradeAmt
+		obj.CustFee=self.CustFee
+		obj.CurrencyCode=self.CurrencyCode
+		return obj
 
 class CThostFtdcTransferFutureToBankRspField(Structure):
 	"""期货资金转银行请求响应"""
@@ -436,6 +605,20 @@ class CThostFtdcTransferFutureToBankRspField(Structure):
 	def __str__(self):
 		return 'RetCode=\'{0}\', RetInfo=\'{1}\', FutureAccount=\'{2}\', TradeAmt={3}, CustFee={4}, CurrencyCode=\'{5}\''.format(str(self.RetCode, 'GB2312'), str(self.RetInfo, 'GB2312'), str(self.FutureAccount, 'GB2312'), self.TradeAmt, self.CustFee, str(self.CurrencyCode, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'RetCode':str(self.RetCode, 'GB2312'),'RetInfo':str(self.RetInfo, 'GB2312'),'FutureAccount':str(self.FutureAccount, 'GB2312'),'TradeAmt':self.TradeAmt,'CustFee':self.CustFee,'CurrencyCode':str(self.CurrencyCode, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTransferFutureToBankRspField()
+		obj.RetCode=self.RetCode
+		obj.RetInfo=self.RetInfo
+		obj.FutureAccount=self.FutureAccount
+		obj.TradeAmt=self.TradeAmt
+		obj.CustFee=self.CustFee
+		obj.CurrencyCode=self.CurrencyCode
+		return obj
+
 class CThostFtdcTransferQryBankReqField(Structure):
 	"""查询银行资金请求，TradeCode=204002"""
 	_fields_ = [
@@ -460,6 +643,18 @@ class CThostFtdcTransferQryBankReqField(Structure):
 
 	def __str__(self):
 		return 'FutureAccount=\'{0}\', FuturePwdFlag=FuturePwdFlagType.{1}, FutureAccPwd=\'{2}\', CurrencyCode=\'{3}\''.format(str(self.FutureAccount, 'GB2312'), '' if ord(self.FuturePwdFlag) == 0 else FuturePwdFlagType(ord(self.FuturePwdFlag)).name, str(self.FutureAccPwd, 'GB2312'), str(self.CurrencyCode, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'FutureAccount':str(self.FutureAccount, 'GB2312'),'FuturePwdFlag':'' if ord(self.FuturePwdFlag) == 0 else FuturePwdFlagType(ord(self.FuturePwdFlag)).name,'FutureAccPwd':str(self.FutureAccPwd, 'GB2312'),'CurrencyCode':str(self.CurrencyCode, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTransferQryBankReqField()
+		obj.FutureAccount=self.FutureAccount
+		obj.FuturePwdFlag=self.FuturePwdFlag
+		obj.FutureAccPwd=self.FutureAccPwd
+		obj.CurrencyCode=self.CurrencyCode
+		return obj
 
 class CThostFtdcTransferQryBankRspField(Structure):
 	"""查询银行资金请求响应"""
@@ -498,6 +693,21 @@ class CThostFtdcTransferQryBankRspField(Structure):
 	def __str__(self):
 		return 'RetCode=\'{0}\', RetInfo=\'{1}\', FutureAccount=\'{2}\', TradeAmt={3}, UseAmt={4}, FetchAmt={5}, CurrencyCode=\'{6}\''.format(str(self.RetCode, 'GB2312'), str(self.RetInfo, 'GB2312'), str(self.FutureAccount, 'GB2312'), self.TradeAmt, self.UseAmt, self.FetchAmt, str(self.CurrencyCode, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'RetCode':str(self.RetCode, 'GB2312'),'RetInfo':str(self.RetInfo, 'GB2312'),'FutureAccount':str(self.FutureAccount, 'GB2312'),'TradeAmt':self.TradeAmt,'UseAmt':self.UseAmt,'FetchAmt':self.FetchAmt,'CurrencyCode':str(self.CurrencyCode, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTransferQryBankRspField()
+		obj.RetCode=self.RetCode
+		obj.RetInfo=self.RetInfo
+		obj.FutureAccount=self.FutureAccount
+		obj.TradeAmt=self.TradeAmt
+		obj.UseAmt=self.UseAmt
+		obj.FetchAmt=self.FetchAmt
+		obj.CurrencyCode=self.CurrencyCode
+		return obj
+
 class CThostFtdcTransferQryDetailReqField(Structure):
 	"""查询银行交易明细请求，TradeCode=204999"""
 	_fields_ = [
@@ -510,6 +720,15 @@ class CThostFtdcTransferQryDetailReqField(Structure):
 
 	def __str__(self):
 		return 'FutureAccount=\'{0}\''.format(str(self.FutureAccount, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'FutureAccount':str(self.FutureAccount, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTransferQryDetailReqField()
+		obj.FutureAccount=self.FutureAccount
+		return obj
 
 class CThostFtdcTransferQryDetailRspField(Structure):
 	"""查询银行交易明细请求响应"""
@@ -576,6 +795,28 @@ class CThostFtdcTransferQryDetailRspField(Structure):
 	def __str__(self):
 		return 'TradeDate=\'{0}\', TradeTime=\'{1}\', TradeCode=\'{2}\', FutureSerial={3}, FutureID=\'{4}\', FutureAccount=\'{5}\', BankSerial={6}, BankID=\'{7}\', BankBrchID=\'{8}\', BankAccount=\'{9}\', CertCode=\'{10}\', CurrencyCode=\'{11}\', TxAmount={12}, Flag=TransferValidFlagType.{13}'.format(str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.TradeCode, 'GB2312'), self.FutureSerial, str(self.FutureID, 'GB2312'), str(self.FutureAccount, 'GB2312'), self.BankSerial, str(self.BankID, 'GB2312'), str(self.BankBrchID, 'GB2312'), str(self.BankAccount, 'GB2312'), str(self.CertCode, 'GB2312'), str(self.CurrencyCode, 'GB2312'), self.TxAmount, '' if ord(self.Flag) == 0 else TransferValidFlagType(ord(self.Flag)).name)
 
+	@property
+	def __dict__(self):
+		return {'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'TradeCode':str(self.TradeCode, 'GB2312'),'FutureSerial':self.FutureSerial,'FutureID':str(self.FutureID, 'GB2312'),'FutureAccount':str(self.FutureAccount, 'GB2312'),'BankSerial':self.BankSerial,'BankID':str(self.BankID, 'GB2312'),'BankBrchID':str(self.BankBrchID, 'GB2312'),'BankAccount':str(self.BankAccount, 'GB2312'),'CertCode':str(self.CertCode, 'GB2312'),'CurrencyCode':str(self.CurrencyCode, 'GB2312'),'TxAmount':self.TxAmount,'Flag':'' if ord(self.Flag) == 0 else TransferValidFlagType(ord(self.Flag)).name}
+
+	def clone(self):
+		obj=CThostFtdcTransferQryDetailRspField()
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.TradeCode=self.TradeCode
+		obj.FutureSerial=self.FutureSerial
+		obj.FutureID=self.FutureID
+		obj.FutureAccount=self.FutureAccount
+		obj.BankSerial=self.BankSerial
+		obj.BankID=self.BankID
+		obj.BankBrchID=self.BankBrchID
+		obj.BankAccount=self.BankAccount
+		obj.CertCode=self.CertCode
+		obj.CurrencyCode=self.CurrencyCode
+		obj.TxAmount=self.TxAmount
+		obj.Flag=self.Flag
+		return obj
+
 class CThostFtdcRspInfoField(Structure):
 	"""响应信息"""
 	_fields_ = [
@@ -592,6 +833,16 @@ class CThostFtdcRspInfoField(Structure):
 
 	def __str__(self):
 		return 'ErrorID={0}, ErrorMsg=\'{1}\''.format(self.ErrorID, str(self.ErrorMsg, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcRspInfoField()
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
 
 class CThostFtdcExchangeField(Structure):
 	"""交易所"""
@@ -613,6 +864,17 @@ class CThostFtdcExchangeField(Structure):
 
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', ExchangeName=\'{1}\', ExchangeProperty=ExchangePropertyType.{2}'.format(str(self.ExchangeID, 'GB2312'), str(self.ExchangeName, 'GB2312'), '' if ord(self.ExchangeProperty) == 0 else ExchangePropertyType(ord(self.ExchangeProperty)).name)
+
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExchangeName':str(self.ExchangeName, 'GB2312'),'ExchangeProperty':'' if ord(self.ExchangeProperty) == 0 else ExchangePropertyType(ord(self.ExchangeProperty)).name}
+
+	def clone(self):
+		obj=CThostFtdcExchangeField()
+		obj.ExchangeID=self.ExchangeID
+		obj.ExchangeName=self.ExchangeName
+		obj.ExchangeProperty=self.ExchangeProperty
+		return obj
 
 class CThostFtdcProductField(Structure):
 	"""产品"""
@@ -690,6 +952,31 @@ class CThostFtdcProductField(Structure):
 
 	def __str__(self):
 		return 'ProductID=\'{0}\', ProductName=\'{1}\', ExchangeID=\'{2}\', ProductClass=ProductClassType.{3}, VolumeMultiple={4}, PriceTick={5}, MaxMarketOrderVolume={6}, MinMarketOrderVolume={7}, MaxLimitOrderVolume={8}, MinLimitOrderVolume={9}, PositionType=PositionTypeType.{10}, PositionDateType=PositionDateTypeType.{11}, CloseDealType=CloseDealTypeType.{12}, TradeCurrencyID=\'{13}\', MortgageFundUseRange=MortgageFundUseRangeType.{14}, ExchangeProductID=\'{15}\', UnderlyingMultiple={16}'.format(str(self.ProductID, 'GB2312'), str(self.ProductName, 'GB2312'), str(self.ExchangeID, 'GB2312'), '' if ord(self.ProductClass) == 0 else ProductClassType(ord(self.ProductClass)).name, self.VolumeMultiple, self.PriceTick, self.MaxMarketOrderVolume, self.MinMarketOrderVolume, self.MaxLimitOrderVolume, self.MinLimitOrderVolume, '' if ord(self.PositionType) == 0 else PositionTypeType(ord(self.PositionType)).name, '' if ord(self.PositionDateType) == 0 else PositionDateTypeType(ord(self.PositionDateType)).name, '' if ord(self.CloseDealType) == 0 else CloseDealTypeType(ord(self.CloseDealType)).name, str(self.TradeCurrencyID, 'GB2312'), '' if ord(self.MortgageFundUseRange) == 0 else MortgageFundUseRangeType(ord(self.MortgageFundUseRange)).name, str(self.ExchangeProductID, 'GB2312'), self.UnderlyingMultiple)
+
+	@property
+	def __dict__(self):
+		return {'ProductID':str(self.ProductID, 'GB2312'),'ProductName':str(self.ProductName, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ProductClass':'' if ord(self.ProductClass) == 0 else ProductClassType(ord(self.ProductClass)).name,'VolumeMultiple':self.VolumeMultiple,'PriceTick':self.PriceTick,'MaxMarketOrderVolume':self.MaxMarketOrderVolume,'MinMarketOrderVolume':self.MinMarketOrderVolume,'MaxLimitOrderVolume':self.MaxLimitOrderVolume,'MinLimitOrderVolume':self.MinLimitOrderVolume,'PositionType':'' if ord(self.PositionType) == 0 else PositionTypeType(ord(self.PositionType)).name,'PositionDateType':'' if ord(self.PositionDateType) == 0 else PositionDateTypeType(ord(self.PositionDateType)).name,'CloseDealType':'' if ord(self.CloseDealType) == 0 else CloseDealTypeType(ord(self.CloseDealType)).name,'TradeCurrencyID':str(self.TradeCurrencyID, 'GB2312'),'MortgageFundUseRange':'' if ord(self.MortgageFundUseRange) == 0 else MortgageFundUseRangeType(ord(self.MortgageFundUseRange)).name,'ExchangeProductID':str(self.ExchangeProductID, 'GB2312'),'UnderlyingMultiple':self.UnderlyingMultiple}
+
+	def clone(self):
+		obj=CThostFtdcProductField()
+		obj.ProductID=self.ProductID
+		obj.ProductName=self.ProductName
+		obj.ExchangeID=self.ExchangeID
+		obj.ProductClass=self.ProductClass
+		obj.VolumeMultiple=self.VolumeMultiple
+		obj.PriceTick=self.PriceTick
+		obj.MaxMarketOrderVolume=self.MaxMarketOrderVolume
+		obj.MinMarketOrderVolume=self.MinMarketOrderVolume
+		obj.MaxLimitOrderVolume=self.MaxLimitOrderVolume
+		obj.MinLimitOrderVolume=self.MinLimitOrderVolume
+		obj.PositionType=self.PositionType
+		obj.PositionDateType=self.PositionDateType
+		obj.CloseDealType=self.CloseDealType
+		obj.TradeCurrencyID=self.TradeCurrencyID
+		obj.MortgageFundUseRange=self.MortgageFundUseRange
+		obj.ExchangeProductID=self.ExchangeProductID
+		obj.UnderlyingMultiple=self.UnderlyingMultiple
+		return obj
 
 class CThostFtdcInstrumentField(Structure):
 	"""合约"""
@@ -836,6 +1123,48 @@ class CThostFtdcInstrumentField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', ExchangeID=\'{1}\', InstrumentName=\'{2}\', ExchangeInstID=\'{3}\', ProductID=\'{4}\', ProductClass=ProductClassType.{5}, DeliveryYear={6}, DeliveryMonth={7}, MaxMarketOrderVolume={8}, MinMarketOrderVolume={9}, MaxLimitOrderVolume={10}, MinLimitOrderVolume={11}, VolumeMultiple={12}, PriceTick={13}, CreateDate=\'{14}\', OpenDate=\'{15}\', ExpireDate=\'{16}\', StartDelivDate=\'{17}\', EndDelivDate=\'{18}\', InstLifePhase=InstLifePhaseType.{19}, IsTrading={20}, PositionType=PositionTypeType.{21}, PositionDateType=PositionDateTypeType.{22}, LongMarginRatio={23}, ShortMarginRatio={24}, MaxMarginSideAlgorithm=MaxMarginSideAlgorithmType.{25}, UnderlyingInstrID=\'{26}\', StrikePrice={27}, OptionsType=OptionsTypeType.{28}, UnderlyingMultiple={29}, CombinationType=CombinationTypeType.{30}, MinBuyVolume={31}, MinSellVolume={32}, InstrumentCode=\'{33}\''.format(str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.InstrumentName, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.ProductID, 'GB2312'), '' if ord(self.ProductClass) == 0 else ProductClassType(ord(self.ProductClass)).name, self.DeliveryYear, self.DeliveryMonth, self.MaxMarketOrderVolume, self.MinMarketOrderVolume, self.MaxLimitOrderVolume, self.MinLimitOrderVolume, self.VolumeMultiple, self.PriceTick, str(self.CreateDate, 'GB2312'), str(self.OpenDate, 'GB2312'), str(self.ExpireDate, 'GB2312'), str(self.StartDelivDate, 'GB2312'), str(self.EndDelivDate, 'GB2312'), '' if ord(self.InstLifePhase) == 0 else InstLifePhaseType(ord(self.InstLifePhase)).name, self.IsTrading, '' if ord(self.PositionType) == 0 else PositionTypeType(ord(self.PositionType)).name, '' if ord(self.PositionDateType) == 0 else PositionDateTypeType(ord(self.PositionDateType)).name, self.LongMarginRatio, self.ShortMarginRatio, '' if ord(self.MaxMarginSideAlgorithm) == 0 else MaxMarginSideAlgorithmType(ord(self.MaxMarginSideAlgorithm)).name, str(self.UnderlyingInstrID, 'GB2312'), self.StrikePrice, '' if ord(self.OptionsType) == 0 else OptionsTypeType(ord(self.OptionsType)).name, self.UnderlyingMultiple, '' if ord(self.CombinationType) == 0 else CombinationTypeType(ord(self.CombinationType)).name, self.MinBuyVolume, self.MinSellVolume, str(self.InstrumentCode, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'InstrumentName':str(self.InstrumentName, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'ProductID':str(self.ProductID, 'GB2312'),'ProductClass':'' if ord(self.ProductClass) == 0 else ProductClassType(ord(self.ProductClass)).name,'DeliveryYear':self.DeliveryYear,'DeliveryMonth':self.DeliveryMonth,'MaxMarketOrderVolume':self.MaxMarketOrderVolume,'MinMarketOrderVolume':self.MinMarketOrderVolume,'MaxLimitOrderVolume':self.MaxLimitOrderVolume,'MinLimitOrderVolume':self.MinLimitOrderVolume,'VolumeMultiple':self.VolumeMultiple,'PriceTick':self.PriceTick,'CreateDate':str(self.CreateDate, 'GB2312'),'OpenDate':str(self.OpenDate, 'GB2312'),'ExpireDate':str(self.ExpireDate, 'GB2312'),'StartDelivDate':str(self.StartDelivDate, 'GB2312'),'EndDelivDate':str(self.EndDelivDate, 'GB2312'),'InstLifePhase':'' if ord(self.InstLifePhase) == 0 else InstLifePhaseType(ord(self.InstLifePhase)).name,'IsTrading':self.IsTrading,'PositionType':'' if ord(self.PositionType) == 0 else PositionTypeType(ord(self.PositionType)).name,'PositionDateType':'' if ord(self.PositionDateType) == 0 else PositionDateTypeType(ord(self.PositionDateType)).name,'LongMarginRatio':self.LongMarginRatio,'ShortMarginRatio':self.ShortMarginRatio,'MaxMarginSideAlgorithm':'' if ord(self.MaxMarginSideAlgorithm) == 0 else MaxMarginSideAlgorithmType(ord(self.MaxMarginSideAlgorithm)).name,'UnderlyingInstrID':str(self.UnderlyingInstrID, 'GB2312'),'StrikePrice':self.StrikePrice,'OptionsType':'' if ord(self.OptionsType) == 0 else OptionsTypeType(ord(self.OptionsType)).name,'UnderlyingMultiple':self.UnderlyingMultiple,'CombinationType':'' if ord(self.CombinationType) == 0 else CombinationTypeType(ord(self.CombinationType)).name,'MinBuyVolume':self.MinBuyVolume,'MinSellVolume':self.MinSellVolume,'InstrumentCode':str(self.InstrumentCode, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInstrumentField()
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.InstrumentName=self.InstrumentName
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.ProductID=self.ProductID
+		obj.ProductClass=self.ProductClass
+		obj.DeliveryYear=self.DeliveryYear
+		obj.DeliveryMonth=self.DeliveryMonth
+		obj.MaxMarketOrderVolume=self.MaxMarketOrderVolume
+		obj.MinMarketOrderVolume=self.MinMarketOrderVolume
+		obj.MaxLimitOrderVolume=self.MaxLimitOrderVolume
+		obj.MinLimitOrderVolume=self.MinLimitOrderVolume
+		obj.VolumeMultiple=self.VolumeMultiple
+		obj.PriceTick=self.PriceTick
+		obj.CreateDate=self.CreateDate
+		obj.OpenDate=self.OpenDate
+		obj.ExpireDate=self.ExpireDate
+		obj.StartDelivDate=self.StartDelivDate
+		obj.EndDelivDate=self.EndDelivDate
+		obj.InstLifePhase=self.InstLifePhase
+		obj.IsTrading=self.IsTrading
+		obj.PositionType=self.PositionType
+		obj.PositionDateType=self.PositionDateType
+		obj.LongMarginRatio=self.LongMarginRatio
+		obj.ShortMarginRatio=self.ShortMarginRatio
+		obj.MaxMarginSideAlgorithm=self.MaxMarginSideAlgorithm
+		obj.UnderlyingInstrID=self.UnderlyingInstrID
+		obj.StrikePrice=self.StrikePrice
+		obj.OptionsType=self.OptionsType
+		obj.UnderlyingMultiple=self.UnderlyingMultiple
+		obj.CombinationType=self.CombinationType
+		obj.MinBuyVolume=self.MinBuyVolume
+		obj.MinSellVolume=self.MinSellVolume
+		obj.InstrumentCode=self.InstrumentCode
+		return obj
+
 class CThostFtdcBrokerField(Structure):
 	"""经纪公司"""
 	_fields_ = [
@@ -860,6 +1189,18 @@ class CThostFtdcBrokerField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', BrokerAbbr=\'{1}\', BrokerName=\'{2}\', IsActive={3}'.format(str(self.BrokerID, 'GB2312'), str(self.BrokerAbbr, 'GB2312'), str(self.BrokerName, 'GB2312'), self.IsActive)
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerAbbr':str(self.BrokerAbbr, 'GB2312'),'BrokerName':str(self.BrokerName, 'GB2312'),'IsActive':self.IsActive}
+
+	def clone(self):
+		obj=CThostFtdcBrokerField()
+		obj.BrokerID=self.BrokerID
+		obj.BrokerAbbr=self.BrokerAbbr
+		obj.BrokerName=self.BrokerName
+		obj.IsActive=self.IsActive
+		return obj
 
 class CThostFtdcTraderField(Structure):
 	"""交易所交易员"""
@@ -893,6 +1234,20 @@ class CThostFtdcTraderField(Structure):
 
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', TraderID=\'{1}\', ParticipantID=\'{2}\', Password=\'{3}\', InstallCount={4}, BrokerID=\'{5}\''.format(str(self.ExchangeID, 'GB2312'), str(self.TraderID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.Password, 'GB2312'), self.InstallCount, str(self.BrokerID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'InstallCount':self.InstallCount,'BrokerID':str(self.BrokerID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTraderField()
+		obj.ExchangeID=self.ExchangeID
+		obj.TraderID=self.TraderID
+		obj.ParticipantID=self.ParticipantID
+		obj.Password=self.Password
+		obj.InstallCount=self.InstallCount
+		obj.BrokerID=self.BrokerID
+		return obj
 
 class CThostFtdcInvestorField(Structure):
 	"""投资者"""
@@ -955,6 +1310,27 @@ class CThostFtdcInvestorField(Structure):
 	def __str__(self):
 		return 'InvestorID=\'{0}\', BrokerID=\'{1}\', InvestorGroupID=\'{2}\', InvestorName=\'{3}\', IdentifiedCardType=IdCardTypeType.{4}, IdentifiedCardNo=\'{5}\', IsActive={6}, Telephone=\'{7}\', Address=\'{8}\', OpenDate=\'{9}\', Mobile=\'{10}\', CommModelID=\'{11}\', MarginModelID=\'{12}\''.format(str(self.InvestorID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.InvestorGroupID, 'GB2312'), str(self.InvestorName, 'GB2312'), '' if ord(self.IdentifiedCardType) == 0 else IdCardTypeType(ord(self.IdentifiedCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), self.IsActive, str(self.Telephone, 'GB2312'), str(self.Address, 'GB2312'), str(self.OpenDate, 'GB2312'), str(self.Mobile, 'GB2312'), str(self.CommModelID, 'GB2312'), str(self.MarginModelID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'InvestorID':str(self.InvestorID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorGroupID':str(self.InvestorGroupID, 'GB2312'),'InvestorName':str(self.InvestorName, 'GB2312'),'IdentifiedCardType':'' if ord(self.IdentifiedCardType) == 0 else IdCardTypeType(ord(self.IdentifiedCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'IsActive':self.IsActive,'Telephone':str(self.Telephone, 'GB2312'),'Address':str(self.Address, 'GB2312'),'OpenDate':str(self.OpenDate, 'GB2312'),'Mobile':str(self.Mobile, 'GB2312'),'CommModelID':str(self.CommModelID, 'GB2312'),'MarginModelID':str(self.MarginModelID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInvestorField()
+		obj.InvestorID=self.InvestorID
+		obj.BrokerID=self.BrokerID
+		obj.InvestorGroupID=self.InvestorGroupID
+		obj.InvestorName=self.InvestorName
+		obj.IdentifiedCardType=self.IdentifiedCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.IsActive=self.IsActive
+		obj.Telephone=self.Telephone
+		obj.Address=self.Address
+		obj.OpenDate=self.OpenDate
+		obj.Mobile=self.Mobile
+		obj.CommModelID=self.CommModelID
+		obj.MarginModelID=self.MarginModelID
+		return obj
+
 class CThostFtdcTradingCodeField(Structure):
 	"""交易编码"""
 	_fields_ = [
@@ -996,6 +1372,22 @@ class CThostFtdcTradingCodeField(Structure):
 	def __str__(self):
 		return 'InvestorID=\'{0}\', BrokerID=\'{1}\', ExchangeID=\'{2}\', ClientID=\'{3}\', IsActive={4}, ClientIDType=ClientIDTypeType.{5}, BranchID=\'{6}\', BizType=BizTypeType.{7}'.format(str(self.InvestorID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ClientID, 'GB2312'), self.IsActive, '' if ord(self.ClientIDType) == 0 else ClientIDTypeType(ord(self.ClientIDType)).name, str(self.BranchID, 'GB2312'), '' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name)
 
+	@property
+	def __dict__(self):
+		return {'InvestorID':str(self.InvestorID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'IsActive':self.IsActive,'ClientIDType':'' if ord(self.ClientIDType) == 0 else ClientIDTypeType(ord(self.ClientIDType)).name,'BranchID':str(self.BranchID, 'GB2312'),'BizType':'' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name}
+
+	def clone(self):
+		obj=CThostFtdcTradingCodeField()
+		obj.InvestorID=self.InvestorID
+		obj.BrokerID=self.BrokerID
+		obj.ExchangeID=self.ExchangeID
+		obj.ClientID=self.ClientID
+		obj.IsActive=self.IsActive
+		obj.ClientIDType=self.ClientIDType
+		obj.BranchID=self.BranchID
+		obj.BizType=self.BizType
+		return obj
+
 class CThostFtdcPartBrokerField(Structure):
 	"""会员编码和经纪公司编码对照表"""
 	_fields_ = [
@@ -1020,6 +1412,18 @@ class CThostFtdcPartBrokerField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', ExchangeID=\'{1}\', ParticipantID=\'{2}\', IsActive={3}'.format(str(self.BrokerID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), self.IsActive)
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'IsActive':self.IsActive}
+
+	def clone(self):
+		obj=CThostFtdcPartBrokerField()
+		obj.BrokerID=self.BrokerID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.IsActive=self.IsActive
+		return obj
 
 class CThostFtdcSuperUserField(Structure):
 	"""管理用户"""
@@ -1046,6 +1450,18 @@ class CThostFtdcSuperUserField(Structure):
 	def __str__(self):
 		return 'UserID=\'{0}\', UserName=\'{1}\', Password=\'{2}\', IsActive={3}'.format(str(self.UserID, 'GB2312'), str(self.UserName, 'GB2312'), str(self.Password, 'GB2312'), self.IsActive)
 
+	@property
+	def __dict__(self):
+		return {'UserID':str(self.UserID, 'GB2312'),'UserName':str(self.UserName, 'GB2312'),'Password':str(self.Password, 'GB2312'),'IsActive':self.IsActive}
+
+	def clone(self):
+		obj=CThostFtdcSuperUserField()
+		obj.UserID=self.UserID
+		obj.UserName=self.UserName
+		obj.Password=self.Password
+		obj.IsActive=self.IsActive
+		return obj
+
 class CThostFtdcSuperUserFunctionField(Structure):
 	"""管理用户功能权限"""
 	_fields_ = [
@@ -1062,6 +1478,16 @@ class CThostFtdcSuperUserFunctionField(Structure):
 
 	def __str__(self):
 		return 'UserID=\'{0}\', FunctionCode=FunctionCodeType.{1}'.format(str(self.UserID, 'GB2312'), '' if ord(self.FunctionCode) == 0 else FunctionCodeType(ord(self.FunctionCode)).name)
+
+	@property
+	def __dict__(self):
+		return {'UserID':str(self.UserID, 'GB2312'),'FunctionCode':'' if ord(self.FunctionCode) == 0 else FunctionCodeType(ord(self.FunctionCode)).name}
+
+	def clone(self):
+		obj=CThostFtdcSuperUserFunctionField()
+		obj.UserID=self.UserID
+		obj.FunctionCode=self.FunctionCode
+		return obj
 
 class CThostFtdcInvestorGroupField(Structure):
 	"""投资者组"""
@@ -1083,6 +1509,17 @@ class CThostFtdcInvestorGroupField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorGroupID=\'{1}\', InvestorGroupName=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorGroupID, 'GB2312'), str(self.InvestorGroupName, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorGroupID':str(self.InvestorGroupID, 'GB2312'),'InvestorGroupName':str(self.InvestorGroupName, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInvestorGroupField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorGroupID=self.InvestorGroupID
+		obj.InvestorGroupName=self.InvestorGroupName
+		return obj
 
 class CThostFtdcTradingAccountField(Structure):
 	"""资金账户"""
@@ -1281,6 +1718,61 @@ class CThostFtdcTradingAccountField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', AccountID=\'{1}\', PreMortgage={2}, PreCredit={3}, PreDeposit={4}, PreBalance={5}, PreMargin={6}, InterestBase={7}, Interest={8}, Deposit={9}, Withdraw={10}, FrozenMargin={11}, FrozenCash={12}, FrozenCommission={13}, CurrMargin={14}, CashIn={15}, Commission={16}, CloseProfit={17}, PositionProfit={18}, Balance={19}, Available={20}, WithdrawQuota={21}, Reserve={22}, TradingDay=\'{23}\', SettlementID={24}, Credit={25}, Mortgage={26}, ExchangeMargin={27}, DeliveryMargin={28}, ExchangeDeliveryMargin={29}, ReserveBalance={30}, CurrencyID=\'{31}\', PreFundMortgageIn={32}, PreFundMortgageOut={33}, FundMortgageIn={34}, FundMortgageOut={35}, FundMortgageAvailable={36}, MortgageableFund={37}, SpecProductMargin={38}, SpecProductFrozenMargin={39}, SpecProductCommission={40}, SpecProductFrozenCommission={41}, SpecProductPositionProfit={42}, SpecProductCloseProfit={43}, SpecProductPositionProfitByAlg={44}, SpecProductExchangeMargin={45}, BizType=BizTypeType.{46}'.format(str(self.BrokerID, 'GB2312'), str(self.AccountID, 'GB2312'), self.PreMortgage, self.PreCredit, self.PreDeposit, self.PreBalance, self.PreMargin, self.InterestBase, self.Interest, self.Deposit, self.Withdraw, self.FrozenMargin, self.FrozenCash, self.FrozenCommission, self.CurrMargin, self.CashIn, self.Commission, self.CloseProfit, self.PositionProfit, self.Balance, self.Available, self.WithdrawQuota, self.Reserve, str(self.TradingDay, 'GB2312'), self.SettlementID, self.Credit, self.Mortgage, self.ExchangeMargin, self.DeliveryMargin, self.ExchangeDeliveryMargin, self.ReserveBalance, str(self.CurrencyID, 'GB2312'), self.PreFundMortgageIn, self.PreFundMortgageOut, self.FundMortgageIn, self.FundMortgageOut, self.FundMortgageAvailable, self.MortgageableFund, self.SpecProductMargin, self.SpecProductFrozenMargin, self.SpecProductCommission, self.SpecProductFrozenCommission, self.SpecProductPositionProfit, self.SpecProductCloseProfit, self.SpecProductPositionProfitByAlg, self.SpecProductExchangeMargin, '' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'PreMortgage':self.PreMortgage,'PreCredit':self.PreCredit,'PreDeposit':self.PreDeposit,'PreBalance':self.PreBalance,'PreMargin':self.PreMargin,'InterestBase':self.InterestBase,'Interest':self.Interest,'Deposit':self.Deposit,'Withdraw':self.Withdraw,'FrozenMargin':self.FrozenMargin,'FrozenCash':self.FrozenCash,'FrozenCommission':self.FrozenCommission,'CurrMargin':self.CurrMargin,'CashIn':self.CashIn,'Commission':self.Commission,'CloseProfit':self.CloseProfit,'PositionProfit':self.PositionProfit,'Balance':self.Balance,'Available':self.Available,'WithdrawQuota':self.WithdrawQuota,'Reserve':self.Reserve,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'Credit':self.Credit,'Mortgage':self.Mortgage,'ExchangeMargin':self.ExchangeMargin,'DeliveryMargin':self.DeliveryMargin,'ExchangeDeliveryMargin':self.ExchangeDeliveryMargin,'ReserveBalance':self.ReserveBalance,'CurrencyID':str(self.CurrencyID, 'GB2312'),'PreFundMortgageIn':self.PreFundMortgageIn,'PreFundMortgageOut':self.PreFundMortgageOut,'FundMortgageIn':self.FundMortgageIn,'FundMortgageOut':self.FundMortgageOut,'FundMortgageAvailable':self.FundMortgageAvailable,'MortgageableFund':self.MortgageableFund,'SpecProductMargin':self.SpecProductMargin,'SpecProductFrozenMargin':self.SpecProductFrozenMargin,'SpecProductCommission':self.SpecProductCommission,'SpecProductFrozenCommission':self.SpecProductFrozenCommission,'SpecProductPositionProfit':self.SpecProductPositionProfit,'SpecProductCloseProfit':self.SpecProductCloseProfit,'SpecProductPositionProfitByAlg':self.SpecProductPositionProfitByAlg,'SpecProductExchangeMargin':self.SpecProductExchangeMargin,'BizType':'' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name}
+
+	def clone(self):
+		obj=CThostFtdcTradingAccountField()
+		obj.BrokerID=self.BrokerID
+		obj.AccountID=self.AccountID
+		obj.PreMortgage=self.PreMortgage
+		obj.PreCredit=self.PreCredit
+		obj.PreDeposit=self.PreDeposit
+		obj.PreBalance=self.PreBalance
+		obj.PreMargin=self.PreMargin
+		obj.InterestBase=self.InterestBase
+		obj.Interest=self.Interest
+		obj.Deposit=self.Deposit
+		obj.Withdraw=self.Withdraw
+		obj.FrozenMargin=self.FrozenMargin
+		obj.FrozenCash=self.FrozenCash
+		obj.FrozenCommission=self.FrozenCommission
+		obj.CurrMargin=self.CurrMargin
+		obj.CashIn=self.CashIn
+		obj.Commission=self.Commission
+		obj.CloseProfit=self.CloseProfit
+		obj.PositionProfit=self.PositionProfit
+		obj.Balance=self.Balance
+		obj.Available=self.Available
+		obj.WithdrawQuota=self.WithdrawQuota
+		obj.Reserve=self.Reserve
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.Credit=self.Credit
+		obj.Mortgage=self.Mortgage
+		obj.ExchangeMargin=self.ExchangeMargin
+		obj.DeliveryMargin=self.DeliveryMargin
+		obj.ExchangeDeliveryMargin=self.ExchangeDeliveryMargin
+		obj.ReserveBalance=self.ReserveBalance
+		obj.CurrencyID=self.CurrencyID
+		obj.PreFundMortgageIn=self.PreFundMortgageIn
+		obj.PreFundMortgageOut=self.PreFundMortgageOut
+		obj.FundMortgageIn=self.FundMortgageIn
+		obj.FundMortgageOut=self.FundMortgageOut
+		obj.FundMortgageAvailable=self.FundMortgageAvailable
+		obj.MortgageableFund=self.MortgageableFund
+		obj.SpecProductMargin=self.SpecProductMargin
+		obj.SpecProductFrozenMargin=self.SpecProductFrozenMargin
+		obj.SpecProductCommission=self.SpecProductCommission
+		obj.SpecProductFrozenCommission=self.SpecProductFrozenCommission
+		obj.SpecProductPositionProfit=self.SpecProductPositionProfit
+		obj.SpecProductCloseProfit=self.SpecProductCloseProfit
+		obj.SpecProductPositionProfitByAlg=self.SpecProductPositionProfitByAlg
+		obj.SpecProductExchangeMargin=self.SpecProductExchangeMargin
+		obj.BizType=self.BizType
+		return obj
+
 class CThostFtdcInvestorPositionField(Structure):
 	"""投资者持仓"""
 	_fields_ = [
@@ -1470,6 +1962,59 @@ class CThostFtdcInvestorPositionField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', BrokerID=\'{1}\', InvestorID=\'{2}\', PosiDirection=PosiDirectionType.{3}, HedgeFlag=HedgeFlagType.{4}, PositionDate=PositionDateType.{5}, YdPosition={6}, Position={7}, LongFrozen={8}, ShortFrozen={9}, LongFrozenAmount={10}, ShortFrozenAmount={11}, OpenVolume={12}, CloseVolume={13}, OpenAmount={14}, CloseAmount={15}, PositionCost={16}, PreMargin={17}, UseMargin={18}, FrozenMargin={19}, FrozenCash={20}, FrozenCommission={21}, CashIn={22}, Commission={23}, CloseProfit={24}, PositionProfit={25}, PreSettlementPrice={26}, SettlementPrice={27}, TradingDay=\'{28}\', SettlementID={29}, OpenCost={30}, ExchangeMargin={31}, CombPosition={32}, CombLongFrozen={33}, CombShortFrozen={34}, CloseProfitByDate={35}, CloseProfitByTrade={36}, TodayPosition={37}, MarginRateByMoney={38}, MarginRateByVolume={39}, StrikeFrozen={40}, StrikeFrozenAmount={41}, AbandonFrozen={42}, ExchangeID=\'{43}\', YdStrikeFrozen={44}'.format(str(self.InstrumentID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), '' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, '' if ord(self.PositionDate) == 0 else PositionDateType(ord(self.PositionDate)).name, self.YdPosition, self.Position, self.LongFrozen, self.ShortFrozen, self.LongFrozenAmount, self.ShortFrozenAmount, self.OpenVolume, self.CloseVolume, self.OpenAmount, self.CloseAmount, self.PositionCost, self.PreMargin, self.UseMargin, self.FrozenMargin, self.FrozenCash, self.FrozenCommission, self.CashIn, self.Commission, self.CloseProfit, self.PositionProfit, self.PreSettlementPrice, self.SettlementPrice, str(self.TradingDay, 'GB2312'), self.SettlementID, self.OpenCost, self.ExchangeMargin, self.CombPosition, self.CombLongFrozen, self.CombShortFrozen, self.CloseProfitByDate, self.CloseProfitByTrade, self.TodayPosition, self.MarginRateByMoney, self.MarginRateByVolume, self.StrikeFrozen, self.StrikeFrozenAmount, self.AbandonFrozen, str(self.ExchangeID, 'GB2312'), self.YdStrikeFrozen)
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'PosiDirection':'' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'PositionDate':'' if ord(self.PositionDate) == 0 else PositionDateType(ord(self.PositionDate)).name,'YdPosition':self.YdPosition,'Position':self.Position,'LongFrozen':self.LongFrozen,'ShortFrozen':self.ShortFrozen,'LongFrozenAmount':self.LongFrozenAmount,'ShortFrozenAmount':self.ShortFrozenAmount,'OpenVolume':self.OpenVolume,'CloseVolume':self.CloseVolume,'OpenAmount':self.OpenAmount,'CloseAmount':self.CloseAmount,'PositionCost':self.PositionCost,'PreMargin':self.PreMargin,'UseMargin':self.UseMargin,'FrozenMargin':self.FrozenMargin,'FrozenCash':self.FrozenCash,'FrozenCommission':self.FrozenCommission,'CashIn':self.CashIn,'Commission':self.Commission,'CloseProfit':self.CloseProfit,'PositionProfit':self.PositionProfit,'PreSettlementPrice':self.PreSettlementPrice,'SettlementPrice':self.SettlementPrice,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'OpenCost':self.OpenCost,'ExchangeMargin':self.ExchangeMargin,'CombPosition':self.CombPosition,'CombLongFrozen':self.CombLongFrozen,'CombShortFrozen':self.CombShortFrozen,'CloseProfitByDate':self.CloseProfitByDate,'CloseProfitByTrade':self.CloseProfitByTrade,'TodayPosition':self.TodayPosition,'MarginRateByMoney':self.MarginRateByMoney,'MarginRateByVolume':self.MarginRateByVolume,'StrikeFrozen':self.StrikeFrozen,'StrikeFrozenAmount':self.StrikeFrozenAmount,'AbandonFrozen':self.AbandonFrozen,'ExchangeID':str(self.ExchangeID, 'GB2312'),'YdStrikeFrozen':self.YdStrikeFrozen}
+
+	def clone(self):
+		obj=CThostFtdcInvestorPositionField()
+		obj.InstrumentID=self.InstrumentID
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.PosiDirection=self.PosiDirection
+		obj.HedgeFlag=self.HedgeFlag
+		obj.PositionDate=self.PositionDate
+		obj.YdPosition=self.YdPosition
+		obj.Position=self.Position
+		obj.LongFrozen=self.LongFrozen
+		obj.ShortFrozen=self.ShortFrozen
+		obj.LongFrozenAmount=self.LongFrozenAmount
+		obj.ShortFrozenAmount=self.ShortFrozenAmount
+		obj.OpenVolume=self.OpenVolume
+		obj.CloseVolume=self.CloseVolume
+		obj.OpenAmount=self.OpenAmount
+		obj.CloseAmount=self.CloseAmount
+		obj.PositionCost=self.PositionCost
+		obj.PreMargin=self.PreMargin
+		obj.UseMargin=self.UseMargin
+		obj.FrozenMargin=self.FrozenMargin
+		obj.FrozenCash=self.FrozenCash
+		obj.FrozenCommission=self.FrozenCommission
+		obj.CashIn=self.CashIn
+		obj.Commission=self.Commission
+		obj.CloseProfit=self.CloseProfit
+		obj.PositionProfit=self.PositionProfit
+		obj.PreSettlementPrice=self.PreSettlementPrice
+		obj.SettlementPrice=self.SettlementPrice
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.OpenCost=self.OpenCost
+		obj.ExchangeMargin=self.ExchangeMargin
+		obj.CombPosition=self.CombPosition
+		obj.CombLongFrozen=self.CombLongFrozen
+		obj.CombShortFrozen=self.CombShortFrozen
+		obj.CloseProfitByDate=self.CloseProfitByDate
+		obj.CloseProfitByTrade=self.CloseProfitByTrade
+		obj.TodayPosition=self.TodayPosition
+		obj.MarginRateByMoney=self.MarginRateByMoney
+		obj.MarginRateByVolume=self.MarginRateByVolume
+		obj.StrikeFrozen=self.StrikeFrozen
+		obj.StrikeFrozenAmount=self.StrikeFrozenAmount
+		obj.AbandonFrozen=self.AbandonFrozen
+		obj.ExchangeID=self.ExchangeID
+		obj.YdStrikeFrozen=self.YdStrikeFrozen
+		return obj
+
 class CThostFtdcInstrumentMarginRateField(Structure):
 	"""合约保证金率"""
 	_fields_ = [
@@ -1518,6 +2063,24 @@ class CThostFtdcInstrumentMarginRateField(Structure):
 
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', HedgeFlag=HedgeFlagType.{4}, LongMarginRatioByMoney={5}, LongMarginRatioByVolume={6}, ShortMarginRatioByMoney={7}, ShortMarginRatioByVolume={8}, IsRelative={9}'.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, self.LongMarginRatioByMoney, self.LongMarginRatioByVolume, self.ShortMarginRatioByMoney, self.ShortMarginRatioByVolume, self.IsRelative)
+
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'LongMarginRatioByMoney':self.LongMarginRatioByMoney,'LongMarginRatioByVolume':self.LongMarginRatioByVolume,'ShortMarginRatioByMoney':self.ShortMarginRatioByMoney,'ShortMarginRatioByVolume':self.ShortMarginRatioByVolume,'IsRelative':self.IsRelative}
+
+	def clone(self):
+		obj=CThostFtdcInstrumentMarginRateField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.HedgeFlag=self.HedgeFlag
+		obj.LongMarginRatioByMoney=self.LongMarginRatioByMoney
+		obj.LongMarginRatioByVolume=self.LongMarginRatioByVolume
+		obj.ShortMarginRatioByMoney=self.ShortMarginRatioByMoney
+		obj.ShortMarginRatioByVolume=self.ShortMarginRatioByVolume
+		obj.IsRelative=self.IsRelative
+		return obj
 
 class CThostFtdcInstrumentCommissionRateField(Structure):
 	"""合约手续费率"""
@@ -1575,6 +2138,26 @@ class CThostFtdcInstrumentCommissionRateField(Structure):
 
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', OpenRatioByMoney={4}, OpenRatioByVolume={5}, CloseRatioByMoney={6}, CloseRatioByVolume={7}, CloseTodayRatioByMoney={8}, CloseTodayRatioByVolume={9}, ExchangeID=\'{10}\', BizType=BizTypeType.{11}'.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.OpenRatioByMoney, self.OpenRatioByVolume, self.CloseRatioByMoney, self.CloseRatioByVolume, self.CloseTodayRatioByMoney, self.CloseTodayRatioByVolume, str(self.ExchangeID, 'GB2312'), '' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name)
+
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'OpenRatioByMoney':self.OpenRatioByMoney,'OpenRatioByVolume':self.OpenRatioByVolume,'CloseRatioByMoney':self.CloseRatioByMoney,'CloseRatioByVolume':self.CloseRatioByVolume,'CloseTodayRatioByMoney':self.CloseTodayRatioByMoney,'CloseTodayRatioByVolume':self.CloseTodayRatioByVolume,'ExchangeID':str(self.ExchangeID, 'GB2312'),'BizType':'' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name}
+
+	def clone(self):
+		obj=CThostFtdcInstrumentCommissionRateField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.OpenRatioByMoney=self.OpenRatioByMoney
+		obj.OpenRatioByVolume=self.OpenRatioByVolume
+		obj.CloseRatioByMoney=self.CloseRatioByMoney
+		obj.CloseRatioByVolume=self.CloseRatioByVolume
+		obj.CloseTodayRatioByMoney=self.CloseTodayRatioByMoney
+		obj.CloseTodayRatioByVolume=self.CloseTodayRatioByVolume
+		obj.ExchangeID=self.ExchangeID
+		obj.BizType=self.BizType
+		return obj
 
 class CThostFtdcDepthMarketDataField(Structure):
 	"""深度行情"""
@@ -1761,6 +2344,58 @@ class CThostFtdcDepthMarketDataField(Structure):
 	def __str__(self):
 		return 'TradingDay=\'{0}\', InstrumentID=\'{1}\', ExchangeID=\'{2}\', ExchangeInstID=\'{3}\', LastPrice={4}, PreSettlementPrice={5}, PreClosePrice={6}, PreOpenInterest={7}, OpenPrice={8}, HighestPrice={9}, LowestPrice={10}, Volume={11}, Turnover={12}, OpenInterest={13}, ClosePrice={14}, SettlementPrice={15}, UpperLimitPrice={16}, LowerLimitPrice={17}, PreDelta={18}, CurrDelta={19}, UpdateTime=\'{20}\', UpdateMillisec={21}, BidPrice1={22}, BidVolume1={23}, AskPrice1={24}, AskVolume1={25}, BidPrice2={26}, BidVolume2={27}, AskPrice2={28}, AskVolume2={29}, BidPrice3={30}, BidVolume3={31}, AskPrice3={32}, AskVolume3={33}, BidPrice4={34}, BidVolume4={35}, AskPrice4={36}, AskVolume4={37}, BidPrice5={38}, BidVolume5={39}, AskPrice5={40}, AskVolume5={41}, AveragePrice={42}, ActionDay=\'{43}\''.format(str(self.TradingDay, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), self.LastPrice, self.PreSettlementPrice, self.PreClosePrice, self.PreOpenInterest, self.OpenPrice, self.HighestPrice, self.LowestPrice, self.Volume, self.Turnover, self.OpenInterest, self.ClosePrice, self.SettlementPrice, self.UpperLimitPrice, self.LowerLimitPrice, self.PreDelta, self.CurrDelta, str(self.UpdateTime, 'GB2312'), self.UpdateMillisec, self.BidPrice1, self.BidVolume1, self.AskPrice1, self.AskVolume1, self.BidPrice2, self.BidVolume2, self.AskPrice2, self.AskVolume2, self.BidPrice3, self.BidVolume3, self.AskPrice3, self.AskVolume3, self.BidPrice4, self.BidVolume4, self.AskPrice4, self.AskVolume4, self.BidPrice5, self.BidVolume5, self.AskPrice5, self.AskVolume5, self.AveragePrice, str(self.ActionDay, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'LastPrice':self.LastPrice,'PreSettlementPrice':self.PreSettlementPrice,'PreClosePrice':self.PreClosePrice,'PreOpenInterest':self.PreOpenInterest,'OpenPrice':self.OpenPrice,'HighestPrice':self.HighestPrice,'LowestPrice':self.LowestPrice,'Volume':self.Volume,'Turnover':self.Turnover,'OpenInterest':self.OpenInterest,'ClosePrice':self.ClosePrice,'SettlementPrice':self.SettlementPrice,'UpperLimitPrice':self.UpperLimitPrice,'LowerLimitPrice':self.LowerLimitPrice,'PreDelta':self.PreDelta,'CurrDelta':self.CurrDelta,'UpdateTime':str(self.UpdateTime, 'GB2312'),'UpdateMillisec':self.UpdateMillisec,'BidPrice1':self.BidPrice1,'BidVolume1':self.BidVolume1,'AskPrice1':self.AskPrice1,'AskVolume1':self.AskVolume1,'BidPrice2':self.BidPrice2,'BidVolume2':self.BidVolume2,'AskPrice2':self.AskPrice2,'AskVolume2':self.AskVolume2,'BidPrice3':self.BidPrice3,'BidVolume3':self.BidVolume3,'AskPrice3':self.AskPrice3,'AskVolume3':self.AskVolume3,'BidPrice4':self.BidPrice4,'BidVolume4':self.BidVolume4,'AskPrice4':self.AskPrice4,'AskVolume4':self.AskVolume4,'BidPrice5':self.BidPrice5,'BidVolume5':self.BidVolume5,'AskPrice5':self.AskPrice5,'AskVolume5':self.AskVolume5,'AveragePrice':self.AveragePrice,'ActionDay':str(self.ActionDay, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcDepthMarketDataField()
+		obj.TradingDay=self.TradingDay
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.LastPrice=self.LastPrice
+		obj.PreSettlementPrice=self.PreSettlementPrice
+		obj.PreClosePrice=self.PreClosePrice
+		obj.PreOpenInterest=self.PreOpenInterest
+		obj.OpenPrice=self.OpenPrice
+		obj.HighestPrice=self.HighestPrice
+		obj.LowestPrice=self.LowestPrice
+		obj.Volume=self.Volume
+		obj.Turnover=self.Turnover
+		obj.OpenInterest=self.OpenInterest
+		obj.ClosePrice=self.ClosePrice
+		obj.SettlementPrice=self.SettlementPrice
+		obj.UpperLimitPrice=self.UpperLimitPrice
+		obj.LowerLimitPrice=self.LowerLimitPrice
+		obj.PreDelta=self.PreDelta
+		obj.CurrDelta=self.CurrDelta
+		obj.UpdateTime=self.UpdateTime
+		obj.UpdateMillisec=self.UpdateMillisec
+		obj.BidPrice1=self.BidPrice1
+		obj.BidVolume1=self.BidVolume1
+		obj.AskPrice1=self.AskPrice1
+		obj.AskVolume1=self.AskVolume1
+		obj.BidPrice2=self.BidPrice2
+		obj.BidVolume2=self.BidVolume2
+		obj.AskPrice2=self.AskPrice2
+		obj.AskVolume2=self.AskVolume2
+		obj.BidPrice3=self.BidPrice3
+		obj.BidVolume3=self.BidVolume3
+		obj.AskPrice3=self.AskPrice3
+		obj.AskVolume3=self.AskVolume3
+		obj.BidPrice4=self.BidPrice4
+		obj.BidVolume4=self.BidVolume4
+		obj.AskPrice4=self.AskPrice4
+		obj.AskVolume4=self.AskVolume4
+		obj.BidPrice5=self.BidPrice5
+		obj.BidVolume5=self.BidVolume5
+		obj.AskPrice5=self.AskPrice5
+		obj.AskVolume5=self.AskVolume5
+		obj.AveragePrice=self.AveragePrice
+		obj.ActionDay=self.ActionDay
+		return obj
+
 class CThostFtdcInstrumentTradingRightField(Structure):
 	"""投资者合约交易权限"""
 	_fields_ = [
@@ -1798,6 +2433,21 @@ class CThostFtdcInstrumentTradingRightField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', TradingRight=TradingRightType.{4}, ExchangeID=\'{5}\', BizType=BizTypeType.{6}'.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), '' if ord(self.TradingRight) == 0 else TradingRightType(ord(self.TradingRight)).name, str(self.ExchangeID, 'GB2312'), '' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name)
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'TradingRight':'' if ord(self.TradingRight) == 0 else TradingRightType(ord(self.TradingRight)).name,'ExchangeID':str(self.ExchangeID, 'GB2312'),'BizType':'' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name}
+
+	def clone(self):
+		obj=CThostFtdcInstrumentTradingRightField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.TradingRight=self.TradingRight
+		obj.ExchangeID=self.ExchangeID
+		obj.BizType=self.BizType
+		return obj
+
 class CThostFtdcBrokerUserField(Structure):
 	"""经纪公司用户"""
 	_fields_ = [
@@ -1831,6 +2481,20 @@ class CThostFtdcBrokerUserField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', UserName=\'{2}\', UserType=UserTypeType.{3}, IsActive={4}, IsUsingOTP={5}'.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.UserName, 'GB2312'), '' if ord(self.UserType) == 0 else UserTypeType(ord(self.UserType)).name, self.IsActive, self.IsUsingOTP)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'UserName':str(self.UserName, 'GB2312'),'UserType':'' if ord(self.UserType) == 0 else UserTypeType(ord(self.UserType)).name,'IsActive':self.IsActive,'IsUsingOTP':self.IsUsingOTP}
+
+	def clone(self):
+		obj=CThostFtdcBrokerUserField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.UserName=self.UserName
+		obj.UserType=self.UserType
+		obj.IsActive=self.IsActive
+		obj.IsUsingOTP=self.IsUsingOTP
+		return obj
+
 class CThostFtdcBrokerUserPasswordField(Structure):
 	"""经纪公司用户口令"""
 	_fields_ = [
@@ -1852,6 +2516,17 @@ class CThostFtdcBrokerUserPasswordField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', Password=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.Password, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'Password':str(self.Password, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcBrokerUserPasswordField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.Password=self.Password
+		return obj
+
 class CThostFtdcBrokerUserFunctionField(Structure):
 	"""经纪公司用户功能权限"""
 	_fields_ = [
@@ -1872,6 +2547,17 @@ class CThostFtdcBrokerUserFunctionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', BrokerFunctionCode=BrokerFunctionCodeType.{2}'.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.BrokerFunctionCode) == 0 else BrokerFunctionCodeType(ord(self.BrokerFunctionCode)).name)
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'BrokerFunctionCode':'' if ord(self.BrokerFunctionCode) == 0 else BrokerFunctionCodeType(ord(self.BrokerFunctionCode)).name}
+
+	def clone(self):
+		obj=CThostFtdcBrokerUserFunctionField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.BrokerFunctionCode=self.BrokerFunctionCode
+		return obj
 
 class CThostFtdcTraderOfferField(Structure):
 	"""交易所交易员报盘机"""
@@ -1962,6 +2648,34 @@ class CThostFtdcTraderOfferField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', TraderID=\'{1}\', ParticipantID=\'{2}\', Password=\'{3}\', InstallID={4}, OrderLocalID=\'{5}\', TraderConnectStatus=TraderConnectStatusType.{6}, ConnectRequestDate=\'{7}\', ConnectRequestTime=\'{8}\', LastReportDate=\'{9}\', LastReportTime=\'{10}\', ConnectDate=\'{11}\', ConnectTime=\'{12}\', StartDate=\'{13}\', StartTime=\'{14}\', TradingDay=\'{15}\', BrokerID=\'{16}\', MaxTradeID=\'{17}\', MaxOrderMessageReference=\'{18}\', BizType=BizTypeType.{19}'.format(str(self.ExchangeID, 'GB2312'), str(self.TraderID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.Password, 'GB2312'), self.InstallID, str(self.OrderLocalID, 'GB2312'), '' if ord(self.TraderConnectStatus) == 0 else TraderConnectStatusType(ord(self.TraderConnectStatus)).name, str(self.ConnectRequestDate, 'GB2312'), str(self.ConnectRequestTime, 'GB2312'), str(self.LastReportDate, 'GB2312'), str(self.LastReportTime, 'GB2312'), str(self.ConnectDate, 'GB2312'), str(self.ConnectTime, 'GB2312'), str(self.StartDate, 'GB2312'), str(self.StartTime, 'GB2312'), str(self.TradingDay, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.MaxTradeID, 'GB2312'), str(self.MaxOrderMessageReference, 'GB2312'), '' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name)
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'InstallID':self.InstallID,'OrderLocalID':str(self.OrderLocalID, 'GB2312'),'TraderConnectStatus':'' if ord(self.TraderConnectStatus) == 0 else TraderConnectStatusType(ord(self.TraderConnectStatus)).name,'ConnectRequestDate':str(self.ConnectRequestDate, 'GB2312'),'ConnectRequestTime':str(self.ConnectRequestTime, 'GB2312'),'LastReportDate':str(self.LastReportDate, 'GB2312'),'LastReportTime':str(self.LastReportTime, 'GB2312'),'ConnectDate':str(self.ConnectDate, 'GB2312'),'ConnectTime':str(self.ConnectTime, 'GB2312'),'StartDate':str(self.StartDate, 'GB2312'),'StartTime':str(self.StartTime, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'MaxTradeID':str(self.MaxTradeID, 'GB2312'),'MaxOrderMessageReference':str(self.MaxOrderMessageReference, 'GB2312'),'BizType':'' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name}
+
+	def clone(self):
+		obj=CThostFtdcTraderOfferField()
+		obj.ExchangeID=self.ExchangeID
+		obj.TraderID=self.TraderID
+		obj.ParticipantID=self.ParticipantID
+		obj.Password=self.Password
+		obj.InstallID=self.InstallID
+		obj.OrderLocalID=self.OrderLocalID
+		obj.TraderConnectStatus=self.TraderConnectStatus
+		obj.ConnectRequestDate=self.ConnectRequestDate
+		obj.ConnectRequestTime=self.ConnectRequestTime
+		obj.LastReportDate=self.LastReportDate
+		obj.LastReportTime=self.LastReportTime
+		obj.ConnectDate=self.ConnectDate
+		obj.ConnectTime=self.ConnectTime
+		obj.StartDate=self.StartDate
+		obj.StartTime=self.StartTime
+		obj.TradingDay=self.TradingDay
+		obj.BrokerID=self.BrokerID
+		obj.MaxTradeID=self.MaxTradeID
+		obj.MaxOrderMessageReference=self.MaxOrderMessageReference
+		obj.BizType=self.BizType
+		return obj
+
 class CThostFtdcSettlementInfoField(Structure):
 	"""投资者结算结果"""
 	_fields_ = [
@@ -1994,6 +2708,20 @@ class CThostFtdcSettlementInfoField(Structure):
 
 	def __str__(self):
 		return 'TradingDay=\'{0}\', SettlementID={1}, BrokerID=\'{2}\', InvestorID=\'{3}\', SequenceNo={4}, Content=\'{5}\''.format(str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.SequenceNo, str(self.Content, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'SequenceNo':self.SequenceNo,'Content':str(self.Content, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcSettlementInfoField()
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.SequenceNo=self.SequenceNo
+		obj.Content=self.Content
+		return obj
 
 class CThostFtdcInstrumentMarginRateAdjustField(Structure):
 	"""合约保证金率调整"""
@@ -2044,6 +2772,24 @@ class CThostFtdcInstrumentMarginRateAdjustField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', HedgeFlag=HedgeFlagType.{4}, LongMarginRatioByMoney={5}, LongMarginRatioByVolume={6}, ShortMarginRatioByMoney={7}, ShortMarginRatioByVolume={8}, IsRelative={9}'.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, self.LongMarginRatioByMoney, self.LongMarginRatioByVolume, self.ShortMarginRatioByMoney, self.ShortMarginRatioByVolume, self.IsRelative)
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'LongMarginRatioByMoney':self.LongMarginRatioByMoney,'LongMarginRatioByVolume':self.LongMarginRatioByVolume,'ShortMarginRatioByMoney':self.ShortMarginRatioByMoney,'ShortMarginRatioByVolume':self.ShortMarginRatioByVolume,'IsRelative':self.IsRelative}
+
+	def clone(self):
+		obj=CThostFtdcInstrumentMarginRateAdjustField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.HedgeFlag=self.HedgeFlag
+		obj.LongMarginRatioByMoney=self.LongMarginRatioByMoney
+		obj.LongMarginRatioByVolume=self.LongMarginRatioByVolume
+		obj.ShortMarginRatioByMoney=self.ShortMarginRatioByMoney
+		obj.ShortMarginRatioByVolume=self.ShortMarginRatioByVolume
+		obj.IsRelative=self.IsRelative
+		return obj
+
 class CThostFtdcExchangeMarginRateField(Structure):
 	"""交易所保证金率"""
 	_fields_ = [
@@ -2080,6 +2826,21 @@ class CThostFtdcExchangeMarginRateField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InstrumentID=\'{1}\', HedgeFlag=HedgeFlagType.{2}, LongMarginRatioByMoney={3}, LongMarginRatioByVolume={4}, ShortMarginRatioByMoney={5}, ShortMarginRatioByVolume={6}'.format(str(self.BrokerID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, self.LongMarginRatioByMoney, self.LongMarginRatioByVolume, self.ShortMarginRatioByMoney, self.ShortMarginRatioByVolume)
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'LongMarginRatioByMoney':self.LongMarginRatioByMoney,'LongMarginRatioByVolume':self.LongMarginRatioByVolume,'ShortMarginRatioByMoney':self.ShortMarginRatioByMoney,'ShortMarginRatioByVolume':self.ShortMarginRatioByVolume}
+
+	def clone(self):
+		obj=CThostFtdcExchangeMarginRateField()
+		obj.BrokerID=self.BrokerID
+		obj.InstrumentID=self.InstrumentID
+		obj.HedgeFlag=self.HedgeFlag
+		obj.LongMarginRatioByMoney=self.LongMarginRatioByMoney
+		obj.LongMarginRatioByVolume=self.LongMarginRatioByVolume
+		obj.ShortMarginRatioByMoney=self.ShortMarginRatioByMoney
+		obj.ShortMarginRatioByVolume=self.ShortMarginRatioByVolume
+		return obj
 
 class CThostFtdcExchangeMarginRateAdjustField(Structure):
 	"""交易所保证金率调整"""
@@ -2150,6 +2911,29 @@ class CThostFtdcExchangeMarginRateAdjustField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InstrumentID=\'{1}\', HedgeFlag=HedgeFlagType.{2}, LongMarginRatioByMoney={3}, LongMarginRatioByVolume={4}, ShortMarginRatioByMoney={5}, ShortMarginRatioByVolume={6}, ExchLongMarginRatioByMoney={7}, ExchLongMarginRatioByVolume={8}, ExchShortMarginRatioByMoney={9}, ExchShortMarginRatioByVolume={10}, NoLongMarginRatioByMoney={11}, NoLongMarginRatioByVolume={12}, NoShortMarginRatioByMoney={13}, NoShortMarginRatioByVolume={14}'.format(str(self.BrokerID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, self.LongMarginRatioByMoney, self.LongMarginRatioByVolume, self.ShortMarginRatioByMoney, self.ShortMarginRatioByVolume, self.ExchLongMarginRatioByMoney, self.ExchLongMarginRatioByVolume, self.ExchShortMarginRatioByMoney, self.ExchShortMarginRatioByVolume, self.NoLongMarginRatioByMoney, self.NoLongMarginRatioByVolume, self.NoShortMarginRatioByMoney, self.NoShortMarginRatioByVolume)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'LongMarginRatioByMoney':self.LongMarginRatioByMoney,'LongMarginRatioByVolume':self.LongMarginRatioByVolume,'ShortMarginRatioByMoney':self.ShortMarginRatioByMoney,'ShortMarginRatioByVolume':self.ShortMarginRatioByVolume,'ExchLongMarginRatioByMoney':self.ExchLongMarginRatioByMoney,'ExchLongMarginRatioByVolume':self.ExchLongMarginRatioByVolume,'ExchShortMarginRatioByMoney':self.ExchShortMarginRatioByMoney,'ExchShortMarginRatioByVolume':self.ExchShortMarginRatioByVolume,'NoLongMarginRatioByMoney':self.NoLongMarginRatioByMoney,'NoLongMarginRatioByVolume':self.NoLongMarginRatioByVolume,'NoShortMarginRatioByMoney':self.NoShortMarginRatioByMoney,'NoShortMarginRatioByVolume':self.NoShortMarginRatioByVolume}
+
+	def clone(self):
+		obj=CThostFtdcExchangeMarginRateAdjustField()
+		obj.BrokerID=self.BrokerID
+		obj.InstrumentID=self.InstrumentID
+		obj.HedgeFlag=self.HedgeFlag
+		obj.LongMarginRatioByMoney=self.LongMarginRatioByMoney
+		obj.LongMarginRatioByVolume=self.LongMarginRatioByVolume
+		obj.ShortMarginRatioByMoney=self.ShortMarginRatioByMoney
+		obj.ShortMarginRatioByVolume=self.ShortMarginRatioByVolume
+		obj.ExchLongMarginRatioByMoney=self.ExchLongMarginRatioByMoney
+		obj.ExchLongMarginRatioByVolume=self.ExchLongMarginRatioByVolume
+		obj.ExchShortMarginRatioByMoney=self.ExchShortMarginRatioByMoney
+		obj.ExchShortMarginRatioByVolume=self.ExchShortMarginRatioByVolume
+		obj.NoLongMarginRatioByMoney=self.NoLongMarginRatioByMoney
+		obj.NoLongMarginRatioByVolume=self.NoLongMarginRatioByVolume
+		obj.NoShortMarginRatioByMoney=self.NoShortMarginRatioByMoney
+		obj.NoShortMarginRatioByVolume=self.NoShortMarginRatioByVolume
+		return obj
+
 class CThostFtdcExchangeRateField(Structure):
 	"""汇率"""
 	_fields_ = [
@@ -2179,6 +2963,19 @@ class CThostFtdcExchangeRateField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', FromCurrencyID=\'{1}\', FromCurrencyUnit={2}, ToCurrencyID=\'{3}\', ExchangeRate={4}'.format(str(self.BrokerID, 'GB2312'), str(self.FromCurrencyID, 'GB2312'), self.FromCurrencyUnit, str(self.ToCurrencyID, 'GB2312'), self.ExchangeRate)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'FromCurrencyID':str(self.FromCurrencyID, 'GB2312'),'FromCurrencyUnit':self.FromCurrencyUnit,'ToCurrencyID':str(self.ToCurrencyID, 'GB2312'),'ExchangeRate':self.ExchangeRate}
+
+	def clone(self):
+		obj=CThostFtdcExchangeRateField()
+		obj.BrokerID=self.BrokerID
+		obj.FromCurrencyID=self.FromCurrencyID
+		obj.FromCurrencyUnit=self.FromCurrencyUnit
+		obj.ToCurrencyID=self.ToCurrencyID
+		obj.ExchangeRate=self.ExchangeRate
+		return obj
+
 class CThostFtdcSettlementRefField(Structure):
 	"""结算引用"""
 	_fields_ = [
@@ -2195,6 +2992,16 @@ class CThostFtdcSettlementRefField(Structure):
 
 	def __str__(self):
 		return 'TradingDay=\'{0}\', SettlementID={1}'.format(str(self.TradingDay, 'GB2312'), self.SettlementID)
+
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID}
+
+	def clone(self):
+		obj=CThostFtdcSettlementRefField()
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		return obj
 
 class CThostFtdcCurrentTimeField(Structure):
 	"""当前时间"""
@@ -2221,6 +3028,18 @@ class CThostFtdcCurrentTimeField(Structure):
 	def __str__(self):
 		return 'CurrDate=\'{0}\', CurrTime=\'{1}\', CurrMillisec={2}, ActionDay=\'{3}\''.format(str(self.CurrDate, 'GB2312'), str(self.CurrTime, 'GB2312'), self.CurrMillisec, str(self.ActionDay, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'CurrDate':str(self.CurrDate, 'GB2312'),'CurrTime':str(self.CurrTime, 'GB2312'),'CurrMillisec':self.CurrMillisec,'ActionDay':str(self.ActionDay, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcCurrentTimeField()
+		obj.CurrDate=self.CurrDate
+		obj.CurrTime=self.CurrTime
+		obj.CurrMillisec=self.CurrMillisec
+		obj.ActionDay=self.ActionDay
+		return obj
+
 class CThostFtdcCommPhaseField(Structure):
 	"""通讯阶段"""
 	_fields_ = [
@@ -2241,6 +3060,17 @@ class CThostFtdcCommPhaseField(Structure):
 
 	def __str__(self):
 		return 'TradingDay=\'{0}\', CommPhaseNo={1}, SystemID=\'{2}\''.format(str(self.TradingDay, 'GB2312'), self.CommPhaseNo, str(self.SystemID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312'),'CommPhaseNo':self.CommPhaseNo,'SystemID':str(self.SystemID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcCommPhaseField()
+		obj.TradingDay=self.TradingDay
+		obj.CommPhaseNo=self.CommPhaseNo
+		obj.SystemID=self.SystemID
+		return obj
 
 class CThostFtdcLoginInfoField(Structure):
 	"""登录信息"""
@@ -2335,6 +3165,35 @@ class CThostFtdcLoginInfoField(Structure):
 	def __str__(self):
 		return 'FrontID={0}, SessionID={1}, BrokerID=\'{2}\', UserID=\'{3}\', LoginDate=\'{4}\', LoginTime=\'{5}\', IPAddress=\'{6}\', UserProductInfo=\'{7}\', InterfaceProductInfo=\'{8}\', ProtocolInfo=\'{9}\', SystemName=\'{10}\', Password=\'{11}\', MaxOrderRef=\'{12}\', SHFETime=\'{13}\', DCETime=\'{14}\', CZCETime=\'{15}\', FFEXTime=\'{16}\', MacAddress=\'{17}\', OneTimePassword=\'{18}\', INETime=\'{19}\', LoginRemark=\'{20}\''.format(self.FrontID, self.SessionID, str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.LoginDate, 'GB2312'), str(self.LoginTime, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.UserProductInfo, 'GB2312'), str(self.InterfaceProductInfo, 'GB2312'), str(self.ProtocolInfo, 'GB2312'), str(self.SystemName, 'GB2312'), str(self.Password, 'GB2312'), str(self.MaxOrderRef, 'GB2312'), str(self.SHFETime, 'GB2312'), str(self.DCETime, 'GB2312'), str(self.CZCETime, 'GB2312'), str(self.FFEXTime, 'GB2312'), str(self.MacAddress, 'GB2312'), str(self.OneTimePassword, 'GB2312'), str(self.INETime, 'GB2312'), str(self.LoginRemark, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'FrontID':self.FrontID,'SessionID':self.SessionID,'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'LoginDate':str(self.LoginDate, 'GB2312'),'LoginTime':str(self.LoginTime, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'UserProductInfo':str(self.UserProductInfo, 'GB2312'),'InterfaceProductInfo':str(self.InterfaceProductInfo, 'GB2312'),'ProtocolInfo':str(self.ProtocolInfo, 'GB2312'),'SystemName':str(self.SystemName, 'GB2312'),'Password':str(self.Password, 'GB2312'),'MaxOrderRef':str(self.MaxOrderRef, 'GB2312'),'SHFETime':str(self.SHFETime, 'GB2312'),'DCETime':str(self.DCETime, 'GB2312'),'CZCETime':str(self.CZCETime, 'GB2312'),'FFEXTime':str(self.FFEXTime, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312'),'OneTimePassword':str(self.OneTimePassword, 'GB2312'),'INETime':str(self.INETime, 'GB2312'),'LoginRemark':str(self.LoginRemark, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcLoginInfoField()
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.LoginDate=self.LoginDate
+		obj.LoginTime=self.LoginTime
+		obj.IPAddress=self.IPAddress
+		obj.UserProductInfo=self.UserProductInfo
+		obj.InterfaceProductInfo=self.InterfaceProductInfo
+		obj.ProtocolInfo=self.ProtocolInfo
+		obj.SystemName=self.SystemName
+		obj.Password=self.Password
+		obj.MaxOrderRef=self.MaxOrderRef
+		obj.SHFETime=self.SHFETime
+		obj.DCETime=self.DCETime
+		obj.CZCETime=self.CZCETime
+		obj.FFEXTime=self.FFEXTime
+		obj.MacAddress=self.MacAddress
+		obj.OneTimePassword=self.OneTimePassword
+		obj.INETime=self.INETime
+		obj.LoginRemark=self.LoginRemark
+		return obj
+
 class CThostFtdcLogoutAllField(Structure):
 	"""登录信息"""
 	_fields_ = [
@@ -2355,6 +3214,17 @@ class CThostFtdcLogoutAllField(Structure):
 
 	def __str__(self):
 		return 'FrontID={0}, SessionID={1}, SystemName=\'{2}\''.format(self.FrontID, self.SessionID, str(self.SystemName, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'FrontID':self.FrontID,'SessionID':self.SessionID,'SystemName':str(self.SystemName, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcLogoutAllField()
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.SystemName=self.SystemName
+		return obj
 
 class CThostFtdcFrontStatusField(Structure):
 	"""前置状态"""
@@ -2381,6 +3251,18 @@ class CThostFtdcFrontStatusField(Structure):
 	def __str__(self):
 		return 'FrontID={0}, LastReportDate=\'{1}\', LastReportTime=\'{2}\', IsActive={3}'.format(self.FrontID, str(self.LastReportDate, 'GB2312'), str(self.LastReportTime, 'GB2312'), self.IsActive)
 
+	@property
+	def __dict__(self):
+		return {'FrontID':self.FrontID,'LastReportDate':str(self.LastReportDate, 'GB2312'),'LastReportTime':str(self.LastReportTime, 'GB2312'),'IsActive':self.IsActive}
+
+	def clone(self):
+		obj=CThostFtdcFrontStatusField()
+		obj.FrontID=self.FrontID
+		obj.LastReportDate=self.LastReportDate
+		obj.LastReportTime=self.LastReportTime
+		obj.IsActive=self.IsActive
+		return obj
+
 class CThostFtdcUserPasswordUpdateField(Structure):
 	"""用户口令变更"""
 	_fields_ = [
@@ -2405,6 +3287,18 @@ class CThostFtdcUserPasswordUpdateField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', OldPassword=\'{2}\', NewPassword=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.OldPassword, 'GB2312'), str(self.NewPassword, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'OldPassword':str(self.OldPassword, 'GB2312'),'NewPassword':str(self.NewPassword, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcUserPasswordUpdateField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.OldPassword=self.OldPassword
+		obj.NewPassword=self.NewPassword
+		return obj
 
 class CThostFtdcInputOrderField(Structure):
 	"""输入报单"""
@@ -2534,6 +3428,44 @@ class CThostFtdcInputOrderField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', OrderRef=\'{3}\', UserID=\'{4}\', OrderPriceType=OrderPriceTypeType.{5}, Direction=DirectionType.{6}, CombOffsetFlag=\'{7}\', CombHedgeFlag=\'{8}\', LimitPrice={9}, VolumeTotalOriginal={10}, TimeCondition=TimeConditionType.{11}, GTDDate=\'{12}\', VolumeCondition=VolumeConditionType.{13}, MinVolume={14}, ContingentCondition=ContingentConditionType.{15}, StopPrice={16}, ForceCloseReason=ForceCloseReasonType.{17}, IsAutoSuspend={18}, BusinessUnit=\'{19}\', RequestID={20}, UserForceClose={21}, IsSwapOrder={22}, ExchangeID=\'{23}\', InvestUnitID=\'{24}\', AccountID=\'{25}\', CurrencyID=\'{26}\', ClientID=\'{27}\', IPAddress=\'{28}\', MacAddress=\'{29}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.OrderRef, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.OrderPriceType) == 0 else OrderPriceTypeType(ord(self.OrderPriceType)).name, '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, str(self.CombOffsetFlag, 'GB2312'), str(self.CombHedgeFlag, 'GB2312'), self.LimitPrice, self.VolumeTotalOriginal, '' if ord(self.TimeCondition) == 0 else TimeConditionType(ord(self.TimeCondition)).name, str(self.GTDDate, 'GB2312'), '' if ord(self.VolumeCondition) == 0 else VolumeConditionType(ord(self.VolumeCondition)).name, self.MinVolume, '' if ord(self.ContingentCondition) == 0 else ContingentConditionType(ord(self.ContingentCondition)).name, self.StopPrice, '' if ord(self.ForceCloseReason) == 0 else ForceCloseReasonType(ord(self.ForceCloseReason)).name, self.IsAutoSuspend, str(self.BusinessUnit, 'GB2312'), self.RequestID, self.UserForceClose, self.IsSwapOrder, str(self.ExchangeID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'OrderRef':str(self.OrderRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'OrderPriceType':'' if ord(self.OrderPriceType) == 0 else OrderPriceTypeType(ord(self.OrderPriceType)).name,'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'CombOffsetFlag':str(self.CombOffsetFlag, 'GB2312'),'CombHedgeFlag':str(self.CombHedgeFlag, 'GB2312'),'LimitPrice':self.LimitPrice,'VolumeTotalOriginal':self.VolumeTotalOriginal,'TimeCondition':'' if ord(self.TimeCondition) == 0 else TimeConditionType(ord(self.TimeCondition)).name,'GTDDate':str(self.GTDDate, 'GB2312'),'VolumeCondition':'' if ord(self.VolumeCondition) == 0 else VolumeConditionType(ord(self.VolumeCondition)).name,'MinVolume':self.MinVolume,'ContingentCondition':'' if ord(self.ContingentCondition) == 0 else ContingentConditionType(ord(self.ContingentCondition)).name,'StopPrice':self.StopPrice,'ForceCloseReason':'' if ord(self.ForceCloseReason) == 0 else ForceCloseReasonType(ord(self.ForceCloseReason)).name,'IsAutoSuspend':self.IsAutoSuspend,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'RequestID':self.RequestID,'UserForceClose':self.UserForceClose,'IsSwapOrder':self.IsSwapOrder,'ExchangeID':str(self.ExchangeID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInputOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.OrderRef=self.OrderRef
+		obj.UserID=self.UserID
+		obj.OrderPriceType=self.OrderPriceType
+		obj.Direction=self.Direction
+		obj.CombOffsetFlag=self.CombOffsetFlag
+		obj.CombHedgeFlag=self.CombHedgeFlag
+		obj.LimitPrice=self.LimitPrice
+		obj.VolumeTotalOriginal=self.VolumeTotalOriginal
+		obj.TimeCondition=self.TimeCondition
+		obj.GTDDate=self.GTDDate
+		obj.VolumeCondition=self.VolumeCondition
+		obj.MinVolume=self.MinVolume
+		obj.ContingentCondition=self.ContingentCondition
+		obj.StopPrice=self.StopPrice
+		obj.ForceCloseReason=self.ForceCloseReason
+		obj.IsAutoSuspend=self.IsAutoSuspend
+		obj.BusinessUnit=self.BusinessUnit
+		obj.RequestID=self.RequestID
+		obj.UserForceClose=self.UserForceClose
+		obj.IsSwapOrder=self.IsSwapOrder
+		obj.ExchangeID=self.ExchangeID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.AccountID=self.AccountID
+		obj.CurrencyID=self.CurrencyID
+		obj.ClientID=self.ClientID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
 
 class CThostFtdcOrderField(Structure):
 	"""报单"""
@@ -2796,6 +3728,77 @@ class CThostFtdcOrderField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', OrderRef=\'{3}\', UserID=\'{4}\', OrderPriceType=OrderPriceTypeType.{5}, Direction=DirectionType.{6}, CombOffsetFlag=\'{7}\', CombHedgeFlag=\'{8}\', LimitPrice={9}, VolumeTotalOriginal={10}, TimeCondition=TimeConditionType.{11}, GTDDate=\'{12}\', VolumeCondition=VolumeConditionType.{13}, MinVolume={14}, ContingentCondition=ContingentConditionType.{15}, StopPrice={16}, ForceCloseReason=ForceCloseReasonType.{17}, IsAutoSuspend={18}, BusinessUnit=\'{19}\', RequestID={20}, OrderLocalID=\'{21}\', ExchangeID=\'{22}\', ParticipantID=\'{23}\', ClientID=\'{24}\', ExchangeInstID=\'{25}\', TraderID=\'{26}\', InstallID={27}, OrderSubmitStatus=OrderSubmitStatusType.{28}, NotifySequence={29}, TradingDay=\'{30}\', SettlementID={31}, OrderSysID=\'{32}\', OrderSource=OrderSourceType.{33}, OrderStatus=OrderStatusType.{34}, OrderType=OrderTypeType.{35}, VolumeTraded={36}, VolumeTotal={37}, InsertDate=\'{38}\', InsertTime=\'{39}\', ActiveTime=\'{40}\', SuspendTime=\'{41}\', UpdateTime=\'{42}\', CancelTime=\'{43}\', ActiveTraderID=\'{44}\', ClearingPartID=\'{45}\', SequenceNo={46}, FrontID={47}, SessionID={48}, UserProductInfo=\'{49}\', StatusMsg=\'{50}\', UserForceClose={51}, ActiveUserID=\'{52}\', BrokerOrderSeq={53}, RelativeOrderSysID=\'{54}\', ZCETotalTradedVolume={55}, IsSwapOrder={56}, BranchID=\'{57}\', InvestUnitID=\'{58}\', AccountID=\'{59}\', CurrencyID=\'{60}\', IPAddress=\'{61}\', MacAddress=\'{62}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.OrderRef, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.OrderPriceType) == 0 else OrderPriceTypeType(ord(self.OrderPriceType)).name, '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, str(self.CombOffsetFlag, 'GB2312'), str(self.CombHedgeFlag, 'GB2312'), self.LimitPrice, self.VolumeTotalOriginal, '' if ord(self.TimeCondition) == 0 else TimeConditionType(ord(self.TimeCondition)).name, str(self.GTDDate, 'GB2312'), '' if ord(self.VolumeCondition) == 0 else VolumeConditionType(ord(self.VolumeCondition)).name, self.MinVolume, '' if ord(self.ContingentCondition) == 0 else ContingentConditionType(ord(self.ContingentCondition)).name, self.StopPrice, '' if ord(self.ForceCloseReason) == 0 else ForceCloseReasonType(ord(self.ForceCloseReason)).name, self.IsAutoSuspend, str(self.BusinessUnit, 'GB2312'), self.RequestID, str(self.OrderLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, '' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name, self.NotifySequence, str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.OrderSysID, 'GB2312'), '' if ord(self.OrderSource) == 0 else OrderSourceType(ord(self.OrderSource)).name, '' if ord(self.OrderStatus) == 0 else OrderStatusType(ord(self.OrderStatus)).name, '' if ord(self.OrderType) == 0 else OrderTypeType(ord(self.OrderType)).name, self.VolumeTraded, self.VolumeTotal, str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), str(self.ActiveTime, 'GB2312'), str(self.SuspendTime, 'GB2312'), str(self.UpdateTime, 'GB2312'), str(self.CancelTime, 'GB2312'), str(self.ActiveTraderID, 'GB2312'), str(self.ClearingPartID, 'GB2312'), self.SequenceNo, self.FrontID, self.SessionID, str(self.UserProductInfo, 'GB2312'), str(self.StatusMsg, 'GB2312'), self.UserForceClose, str(self.ActiveUserID, 'GB2312'), self.BrokerOrderSeq, str(self.RelativeOrderSysID, 'GB2312'), self.ZCETotalTradedVolume, self.IsSwapOrder, str(self.BranchID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'OrderRef':str(self.OrderRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'OrderPriceType':'' if ord(self.OrderPriceType) == 0 else OrderPriceTypeType(ord(self.OrderPriceType)).name,'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'CombOffsetFlag':str(self.CombOffsetFlag, 'GB2312'),'CombHedgeFlag':str(self.CombHedgeFlag, 'GB2312'),'LimitPrice':self.LimitPrice,'VolumeTotalOriginal':self.VolumeTotalOriginal,'TimeCondition':'' if ord(self.TimeCondition) == 0 else TimeConditionType(ord(self.TimeCondition)).name,'GTDDate':str(self.GTDDate, 'GB2312'),'VolumeCondition':'' if ord(self.VolumeCondition) == 0 else VolumeConditionType(ord(self.VolumeCondition)).name,'MinVolume':self.MinVolume,'ContingentCondition':'' if ord(self.ContingentCondition) == 0 else ContingentConditionType(ord(self.ContingentCondition)).name,'StopPrice':self.StopPrice,'ForceCloseReason':'' if ord(self.ForceCloseReason) == 0 else ForceCloseReasonType(ord(self.ForceCloseReason)).name,'IsAutoSuspend':self.IsAutoSuspend,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'RequestID':self.RequestID,'OrderLocalID':str(self.OrderLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'OrderSubmitStatus':'' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name,'NotifySequence':self.NotifySequence,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'OrderSysID':str(self.OrderSysID, 'GB2312'),'OrderSource':'' if ord(self.OrderSource) == 0 else OrderSourceType(ord(self.OrderSource)).name,'OrderStatus':'' if ord(self.OrderStatus) == 0 else OrderStatusType(ord(self.OrderStatus)).name,'OrderType':'' if ord(self.OrderType) == 0 else OrderTypeType(ord(self.OrderType)).name,'VolumeTraded':self.VolumeTraded,'VolumeTotal':self.VolumeTotal,'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'ActiveTime':str(self.ActiveTime, 'GB2312'),'SuspendTime':str(self.SuspendTime, 'GB2312'),'UpdateTime':str(self.UpdateTime, 'GB2312'),'CancelTime':str(self.CancelTime, 'GB2312'),'ActiveTraderID':str(self.ActiveTraderID, 'GB2312'),'ClearingPartID':str(self.ClearingPartID, 'GB2312'),'SequenceNo':self.SequenceNo,'FrontID':self.FrontID,'SessionID':self.SessionID,'UserProductInfo':str(self.UserProductInfo, 'GB2312'),'StatusMsg':str(self.StatusMsg, 'GB2312'),'UserForceClose':self.UserForceClose,'ActiveUserID':str(self.ActiveUserID, 'GB2312'),'BrokerOrderSeq':self.BrokerOrderSeq,'RelativeOrderSysID':str(self.RelativeOrderSysID, 'GB2312'),'ZCETotalTradedVolume':self.ZCETotalTradedVolume,'IsSwapOrder':self.IsSwapOrder,'BranchID':str(self.BranchID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.OrderRef=self.OrderRef
+		obj.UserID=self.UserID
+		obj.OrderPriceType=self.OrderPriceType
+		obj.Direction=self.Direction
+		obj.CombOffsetFlag=self.CombOffsetFlag
+		obj.CombHedgeFlag=self.CombHedgeFlag
+		obj.LimitPrice=self.LimitPrice
+		obj.VolumeTotalOriginal=self.VolumeTotalOriginal
+		obj.TimeCondition=self.TimeCondition
+		obj.GTDDate=self.GTDDate
+		obj.VolumeCondition=self.VolumeCondition
+		obj.MinVolume=self.MinVolume
+		obj.ContingentCondition=self.ContingentCondition
+		obj.StopPrice=self.StopPrice
+		obj.ForceCloseReason=self.ForceCloseReason
+		obj.IsAutoSuspend=self.IsAutoSuspend
+		obj.BusinessUnit=self.BusinessUnit
+		obj.RequestID=self.RequestID
+		obj.OrderLocalID=self.OrderLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.OrderSubmitStatus=self.OrderSubmitStatus
+		obj.NotifySequence=self.NotifySequence
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.OrderSysID=self.OrderSysID
+		obj.OrderSource=self.OrderSource
+		obj.OrderStatus=self.OrderStatus
+		obj.OrderType=self.OrderType
+		obj.VolumeTraded=self.VolumeTraded
+		obj.VolumeTotal=self.VolumeTotal
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.ActiveTime=self.ActiveTime
+		obj.SuspendTime=self.SuspendTime
+		obj.UpdateTime=self.UpdateTime
+		obj.CancelTime=self.CancelTime
+		obj.ActiveTraderID=self.ActiveTraderID
+		obj.ClearingPartID=self.ClearingPartID
+		obj.SequenceNo=self.SequenceNo
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.UserProductInfo=self.UserProductInfo
+		obj.StatusMsg=self.StatusMsg
+		obj.UserForceClose=self.UserForceClose
+		obj.ActiveUserID=self.ActiveUserID
+		obj.BrokerOrderSeq=self.BrokerOrderSeq
+		obj.RelativeOrderSysID=self.RelativeOrderSysID
+		obj.ZCETotalTradedVolume=self.ZCETotalTradedVolume
+		obj.IsSwapOrder=self.IsSwapOrder
+		obj.BranchID=self.BranchID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.AccountID=self.AccountID
+		obj.CurrencyID=self.CurrencyID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcExchangeOrderField(Structure):
 	"""交易所报单"""
 	_fields_ = [
@@ -2985,6 +3988,59 @@ class CThostFtdcExchangeOrderField(Structure):
 	def __str__(self):
 		return 'OrderPriceType=OrderPriceTypeType.{0}, Direction=DirectionType.{1}, CombOffsetFlag=\'{2}\', CombHedgeFlag=\'{3}\', LimitPrice={4}, VolumeTotalOriginal={5}, TimeCondition=TimeConditionType.{6}, GTDDate=\'{7}\', VolumeCondition=VolumeConditionType.{8}, MinVolume={9}, ContingentCondition=ContingentConditionType.{10}, StopPrice={11}, ForceCloseReason=ForceCloseReasonType.{12}, IsAutoSuspend={13}, BusinessUnit=\'{14}\', RequestID={15}, OrderLocalID=\'{16}\', ExchangeID=\'{17}\', ParticipantID=\'{18}\', ClientID=\'{19}\', ExchangeInstID=\'{20}\', TraderID=\'{21}\', InstallID={22}, OrderSubmitStatus=OrderSubmitStatusType.{23}, NotifySequence={24}, TradingDay=\'{25}\', SettlementID={26}, OrderSysID=\'{27}\', OrderSource=OrderSourceType.{28}, OrderStatus=OrderStatusType.{29}, OrderType=OrderTypeType.{30}, VolumeTraded={31}, VolumeTotal={32}, InsertDate=\'{33}\', InsertTime=\'{34}\', ActiveTime=\'{35}\', SuspendTime=\'{36}\', UpdateTime=\'{37}\', CancelTime=\'{38}\', ActiveTraderID=\'{39}\', ClearingPartID=\'{40}\', SequenceNo={41}, BranchID=\'{42}\', IPAddress=\'{43}\', MacAddress=\'{44}\''.format('' if ord(self.OrderPriceType) == 0 else OrderPriceTypeType(ord(self.OrderPriceType)).name, '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, str(self.CombOffsetFlag, 'GB2312'), str(self.CombHedgeFlag, 'GB2312'), self.LimitPrice, self.VolumeTotalOriginal, '' if ord(self.TimeCondition) == 0 else TimeConditionType(ord(self.TimeCondition)).name, str(self.GTDDate, 'GB2312'), '' if ord(self.VolumeCondition) == 0 else VolumeConditionType(ord(self.VolumeCondition)).name, self.MinVolume, '' if ord(self.ContingentCondition) == 0 else ContingentConditionType(ord(self.ContingentCondition)).name, self.StopPrice, '' if ord(self.ForceCloseReason) == 0 else ForceCloseReasonType(ord(self.ForceCloseReason)).name, self.IsAutoSuspend, str(self.BusinessUnit, 'GB2312'), self.RequestID, str(self.OrderLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, '' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name, self.NotifySequence, str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.OrderSysID, 'GB2312'), '' if ord(self.OrderSource) == 0 else OrderSourceType(ord(self.OrderSource)).name, '' if ord(self.OrderStatus) == 0 else OrderStatusType(ord(self.OrderStatus)).name, '' if ord(self.OrderType) == 0 else OrderTypeType(ord(self.OrderType)).name, self.VolumeTraded, self.VolumeTotal, str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), str(self.ActiveTime, 'GB2312'), str(self.SuspendTime, 'GB2312'), str(self.UpdateTime, 'GB2312'), str(self.CancelTime, 'GB2312'), str(self.ActiveTraderID, 'GB2312'), str(self.ClearingPartID, 'GB2312'), self.SequenceNo, str(self.BranchID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'OrderPriceType':'' if ord(self.OrderPriceType) == 0 else OrderPriceTypeType(ord(self.OrderPriceType)).name,'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'CombOffsetFlag':str(self.CombOffsetFlag, 'GB2312'),'CombHedgeFlag':str(self.CombHedgeFlag, 'GB2312'),'LimitPrice':self.LimitPrice,'VolumeTotalOriginal':self.VolumeTotalOriginal,'TimeCondition':'' if ord(self.TimeCondition) == 0 else TimeConditionType(ord(self.TimeCondition)).name,'GTDDate':str(self.GTDDate, 'GB2312'),'VolumeCondition':'' if ord(self.VolumeCondition) == 0 else VolumeConditionType(ord(self.VolumeCondition)).name,'MinVolume':self.MinVolume,'ContingentCondition':'' if ord(self.ContingentCondition) == 0 else ContingentConditionType(ord(self.ContingentCondition)).name,'StopPrice':self.StopPrice,'ForceCloseReason':'' if ord(self.ForceCloseReason) == 0 else ForceCloseReasonType(ord(self.ForceCloseReason)).name,'IsAutoSuspend':self.IsAutoSuspend,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'RequestID':self.RequestID,'OrderLocalID':str(self.OrderLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'OrderSubmitStatus':'' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name,'NotifySequence':self.NotifySequence,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'OrderSysID':str(self.OrderSysID, 'GB2312'),'OrderSource':'' if ord(self.OrderSource) == 0 else OrderSourceType(ord(self.OrderSource)).name,'OrderStatus':'' if ord(self.OrderStatus) == 0 else OrderStatusType(ord(self.OrderStatus)).name,'OrderType':'' if ord(self.OrderType) == 0 else OrderTypeType(ord(self.OrderType)).name,'VolumeTraded':self.VolumeTraded,'VolumeTotal':self.VolumeTotal,'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'ActiveTime':str(self.ActiveTime, 'GB2312'),'SuspendTime':str(self.SuspendTime, 'GB2312'),'UpdateTime':str(self.UpdateTime, 'GB2312'),'CancelTime':str(self.CancelTime, 'GB2312'),'ActiveTraderID':str(self.ActiveTraderID, 'GB2312'),'ClearingPartID':str(self.ClearingPartID, 'GB2312'),'SequenceNo':self.SequenceNo,'BranchID':str(self.BranchID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeOrderField()
+		obj.OrderPriceType=self.OrderPriceType
+		obj.Direction=self.Direction
+		obj.CombOffsetFlag=self.CombOffsetFlag
+		obj.CombHedgeFlag=self.CombHedgeFlag
+		obj.LimitPrice=self.LimitPrice
+		obj.VolumeTotalOriginal=self.VolumeTotalOriginal
+		obj.TimeCondition=self.TimeCondition
+		obj.GTDDate=self.GTDDate
+		obj.VolumeCondition=self.VolumeCondition
+		obj.MinVolume=self.MinVolume
+		obj.ContingentCondition=self.ContingentCondition
+		obj.StopPrice=self.StopPrice
+		obj.ForceCloseReason=self.ForceCloseReason
+		obj.IsAutoSuspend=self.IsAutoSuspend
+		obj.BusinessUnit=self.BusinessUnit
+		obj.RequestID=self.RequestID
+		obj.OrderLocalID=self.OrderLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.OrderSubmitStatus=self.OrderSubmitStatus
+		obj.NotifySequence=self.NotifySequence
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.OrderSysID=self.OrderSysID
+		obj.OrderSource=self.OrderSource
+		obj.OrderStatus=self.OrderStatus
+		obj.OrderType=self.OrderType
+		obj.VolumeTraded=self.VolumeTraded
+		obj.VolumeTotal=self.VolumeTotal
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.ActiveTime=self.ActiveTime
+		obj.SuspendTime=self.SuspendTime
+		obj.UpdateTime=self.UpdateTime
+		obj.CancelTime=self.CancelTime
+		obj.ActiveTraderID=self.ActiveTraderID
+		obj.ClearingPartID=self.ClearingPartID
+		obj.SequenceNo=self.SequenceNo
+		obj.BranchID=self.BranchID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcExchangeOrderInsertErrorField(Structure):
 	"""交易所报单插入失败"""
 	_fields_ = [
@@ -3021,6 +4077,21 @@ class CThostFtdcExchangeOrderInsertErrorField(Structure):
 
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', ParticipantID=\'{1}\', TraderID=\'{2}\', InstallID={3}, OrderLocalID=\'{4}\', ErrorID={5}, ErrorMsg=\'{6}\''.format(str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.OrderLocalID, 'GB2312'), self.ErrorID, str(self.ErrorMsg, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'OrderLocalID':str(self.OrderLocalID, 'GB2312'),'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeOrderInsertErrorField()
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.OrderLocalID=self.OrderLocalID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
 
 class CThostFtdcInputOrderActionField(Structure):
 	"""输入报单操作"""
@@ -3098,6 +4169,31 @@ class CThostFtdcInputOrderActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', OrderActionRef={2}, OrderRef=\'{3}\', RequestID={4}, FrontID={5}, SessionID={6}, ExchangeID=\'{7}\', OrderSysID=\'{8}\', ActionFlag=ActionFlagType.{9}, LimitPrice={10}, VolumeChange={11}, UserID=\'{12}\', InstrumentID=\'{13}\', InvestUnitID=\'{14}\', IPAddress=\'{15}\', MacAddress=\'{16}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.OrderActionRef, str(self.OrderRef, 'GB2312'), self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.OrderSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, self.LimitPrice, self.VolumeChange, str(self.UserID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'OrderActionRef':self.OrderActionRef,'OrderRef':str(self.OrderRef, 'GB2312'),'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'OrderSysID':str(self.OrderSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'LimitPrice':self.LimitPrice,'VolumeChange':self.VolumeChange,'UserID':str(self.UserID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInputOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.OrderActionRef=self.OrderActionRef
+		obj.OrderRef=self.OrderRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.OrderSysID=self.OrderSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.LimitPrice=self.LimitPrice
+		obj.VolumeChange=self.VolumeChange
+		obj.UserID=self.UserID
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
 
 class CThostFtdcOrderActionField(Structure):
 	"""报单操作"""
@@ -3224,6 +4320,43 @@ class CThostFtdcOrderActionField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', OrderActionRef={2}, OrderRef=\'{3}\', RequestID={4}, FrontID={5}, SessionID={6}, ExchangeID=\'{7}\', OrderSysID=\'{8}\', ActionFlag=ActionFlagType.{9}, LimitPrice={10}, VolumeChange={11}, ActionDate=\'{12}\', ActionTime=\'{13}\', TraderID=\'{14}\', InstallID={15}, OrderLocalID=\'{16}\', ActionLocalID=\'{17}\', ParticipantID=\'{18}\', ClientID=\'{19}\', BusinessUnit=\'{20}\', OrderActionStatus=OrderActionStatusType.{21}, UserID=\'{22}\', StatusMsg=\'{23}\', InstrumentID=\'{24}\', BranchID=\'{25}\', InvestUnitID=\'{26}\', IPAddress=\'{27}\', MacAddress=\'{28}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.OrderActionRef, str(self.OrderRef, 'GB2312'), self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.OrderSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, self.LimitPrice, self.VolumeChange, str(self.ActionDate, 'GB2312'), str(self.ActionTime, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.OrderLocalID, 'GB2312'), str(self.ActionLocalID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.BusinessUnit, 'GB2312'), '' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name, str(self.UserID, 'GB2312'), str(self.StatusMsg, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.BranchID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'OrderActionRef':self.OrderActionRef,'OrderRef':str(self.OrderRef, 'GB2312'),'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'OrderSysID':str(self.OrderSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'LimitPrice':self.LimitPrice,'VolumeChange':self.VolumeChange,'ActionDate':str(self.ActionDate, 'GB2312'),'ActionTime':str(self.ActionTime, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'OrderLocalID':str(self.OrderLocalID, 'GB2312'),'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OrderActionStatus':'' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name,'UserID':str(self.UserID, 'GB2312'),'StatusMsg':str(self.StatusMsg, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.OrderActionRef=self.OrderActionRef
+		obj.OrderRef=self.OrderRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.OrderSysID=self.OrderSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.LimitPrice=self.LimitPrice
+		obj.VolumeChange=self.VolumeChange
+		obj.ActionDate=self.ActionDate
+		obj.ActionTime=self.ActionTime
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.OrderLocalID=self.OrderLocalID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OrderActionStatus=self.OrderActionStatus
+		obj.UserID=self.UserID
+		obj.StatusMsg=self.StatusMsg
+		obj.InstrumentID=self.InstrumentID
+		obj.BranchID=self.BranchID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcExchangeOrderActionField(Structure):
 	"""交易所报单操作"""
 	_fields_ = [
@@ -3309,6 +4442,33 @@ class CThostFtdcExchangeOrderActionField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', OrderSysID=\'{1}\', ActionFlag=ActionFlagType.{2}, LimitPrice={3}, VolumeChange={4}, ActionDate=\'{5}\', ActionTime=\'{6}\', TraderID=\'{7}\', InstallID={8}, OrderLocalID=\'{9}\', ActionLocalID=\'{10}\', ParticipantID=\'{11}\', ClientID=\'{12}\', BusinessUnit=\'{13}\', OrderActionStatus=OrderActionStatusType.{14}, UserID=\'{15}\', BranchID=\'{16}\', IPAddress=\'{17}\', MacAddress=\'{18}\''.format(str(self.ExchangeID, 'GB2312'), str(self.OrderSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, self.LimitPrice, self.VolumeChange, str(self.ActionDate, 'GB2312'), str(self.ActionTime, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.OrderLocalID, 'GB2312'), str(self.ActionLocalID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.BusinessUnit, 'GB2312'), '' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name, str(self.UserID, 'GB2312'), str(self.BranchID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'OrderSysID':str(self.OrderSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'LimitPrice':self.LimitPrice,'VolumeChange':self.VolumeChange,'ActionDate':str(self.ActionDate, 'GB2312'),'ActionTime':str(self.ActionTime, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'OrderLocalID':str(self.OrderLocalID, 'GB2312'),'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OrderActionStatus':'' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name,'UserID':str(self.UserID, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeOrderActionField()
+		obj.ExchangeID=self.ExchangeID
+		obj.OrderSysID=self.OrderSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.LimitPrice=self.LimitPrice
+		obj.VolumeChange=self.VolumeChange
+		obj.ActionDate=self.ActionDate
+		obj.ActionTime=self.ActionTime
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.OrderLocalID=self.OrderLocalID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OrderActionStatus=self.OrderActionStatus
+		obj.UserID=self.UserID
+		obj.BranchID=self.BranchID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcExchangeOrderActionErrorField(Structure):
 	"""交易所报单操作失败"""
 	_fields_ = [
@@ -3353,6 +4513,23 @@ class CThostFtdcExchangeOrderActionErrorField(Structure):
 
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', OrderSysID=\'{1}\', TraderID=\'{2}\', InstallID={3}, OrderLocalID=\'{4}\', ActionLocalID=\'{5}\', ErrorID={6}, ErrorMsg=\'{7}\', BrokerID=\'{8}\''.format(str(self.ExchangeID, 'GB2312'), str(self.OrderSysID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.OrderLocalID, 'GB2312'), str(self.ActionLocalID, 'GB2312'), self.ErrorID, str(self.ErrorMsg, 'GB2312'), str(self.BrokerID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'OrderSysID':str(self.OrderSysID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'OrderLocalID':str(self.OrderLocalID, 'GB2312'),'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeOrderActionErrorField()
+		obj.ExchangeID=self.ExchangeID
+		obj.OrderSysID=self.OrderSysID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.OrderLocalID=self.OrderLocalID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		obj.BrokerID=self.BrokerID
+		return obj
 
 class CThostFtdcExchangeTradeField(Structure):
 	"""交易所成交"""
@@ -3450,6 +4627,36 @@ class CThostFtdcExchangeTradeField(Structure):
 
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', TradeID=\'{1}\', Direction=DirectionType.{2}, OrderSysID=\'{3}\', ParticipantID=\'{4}\', ClientID=\'{5}\', TradingRole=TradingRoleType.{6}, ExchangeInstID=\'{7}\', OffsetFlag=OffsetFlagType.{8}, HedgeFlag=HedgeFlagType.{9}, Price={10}, Volume={11}, TradeDate=\'{12}\', TradeTime=\'{13}\', TradeType=TradeTypeType.{14}, PriceSource=PriceSourceType.{15}, TraderID=\'{16}\', OrderLocalID=\'{17}\', ClearingPartID=\'{18}\', BusinessUnit=\'{19}\', SequenceNo={20}, TradeSource=TradeSourceType.{21}'.format(str(self.ExchangeID, 'GB2312'), str(self.TradeID, 'GB2312'), '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, str(self.OrderSysID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), '' if ord(self.TradingRole) == 0 else TradingRoleType(ord(self.TradingRole)).name, str(self.ExchangeInstID, 'GB2312'), '' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, self.Price, self.Volume, str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), '' if ord(self.TradeType) == 0 else TradeTypeType(ord(self.TradeType)).name, '' if ord(self.PriceSource) == 0 else PriceSourceType(ord(self.PriceSource)).name, str(self.TraderID, 'GB2312'), str(self.OrderLocalID, 'GB2312'), str(self.ClearingPartID, 'GB2312'), str(self.BusinessUnit, 'GB2312'), self.SequenceNo, '' if ord(self.TradeSource) == 0 else TradeSourceType(ord(self.TradeSource)).name)
+
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'TradeID':str(self.TradeID, 'GB2312'),'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'OrderSysID':str(self.OrderSysID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'TradingRole':'' if ord(self.TradingRole) == 0 else TradingRoleType(ord(self.TradingRole)).name,'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'OffsetFlag':'' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'Price':self.Price,'Volume':self.Volume,'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'TradeType':'' if ord(self.TradeType) == 0 else TradeTypeType(ord(self.TradeType)).name,'PriceSource':'' if ord(self.PriceSource) == 0 else PriceSourceType(ord(self.PriceSource)).name,'TraderID':str(self.TraderID, 'GB2312'),'OrderLocalID':str(self.OrderLocalID, 'GB2312'),'ClearingPartID':str(self.ClearingPartID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'SequenceNo':self.SequenceNo,'TradeSource':'' if ord(self.TradeSource) == 0 else TradeSourceType(ord(self.TradeSource)).name}
+
+	def clone(self):
+		obj=CThostFtdcExchangeTradeField()
+		obj.ExchangeID=self.ExchangeID
+		obj.TradeID=self.TradeID
+		obj.Direction=self.Direction
+		obj.OrderSysID=self.OrderSysID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.TradingRole=self.TradingRole
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.OffsetFlag=self.OffsetFlag
+		obj.HedgeFlag=self.HedgeFlag
+		obj.Price=self.Price
+		obj.Volume=self.Volume
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.TradeType=self.TradeType
+		obj.PriceSource=self.PriceSource
+		obj.TraderID=self.TraderID
+		obj.OrderLocalID=self.OrderLocalID
+		obj.ClearingPartID=self.ClearingPartID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.SequenceNo=self.SequenceNo
+		obj.TradeSource=self.TradeSource
+		return obj
 
 class CThostFtdcTradeField(Structure):
 	"""成交"""
@@ -3580,6 +4787,44 @@ class CThostFtdcTradeField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', OrderRef=\'{3}\', UserID=\'{4}\', ExchangeID=\'{5}\', TradeID=\'{6}\', Direction=DirectionType.{7}, OrderSysID=\'{8}\', ParticipantID=\'{9}\', ClientID=\'{10}\', TradingRole=TradingRoleType.{11}, ExchangeInstID=\'{12}\', OffsetFlag=OffsetFlagType.{13}, HedgeFlag=HedgeFlagType.{14}, Price={15}, Volume={16}, TradeDate=\'{17}\', TradeTime=\'{18}\', TradeType=TradeTypeType.{19}, PriceSource=PriceSourceType.{20}, TraderID=\'{21}\', OrderLocalID=\'{22}\', ClearingPartID=\'{23}\', BusinessUnit=\'{24}\', SequenceNo={25}, TradingDay=\'{26}\', SettlementID={27}, BrokerOrderSeq={28}, TradeSource=TradeSourceType.{29}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.OrderRef, 'GB2312'), str(self.UserID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.TradeID, 'GB2312'), '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, str(self.OrderSysID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), '' if ord(self.TradingRole) == 0 else TradingRoleType(ord(self.TradingRole)).name, str(self.ExchangeInstID, 'GB2312'), '' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, self.Price, self.Volume, str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), '' if ord(self.TradeType) == 0 else TradeTypeType(ord(self.TradeType)).name, '' if ord(self.PriceSource) == 0 else PriceSourceType(ord(self.PriceSource)).name, str(self.TraderID, 'GB2312'), str(self.OrderLocalID, 'GB2312'), str(self.ClearingPartID, 'GB2312'), str(self.BusinessUnit, 'GB2312'), self.SequenceNo, str(self.TradingDay, 'GB2312'), self.SettlementID, self.BrokerOrderSeq, '' if ord(self.TradeSource) == 0 else TradeSourceType(ord(self.TradeSource)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'OrderRef':str(self.OrderRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TradeID':str(self.TradeID, 'GB2312'),'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'OrderSysID':str(self.OrderSysID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'TradingRole':'' if ord(self.TradingRole) == 0 else TradingRoleType(ord(self.TradingRole)).name,'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'OffsetFlag':'' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'Price':self.Price,'Volume':self.Volume,'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'TradeType':'' if ord(self.TradeType) == 0 else TradeTypeType(ord(self.TradeType)).name,'PriceSource':'' if ord(self.PriceSource) == 0 else PriceSourceType(ord(self.PriceSource)).name,'TraderID':str(self.TraderID, 'GB2312'),'OrderLocalID':str(self.OrderLocalID, 'GB2312'),'ClearingPartID':str(self.ClearingPartID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'SequenceNo':self.SequenceNo,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'BrokerOrderSeq':self.BrokerOrderSeq,'TradeSource':'' if ord(self.TradeSource) == 0 else TradeSourceType(ord(self.TradeSource)).name}
+
+	def clone(self):
+		obj=CThostFtdcTradeField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.OrderRef=self.OrderRef
+		obj.UserID=self.UserID
+		obj.ExchangeID=self.ExchangeID
+		obj.TradeID=self.TradeID
+		obj.Direction=self.Direction
+		obj.OrderSysID=self.OrderSysID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.TradingRole=self.TradingRole
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.OffsetFlag=self.OffsetFlag
+		obj.HedgeFlag=self.HedgeFlag
+		obj.Price=self.Price
+		obj.Volume=self.Volume
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.TradeType=self.TradeType
+		obj.PriceSource=self.PriceSource
+		obj.TraderID=self.TraderID
+		obj.OrderLocalID=self.OrderLocalID
+		obj.ClearingPartID=self.ClearingPartID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.SequenceNo=self.SequenceNo
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.BrokerOrderSeq=self.BrokerOrderSeq
+		obj.TradeSource=self.TradeSource
+		return obj
+
 class CThostFtdcUserSessionField(Structure):
 	"""用户会话"""
 	_fields_ = [
@@ -3637,6 +4882,26 @@ class CThostFtdcUserSessionField(Structure):
 	def __str__(self):
 		return 'FrontID={0}, SessionID={1}, BrokerID=\'{2}\', UserID=\'{3}\', LoginDate=\'{4}\', LoginTime=\'{5}\', IPAddress=\'{6}\', UserProductInfo=\'{7}\', InterfaceProductInfo=\'{8}\', ProtocolInfo=\'{9}\', MacAddress=\'{10}\', LoginRemark=\'{11}\''.format(self.FrontID, self.SessionID, str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.LoginDate, 'GB2312'), str(self.LoginTime, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.UserProductInfo, 'GB2312'), str(self.InterfaceProductInfo, 'GB2312'), str(self.ProtocolInfo, 'GB2312'), str(self.MacAddress, 'GB2312'), str(self.LoginRemark, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'FrontID':self.FrontID,'SessionID':self.SessionID,'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'LoginDate':str(self.LoginDate, 'GB2312'),'LoginTime':str(self.LoginTime, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'UserProductInfo':str(self.UserProductInfo, 'GB2312'),'InterfaceProductInfo':str(self.InterfaceProductInfo, 'GB2312'),'ProtocolInfo':str(self.ProtocolInfo, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312'),'LoginRemark':str(self.LoginRemark, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcUserSessionField()
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.LoginDate=self.LoginDate
+		obj.LoginTime=self.LoginTime
+		obj.IPAddress=self.IPAddress
+		obj.UserProductInfo=self.UserProductInfo
+		obj.InterfaceProductInfo=self.InterfaceProductInfo
+		obj.ProtocolInfo=self.ProtocolInfo
+		obj.MacAddress=self.MacAddress
+		obj.LoginRemark=self.LoginRemark
+		return obj
+
 class CThostFtdcQueryMaxOrderVolumeField(Structure):
 	"""查询最大报单数量"""
 	_fields_ = [
@@ -3678,6 +4943,22 @@ class CThostFtdcQueryMaxOrderVolumeField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', Direction=DirectionType.{3}, OffsetFlag=OffsetFlagType.{4}, HedgeFlag=HedgeFlagType.{5}, MaxVolume={6}, ExchangeID=\'{7}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, '' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, self.MaxVolume, str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'OffsetFlag':'' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'MaxVolume':self.MaxVolume,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQueryMaxOrderVolumeField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.Direction=self.Direction
+		obj.OffsetFlag=self.OffsetFlag
+		obj.HedgeFlag=self.HedgeFlag
+		obj.MaxVolume=self.MaxVolume
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcSettlementInfoConfirmField(Structure):
 	"""投资者结算结果确认信息"""
 	_fields_ = [
@@ -3702,6 +4983,18 @@ class CThostFtdcSettlementInfoConfirmField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ConfirmDate=\'{2}\', ConfirmTime=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ConfirmDate, 'GB2312'), str(self.ConfirmTime, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ConfirmDate':str(self.ConfirmDate, 'GB2312'),'ConfirmTime':str(self.ConfirmTime, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcSettlementInfoConfirmField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ConfirmDate=self.ConfirmDate
+		obj.ConfirmTime=self.ConfirmTime
+		return obj
 
 class CThostFtdcSyncDepositField(Structure):
 	"""出入金同步"""
@@ -3740,6 +5033,21 @@ class CThostFtdcSyncDepositField(Structure):
 	def __str__(self):
 		return 'DepositSeqNo=\'{0}\', BrokerID=\'{1}\', InvestorID=\'{2}\', Deposit={3}, IsForce={4}, CurrencyID=\'{5}\', BizType=BizTypeType.{6}'.format(str(self.DepositSeqNo, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.Deposit, self.IsForce, str(self.CurrencyID, 'GB2312'), '' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name)
 
+	@property
+	def __dict__(self):
+		return {'DepositSeqNo':str(self.DepositSeqNo, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'Deposit':self.Deposit,'IsForce':self.IsForce,'CurrencyID':str(self.CurrencyID, 'GB2312'),'BizType':'' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name}
+
+	def clone(self):
+		obj=CThostFtdcSyncDepositField()
+		obj.DepositSeqNo=self.DepositSeqNo
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.Deposit=self.Deposit
+		obj.IsForce=self.IsForce
+		obj.CurrencyID=self.CurrencyID
+		obj.BizType=self.BizType
+		return obj
+
 class CThostFtdcSyncFundMortgageField(Structure):
 	"""货币质押同步"""
 	_fields_ = [
@@ -3773,6 +5081,20 @@ class CThostFtdcSyncFundMortgageField(Structure):
 	def __str__(self):
 		return 'MortgageSeqNo=\'{0}\', BrokerID=\'{1}\', InvestorID=\'{2}\', FromCurrencyID=\'{3}\', MortgageAmount={4}, ToCurrencyID=\'{5}\''.format(str(self.MortgageSeqNo, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.FromCurrencyID, 'GB2312'), self.MortgageAmount, str(self.ToCurrencyID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'MortgageSeqNo':str(self.MortgageSeqNo, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'FromCurrencyID':str(self.FromCurrencyID, 'GB2312'),'MortgageAmount':self.MortgageAmount,'ToCurrencyID':str(self.ToCurrencyID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcSyncFundMortgageField()
+		obj.MortgageSeqNo=self.MortgageSeqNo
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.FromCurrencyID=self.FromCurrencyID
+		obj.MortgageAmount=self.MortgageAmount
+		obj.ToCurrencyID=self.ToCurrencyID
+		return obj
+
 class CThostFtdcBrokerSyncField(Structure):
 	"""经纪公司同步"""
 	_fields_ = [
@@ -3785,6 +5107,15 @@ class CThostFtdcBrokerSyncField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\''.format(str(self.BrokerID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcBrokerSyncField()
+		obj.BrokerID=self.BrokerID
+		return obj
 
 class CThostFtdcSyncingInvestorField(Structure):
 	"""正在同步中的投资者"""
@@ -3847,6 +5178,27 @@ class CThostFtdcSyncingInvestorField(Structure):
 	def __str__(self):
 		return 'InvestorID=\'{0}\', BrokerID=\'{1}\', InvestorGroupID=\'{2}\', InvestorName=\'{3}\', IdentifiedCardType=IdCardTypeType.{4}, IdentifiedCardNo=\'{5}\', IsActive={6}, Telephone=\'{7}\', Address=\'{8}\', OpenDate=\'{9}\', Mobile=\'{10}\', CommModelID=\'{11}\', MarginModelID=\'{12}\''.format(str(self.InvestorID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.InvestorGroupID, 'GB2312'), str(self.InvestorName, 'GB2312'), '' if ord(self.IdentifiedCardType) == 0 else IdCardTypeType(ord(self.IdentifiedCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), self.IsActive, str(self.Telephone, 'GB2312'), str(self.Address, 'GB2312'), str(self.OpenDate, 'GB2312'), str(self.Mobile, 'GB2312'), str(self.CommModelID, 'GB2312'), str(self.MarginModelID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'InvestorID':str(self.InvestorID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorGroupID':str(self.InvestorGroupID, 'GB2312'),'InvestorName':str(self.InvestorName, 'GB2312'),'IdentifiedCardType':'' if ord(self.IdentifiedCardType) == 0 else IdCardTypeType(ord(self.IdentifiedCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'IsActive':self.IsActive,'Telephone':str(self.Telephone, 'GB2312'),'Address':str(self.Address, 'GB2312'),'OpenDate':str(self.OpenDate, 'GB2312'),'Mobile':str(self.Mobile, 'GB2312'),'CommModelID':str(self.CommModelID, 'GB2312'),'MarginModelID':str(self.MarginModelID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcSyncingInvestorField()
+		obj.InvestorID=self.InvestorID
+		obj.BrokerID=self.BrokerID
+		obj.InvestorGroupID=self.InvestorGroupID
+		obj.InvestorName=self.InvestorName
+		obj.IdentifiedCardType=self.IdentifiedCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.IsActive=self.IsActive
+		obj.Telephone=self.Telephone
+		obj.Address=self.Address
+		obj.OpenDate=self.OpenDate
+		obj.Mobile=self.Mobile
+		obj.CommModelID=self.CommModelID
+		obj.MarginModelID=self.MarginModelID
+		return obj
+
 class CThostFtdcSyncingTradingCodeField(Structure):
 	"""正在同步中的交易代码"""
 	_fields_ = [
@@ -3884,6 +5236,21 @@ class CThostFtdcSyncingTradingCodeField(Structure):
 	def __str__(self):
 		return 'InvestorID=\'{0}\', BrokerID=\'{1}\', ExchangeID=\'{2}\', ClientID=\'{3}\', IsActive={4}, ClientIDType=ClientIDTypeType.{5}, BranchID=\'{6}\''.format(str(self.InvestorID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ClientID, 'GB2312'), self.IsActive, '' if ord(self.ClientIDType) == 0 else ClientIDTypeType(ord(self.ClientIDType)).name, str(self.BranchID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'InvestorID':str(self.InvestorID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'IsActive':self.IsActive,'ClientIDType':'' if ord(self.ClientIDType) == 0 else ClientIDTypeType(ord(self.ClientIDType)).name,'BranchID':str(self.BranchID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcSyncingTradingCodeField()
+		obj.InvestorID=self.InvestorID
+		obj.BrokerID=self.BrokerID
+		obj.ExchangeID=self.ExchangeID
+		obj.ClientID=self.ClientID
+		obj.IsActive=self.IsActive
+		obj.ClientIDType=self.ClientIDType
+		obj.BranchID=self.BranchID
+		return obj
+
 class CThostFtdcSyncingInvestorGroupField(Structure):
 	"""正在同步中的投资者分组"""
 	_fields_ = [
@@ -3904,6 +5271,17 @@ class CThostFtdcSyncingInvestorGroupField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorGroupID=\'{1}\', InvestorGroupName=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorGroupID, 'GB2312'), str(self.InvestorGroupName, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorGroupID':str(self.InvestorGroupID, 'GB2312'),'InvestorGroupName':str(self.InvestorGroupName, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcSyncingInvestorGroupField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorGroupID=self.InvestorGroupID
+		obj.InvestorGroupName=self.InvestorGroupName
+		return obj
 
 class CThostFtdcSyncingTradingAccountField(Structure):
 	"""正在同步中的交易账号"""
@@ -4098,6 +5476,60 @@ class CThostFtdcSyncingTradingAccountField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', AccountID=\'{1}\', PreMortgage={2}, PreCredit={3}, PreDeposit={4}, PreBalance={5}, PreMargin={6}, InterestBase={7}, Interest={8}, Deposit={9}, Withdraw={10}, FrozenMargin={11}, FrozenCash={12}, FrozenCommission={13}, CurrMargin={14}, CashIn={15}, Commission={16}, CloseProfit={17}, PositionProfit={18}, Balance={19}, Available={20}, WithdrawQuota={21}, Reserve={22}, TradingDay=\'{23}\', SettlementID={24}, Credit={25}, Mortgage={26}, ExchangeMargin={27}, DeliveryMargin={28}, ExchangeDeliveryMargin={29}, ReserveBalance={30}, CurrencyID=\'{31}\', PreFundMortgageIn={32}, PreFundMortgageOut={33}, FundMortgageIn={34}, FundMortgageOut={35}, FundMortgageAvailable={36}, MortgageableFund={37}, SpecProductMargin={38}, SpecProductFrozenMargin={39}, SpecProductCommission={40}, SpecProductFrozenCommission={41}, SpecProductPositionProfit={42}, SpecProductCloseProfit={43}, SpecProductPositionProfitByAlg={44}, SpecProductExchangeMargin={45}'.format(str(self.BrokerID, 'GB2312'), str(self.AccountID, 'GB2312'), self.PreMortgage, self.PreCredit, self.PreDeposit, self.PreBalance, self.PreMargin, self.InterestBase, self.Interest, self.Deposit, self.Withdraw, self.FrozenMargin, self.FrozenCash, self.FrozenCommission, self.CurrMargin, self.CashIn, self.Commission, self.CloseProfit, self.PositionProfit, self.Balance, self.Available, self.WithdrawQuota, self.Reserve, str(self.TradingDay, 'GB2312'), self.SettlementID, self.Credit, self.Mortgage, self.ExchangeMargin, self.DeliveryMargin, self.ExchangeDeliveryMargin, self.ReserveBalance, str(self.CurrencyID, 'GB2312'), self.PreFundMortgageIn, self.PreFundMortgageOut, self.FundMortgageIn, self.FundMortgageOut, self.FundMortgageAvailable, self.MortgageableFund, self.SpecProductMargin, self.SpecProductFrozenMargin, self.SpecProductCommission, self.SpecProductFrozenCommission, self.SpecProductPositionProfit, self.SpecProductCloseProfit, self.SpecProductPositionProfitByAlg, self.SpecProductExchangeMargin)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'PreMortgage':self.PreMortgage,'PreCredit':self.PreCredit,'PreDeposit':self.PreDeposit,'PreBalance':self.PreBalance,'PreMargin':self.PreMargin,'InterestBase':self.InterestBase,'Interest':self.Interest,'Deposit':self.Deposit,'Withdraw':self.Withdraw,'FrozenMargin':self.FrozenMargin,'FrozenCash':self.FrozenCash,'FrozenCommission':self.FrozenCommission,'CurrMargin':self.CurrMargin,'CashIn':self.CashIn,'Commission':self.Commission,'CloseProfit':self.CloseProfit,'PositionProfit':self.PositionProfit,'Balance':self.Balance,'Available':self.Available,'WithdrawQuota':self.WithdrawQuota,'Reserve':self.Reserve,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'Credit':self.Credit,'Mortgage':self.Mortgage,'ExchangeMargin':self.ExchangeMargin,'DeliveryMargin':self.DeliveryMargin,'ExchangeDeliveryMargin':self.ExchangeDeliveryMargin,'ReserveBalance':self.ReserveBalance,'CurrencyID':str(self.CurrencyID, 'GB2312'),'PreFundMortgageIn':self.PreFundMortgageIn,'PreFundMortgageOut':self.PreFundMortgageOut,'FundMortgageIn':self.FundMortgageIn,'FundMortgageOut':self.FundMortgageOut,'FundMortgageAvailable':self.FundMortgageAvailable,'MortgageableFund':self.MortgageableFund,'SpecProductMargin':self.SpecProductMargin,'SpecProductFrozenMargin':self.SpecProductFrozenMargin,'SpecProductCommission':self.SpecProductCommission,'SpecProductFrozenCommission':self.SpecProductFrozenCommission,'SpecProductPositionProfit':self.SpecProductPositionProfit,'SpecProductCloseProfit':self.SpecProductCloseProfit,'SpecProductPositionProfitByAlg':self.SpecProductPositionProfitByAlg,'SpecProductExchangeMargin':self.SpecProductExchangeMargin}
+
+	def clone(self):
+		obj=CThostFtdcSyncingTradingAccountField()
+		obj.BrokerID=self.BrokerID
+		obj.AccountID=self.AccountID
+		obj.PreMortgage=self.PreMortgage
+		obj.PreCredit=self.PreCredit
+		obj.PreDeposit=self.PreDeposit
+		obj.PreBalance=self.PreBalance
+		obj.PreMargin=self.PreMargin
+		obj.InterestBase=self.InterestBase
+		obj.Interest=self.Interest
+		obj.Deposit=self.Deposit
+		obj.Withdraw=self.Withdraw
+		obj.FrozenMargin=self.FrozenMargin
+		obj.FrozenCash=self.FrozenCash
+		obj.FrozenCommission=self.FrozenCommission
+		obj.CurrMargin=self.CurrMargin
+		obj.CashIn=self.CashIn
+		obj.Commission=self.Commission
+		obj.CloseProfit=self.CloseProfit
+		obj.PositionProfit=self.PositionProfit
+		obj.Balance=self.Balance
+		obj.Available=self.Available
+		obj.WithdrawQuota=self.WithdrawQuota
+		obj.Reserve=self.Reserve
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.Credit=self.Credit
+		obj.Mortgage=self.Mortgage
+		obj.ExchangeMargin=self.ExchangeMargin
+		obj.DeliveryMargin=self.DeliveryMargin
+		obj.ExchangeDeliveryMargin=self.ExchangeDeliveryMargin
+		obj.ReserveBalance=self.ReserveBalance
+		obj.CurrencyID=self.CurrencyID
+		obj.PreFundMortgageIn=self.PreFundMortgageIn
+		obj.PreFundMortgageOut=self.PreFundMortgageOut
+		obj.FundMortgageIn=self.FundMortgageIn
+		obj.FundMortgageOut=self.FundMortgageOut
+		obj.FundMortgageAvailable=self.FundMortgageAvailable
+		obj.MortgageableFund=self.MortgageableFund
+		obj.SpecProductMargin=self.SpecProductMargin
+		obj.SpecProductFrozenMargin=self.SpecProductFrozenMargin
+		obj.SpecProductCommission=self.SpecProductCommission
+		obj.SpecProductFrozenCommission=self.SpecProductFrozenCommission
+		obj.SpecProductPositionProfit=self.SpecProductPositionProfit
+		obj.SpecProductCloseProfit=self.SpecProductCloseProfit
+		obj.SpecProductPositionProfitByAlg=self.SpecProductPositionProfitByAlg
+		obj.SpecProductExchangeMargin=self.SpecProductExchangeMargin
+		return obj
+
 class CThostFtdcSyncingInvestorPositionField(Structure):
 	"""正在同步中的投资者持仓"""
 	_fields_ = [
@@ -4287,6 +5719,59 @@ class CThostFtdcSyncingInvestorPositionField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', BrokerID=\'{1}\', InvestorID=\'{2}\', PosiDirection=PosiDirectionType.{3}, HedgeFlag=HedgeFlagType.{4}, PositionDate=PositionDateType.{5}, YdPosition={6}, Position={7}, LongFrozen={8}, ShortFrozen={9}, LongFrozenAmount={10}, ShortFrozenAmount={11}, OpenVolume={12}, CloseVolume={13}, OpenAmount={14}, CloseAmount={15}, PositionCost={16}, PreMargin={17}, UseMargin={18}, FrozenMargin={19}, FrozenCash={20}, FrozenCommission={21}, CashIn={22}, Commission={23}, CloseProfit={24}, PositionProfit={25}, PreSettlementPrice={26}, SettlementPrice={27}, TradingDay=\'{28}\', SettlementID={29}, OpenCost={30}, ExchangeMargin={31}, CombPosition={32}, CombLongFrozen={33}, CombShortFrozen={34}, CloseProfitByDate={35}, CloseProfitByTrade={36}, TodayPosition={37}, MarginRateByMoney={38}, MarginRateByVolume={39}, StrikeFrozen={40}, StrikeFrozenAmount={41}, AbandonFrozen={42}, ExchangeID=\'{43}\', YdStrikeFrozen={44}'.format(str(self.InstrumentID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), '' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, '' if ord(self.PositionDate) == 0 else PositionDateType(ord(self.PositionDate)).name, self.YdPosition, self.Position, self.LongFrozen, self.ShortFrozen, self.LongFrozenAmount, self.ShortFrozenAmount, self.OpenVolume, self.CloseVolume, self.OpenAmount, self.CloseAmount, self.PositionCost, self.PreMargin, self.UseMargin, self.FrozenMargin, self.FrozenCash, self.FrozenCommission, self.CashIn, self.Commission, self.CloseProfit, self.PositionProfit, self.PreSettlementPrice, self.SettlementPrice, str(self.TradingDay, 'GB2312'), self.SettlementID, self.OpenCost, self.ExchangeMargin, self.CombPosition, self.CombLongFrozen, self.CombShortFrozen, self.CloseProfitByDate, self.CloseProfitByTrade, self.TodayPosition, self.MarginRateByMoney, self.MarginRateByVolume, self.StrikeFrozen, self.StrikeFrozenAmount, self.AbandonFrozen, str(self.ExchangeID, 'GB2312'), self.YdStrikeFrozen)
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'PosiDirection':'' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'PositionDate':'' if ord(self.PositionDate) == 0 else PositionDateType(ord(self.PositionDate)).name,'YdPosition':self.YdPosition,'Position':self.Position,'LongFrozen':self.LongFrozen,'ShortFrozen':self.ShortFrozen,'LongFrozenAmount':self.LongFrozenAmount,'ShortFrozenAmount':self.ShortFrozenAmount,'OpenVolume':self.OpenVolume,'CloseVolume':self.CloseVolume,'OpenAmount':self.OpenAmount,'CloseAmount':self.CloseAmount,'PositionCost':self.PositionCost,'PreMargin':self.PreMargin,'UseMargin':self.UseMargin,'FrozenMargin':self.FrozenMargin,'FrozenCash':self.FrozenCash,'FrozenCommission':self.FrozenCommission,'CashIn':self.CashIn,'Commission':self.Commission,'CloseProfit':self.CloseProfit,'PositionProfit':self.PositionProfit,'PreSettlementPrice':self.PreSettlementPrice,'SettlementPrice':self.SettlementPrice,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'OpenCost':self.OpenCost,'ExchangeMargin':self.ExchangeMargin,'CombPosition':self.CombPosition,'CombLongFrozen':self.CombLongFrozen,'CombShortFrozen':self.CombShortFrozen,'CloseProfitByDate':self.CloseProfitByDate,'CloseProfitByTrade':self.CloseProfitByTrade,'TodayPosition':self.TodayPosition,'MarginRateByMoney':self.MarginRateByMoney,'MarginRateByVolume':self.MarginRateByVolume,'StrikeFrozen':self.StrikeFrozen,'StrikeFrozenAmount':self.StrikeFrozenAmount,'AbandonFrozen':self.AbandonFrozen,'ExchangeID':str(self.ExchangeID, 'GB2312'),'YdStrikeFrozen':self.YdStrikeFrozen}
+
+	def clone(self):
+		obj=CThostFtdcSyncingInvestorPositionField()
+		obj.InstrumentID=self.InstrumentID
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.PosiDirection=self.PosiDirection
+		obj.HedgeFlag=self.HedgeFlag
+		obj.PositionDate=self.PositionDate
+		obj.YdPosition=self.YdPosition
+		obj.Position=self.Position
+		obj.LongFrozen=self.LongFrozen
+		obj.ShortFrozen=self.ShortFrozen
+		obj.LongFrozenAmount=self.LongFrozenAmount
+		obj.ShortFrozenAmount=self.ShortFrozenAmount
+		obj.OpenVolume=self.OpenVolume
+		obj.CloseVolume=self.CloseVolume
+		obj.OpenAmount=self.OpenAmount
+		obj.CloseAmount=self.CloseAmount
+		obj.PositionCost=self.PositionCost
+		obj.PreMargin=self.PreMargin
+		obj.UseMargin=self.UseMargin
+		obj.FrozenMargin=self.FrozenMargin
+		obj.FrozenCash=self.FrozenCash
+		obj.FrozenCommission=self.FrozenCommission
+		obj.CashIn=self.CashIn
+		obj.Commission=self.Commission
+		obj.CloseProfit=self.CloseProfit
+		obj.PositionProfit=self.PositionProfit
+		obj.PreSettlementPrice=self.PreSettlementPrice
+		obj.SettlementPrice=self.SettlementPrice
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.OpenCost=self.OpenCost
+		obj.ExchangeMargin=self.ExchangeMargin
+		obj.CombPosition=self.CombPosition
+		obj.CombLongFrozen=self.CombLongFrozen
+		obj.CombShortFrozen=self.CombShortFrozen
+		obj.CloseProfitByDate=self.CloseProfitByDate
+		obj.CloseProfitByTrade=self.CloseProfitByTrade
+		obj.TodayPosition=self.TodayPosition
+		obj.MarginRateByMoney=self.MarginRateByMoney
+		obj.MarginRateByVolume=self.MarginRateByVolume
+		obj.StrikeFrozen=self.StrikeFrozen
+		obj.StrikeFrozenAmount=self.StrikeFrozenAmount
+		obj.AbandonFrozen=self.AbandonFrozen
+		obj.ExchangeID=self.ExchangeID
+		obj.YdStrikeFrozen=self.YdStrikeFrozen
+		return obj
+
 class CThostFtdcSyncingInstrumentMarginRateField(Structure):
 	"""正在同步中的合约保证金率"""
 	_fields_ = [
@@ -4335,6 +5820,24 @@ class CThostFtdcSyncingInstrumentMarginRateField(Structure):
 
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', HedgeFlag=HedgeFlagType.{4}, LongMarginRatioByMoney={5}, LongMarginRatioByVolume={6}, ShortMarginRatioByMoney={7}, ShortMarginRatioByVolume={8}, IsRelative={9}'.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, self.LongMarginRatioByMoney, self.LongMarginRatioByVolume, self.ShortMarginRatioByMoney, self.ShortMarginRatioByVolume, self.IsRelative)
+
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'LongMarginRatioByMoney':self.LongMarginRatioByMoney,'LongMarginRatioByVolume':self.LongMarginRatioByVolume,'ShortMarginRatioByMoney':self.ShortMarginRatioByMoney,'ShortMarginRatioByVolume':self.ShortMarginRatioByVolume,'IsRelative':self.IsRelative}
+
+	def clone(self):
+		obj=CThostFtdcSyncingInstrumentMarginRateField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.HedgeFlag=self.HedgeFlag
+		obj.LongMarginRatioByMoney=self.LongMarginRatioByMoney
+		obj.LongMarginRatioByVolume=self.LongMarginRatioByVolume
+		obj.ShortMarginRatioByMoney=self.ShortMarginRatioByMoney
+		obj.ShortMarginRatioByVolume=self.ShortMarginRatioByVolume
+		obj.IsRelative=self.IsRelative
+		return obj
 
 class CThostFtdcSyncingInstrumentCommissionRateField(Structure):
 	"""正在同步中的合约手续费率"""
@@ -4389,6 +5892,25 @@ class CThostFtdcSyncingInstrumentCommissionRateField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', OpenRatioByMoney={4}, OpenRatioByVolume={5}, CloseRatioByMoney={6}, CloseRatioByVolume={7}, CloseTodayRatioByMoney={8}, CloseTodayRatioByVolume={9}, ExchangeID=\'{10}\''.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.OpenRatioByMoney, self.OpenRatioByVolume, self.CloseRatioByMoney, self.CloseRatioByVolume, self.CloseTodayRatioByMoney, self.CloseTodayRatioByVolume, str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'OpenRatioByMoney':self.OpenRatioByMoney,'OpenRatioByVolume':self.OpenRatioByVolume,'CloseRatioByMoney':self.CloseRatioByMoney,'CloseRatioByVolume':self.CloseRatioByVolume,'CloseTodayRatioByMoney':self.CloseTodayRatioByMoney,'CloseTodayRatioByVolume':self.CloseTodayRatioByVolume,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcSyncingInstrumentCommissionRateField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.OpenRatioByMoney=self.OpenRatioByMoney
+		obj.OpenRatioByVolume=self.OpenRatioByVolume
+		obj.CloseRatioByMoney=self.CloseRatioByMoney
+		obj.CloseRatioByVolume=self.CloseRatioByVolume
+		obj.CloseTodayRatioByMoney=self.CloseTodayRatioByMoney
+		obj.CloseTodayRatioByVolume=self.CloseTodayRatioByVolume
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcSyncingInstrumentTradingRightField(Structure):
 	"""正在同步中的合约交易权限"""
 	_fields_ = [
@@ -4421,6 +5943,20 @@ class CThostFtdcSyncingInstrumentTradingRightField(Structure):
 
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', TradingRight=TradingRightType.{4}, ExchangeID=\'{5}\''.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), '' if ord(self.TradingRight) == 0 else TradingRightType(ord(self.TradingRight)).name, str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'TradingRight':'' if ord(self.TradingRight) == 0 else TradingRightType(ord(self.TradingRight)).name,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcSyncingInstrumentTradingRightField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.TradingRight=self.TradingRight
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcQryOrderField(Structure):
 	"""查询报单"""
@@ -4459,6 +5995,21 @@ class CThostFtdcQryOrderField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\', OrderSysID=\'{4}\', InsertTimeStart=\'{5}\', InsertTimeEnd=\'{6}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.OrderSysID, 'GB2312'), str(self.InsertTimeStart, 'GB2312'), str(self.InsertTimeEnd, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'OrderSysID':str(self.OrderSysID, 'GB2312'),'InsertTimeStart':str(self.InsertTimeStart, 'GB2312'),'InsertTimeEnd':str(self.InsertTimeEnd, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.OrderSysID=self.OrderSysID
+		obj.InsertTimeStart=self.InsertTimeStart
+		obj.InsertTimeEnd=self.InsertTimeEnd
+		return obj
+
 class CThostFtdcQryTradeField(Structure):
 	"""查询成交"""
 	_fields_ = [
@@ -4496,6 +6047,21 @@ class CThostFtdcQryTradeField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\', TradeID=\'{4}\', TradeTimeStart=\'{5}\', TradeTimeEnd=\'{6}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.TradeID, 'GB2312'), str(self.TradeTimeStart, 'GB2312'), str(self.TradeTimeEnd, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TradeID':str(self.TradeID, 'GB2312'),'TradeTimeStart':str(self.TradeTimeStart, 'GB2312'),'TradeTimeEnd':str(self.TradeTimeEnd, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryTradeField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.TradeID=self.TradeID
+		obj.TradeTimeStart=self.TradeTimeStart
+		obj.TradeTimeEnd=self.TradeTimeEnd
+		return obj
+
 class CThostFtdcQryInvestorPositionField(Structure):
 	"""查询投资者持仓"""
 	_fields_ = [
@@ -4520,6 +6086,18 @@ class CThostFtdcQryInvestorPositionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryInvestorPositionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcQryTradingAccountField(Structure):
 	"""查询资金账户"""
@@ -4546,6 +6124,18 @@ class CThostFtdcQryTradingAccountField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', CurrencyID=\'{2}\', BizType=BizTypeType.{3}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.CurrencyID, 'GB2312'), '' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'BizType':'' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name}
+
+	def clone(self):
+		obj=CThostFtdcQryTradingAccountField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.CurrencyID=self.CurrencyID
+		obj.BizType=self.BizType
+		return obj
+
 class CThostFtdcQryInvestorField(Structure):
 	"""查询投资者"""
 	_fields_ = [
@@ -4562,6 +6152,16 @@ class CThostFtdcQryInvestorField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryInvestorField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		return obj
 
 class CThostFtdcQryTradingCodeField(Structure):
 	"""查询交易编码"""
@@ -4592,6 +6192,19 @@ class CThostFtdcQryTradingCodeField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExchangeID=\'{2}\', ClientID=\'{3}\', ClientIDType=ClientIDTypeType.{4}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ClientID, 'GB2312'), '' if ord(self.ClientIDType) == 0 else ClientIDTypeType(ord(self.ClientIDType)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ClientIDType':'' if ord(self.ClientIDType) == 0 else ClientIDTypeType(ord(self.ClientIDType)).name}
+
+	def clone(self):
+		obj=CThostFtdcQryTradingCodeField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		obj.ClientID=self.ClientID
+		obj.ClientIDType=self.ClientIDType
+		return obj
+
 class CThostFtdcQryInvestorGroupField(Structure):
 	"""查询投资者组"""
 	_fields_ = [
@@ -4604,6 +6217,15 @@ class CThostFtdcQryInvestorGroupField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\''.format(str(self.BrokerID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryInvestorGroupField()
+		obj.BrokerID=self.BrokerID
+		return obj
 
 class CThostFtdcQryInstrumentMarginRateField(Structure):
 	"""查询合约保证金率"""
@@ -4630,6 +6252,18 @@ class CThostFtdcQryInstrumentMarginRateField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', HedgeFlag=HedgeFlagType.{3}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name}
+
+	def clone(self):
+		obj=CThostFtdcQryInstrumentMarginRateField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.HedgeFlag=self.HedgeFlag
+		return obj
+
 class CThostFtdcQryInstrumentCommissionRateField(Structure):
 	"""查询手续费率"""
 	_fields_ = [
@@ -4654,6 +6288,18 @@ class CThostFtdcQryInstrumentCommissionRateField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryInstrumentCommissionRateField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcQryInstrumentTradingRightField(Structure):
 	"""查询合约交易权限"""
@@ -4680,6 +6326,18 @@ class CThostFtdcQryInstrumentTradingRightField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryInstrumentTradingRightField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcQryBrokerField(Structure):
 	"""查询经纪公司"""
 	_fields_ = [
@@ -4692,6 +6350,15 @@ class CThostFtdcQryBrokerField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\''.format(str(self.BrokerID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryBrokerField()
+		obj.BrokerID=self.BrokerID
+		return obj
 
 class CThostFtdcQryTraderField(Structure):
 	"""查询交易员"""
@@ -4714,6 +6381,17 @@ class CThostFtdcQryTraderField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', ParticipantID=\'{1}\', TraderID=\'{2}\''.format(str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.TraderID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryTraderField()
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.TraderID=self.TraderID
+		return obj
+
 class CThostFtdcQrySuperUserFunctionField(Structure):
 	"""查询管理用户功能权限"""
 	_fields_ = [
@@ -4726,6 +6404,15 @@ class CThostFtdcQrySuperUserFunctionField(Structure):
 
 	def __str__(self):
 		return 'UserID=\'{0}\''.format(str(self.UserID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'UserID':str(self.UserID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQrySuperUserFunctionField()
+		obj.UserID=self.UserID
+		return obj
 
 class CThostFtdcQryUserSessionField(Structure):
 	"""查询用户会话"""
@@ -4752,6 +6439,18 @@ class CThostFtdcQryUserSessionField(Structure):
 	def __str__(self):
 		return 'FrontID={0}, SessionID={1}, BrokerID=\'{2}\', UserID=\'{3}\''.format(self.FrontID, self.SessionID, str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'FrontID':self.FrontID,'SessionID':self.SessionID,'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryUserSessionField()
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		return obj
+
 class CThostFtdcQryPartBrokerField(Structure):
 	"""查询经纪公司会员代码"""
 	_fields_ = [
@@ -4773,6 +6472,17 @@ class CThostFtdcQryPartBrokerField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', BrokerID=\'{1}\', ParticipantID=\'{2}\''.format(str(self.ExchangeID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.ParticipantID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryPartBrokerField()
+		obj.ExchangeID=self.ExchangeID
+		obj.BrokerID=self.BrokerID
+		obj.ParticipantID=self.ParticipantID
+		return obj
+
 class CThostFtdcQryFrontStatusField(Structure):
 	"""查询前置状态"""
 	_fields_ = [
@@ -4785,6 +6495,15 @@ class CThostFtdcQryFrontStatusField(Structure):
 
 	def __str__(self):
 		return 'FrontID={0}'.format(self.FrontID)
+
+	@property
+	def __dict__(self):
+		return {'FrontID':self.FrontID}
+
+	def clone(self):
+		obj=CThostFtdcQryFrontStatusField()
+		obj.FrontID=self.FrontID
+		return obj
 
 class CThostFtdcQryExchangeOrderField(Structure):
 	"""查询交易所报单"""
@@ -4815,6 +6534,19 @@ class CThostFtdcQryExchangeOrderField(Structure):
 	def __str__(self):
 		return 'ParticipantID=\'{0}\', ClientID=\'{1}\', ExchangeInstID=\'{2}\', ExchangeID=\'{3}\', TraderID=\'{4}\''.format(str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.TraderID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeOrderField()
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.ExchangeID=self.ExchangeID
+		obj.TraderID=self.TraderID
+		return obj
+
 class CThostFtdcQryOrderActionField(Structure):
 	"""查询报单操作"""
 	_fields_ = [
@@ -4835,6 +6567,17 @@ class CThostFtdcQryOrderActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExchangeID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcQryExchangeOrderActionField(Structure):
 	"""查询交易所报单操作"""
@@ -4861,6 +6604,18 @@ class CThostFtdcQryExchangeOrderActionField(Structure):
 	def __str__(self):
 		return 'ParticipantID=\'{0}\', ClientID=\'{1}\', ExchangeID=\'{2}\', TraderID=\'{3}\''.format(str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.TraderID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeOrderActionField()
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeID=self.ExchangeID
+		obj.TraderID=self.TraderID
+		return obj
+
 class CThostFtdcQrySuperUserField(Structure):
 	"""查询管理用户"""
 	_fields_ = [
@@ -4874,6 +6629,15 @@ class CThostFtdcQrySuperUserField(Structure):
 	def __str__(self):
 		return 'UserID=\'{0}\''.format(str(self.UserID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'UserID':str(self.UserID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQrySuperUserField()
+		obj.UserID=self.UserID
+		return obj
+
 class CThostFtdcQryExchangeField(Structure):
 	"""查询交易所"""
 	_fields_ = [
@@ -4886,6 +6650,15 @@ class CThostFtdcQryExchangeField(Structure):
 
 	def __str__(self):
 		return 'ExchangeID=\'{0}\''.format(str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeField()
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcQryProductField(Structure):
 	"""查询产品"""
@@ -4907,6 +6680,17 @@ class CThostFtdcQryProductField(Structure):
 
 	def __str__(self):
 		return 'ProductID=\'{0}\', ProductClass=ProductClassType.{1}, ExchangeID=\'{2}\''.format(str(self.ProductID, 'GB2312'), '' if ord(self.ProductClass) == 0 else ProductClassType(ord(self.ProductClass)).name, str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ProductID':str(self.ProductID, 'GB2312'),'ProductClass':'' if ord(self.ProductClass) == 0 else ProductClassType(ord(self.ProductClass)).name,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryProductField()
+		obj.ProductID=self.ProductID
+		obj.ProductClass=self.ProductClass
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcQryInstrumentField(Structure):
 	"""查询合约"""
@@ -4933,6 +6717,18 @@ class CThostFtdcQryInstrumentField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', ExchangeID=\'{1}\', ExchangeInstID=\'{2}\', ProductID=\'{3}\''.format(str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.ProductID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'ProductID':str(self.ProductID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryInstrumentField()
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.ProductID=self.ProductID
+		return obj
+
 class CThostFtdcQryDepthMarketDataField(Structure):
 	"""查询行情"""
 	_fields_ = [
@@ -4949,6 +6745,16 @@ class CThostFtdcQryDepthMarketDataField(Structure):
 
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', ExchangeID=\'{1}\''.format(str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryDepthMarketDataField()
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcQryBrokerUserField(Structure):
 	"""查询经纪公司用户"""
@@ -4967,6 +6773,16 @@ class CThostFtdcQryBrokerUserField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryBrokerUserField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		return obj
+
 class CThostFtdcQryBrokerUserFunctionField(Structure):
 	"""查询经纪公司用户权限"""
 	_fields_ = [
@@ -4983,6 +6799,16 @@ class CThostFtdcQryBrokerUserFunctionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryBrokerUserFunctionField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		return obj
 
 class CThostFtdcQryTraderOfferField(Structure):
 	"""查询交易员报盘机"""
@@ -5005,6 +6831,17 @@ class CThostFtdcQryTraderOfferField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', ParticipantID=\'{1}\', TraderID=\'{2}\''.format(str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.TraderID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryTraderOfferField()
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.TraderID=self.TraderID
+		return obj
+
 class CThostFtdcQrySyncDepositField(Structure):
 	"""查询出入金流水"""
 	_fields_ = [
@@ -5021,6 +6858,16 @@ class CThostFtdcQrySyncDepositField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', DepositSeqNo=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.DepositSeqNo, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'DepositSeqNo':str(self.DepositSeqNo, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQrySyncDepositField()
+		obj.BrokerID=self.BrokerID
+		obj.DepositSeqNo=self.DepositSeqNo
+		return obj
 
 class CThostFtdcQrySettlementInfoField(Structure):
 	"""查询投资者结算结果"""
@@ -5043,6 +6890,17 @@ class CThostFtdcQrySettlementInfoField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', TradingDay=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.TradingDay, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQrySettlementInfoField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.TradingDay=self.TradingDay
+		return obj
+
 class CThostFtdcQryExchangeMarginRateField(Structure):
 	"""查询交易所保证金率"""
 	_fields_ = [
@@ -5063,6 +6921,17 @@ class CThostFtdcQryExchangeMarginRateField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InstrumentID=\'{1}\', HedgeFlag=HedgeFlagType.{2}'.format(str(self.BrokerID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name)
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeMarginRateField()
+		obj.BrokerID=self.BrokerID
+		obj.InstrumentID=self.InstrumentID
+		obj.HedgeFlag=self.HedgeFlag
+		return obj
 
 class CThostFtdcQryExchangeMarginRateAdjustField(Structure):
 	"""查询交易所调整保证金率"""
@@ -5085,6 +6954,17 @@ class CThostFtdcQryExchangeMarginRateAdjustField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InstrumentID=\'{1}\', HedgeFlag=HedgeFlagType.{2}'.format(str(self.BrokerID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeMarginRateAdjustField()
+		obj.BrokerID=self.BrokerID
+		obj.InstrumentID=self.InstrumentID
+		obj.HedgeFlag=self.HedgeFlag
+		return obj
+
 class CThostFtdcQryExchangeRateField(Structure):
 	"""查询汇率"""
 	_fields_ = [
@@ -5106,6 +6986,17 @@ class CThostFtdcQryExchangeRateField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', FromCurrencyID=\'{1}\', ToCurrencyID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.FromCurrencyID, 'GB2312'), str(self.ToCurrencyID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'FromCurrencyID':str(self.FromCurrencyID, 'GB2312'),'ToCurrencyID':str(self.ToCurrencyID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeRateField()
+		obj.BrokerID=self.BrokerID
+		obj.FromCurrencyID=self.FromCurrencyID
+		obj.ToCurrencyID=self.ToCurrencyID
+		return obj
+
 class CThostFtdcQrySyncFundMortgageField(Structure):
 	"""查询货币质押流水"""
 	_fields_ = [
@@ -5122,6 +7013,16 @@ class CThostFtdcQrySyncFundMortgageField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', MortgageSeqNo=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.MortgageSeqNo, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'MortgageSeqNo':str(self.MortgageSeqNo, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQrySyncFundMortgageField()
+		obj.BrokerID=self.BrokerID
+		obj.MortgageSeqNo=self.MortgageSeqNo
+		return obj
 
 class CThostFtdcQryHisOrderField(Structure):
 	"""查询报单"""
@@ -5168,6 +7069,23 @@ class CThostFtdcQryHisOrderField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\', OrderSysID=\'{4}\', InsertTimeStart=\'{5}\', InsertTimeEnd=\'{6}\', TradingDay=\'{7}\', SettlementID={8}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.OrderSysID, 'GB2312'), str(self.InsertTimeStart, 'GB2312'), str(self.InsertTimeEnd, 'GB2312'), str(self.TradingDay, 'GB2312'), self.SettlementID)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'OrderSysID':str(self.OrderSysID, 'GB2312'),'InsertTimeStart':str(self.InsertTimeStart, 'GB2312'),'InsertTimeEnd':str(self.InsertTimeEnd, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID}
+
+	def clone(self):
+		obj=CThostFtdcQryHisOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.OrderSysID=self.OrderSysID
+		obj.InsertTimeStart=self.InsertTimeStart
+		obj.InsertTimeEnd=self.InsertTimeEnd
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		return obj
+
 class CThostFtdcOptionInstrMiniMarginField(Structure):
 	"""当前期权合约最小保证金"""
 	_fields_ = [
@@ -5208,6 +7126,22 @@ class CThostFtdcOptionInstrMiniMarginField(Structure):
 
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', MinMargin={4}, ValueMethod=ValueMethodType.{5}, IsRelative={6}, ExchangeID=\'{7}\''.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.MinMargin, '' if ord(self.ValueMethod) == 0 else ValueMethodType(ord(self.ValueMethod)).name, self.IsRelative, str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'MinMargin':self.MinMargin,'ValueMethod':'' if ord(self.ValueMethod) == 0 else ValueMethodType(ord(self.ValueMethod)).name,'IsRelative':self.IsRelative,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcOptionInstrMiniMarginField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.MinMargin=self.MinMargin
+		obj.ValueMethod=self.ValueMethod
+		obj.IsRelative=self.IsRelative
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcOptionInstrMarginAdjustField(Structure):
 	"""当前期权合约保证金调整系数"""
@@ -5274,6 +7208,28 @@ class CThostFtdcOptionInstrMarginAdjustField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', SShortMarginRatioByMoney={4}, SShortMarginRatioByVolume={5}, HShortMarginRatioByMoney={6}, HShortMarginRatioByVolume={7}, AShortMarginRatioByMoney={8}, AShortMarginRatioByVolume={9}, IsRelative={10}, ExchangeID=\'{11}\', MShortMarginRatioByMoney={12}, MShortMarginRatioByVolume={13}'.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.SShortMarginRatioByMoney, self.SShortMarginRatioByVolume, self.HShortMarginRatioByMoney, self.HShortMarginRatioByVolume, self.AShortMarginRatioByMoney, self.AShortMarginRatioByVolume, self.IsRelative, str(self.ExchangeID, 'GB2312'), self.MShortMarginRatioByMoney, self.MShortMarginRatioByVolume)
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'SShortMarginRatioByMoney':self.SShortMarginRatioByMoney,'SShortMarginRatioByVolume':self.SShortMarginRatioByVolume,'HShortMarginRatioByMoney':self.HShortMarginRatioByMoney,'HShortMarginRatioByVolume':self.HShortMarginRatioByVolume,'AShortMarginRatioByMoney':self.AShortMarginRatioByMoney,'AShortMarginRatioByVolume':self.AShortMarginRatioByVolume,'IsRelative':self.IsRelative,'ExchangeID':str(self.ExchangeID, 'GB2312'),'MShortMarginRatioByMoney':self.MShortMarginRatioByMoney,'MShortMarginRatioByVolume':self.MShortMarginRatioByVolume}
+
+	def clone(self):
+		obj=CThostFtdcOptionInstrMarginAdjustField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.SShortMarginRatioByMoney=self.SShortMarginRatioByMoney
+		obj.SShortMarginRatioByVolume=self.SShortMarginRatioByVolume
+		obj.HShortMarginRatioByMoney=self.HShortMarginRatioByMoney
+		obj.HShortMarginRatioByVolume=self.HShortMarginRatioByVolume
+		obj.AShortMarginRatioByMoney=self.AShortMarginRatioByMoney
+		obj.AShortMarginRatioByVolume=self.AShortMarginRatioByVolume
+		obj.IsRelative=self.IsRelative
+		obj.ExchangeID=self.ExchangeID
+		obj.MShortMarginRatioByMoney=self.MShortMarginRatioByMoney
+		obj.MShortMarginRatioByVolume=self.MShortMarginRatioByVolume
+		return obj
+
 class CThostFtdcOptionInstrCommRateField(Structure):
 	"""当前期权合约手续费的详细内容"""
 	_fields_ = [
@@ -5335,6 +7291,27 @@ class CThostFtdcOptionInstrCommRateField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', OpenRatioByMoney={4}, OpenRatioByVolume={5}, CloseRatioByMoney={6}, CloseRatioByVolume={7}, CloseTodayRatioByMoney={8}, CloseTodayRatioByVolume={9}, StrikeRatioByMoney={10}, StrikeRatioByVolume={11}, ExchangeID=\'{12}\''.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.OpenRatioByMoney, self.OpenRatioByVolume, self.CloseRatioByMoney, self.CloseRatioByVolume, self.CloseTodayRatioByMoney, self.CloseTodayRatioByVolume, self.StrikeRatioByMoney, self.StrikeRatioByVolume, str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'OpenRatioByMoney':self.OpenRatioByMoney,'OpenRatioByVolume':self.OpenRatioByVolume,'CloseRatioByMoney':self.CloseRatioByMoney,'CloseRatioByVolume':self.CloseRatioByVolume,'CloseTodayRatioByMoney':self.CloseTodayRatioByMoney,'CloseTodayRatioByVolume':self.CloseTodayRatioByVolume,'StrikeRatioByMoney':self.StrikeRatioByMoney,'StrikeRatioByVolume':self.StrikeRatioByVolume,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcOptionInstrCommRateField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.OpenRatioByMoney=self.OpenRatioByMoney
+		obj.OpenRatioByVolume=self.OpenRatioByVolume
+		obj.CloseRatioByMoney=self.CloseRatioByMoney
+		obj.CloseRatioByVolume=self.CloseRatioByVolume
+		obj.CloseTodayRatioByMoney=self.CloseTodayRatioByMoney
+		obj.CloseTodayRatioByVolume=self.CloseTodayRatioByVolume
+		obj.StrikeRatioByMoney=self.StrikeRatioByMoney
+		obj.StrikeRatioByVolume=self.StrikeRatioByVolume
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcOptionInstrTradeCostField(Structure):
 	"""期权交易成本"""
 	_fields_ = [
@@ -5384,6 +7361,24 @@ class CThostFtdcOptionInstrTradeCostField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', HedgeFlag=HedgeFlagType.{3}, FixedMargin={4}, MiniMargin={5}, Royalty={6}, ExchFixedMargin={7}, ExchMiniMargin={8}, ExchangeID=\'{9}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, self.FixedMargin, self.MiniMargin, self.Royalty, self.ExchFixedMargin, self.ExchMiniMargin, str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'FixedMargin':self.FixedMargin,'MiniMargin':self.MiniMargin,'Royalty':self.Royalty,'ExchFixedMargin':self.ExchFixedMargin,'ExchMiniMargin':self.ExchMiniMargin,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcOptionInstrTradeCostField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.HedgeFlag=self.HedgeFlag
+		obj.FixedMargin=self.FixedMargin
+		obj.MiniMargin=self.MiniMargin
+		obj.Royalty=self.Royalty
+		obj.ExchFixedMargin=self.ExchFixedMargin
+		obj.ExchMiniMargin=self.ExchMiniMargin
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcQryOptionInstrTradeCostField(Structure):
 	"""期权交易成本查询"""
 	_fields_ = [
@@ -5421,6 +7416,21 @@ class CThostFtdcQryOptionInstrTradeCostField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', HedgeFlag=HedgeFlagType.{3}, InputPrice={4}, UnderlyingPrice={5}, ExchangeID=\'{6}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, self.InputPrice, self.UnderlyingPrice, str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'InputPrice':self.InputPrice,'UnderlyingPrice':self.UnderlyingPrice,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryOptionInstrTradeCostField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.HedgeFlag=self.HedgeFlag
+		obj.InputPrice=self.InputPrice
+		obj.UnderlyingPrice=self.UnderlyingPrice
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcQryOptionInstrCommRateField(Structure):
 	"""期权手续费率查询"""
 	_fields_ = [
@@ -5446,6 +7456,18 @@ class CThostFtdcQryOptionInstrCommRateField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryOptionInstrCommRateField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcIndexPriceField(Structure):
 	"""股指现货指数"""
 	_fields_ = [
@@ -5470,6 +7492,18 @@ class CThostFtdcIndexPriceField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InstrumentID=\'{1}\', ClosePrice={2}, ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InstrumentID, 'GB2312'), self.ClosePrice, str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ClosePrice':self.ClosePrice,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcIndexPriceField()
+		obj.BrokerID=self.BrokerID
+		obj.InstrumentID=self.InstrumentID
+		obj.ClosePrice=self.ClosePrice
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcInputExecOrderField(Structure):
 	"""输入的执行宣告"""
@@ -5564,6 +7598,35 @@ class CThostFtdcInputExecOrderField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExecOrderRef=\'{3}\', UserID=\'{4}\', Volume={5}, RequestID={6}, BusinessUnit=\'{7}\', OffsetFlag=OffsetFlagType.{8}, HedgeFlag=HedgeFlagType.{9}, ActionType=ActionTypeType.{10}, PosiDirection=PosiDirectionType.{11}, ReservePositionFlag=ExecOrderPositionFlagType.{12}, CloseFlag=ExecOrderCloseFlagType.{13}, ExchangeID=\'{14}\', InvestUnitID=\'{15}\', AccountID=\'{16}\', CurrencyID=\'{17}\', ClientID=\'{18}\', IPAddress=\'{19}\', MacAddress=\'{20}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExecOrderRef, 'GB2312'), str(self.UserID, 'GB2312'), self.Volume, self.RequestID, str(self.BusinessUnit, 'GB2312'), '' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, '' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name, '' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name, '' if ord(self.ReservePositionFlag) == 0 else ExecOrderPositionFlagType(ord(self.ReservePositionFlag)).name, '' if ord(self.CloseFlag) == 0 else ExecOrderCloseFlagType(ord(self.CloseFlag)).name, str(self.ExchangeID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExecOrderRef':str(self.ExecOrderRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'Volume':self.Volume,'RequestID':self.RequestID,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OffsetFlag':'' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'ActionType':'' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name,'PosiDirection':'' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name,'ReservePositionFlag':'' if ord(self.ReservePositionFlag) == 0 else ExecOrderPositionFlagType(ord(self.ReservePositionFlag)).name,'CloseFlag':'' if ord(self.CloseFlag) == 0 else ExecOrderCloseFlagType(ord(self.CloseFlag)).name,'ExchangeID':str(self.ExchangeID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInputExecOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExecOrderRef=self.ExecOrderRef
+		obj.UserID=self.UserID
+		obj.Volume=self.Volume
+		obj.RequestID=self.RequestID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OffsetFlag=self.OffsetFlag
+		obj.HedgeFlag=self.HedgeFlag
+		obj.ActionType=self.ActionType
+		obj.PosiDirection=self.PosiDirection
+		obj.ReservePositionFlag=self.ReservePositionFlag
+		obj.CloseFlag=self.CloseFlag
+		obj.ExchangeID=self.ExchangeID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.AccountID=self.AccountID
+		obj.CurrencyID=self.CurrencyID
+		obj.ClientID=self.ClientID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcInputExecOrderActionField(Structure):
 	"""输入执行宣告操作"""
 	_fields_ = [
@@ -5632,6 +7695,29 @@ class CThostFtdcInputExecOrderActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExecOrderActionRef={2}, ExecOrderRef=\'{3}\', RequestID={4}, FrontID={5}, SessionID={6}, ExchangeID=\'{7}\', ExecOrderSysID=\'{8}\', ActionFlag=ActionFlagType.{9}, UserID=\'{10}\', InstrumentID=\'{11}\', InvestUnitID=\'{12}\', IPAddress=\'{13}\', MacAddress=\'{14}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.ExecOrderActionRef, str(self.ExecOrderRef, 'GB2312'), self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.ExecOrderSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, str(self.UserID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExecOrderActionRef':self.ExecOrderActionRef,'ExecOrderRef':str(self.ExecOrderRef, 'GB2312'),'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExecOrderSysID':str(self.ExecOrderSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'UserID':str(self.UserID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInputExecOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExecOrderActionRef=self.ExecOrderActionRef
+		obj.ExecOrderRef=self.ExecOrderRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.ExecOrderSysID=self.ExecOrderSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.UserID=self.UserID
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
 
 class CThostFtdcExecOrderField(Structure):
 	"""执行宣告"""
@@ -5818,6 +7904,58 @@ class CThostFtdcExecOrderField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExecOrderRef=\'{3}\', UserID=\'{4}\', Volume={5}, RequestID={6}, BusinessUnit=\'{7}\', OffsetFlag=OffsetFlagType.{8}, HedgeFlag=HedgeFlagType.{9}, ActionType=ActionTypeType.{10}, PosiDirection=PosiDirectionType.{11}, ReservePositionFlag=ExecOrderPositionFlagType.{12}, CloseFlag=ExecOrderCloseFlagType.{13}, ExecOrderLocalID=\'{14}\', ExchangeID=\'{15}\', ParticipantID=\'{16}\', ClientID=\'{17}\', ExchangeInstID=\'{18}\', TraderID=\'{19}\', InstallID={20}, OrderSubmitStatus=OrderSubmitStatusType.{21}, NotifySequence={22}, TradingDay=\'{23}\', SettlementID={24}, ExecOrderSysID=\'{25}\', InsertDate=\'{26}\', InsertTime=\'{27}\', CancelTime=\'{28}\', ExecResult=ExecResultType.{29}, ClearingPartID=\'{30}\', SequenceNo={31}, FrontID={32}, SessionID={33}, UserProductInfo=\'{34}\', StatusMsg=\'{35}\', ActiveUserID=\'{36}\', BrokerExecOrderSeq={37}, BranchID=\'{38}\', InvestUnitID=\'{39}\', AccountID=\'{40}\', CurrencyID=\'{41}\', IPAddress=\'{42}\', MacAddress=\'{43}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExecOrderRef, 'GB2312'), str(self.UserID, 'GB2312'), self.Volume, self.RequestID, str(self.BusinessUnit, 'GB2312'), '' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, '' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name, '' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name, '' if ord(self.ReservePositionFlag) == 0 else ExecOrderPositionFlagType(ord(self.ReservePositionFlag)).name, '' if ord(self.CloseFlag) == 0 else ExecOrderCloseFlagType(ord(self.CloseFlag)).name, str(self.ExecOrderLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, '' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name, self.NotifySequence, str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.ExecOrderSysID, 'GB2312'), str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), str(self.CancelTime, 'GB2312'), '' if ord(self.ExecResult) == 0 else ExecResultType(ord(self.ExecResult)).name, str(self.ClearingPartID, 'GB2312'), self.SequenceNo, self.FrontID, self.SessionID, str(self.UserProductInfo, 'GB2312'), str(self.StatusMsg, 'GB2312'), str(self.ActiveUserID, 'GB2312'), self.BrokerExecOrderSeq, str(self.BranchID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExecOrderRef':str(self.ExecOrderRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'Volume':self.Volume,'RequestID':self.RequestID,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OffsetFlag':'' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'ActionType':'' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name,'PosiDirection':'' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name,'ReservePositionFlag':'' if ord(self.ReservePositionFlag) == 0 else ExecOrderPositionFlagType(ord(self.ReservePositionFlag)).name,'CloseFlag':'' if ord(self.CloseFlag) == 0 else ExecOrderCloseFlagType(ord(self.CloseFlag)).name,'ExecOrderLocalID':str(self.ExecOrderLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'OrderSubmitStatus':'' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name,'NotifySequence':self.NotifySequence,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'ExecOrderSysID':str(self.ExecOrderSysID, 'GB2312'),'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'CancelTime':str(self.CancelTime, 'GB2312'),'ExecResult':'' if ord(self.ExecResult) == 0 else ExecResultType(ord(self.ExecResult)).name,'ClearingPartID':str(self.ClearingPartID, 'GB2312'),'SequenceNo':self.SequenceNo,'FrontID':self.FrontID,'SessionID':self.SessionID,'UserProductInfo':str(self.UserProductInfo, 'GB2312'),'StatusMsg':str(self.StatusMsg, 'GB2312'),'ActiveUserID':str(self.ActiveUserID, 'GB2312'),'BrokerExecOrderSeq':self.BrokerExecOrderSeq,'BranchID':str(self.BranchID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExecOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExecOrderRef=self.ExecOrderRef
+		obj.UserID=self.UserID
+		obj.Volume=self.Volume
+		obj.RequestID=self.RequestID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OffsetFlag=self.OffsetFlag
+		obj.HedgeFlag=self.HedgeFlag
+		obj.ActionType=self.ActionType
+		obj.PosiDirection=self.PosiDirection
+		obj.ReservePositionFlag=self.ReservePositionFlag
+		obj.CloseFlag=self.CloseFlag
+		obj.ExecOrderLocalID=self.ExecOrderLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.OrderSubmitStatus=self.OrderSubmitStatus
+		obj.NotifySequence=self.NotifySequence
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.ExecOrderSysID=self.ExecOrderSysID
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.CancelTime=self.CancelTime
+		obj.ExecResult=self.ExecResult
+		obj.ClearingPartID=self.ClearingPartID
+		obj.SequenceNo=self.SequenceNo
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.UserProductInfo=self.UserProductInfo
+		obj.StatusMsg=self.StatusMsg
+		obj.ActiveUserID=self.ActiveUserID
+		obj.BrokerExecOrderSeq=self.BrokerExecOrderSeq
+		obj.BranchID=self.BranchID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.AccountID=self.AccountID
+		obj.CurrencyID=self.CurrencyID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcExecOrderActionField(Structure):
 	"""执行宣告操作"""
 	_fields_ = [
@@ -5939,6 +8077,42 @@ class CThostFtdcExecOrderActionField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExecOrderActionRef={2}, ExecOrderRef=\'{3}\', RequestID={4}, FrontID={5}, SessionID={6}, ExchangeID=\'{7}\', ExecOrderSysID=\'{8}\', ActionFlag=ActionFlagType.{9}, ActionDate=\'{10}\', ActionTime=\'{11}\', TraderID=\'{12}\', InstallID={13}, ExecOrderLocalID=\'{14}\', ActionLocalID=\'{15}\', ParticipantID=\'{16}\', ClientID=\'{17}\', BusinessUnit=\'{18}\', OrderActionStatus=OrderActionStatusType.{19}, UserID=\'{20}\', ActionType=ActionTypeType.{21}, StatusMsg=\'{22}\', InstrumentID=\'{23}\', BranchID=\'{24}\', InvestUnitID=\'{25}\', IPAddress=\'{26}\', MacAddress=\'{27}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.ExecOrderActionRef, str(self.ExecOrderRef, 'GB2312'), self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.ExecOrderSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, str(self.ActionDate, 'GB2312'), str(self.ActionTime, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.ExecOrderLocalID, 'GB2312'), str(self.ActionLocalID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.BusinessUnit, 'GB2312'), '' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name, str(self.UserID, 'GB2312'), '' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name, str(self.StatusMsg, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.BranchID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExecOrderActionRef':self.ExecOrderActionRef,'ExecOrderRef':str(self.ExecOrderRef, 'GB2312'),'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExecOrderSysID':str(self.ExecOrderSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'ActionDate':str(self.ActionDate, 'GB2312'),'ActionTime':str(self.ActionTime, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'ExecOrderLocalID':str(self.ExecOrderLocalID, 'GB2312'),'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OrderActionStatus':'' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name,'UserID':str(self.UserID, 'GB2312'),'ActionType':'' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name,'StatusMsg':str(self.StatusMsg, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExecOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExecOrderActionRef=self.ExecOrderActionRef
+		obj.ExecOrderRef=self.ExecOrderRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.ExecOrderSysID=self.ExecOrderSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.ActionDate=self.ActionDate
+		obj.ActionTime=self.ActionTime
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.ExecOrderLocalID=self.ExecOrderLocalID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OrderActionStatus=self.OrderActionStatus
+		obj.UserID=self.UserID
+		obj.ActionType=self.ActionType
+		obj.StatusMsg=self.StatusMsg
+		obj.InstrumentID=self.InstrumentID
+		obj.BranchID=self.BranchID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcQryExecOrderField(Structure):
 	"""执行宣告查询"""
 	_fields_ = [
@@ -5975,6 +8149,21 @@ class CThostFtdcQryExecOrderField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\', ExecOrderSysID=\'{4}\', InsertTimeStart=\'{5}\', InsertTimeEnd=\'{6}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ExecOrderSysID, 'GB2312'), str(self.InsertTimeStart, 'GB2312'), str(self.InsertTimeEnd, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExecOrderSysID':str(self.ExecOrderSysID, 'GB2312'),'InsertTimeStart':str(self.InsertTimeStart, 'GB2312'),'InsertTimeEnd':str(self.InsertTimeEnd, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExecOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.ExecOrderSysID=self.ExecOrderSysID
+		obj.InsertTimeStart=self.InsertTimeStart
+		obj.InsertTimeEnd=self.InsertTimeEnd
+		return obj
 
 class CThostFtdcExchangeExecOrderField(Structure):
 	"""交易所执行宣告信息"""
@@ -6105,6 +8294,44 @@ class CThostFtdcExchangeExecOrderField(Structure):
 	def __str__(self):
 		return 'Volume={0}, RequestID={1}, BusinessUnit=\'{2}\', OffsetFlag=OffsetFlagType.{3}, HedgeFlag=HedgeFlagType.{4}, ActionType=ActionTypeType.{5}, PosiDirection=PosiDirectionType.{6}, ReservePositionFlag=ExecOrderPositionFlagType.{7}, CloseFlag=ExecOrderCloseFlagType.{8}, ExecOrderLocalID=\'{9}\', ExchangeID=\'{10}\', ParticipantID=\'{11}\', ClientID=\'{12}\', ExchangeInstID=\'{13}\', TraderID=\'{14}\', InstallID={15}, OrderSubmitStatus=OrderSubmitStatusType.{16}, NotifySequence={17}, TradingDay=\'{18}\', SettlementID={19}, ExecOrderSysID=\'{20}\', InsertDate=\'{21}\', InsertTime=\'{22}\', CancelTime=\'{23}\', ExecResult=ExecResultType.{24}, ClearingPartID=\'{25}\', SequenceNo={26}, BranchID=\'{27}\', IPAddress=\'{28}\', MacAddress=\'{29}\''.format(self.Volume, self.RequestID, str(self.BusinessUnit, 'GB2312'), '' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, '' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name, '' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name, '' if ord(self.ReservePositionFlag) == 0 else ExecOrderPositionFlagType(ord(self.ReservePositionFlag)).name, '' if ord(self.CloseFlag) == 0 else ExecOrderCloseFlagType(ord(self.CloseFlag)).name, str(self.ExecOrderLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, '' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name, self.NotifySequence, str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.ExecOrderSysID, 'GB2312'), str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), str(self.CancelTime, 'GB2312'), '' if ord(self.ExecResult) == 0 else ExecResultType(ord(self.ExecResult)).name, str(self.ClearingPartID, 'GB2312'), self.SequenceNo, str(self.BranchID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'Volume':self.Volume,'RequestID':self.RequestID,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OffsetFlag':'' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'ActionType':'' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name,'PosiDirection':'' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name,'ReservePositionFlag':'' if ord(self.ReservePositionFlag) == 0 else ExecOrderPositionFlagType(ord(self.ReservePositionFlag)).name,'CloseFlag':'' if ord(self.CloseFlag) == 0 else ExecOrderCloseFlagType(ord(self.CloseFlag)).name,'ExecOrderLocalID':str(self.ExecOrderLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'OrderSubmitStatus':'' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name,'NotifySequence':self.NotifySequence,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'ExecOrderSysID':str(self.ExecOrderSysID, 'GB2312'),'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'CancelTime':str(self.CancelTime, 'GB2312'),'ExecResult':'' if ord(self.ExecResult) == 0 else ExecResultType(ord(self.ExecResult)).name,'ClearingPartID':str(self.ClearingPartID, 'GB2312'),'SequenceNo':self.SequenceNo,'BranchID':str(self.BranchID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeExecOrderField()
+		obj.Volume=self.Volume
+		obj.RequestID=self.RequestID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OffsetFlag=self.OffsetFlag
+		obj.HedgeFlag=self.HedgeFlag
+		obj.ActionType=self.ActionType
+		obj.PosiDirection=self.PosiDirection
+		obj.ReservePositionFlag=self.ReservePositionFlag
+		obj.CloseFlag=self.CloseFlag
+		obj.ExecOrderLocalID=self.ExecOrderLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.OrderSubmitStatus=self.OrderSubmitStatus
+		obj.NotifySequence=self.NotifySequence
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.ExecOrderSysID=self.ExecOrderSysID
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.CancelTime=self.CancelTime
+		obj.ExecResult=self.ExecResult
+		obj.ClearingPartID=self.ClearingPartID
+		obj.SequenceNo=self.SequenceNo
+		obj.BranchID=self.BranchID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcQryExchangeExecOrderField(Structure):
 	"""交易所执行宣告查询"""
 	_fields_ = [
@@ -6134,6 +8361,19 @@ class CThostFtdcQryExchangeExecOrderField(Structure):
 	def __str__(self):
 		return 'ParticipantID=\'{0}\', ClientID=\'{1}\', ExchangeInstID=\'{2}\', ExchangeID=\'{3}\', TraderID=\'{4}\''.format(str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.TraderID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeExecOrderField()
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.ExchangeID=self.ExchangeID
+		obj.TraderID=self.TraderID
+		return obj
+
 class CThostFtdcQryExecOrderActionField(Structure):
 	"""执行宣告操作查询"""
 	_fields_ = [
@@ -6154,6 +8394,17 @@ class CThostFtdcQryExecOrderActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExchangeID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExecOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcExchangeExecOrderActionField(Structure):
 	"""交易所执行宣告操作"""
@@ -6236,6 +8487,32 @@ class CThostFtdcExchangeExecOrderActionField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', ExecOrderSysID=\'{1}\', ActionFlag=ActionFlagType.{2}, ActionDate=\'{3}\', ActionTime=\'{4}\', TraderID=\'{5}\', InstallID={6}, ExecOrderLocalID=\'{7}\', ActionLocalID=\'{8}\', ParticipantID=\'{9}\', ClientID=\'{10}\', BusinessUnit=\'{11}\', OrderActionStatus=OrderActionStatusType.{12}, UserID=\'{13}\', ActionType=ActionTypeType.{14}, BranchID=\'{15}\', IPAddress=\'{16}\', MacAddress=\'{17}\''.format(str(self.ExchangeID, 'GB2312'), str(self.ExecOrderSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, str(self.ActionDate, 'GB2312'), str(self.ActionTime, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.ExecOrderLocalID, 'GB2312'), str(self.ActionLocalID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.BusinessUnit, 'GB2312'), '' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name, str(self.UserID, 'GB2312'), '' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name, str(self.BranchID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExecOrderSysID':str(self.ExecOrderSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'ActionDate':str(self.ActionDate, 'GB2312'),'ActionTime':str(self.ActionTime, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'ExecOrderLocalID':str(self.ExecOrderLocalID, 'GB2312'),'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OrderActionStatus':'' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name,'UserID':str(self.UserID, 'GB2312'),'ActionType':'' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name,'BranchID':str(self.BranchID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeExecOrderActionField()
+		obj.ExchangeID=self.ExchangeID
+		obj.ExecOrderSysID=self.ExecOrderSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.ActionDate=self.ActionDate
+		obj.ActionTime=self.ActionTime
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.ExecOrderLocalID=self.ExecOrderLocalID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OrderActionStatus=self.OrderActionStatus
+		obj.UserID=self.UserID
+		obj.ActionType=self.ActionType
+		obj.BranchID=self.BranchID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcQryExchangeExecOrderActionField(Structure):
 	"""交易所执行宣告操作查询"""
 	_fields_ = [
@@ -6260,6 +8537,18 @@ class CThostFtdcQryExchangeExecOrderActionField(Structure):
 
 	def __str__(self):
 		return 'ParticipantID=\'{0}\', ClientID=\'{1}\', ExchangeID=\'{2}\', TraderID=\'{3}\''.format(str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.TraderID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeExecOrderActionField()
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeID=self.ExchangeID
+		obj.TraderID=self.TraderID
+		return obj
 
 class CThostFtdcErrExecOrderField(Structure):
 	"""错误执行宣告"""
@@ -6362,6 +8651,37 @@ class CThostFtdcErrExecOrderField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExecOrderRef=\'{3}\', UserID=\'{4}\', Volume={5}, RequestID={6}, BusinessUnit=\'{7}\', OffsetFlag=OffsetFlagType.{8}, HedgeFlag=HedgeFlagType.{9}, ActionType=ActionTypeType.{10}, PosiDirection=PosiDirectionType.{11}, ReservePositionFlag=ExecOrderPositionFlagType.{12}, CloseFlag=ExecOrderCloseFlagType.{13}, ExchangeID=\'{14}\', InvestUnitID=\'{15}\', AccountID=\'{16}\', CurrencyID=\'{17}\', ClientID=\'{18}\', IPAddress=\'{19}\', MacAddress=\'{20}\', ErrorID={21}, ErrorMsg=\'{22}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExecOrderRef, 'GB2312'), str(self.UserID, 'GB2312'), self.Volume, self.RequestID, str(self.BusinessUnit, 'GB2312'), '' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, '' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name, '' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name, '' if ord(self.ReservePositionFlag) == 0 else ExecOrderPositionFlagType(ord(self.ReservePositionFlag)).name, '' if ord(self.CloseFlag) == 0 else ExecOrderCloseFlagType(ord(self.CloseFlag)).name, str(self.ExchangeID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'), self.ErrorID, str(self.ErrorMsg, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExecOrderRef':str(self.ExecOrderRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'Volume':self.Volume,'RequestID':self.RequestID,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OffsetFlag':'' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'ActionType':'' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name,'PosiDirection':'' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name,'ReservePositionFlag':'' if ord(self.ReservePositionFlag) == 0 else ExecOrderPositionFlagType(ord(self.ReservePositionFlag)).name,'CloseFlag':'' if ord(self.CloseFlag) == 0 else ExecOrderCloseFlagType(ord(self.CloseFlag)).name,'ExchangeID':str(self.ExchangeID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312'),'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcErrExecOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExecOrderRef=self.ExecOrderRef
+		obj.UserID=self.UserID
+		obj.Volume=self.Volume
+		obj.RequestID=self.RequestID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OffsetFlag=self.OffsetFlag
+		obj.HedgeFlag=self.HedgeFlag
+		obj.ActionType=self.ActionType
+		obj.PosiDirection=self.PosiDirection
+		obj.ReservePositionFlag=self.ReservePositionFlag
+		obj.CloseFlag=self.CloseFlag
+		obj.ExchangeID=self.ExchangeID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.AccountID=self.AccountID
+		obj.CurrencyID=self.CurrencyID
+		obj.ClientID=self.ClientID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
+
 class CThostFtdcQryErrExecOrderField(Structure):
 	"""查询错误执行宣告"""
 	_fields_ = [
@@ -6378,6 +8698,16 @@ class CThostFtdcQryErrExecOrderField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryErrExecOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		return obj
 
 class CThostFtdcErrExecOrderActionField(Structure):
 	"""错误执行宣告操作"""
@@ -6456,6 +8786,31 @@ class CThostFtdcErrExecOrderActionField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExecOrderActionRef={2}, ExecOrderRef=\'{3}\', RequestID={4}, FrontID={5}, SessionID={6}, ExchangeID=\'{7}\', ExecOrderSysID=\'{8}\', ActionFlag=ActionFlagType.{9}, UserID=\'{10}\', InstrumentID=\'{11}\', InvestUnitID=\'{12}\', IPAddress=\'{13}\', MacAddress=\'{14}\', ErrorID={15}, ErrorMsg=\'{16}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.ExecOrderActionRef, str(self.ExecOrderRef, 'GB2312'), self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.ExecOrderSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, str(self.UserID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'), self.ErrorID, str(self.ErrorMsg, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExecOrderActionRef':self.ExecOrderActionRef,'ExecOrderRef':str(self.ExecOrderRef, 'GB2312'),'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExecOrderSysID':str(self.ExecOrderSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'UserID':str(self.UserID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312'),'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcErrExecOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExecOrderActionRef=self.ExecOrderActionRef
+		obj.ExecOrderRef=self.ExecOrderRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.ExecOrderSysID=self.ExecOrderSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.UserID=self.UserID
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
+
 class CThostFtdcQryErrExecOrderActionField(Structure):
 	"""查询错误执行宣告操作"""
 	_fields_ = [
@@ -6472,6 +8827,16 @@ class CThostFtdcQryErrExecOrderActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryErrExecOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		return obj
 
 class CThostFtdcOptionInstrTradingRightField(Structure):
 	"""投资者期权合约交易权限"""
@@ -6514,6 +8879,22 @@ class CThostFtdcOptionInstrTradingRightField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', Direction=DirectionType.{4}, TradingRight=TradingRightType.{5}, ExchangeID=\'{6}\', HedgeFlag=HedgeFlagType.{7}'.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, '' if ord(self.TradingRight) == 0 else TradingRightType(ord(self.TradingRight)).name, str(self.ExchangeID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name)
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'TradingRight':'' if ord(self.TradingRight) == 0 else TradingRightType(ord(self.TradingRight)).name,'ExchangeID':str(self.ExchangeID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name}
+
+	def clone(self):
+		obj=CThostFtdcOptionInstrTradingRightField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.Direction=self.Direction
+		obj.TradingRight=self.TradingRight
+		obj.ExchangeID=self.ExchangeID
+		obj.HedgeFlag=self.HedgeFlag
+		return obj
+
 class CThostFtdcQryOptionInstrTradingRightField(Structure):
 	"""查询期权合约交易权限"""
 	_fields_ = [
@@ -6542,6 +8923,19 @@ class CThostFtdcQryOptionInstrTradingRightField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', Direction=DirectionType.{3}, ExchangeID=\'{4}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryOptionInstrTradingRightField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.Direction=self.Direction
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcInputForQuoteField(Structure):
 	"""输入的询价"""
@@ -6587,6 +8981,23 @@ class CThostFtdcInputForQuoteField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ForQuoteRef=\'{3}\', UserID=\'{4}\', ExchangeID=\'{5}\', InvestUnitID=\'{6}\', IPAddress=\'{7}\', MacAddress=\'{8}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ForQuoteRef, 'GB2312'), str(self.UserID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ForQuoteRef':str(self.ForQuoteRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInputForQuoteField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ForQuoteRef=self.ForQuoteRef
+		obj.UserID=self.UserID
+		obj.ExchangeID=self.ExchangeID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
 
 class CThostFtdcForQuoteField(Structure):
 	"""询价"""
@@ -6693,6 +9104,38 @@ class CThostFtdcForQuoteField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ForQuoteRef=\'{3}\', UserID=\'{4}\', ForQuoteLocalID=\'{5}\', ExchangeID=\'{6}\', ParticipantID=\'{7}\', ClientID=\'{8}\', ExchangeInstID=\'{9}\', TraderID=\'{10}\', InstallID={11}, InsertDate=\'{12}\', InsertTime=\'{13}\', ForQuoteStatus=ForQuoteStatusType.{14}, FrontID={15}, SessionID={16}, StatusMsg=\'{17}\', ActiveUserID=\'{18}\', BrokerForQutoSeq={19}, InvestUnitID=\'{20}\', IPAddress=\'{21}\', MacAddress=\'{22}\', BranchID=\'{23}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ForQuoteRef, 'GB2312'), str(self.UserID, 'GB2312'), str(self.ForQuoteLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), '' if ord(self.ForQuoteStatus) == 0 else ForQuoteStatusType(ord(self.ForQuoteStatus)).name, self.FrontID, self.SessionID, str(self.StatusMsg, 'GB2312'), str(self.ActiveUserID, 'GB2312'), self.BrokerForQutoSeq, str(self.InvestUnitID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'), str(self.BranchID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ForQuoteRef':str(self.ForQuoteRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'ForQuoteLocalID':str(self.ForQuoteLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'ForQuoteStatus':'' if ord(self.ForQuoteStatus) == 0 else ForQuoteStatusType(ord(self.ForQuoteStatus)).name,'FrontID':self.FrontID,'SessionID':self.SessionID,'StatusMsg':str(self.StatusMsg, 'GB2312'),'ActiveUserID':str(self.ActiveUserID, 'GB2312'),'BrokerForQutoSeq':self.BrokerForQutoSeq,'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcForQuoteField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ForQuoteRef=self.ForQuoteRef
+		obj.UserID=self.UserID
+		obj.ForQuoteLocalID=self.ForQuoteLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.ForQuoteStatus=self.ForQuoteStatus
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.StatusMsg=self.StatusMsg
+		obj.ActiveUserID=self.ActiveUserID
+		obj.BrokerForQutoSeq=self.BrokerForQutoSeq
+		obj.InvestUnitID=self.InvestUnitID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		obj.BranchID=self.BranchID
+		return obj
+
 class CThostFtdcQryForQuoteField(Structure):
 	"""询价查询"""
 	_fields_ = [
@@ -6725,6 +9168,20 @@ class CThostFtdcQryForQuoteField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\', InsertTimeStart=\'{4}\', InsertTimeEnd=\'{5}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.InsertTimeStart, 'GB2312'), str(self.InsertTimeEnd, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'InsertTimeStart':str(self.InsertTimeStart, 'GB2312'),'InsertTimeEnd':str(self.InsertTimeEnd, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryForQuoteField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.InsertTimeStart=self.InsertTimeStart
+		obj.InsertTimeEnd=self.InsertTimeEnd
+		return obj
 
 class CThostFtdcExchangeForQuoteField(Structure):
 	"""交易所询价信息"""
@@ -6787,6 +9244,27 @@ class CThostFtdcExchangeForQuoteField(Structure):
 	def __str__(self):
 		return 'ForQuoteLocalID=\'{0}\', ExchangeID=\'{1}\', ParticipantID=\'{2}\', ClientID=\'{3}\', ExchangeInstID=\'{4}\', TraderID=\'{5}\', InstallID={6}, InsertDate=\'{7}\', InsertTime=\'{8}\', ForQuoteStatus=ForQuoteStatusType.{9}, IPAddress=\'{10}\', MacAddress=\'{11}\', BranchID=\'{12}\''.format(str(self.ForQuoteLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), '' if ord(self.ForQuoteStatus) == 0 else ForQuoteStatusType(ord(self.ForQuoteStatus)).name, str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'), str(self.BranchID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ForQuoteLocalID':str(self.ForQuoteLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'ForQuoteStatus':'' if ord(self.ForQuoteStatus) == 0 else ForQuoteStatusType(ord(self.ForQuoteStatus)).name,'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeForQuoteField()
+		obj.ForQuoteLocalID=self.ForQuoteLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.ForQuoteStatus=self.ForQuoteStatus
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		obj.BranchID=self.BranchID
+		return obj
+
 class CThostFtdcQryExchangeForQuoteField(Structure):
 	"""交易所询价查询"""
 	_fields_ = [
@@ -6815,6 +9293,19 @@ class CThostFtdcQryExchangeForQuoteField(Structure):
 
 	def __str__(self):
 		return 'ParticipantID=\'{0}\', ClientID=\'{1}\', ExchangeInstID=\'{2}\', ExchangeID=\'{3}\', TraderID=\'{4}\''.format(str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.TraderID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeForQuoteField()
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.ExchangeID=self.ExchangeID
+		obj.TraderID=self.TraderID
+		return obj
 
 class CThostFtdcInputQuoteField(Structure):
 	"""输入的报价"""
@@ -6917,6 +9408,37 @@ class CThostFtdcInputQuoteField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', QuoteRef=\'{3}\', UserID=\'{4}\', AskPrice={5}, BidPrice={6}, AskVolume={7}, BidVolume={8}, RequestID={9}, BusinessUnit=\'{10}\', AskOffsetFlag=OffsetFlagType.{11}, BidOffsetFlag=OffsetFlagType.{12}, AskHedgeFlag=HedgeFlagType.{13}, BidHedgeFlag=HedgeFlagType.{14}, AskOrderRef=\'{15}\', BidOrderRef=\'{16}\', ForQuoteSysID=\'{17}\', ExchangeID=\'{18}\', InvestUnitID=\'{19}\', ClientID=\'{20}\', IPAddress=\'{21}\', MacAddress=\'{22}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.QuoteRef, 'GB2312'), str(self.UserID, 'GB2312'), self.AskPrice, self.BidPrice, self.AskVolume, self.BidVolume, self.RequestID, str(self.BusinessUnit, 'GB2312'), '' if ord(self.AskOffsetFlag) == 0 else OffsetFlagType(ord(self.AskOffsetFlag)).name, '' if ord(self.BidOffsetFlag) == 0 else OffsetFlagType(ord(self.BidOffsetFlag)).name, '' if ord(self.AskHedgeFlag) == 0 else HedgeFlagType(ord(self.AskHedgeFlag)).name, '' if ord(self.BidHedgeFlag) == 0 else HedgeFlagType(ord(self.BidHedgeFlag)).name, str(self.AskOrderRef, 'GB2312'), str(self.BidOrderRef, 'GB2312'), str(self.ForQuoteSysID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'QuoteRef':str(self.QuoteRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'AskPrice':self.AskPrice,'BidPrice':self.BidPrice,'AskVolume':self.AskVolume,'BidVolume':self.BidVolume,'RequestID':self.RequestID,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'AskOffsetFlag':'' if ord(self.AskOffsetFlag) == 0 else OffsetFlagType(ord(self.AskOffsetFlag)).name,'BidOffsetFlag':'' if ord(self.BidOffsetFlag) == 0 else OffsetFlagType(ord(self.BidOffsetFlag)).name,'AskHedgeFlag':'' if ord(self.AskHedgeFlag) == 0 else HedgeFlagType(ord(self.AskHedgeFlag)).name,'BidHedgeFlag':'' if ord(self.BidHedgeFlag) == 0 else HedgeFlagType(ord(self.BidHedgeFlag)).name,'AskOrderRef':str(self.AskOrderRef, 'GB2312'),'BidOrderRef':str(self.BidOrderRef, 'GB2312'),'ForQuoteSysID':str(self.ForQuoteSysID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInputQuoteField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.QuoteRef=self.QuoteRef
+		obj.UserID=self.UserID
+		obj.AskPrice=self.AskPrice
+		obj.BidPrice=self.BidPrice
+		obj.AskVolume=self.AskVolume
+		obj.BidVolume=self.BidVolume
+		obj.RequestID=self.RequestID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.AskOffsetFlag=self.AskOffsetFlag
+		obj.BidOffsetFlag=self.BidOffsetFlag
+		obj.AskHedgeFlag=self.AskHedgeFlag
+		obj.BidHedgeFlag=self.BidHedgeFlag
+		obj.AskOrderRef=self.AskOrderRef
+		obj.BidOrderRef=self.BidOrderRef
+		obj.ForQuoteSysID=self.ForQuoteSysID
+		obj.ExchangeID=self.ExchangeID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.ClientID=self.ClientID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcInputQuoteActionField(Structure):
 	"""输入报价操作"""
 	_fields_ = [
@@ -6989,6 +9511,30 @@ class CThostFtdcInputQuoteActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', QuoteActionRef={2}, QuoteRef=\'{3}\', RequestID={4}, FrontID={5}, SessionID={6}, ExchangeID=\'{7}\', QuoteSysID=\'{8}\', ActionFlag=ActionFlagType.{9}, UserID=\'{10}\', InstrumentID=\'{11}\', InvestUnitID=\'{12}\', ClientID=\'{13}\', IPAddress=\'{14}\', MacAddress=\'{15}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.QuoteActionRef, str(self.QuoteRef, 'GB2312'), self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.QuoteSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, str(self.UserID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'QuoteActionRef':self.QuoteActionRef,'QuoteRef':str(self.QuoteRef, 'GB2312'),'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'QuoteSysID':str(self.QuoteSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'UserID':str(self.UserID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInputQuoteActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.QuoteActionRef=self.QuoteActionRef
+		obj.QuoteRef=self.QuoteRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.QuoteSysID=self.QuoteSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.UserID=self.UserID
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.ClientID=self.ClientID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
 
 class CThostFtdcQuoteField(Structure):
 	"""报价"""
@@ -7199,6 +9745,64 @@ class CThostFtdcQuoteField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', QuoteRef=\'{3}\', UserID=\'{4}\', AskPrice={5}, BidPrice={6}, AskVolume={7}, BidVolume={8}, RequestID={9}, BusinessUnit=\'{10}\', AskOffsetFlag=OffsetFlagType.{11}, BidOffsetFlag=OffsetFlagType.{12}, AskHedgeFlag=HedgeFlagType.{13}, BidHedgeFlag=HedgeFlagType.{14}, QuoteLocalID=\'{15}\', ExchangeID=\'{16}\', ParticipantID=\'{17}\', ClientID=\'{18}\', ExchangeInstID=\'{19}\', TraderID=\'{20}\', InstallID={21}, NotifySequence={22}, OrderSubmitStatus=OrderSubmitStatusType.{23}, TradingDay=\'{24}\', SettlementID={25}, QuoteSysID=\'{26}\', InsertDate=\'{27}\', InsertTime=\'{28}\', CancelTime=\'{29}\', QuoteStatus=OrderStatusType.{30}, ClearingPartID=\'{31}\', SequenceNo={32}, AskOrderSysID=\'{33}\', BidOrderSysID=\'{34}\', FrontID={35}, SessionID={36}, UserProductInfo=\'{37}\', StatusMsg=\'{38}\', ActiveUserID=\'{39}\', BrokerQuoteSeq={40}, AskOrderRef=\'{41}\', BidOrderRef=\'{42}\', ForQuoteSysID=\'{43}\', BranchID=\'{44}\', InvestUnitID=\'{45}\', AccountID=\'{46}\', CurrencyID=\'{47}\', IPAddress=\'{48}\', MacAddress=\'{49}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.QuoteRef, 'GB2312'), str(self.UserID, 'GB2312'), self.AskPrice, self.BidPrice, self.AskVolume, self.BidVolume, self.RequestID, str(self.BusinessUnit, 'GB2312'), '' if ord(self.AskOffsetFlag) == 0 else OffsetFlagType(ord(self.AskOffsetFlag)).name, '' if ord(self.BidOffsetFlag) == 0 else OffsetFlagType(ord(self.BidOffsetFlag)).name, '' if ord(self.AskHedgeFlag) == 0 else HedgeFlagType(ord(self.AskHedgeFlag)).name, '' if ord(self.BidHedgeFlag) == 0 else HedgeFlagType(ord(self.BidHedgeFlag)).name, str(self.QuoteLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, self.NotifySequence, '' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name, str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.QuoteSysID, 'GB2312'), str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), str(self.CancelTime, 'GB2312'), '' if ord(self.QuoteStatus) == 0 else OrderStatusType(ord(self.QuoteStatus)).name, str(self.ClearingPartID, 'GB2312'), self.SequenceNo, str(self.AskOrderSysID, 'GB2312'), str(self.BidOrderSysID, 'GB2312'), self.FrontID, self.SessionID, str(self.UserProductInfo, 'GB2312'), str(self.StatusMsg, 'GB2312'), str(self.ActiveUserID, 'GB2312'), self.BrokerQuoteSeq, str(self.AskOrderRef, 'GB2312'), str(self.BidOrderRef, 'GB2312'), str(self.ForQuoteSysID, 'GB2312'), str(self.BranchID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'QuoteRef':str(self.QuoteRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'AskPrice':self.AskPrice,'BidPrice':self.BidPrice,'AskVolume':self.AskVolume,'BidVolume':self.BidVolume,'RequestID':self.RequestID,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'AskOffsetFlag':'' if ord(self.AskOffsetFlag) == 0 else OffsetFlagType(ord(self.AskOffsetFlag)).name,'BidOffsetFlag':'' if ord(self.BidOffsetFlag) == 0 else OffsetFlagType(ord(self.BidOffsetFlag)).name,'AskHedgeFlag':'' if ord(self.AskHedgeFlag) == 0 else HedgeFlagType(ord(self.AskHedgeFlag)).name,'BidHedgeFlag':'' if ord(self.BidHedgeFlag) == 0 else HedgeFlagType(ord(self.BidHedgeFlag)).name,'QuoteLocalID':str(self.QuoteLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'NotifySequence':self.NotifySequence,'OrderSubmitStatus':'' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'QuoteSysID':str(self.QuoteSysID, 'GB2312'),'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'CancelTime':str(self.CancelTime, 'GB2312'),'QuoteStatus':'' if ord(self.QuoteStatus) == 0 else OrderStatusType(ord(self.QuoteStatus)).name,'ClearingPartID':str(self.ClearingPartID, 'GB2312'),'SequenceNo':self.SequenceNo,'AskOrderSysID':str(self.AskOrderSysID, 'GB2312'),'BidOrderSysID':str(self.BidOrderSysID, 'GB2312'),'FrontID':self.FrontID,'SessionID':self.SessionID,'UserProductInfo':str(self.UserProductInfo, 'GB2312'),'StatusMsg':str(self.StatusMsg, 'GB2312'),'ActiveUserID':str(self.ActiveUserID, 'GB2312'),'BrokerQuoteSeq':self.BrokerQuoteSeq,'AskOrderRef':str(self.AskOrderRef, 'GB2312'),'BidOrderRef':str(self.BidOrderRef, 'GB2312'),'ForQuoteSysID':str(self.ForQuoteSysID, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQuoteField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.QuoteRef=self.QuoteRef
+		obj.UserID=self.UserID
+		obj.AskPrice=self.AskPrice
+		obj.BidPrice=self.BidPrice
+		obj.AskVolume=self.AskVolume
+		obj.BidVolume=self.BidVolume
+		obj.RequestID=self.RequestID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.AskOffsetFlag=self.AskOffsetFlag
+		obj.BidOffsetFlag=self.BidOffsetFlag
+		obj.AskHedgeFlag=self.AskHedgeFlag
+		obj.BidHedgeFlag=self.BidHedgeFlag
+		obj.QuoteLocalID=self.QuoteLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.NotifySequence=self.NotifySequence
+		obj.OrderSubmitStatus=self.OrderSubmitStatus
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.QuoteSysID=self.QuoteSysID
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.CancelTime=self.CancelTime
+		obj.QuoteStatus=self.QuoteStatus
+		obj.ClearingPartID=self.ClearingPartID
+		obj.SequenceNo=self.SequenceNo
+		obj.AskOrderSysID=self.AskOrderSysID
+		obj.BidOrderSysID=self.BidOrderSysID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.UserProductInfo=self.UserProductInfo
+		obj.StatusMsg=self.StatusMsg
+		obj.ActiveUserID=self.ActiveUserID
+		obj.BrokerQuoteSeq=self.BrokerQuoteSeq
+		obj.AskOrderRef=self.AskOrderRef
+		obj.BidOrderRef=self.BidOrderRef
+		obj.ForQuoteSysID=self.ForQuoteSysID
+		obj.BranchID=self.BranchID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.AccountID=self.AccountID
+		obj.CurrencyID=self.CurrencyID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcQuoteActionField(Structure):
 	"""报价操作"""
 	_fields_ = [
@@ -7316,6 +9920,41 @@ class CThostFtdcQuoteActionField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', QuoteActionRef={2}, QuoteRef=\'{3}\', RequestID={4}, FrontID={5}, SessionID={6}, ExchangeID=\'{7}\', QuoteSysID=\'{8}\', ActionFlag=ActionFlagType.{9}, ActionDate=\'{10}\', ActionTime=\'{11}\', TraderID=\'{12}\', InstallID={13}, QuoteLocalID=\'{14}\', ActionLocalID=\'{15}\', ParticipantID=\'{16}\', ClientID=\'{17}\', BusinessUnit=\'{18}\', OrderActionStatus=OrderActionStatusType.{19}, UserID=\'{20}\', StatusMsg=\'{21}\', InstrumentID=\'{22}\', BranchID=\'{23}\', InvestUnitID=\'{24}\', IPAddress=\'{25}\', MacAddress=\'{26}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.QuoteActionRef, str(self.QuoteRef, 'GB2312'), self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.QuoteSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, str(self.ActionDate, 'GB2312'), str(self.ActionTime, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.QuoteLocalID, 'GB2312'), str(self.ActionLocalID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.BusinessUnit, 'GB2312'), '' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name, str(self.UserID, 'GB2312'), str(self.StatusMsg, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.BranchID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'QuoteActionRef':self.QuoteActionRef,'QuoteRef':str(self.QuoteRef, 'GB2312'),'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'QuoteSysID':str(self.QuoteSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'ActionDate':str(self.ActionDate, 'GB2312'),'ActionTime':str(self.ActionTime, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'QuoteLocalID':str(self.QuoteLocalID, 'GB2312'),'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OrderActionStatus':'' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name,'UserID':str(self.UserID, 'GB2312'),'StatusMsg':str(self.StatusMsg, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQuoteActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.QuoteActionRef=self.QuoteActionRef
+		obj.QuoteRef=self.QuoteRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.QuoteSysID=self.QuoteSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.ActionDate=self.ActionDate
+		obj.ActionTime=self.ActionTime
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.QuoteLocalID=self.QuoteLocalID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OrderActionStatus=self.OrderActionStatus
+		obj.UserID=self.UserID
+		obj.StatusMsg=self.StatusMsg
+		obj.InstrumentID=self.InstrumentID
+		obj.BranchID=self.BranchID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcQryQuoteField(Structure):
 	"""报价查询"""
 	_fields_ = [
@@ -7352,6 +9991,21 @@ class CThostFtdcQryQuoteField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\', QuoteSysID=\'{4}\', InsertTimeStart=\'{5}\', InsertTimeEnd=\'{6}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.QuoteSysID, 'GB2312'), str(self.InsertTimeStart, 'GB2312'), str(self.InsertTimeEnd, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'QuoteSysID':str(self.QuoteSysID, 'GB2312'),'InsertTimeStart':str(self.InsertTimeStart, 'GB2312'),'InsertTimeEnd':str(self.InsertTimeEnd, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryQuoteField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.QuoteSysID=self.QuoteSysID
+		obj.InsertTimeStart=self.InsertTimeStart
+		obj.InsertTimeEnd=self.InsertTimeEnd
+		return obj
 
 class CThostFtdcExchangeQuoteField(Structure):
 	"""交易所报价信息"""
@@ -7498,6 +10152,48 @@ class CThostFtdcExchangeQuoteField(Structure):
 	def __str__(self):
 		return 'AskPrice={0}, BidPrice={1}, AskVolume={2}, BidVolume={3}, RequestID={4}, BusinessUnit=\'{5}\', AskOffsetFlag=OffsetFlagType.{6}, BidOffsetFlag=OffsetFlagType.{7}, AskHedgeFlag=HedgeFlagType.{8}, BidHedgeFlag=HedgeFlagType.{9}, QuoteLocalID=\'{10}\', ExchangeID=\'{11}\', ParticipantID=\'{12}\', ClientID=\'{13}\', ExchangeInstID=\'{14}\', TraderID=\'{15}\', InstallID={16}, NotifySequence={17}, OrderSubmitStatus=OrderSubmitStatusType.{18}, TradingDay=\'{19}\', SettlementID={20}, QuoteSysID=\'{21}\', InsertDate=\'{22}\', InsertTime=\'{23}\', CancelTime=\'{24}\', QuoteStatus=OrderStatusType.{25}, ClearingPartID=\'{26}\', SequenceNo={27}, AskOrderSysID=\'{28}\', BidOrderSysID=\'{29}\', ForQuoteSysID=\'{30}\', BranchID=\'{31}\', IPAddress=\'{32}\', MacAddress=\'{33}\''.format(self.AskPrice, self.BidPrice, self.AskVolume, self.BidVolume, self.RequestID, str(self.BusinessUnit, 'GB2312'), '' if ord(self.AskOffsetFlag) == 0 else OffsetFlagType(ord(self.AskOffsetFlag)).name, '' if ord(self.BidOffsetFlag) == 0 else OffsetFlagType(ord(self.BidOffsetFlag)).name, '' if ord(self.AskHedgeFlag) == 0 else HedgeFlagType(ord(self.AskHedgeFlag)).name, '' if ord(self.BidHedgeFlag) == 0 else HedgeFlagType(ord(self.BidHedgeFlag)).name, str(self.QuoteLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, self.NotifySequence, '' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name, str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.QuoteSysID, 'GB2312'), str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), str(self.CancelTime, 'GB2312'), '' if ord(self.QuoteStatus) == 0 else OrderStatusType(ord(self.QuoteStatus)).name, str(self.ClearingPartID, 'GB2312'), self.SequenceNo, str(self.AskOrderSysID, 'GB2312'), str(self.BidOrderSysID, 'GB2312'), str(self.ForQuoteSysID, 'GB2312'), str(self.BranchID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'AskPrice':self.AskPrice,'BidPrice':self.BidPrice,'AskVolume':self.AskVolume,'BidVolume':self.BidVolume,'RequestID':self.RequestID,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'AskOffsetFlag':'' if ord(self.AskOffsetFlag) == 0 else OffsetFlagType(ord(self.AskOffsetFlag)).name,'BidOffsetFlag':'' if ord(self.BidOffsetFlag) == 0 else OffsetFlagType(ord(self.BidOffsetFlag)).name,'AskHedgeFlag':'' if ord(self.AskHedgeFlag) == 0 else HedgeFlagType(ord(self.AskHedgeFlag)).name,'BidHedgeFlag':'' if ord(self.BidHedgeFlag) == 0 else HedgeFlagType(ord(self.BidHedgeFlag)).name,'QuoteLocalID':str(self.QuoteLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'NotifySequence':self.NotifySequence,'OrderSubmitStatus':'' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'QuoteSysID':str(self.QuoteSysID, 'GB2312'),'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'CancelTime':str(self.CancelTime, 'GB2312'),'QuoteStatus':'' if ord(self.QuoteStatus) == 0 else OrderStatusType(ord(self.QuoteStatus)).name,'ClearingPartID':str(self.ClearingPartID, 'GB2312'),'SequenceNo':self.SequenceNo,'AskOrderSysID':str(self.AskOrderSysID, 'GB2312'),'BidOrderSysID':str(self.BidOrderSysID, 'GB2312'),'ForQuoteSysID':str(self.ForQuoteSysID, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeQuoteField()
+		obj.AskPrice=self.AskPrice
+		obj.BidPrice=self.BidPrice
+		obj.AskVolume=self.AskVolume
+		obj.BidVolume=self.BidVolume
+		obj.RequestID=self.RequestID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.AskOffsetFlag=self.AskOffsetFlag
+		obj.BidOffsetFlag=self.BidOffsetFlag
+		obj.AskHedgeFlag=self.AskHedgeFlag
+		obj.BidHedgeFlag=self.BidHedgeFlag
+		obj.QuoteLocalID=self.QuoteLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.NotifySequence=self.NotifySequence
+		obj.OrderSubmitStatus=self.OrderSubmitStatus
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.QuoteSysID=self.QuoteSysID
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.CancelTime=self.CancelTime
+		obj.QuoteStatus=self.QuoteStatus
+		obj.ClearingPartID=self.ClearingPartID
+		obj.SequenceNo=self.SequenceNo
+		obj.AskOrderSysID=self.AskOrderSysID
+		obj.BidOrderSysID=self.BidOrderSysID
+		obj.ForQuoteSysID=self.ForQuoteSysID
+		obj.BranchID=self.BranchID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcQryExchangeQuoteField(Structure):
 	"""交易所报价查询"""
 	_fields_ = [
@@ -7527,6 +10223,19 @@ class CThostFtdcQryExchangeQuoteField(Structure):
 	def __str__(self):
 		return 'ParticipantID=\'{0}\', ClientID=\'{1}\', ExchangeInstID=\'{2}\', ExchangeID=\'{3}\', TraderID=\'{4}\''.format(str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.TraderID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeQuoteField()
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.ExchangeID=self.ExchangeID
+		obj.TraderID=self.TraderID
+		return obj
+
 class CThostFtdcQryQuoteActionField(Structure):
 	"""报价操作查询"""
 	_fields_ = [
@@ -7547,6 +10256,17 @@ class CThostFtdcQryQuoteActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExchangeID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryQuoteActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcExchangeQuoteActionField(Structure):
 	"""交易所报价操作"""
@@ -7625,6 +10345,31 @@ class CThostFtdcExchangeQuoteActionField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', QuoteSysID=\'{1}\', ActionFlag=ActionFlagType.{2}, ActionDate=\'{3}\', ActionTime=\'{4}\', TraderID=\'{5}\', InstallID={6}, QuoteLocalID=\'{7}\', ActionLocalID=\'{8}\', ParticipantID=\'{9}\', ClientID=\'{10}\', BusinessUnit=\'{11}\', OrderActionStatus=OrderActionStatusType.{12}, UserID=\'{13}\', IPAddress=\'{14}\', MacAddress=\'{15}\', BranchID=\'{16}\''.format(str(self.ExchangeID, 'GB2312'), str(self.QuoteSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, str(self.ActionDate, 'GB2312'), str(self.ActionTime, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.QuoteLocalID, 'GB2312'), str(self.ActionLocalID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.BusinessUnit, 'GB2312'), '' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name, str(self.UserID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'), str(self.BranchID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'QuoteSysID':str(self.QuoteSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'ActionDate':str(self.ActionDate, 'GB2312'),'ActionTime':str(self.ActionTime, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'QuoteLocalID':str(self.QuoteLocalID, 'GB2312'),'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OrderActionStatus':'' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name,'UserID':str(self.UserID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeQuoteActionField()
+		obj.ExchangeID=self.ExchangeID
+		obj.QuoteSysID=self.QuoteSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.ActionDate=self.ActionDate
+		obj.ActionTime=self.ActionTime
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.QuoteLocalID=self.QuoteLocalID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OrderActionStatus=self.OrderActionStatus
+		obj.UserID=self.UserID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		obj.BranchID=self.BranchID
+		return obj
+
 class CThostFtdcQryExchangeQuoteActionField(Structure):
 	"""交易所报价操作查询"""
 	_fields_ = [
@@ -7649,6 +10394,18 @@ class CThostFtdcQryExchangeQuoteActionField(Structure):
 
 	def __str__(self):
 		return 'ParticipantID=\'{0}\', ClientID=\'{1}\', ExchangeID=\'{2}\', TraderID=\'{3}\''.format(str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.TraderID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeQuoteActionField()
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeID=self.ExchangeID
+		obj.TraderID=self.TraderID
+		return obj
 
 class CThostFtdcOptionInstrDeltaField(Structure):
 	"""期权合约delta值"""
@@ -7683,6 +10440,20 @@ class CThostFtdcOptionInstrDeltaField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', Delta={4}, ExchangeID=\'{5}\''.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.Delta, str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'Delta':self.Delta,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcOptionInstrDeltaField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.Delta=self.Delta
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcForQuoteRspField(Structure):
 	"""发给做市商的询价请求"""
 	_fields_ = [
@@ -7715,6 +10486,20 @@ class CThostFtdcForQuoteRspField(Structure):
 
 	def __str__(self):
 		return 'TradingDay=\'{0}\', InstrumentID=\'{1}\', ForQuoteSysID=\'{2}\', ForQuoteTime=\'{3}\', ActionDay=\'{4}\', ExchangeID=\'{5}\''.format(str(self.TradingDay, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ForQuoteSysID, 'GB2312'), str(self.ForQuoteTime, 'GB2312'), str(self.ActionDay, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ForQuoteSysID':str(self.ForQuoteSysID, 'GB2312'),'ForQuoteTime':str(self.ForQuoteTime, 'GB2312'),'ActionDay':str(self.ActionDay, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcForQuoteRspField()
+		obj.TradingDay=self.TradingDay
+		obj.InstrumentID=self.InstrumentID
+		obj.ForQuoteSysID=self.ForQuoteSysID
+		obj.ForQuoteTime=self.ForQuoteTime
+		obj.ActionDay=self.ActionDay
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcStrikeOffsetField(Structure):
 	"""当前期权合约执行偏移值的详细内容"""
@@ -7753,6 +10538,21 @@ class CThostFtdcStrikeOffsetField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', Offset={4}, OffsetType=StrikeOffsetTypeType.{5}, ExchangeID=\'{6}\''.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.Offset, '' if ord(self.OffsetType) == 0 else StrikeOffsetTypeType(ord(self.OffsetType)).name, str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'Offset':self.Offset,'OffsetType':'' if ord(self.OffsetType) == 0 else StrikeOffsetTypeType(ord(self.OffsetType)).name,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcStrikeOffsetField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.Offset=self.Offset
+		obj.OffsetType=self.OffsetType
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcQryStrikeOffsetField(Structure):
 	"""期权执行偏移值查询"""
 	_fields_ = [
@@ -7773,6 +10573,17 @@ class CThostFtdcQryStrikeOffsetField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryStrikeOffsetField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		return obj
 
 class CThostFtdcInputLockField(Structure):
 	"""录入锁定"""
@@ -7830,6 +10641,26 @@ class CThostFtdcInputLockField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', LockRef=\'{3}\', UserID=\'{4}\', Volume={5}, RequestID={6}, BusinessUnit=\'{7}\', LockType=LockTypeType.{8}, ExchangeID=\'{9}\', IPAddress=\'{10}\', MacAddress=\'{11}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.LockRef, 'GB2312'), str(self.UserID, 'GB2312'), self.Volume, self.RequestID, str(self.BusinessUnit, 'GB2312'), '' if ord(self.LockType) == 0 else LockTypeType(ord(self.LockType)).name, str(self.ExchangeID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'LockRef':str(self.LockRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'Volume':self.Volume,'RequestID':self.RequestID,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'LockType':'' if ord(self.LockType) == 0 else LockTypeType(ord(self.LockType)).name,'ExchangeID':str(self.ExchangeID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInputLockField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.LockRef=self.LockRef
+		obj.UserID=self.UserID
+		obj.Volume=self.Volume
+		obj.RequestID=self.RequestID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.LockType=self.LockType
+		obj.ExchangeID=self.ExchangeID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
 
 class CThostFtdcLockField(Structure):
 	"""锁定"""
@@ -7984,6 +10815,50 @@ class CThostFtdcLockField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', LockRef=\'{3}\', UserID=\'{4}\', Volume={5}, RequestID={6}, BusinessUnit=\'{7}\', LockType=LockTypeType.{8}, LockLocalID=\'{9}\', ExchangeID=\'{10}\', ParticipantID=\'{11}\', ClientID=\'{12}\', ExchangeInstID=\'{13}\', TraderID=\'{14}\', InstallID={15}, OrderSubmitStatus=OrderSubmitStatusType.{16}, NotifySequence={17}, TradingDay=\'{18}\', SettlementID={19}, LockSysID=\'{20}\', InsertDate=\'{21}\', InsertTime=\'{22}\', CancelTime=\'{23}\', LockStatus=OrderActionStatusType.{24}, ClearingPartID=\'{25}\', SequenceNo={26}, FrontID={27}, SessionID={28}, UserProductInfo=\'{29}\', StatusMsg=\'{30}\', ActiveUserID=\'{31}\', BrokerLockSeq={32}, BranchID=\'{33}\', IPAddress=\'{34}\', MacAddress=\'{35}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.LockRef, 'GB2312'), str(self.UserID, 'GB2312'), self.Volume, self.RequestID, str(self.BusinessUnit, 'GB2312'), '' if ord(self.LockType) == 0 else LockTypeType(ord(self.LockType)).name, str(self.LockLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, '' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name, self.NotifySequence, str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.LockSysID, 'GB2312'), str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), str(self.CancelTime, 'GB2312'), '' if ord(self.LockStatus) == 0 else OrderActionStatusType(ord(self.LockStatus)).name, str(self.ClearingPartID, 'GB2312'), self.SequenceNo, self.FrontID, self.SessionID, str(self.UserProductInfo, 'GB2312'), str(self.StatusMsg, 'GB2312'), str(self.ActiveUserID, 'GB2312'), self.BrokerLockSeq, str(self.BranchID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'LockRef':str(self.LockRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'Volume':self.Volume,'RequestID':self.RequestID,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'LockType':'' if ord(self.LockType) == 0 else LockTypeType(ord(self.LockType)).name,'LockLocalID':str(self.LockLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'OrderSubmitStatus':'' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name,'NotifySequence':self.NotifySequence,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'LockSysID':str(self.LockSysID, 'GB2312'),'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'CancelTime':str(self.CancelTime, 'GB2312'),'LockStatus':'' if ord(self.LockStatus) == 0 else OrderActionStatusType(ord(self.LockStatus)).name,'ClearingPartID':str(self.ClearingPartID, 'GB2312'),'SequenceNo':self.SequenceNo,'FrontID':self.FrontID,'SessionID':self.SessionID,'UserProductInfo':str(self.UserProductInfo, 'GB2312'),'StatusMsg':str(self.StatusMsg, 'GB2312'),'ActiveUserID':str(self.ActiveUserID, 'GB2312'),'BrokerLockSeq':self.BrokerLockSeq,'BranchID':str(self.BranchID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcLockField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.LockRef=self.LockRef
+		obj.UserID=self.UserID
+		obj.Volume=self.Volume
+		obj.RequestID=self.RequestID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.LockType=self.LockType
+		obj.LockLocalID=self.LockLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.OrderSubmitStatus=self.OrderSubmitStatus
+		obj.NotifySequence=self.NotifySequence
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.LockSysID=self.LockSysID
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.CancelTime=self.CancelTime
+		obj.LockStatus=self.LockStatus
+		obj.ClearingPartID=self.ClearingPartID
+		obj.SequenceNo=self.SequenceNo
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.UserProductInfo=self.UserProductInfo
+		obj.StatusMsg=self.StatusMsg
+		obj.ActiveUserID=self.ActiveUserID
+		obj.BrokerLockSeq=self.BrokerLockSeq
+		obj.BranchID=self.BranchID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcQryLockField(Structure):
 	"""查询锁定"""
 	_fields_ = [
@@ -8021,6 +10896,21 @@ class CThostFtdcQryLockField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\', LockSysID=\'{4}\', InsertTimeStart=\'{5}\', InsertTimeEnd=\'{6}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.LockSysID, 'GB2312'), str(self.InsertTimeStart, 'GB2312'), str(self.InsertTimeEnd, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'LockSysID':str(self.LockSysID, 'GB2312'),'InsertTimeStart':str(self.InsertTimeStart, 'GB2312'),'InsertTimeEnd':str(self.InsertTimeEnd, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryLockField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.LockSysID=self.LockSysID
+		obj.InsertTimeStart=self.InsertTimeStart
+		obj.InsertTimeEnd=self.InsertTimeEnd
+		return obj
+
 class CThostFtdcLockPositionField(Structure):
 	"""锁定证券仓位"""
 	_fields_ = [
@@ -8054,6 +10944,20 @@ class CThostFtdcLockPositionField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\', Volume={4}, FrozenVolume={5}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), self.Volume, self.FrozenVolume)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'Volume':self.Volume,'FrozenVolume':self.FrozenVolume}
+
+	def clone(self):
+		obj=CThostFtdcLockPositionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.Volume=self.Volume
+		obj.FrozenVolume=self.FrozenVolume
+		return obj
+
 class CThostFtdcQryLockPositionField(Structure):
 	"""查询锁定证券仓位"""
 	_fields_ = [
@@ -8078,6 +10982,18 @@ class CThostFtdcQryLockPositionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryLockPositionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcETFOptionInstrCommRateField(Structure):
 	"""当前ETF期权合约手续费的详细内容"""
@@ -8148,6 +11064,29 @@ class CThostFtdcETFOptionInstrCommRateField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', OpenRatioByMoney={4}, OpenRatioByVolume={5}, CloseRatioByMoney={6}, CloseRatioByVolume={7}, CloseTodayRatioByMoney={8}, CloseTodayRatioByVolume={9}, StrikeRatioByMoney={10}, StrikeRatioByVolume={11}, ExchangeID=\'{12}\', HedgeFlag=HedgeFlagType.{13}, PosiDirection=PosiDirectionType.{14}'.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.OpenRatioByMoney, self.OpenRatioByVolume, self.CloseRatioByMoney, self.CloseRatioByVolume, self.CloseTodayRatioByMoney, self.CloseTodayRatioByVolume, self.StrikeRatioByMoney, self.StrikeRatioByVolume, str(self.ExchangeID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, '' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name)
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'OpenRatioByMoney':self.OpenRatioByMoney,'OpenRatioByVolume':self.OpenRatioByVolume,'CloseRatioByMoney':self.CloseRatioByMoney,'CloseRatioByVolume':self.CloseRatioByVolume,'CloseTodayRatioByMoney':self.CloseTodayRatioByMoney,'CloseTodayRatioByVolume':self.CloseTodayRatioByVolume,'StrikeRatioByMoney':self.StrikeRatioByMoney,'StrikeRatioByVolume':self.StrikeRatioByVolume,'ExchangeID':str(self.ExchangeID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'PosiDirection':'' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name}
+
+	def clone(self):
+		obj=CThostFtdcETFOptionInstrCommRateField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.OpenRatioByMoney=self.OpenRatioByMoney
+		obj.OpenRatioByVolume=self.OpenRatioByVolume
+		obj.CloseRatioByMoney=self.CloseRatioByMoney
+		obj.CloseRatioByVolume=self.CloseRatioByVolume
+		obj.CloseTodayRatioByMoney=self.CloseTodayRatioByMoney
+		obj.CloseTodayRatioByVolume=self.CloseTodayRatioByVolume
+		obj.StrikeRatioByMoney=self.StrikeRatioByMoney
+		obj.StrikeRatioByVolume=self.StrikeRatioByVolume
+		obj.ExchangeID=self.ExchangeID
+		obj.HedgeFlag=self.HedgeFlag
+		obj.PosiDirection=self.PosiDirection
+		return obj
+
 class CThostFtdcQryETFOptionInstrCommRateField(Structure):
 	"""ETF期权手续费率查询"""
 	_fields_ = [
@@ -8172,6 +11111,18 @@ class CThostFtdcQryETFOptionInstrCommRateField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryETFOptionInstrCommRateField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcPosiFreezeField(Structure):
 	"""输入的持仓冻结"""
@@ -8226,6 +11177,25 @@ class CThostFtdcPosiFreezeField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\', OrderLocalID=\'{4}\', TraderID=\'{5}\', ParticipantID=\'{6}\', InstallID={7}, Volume={8}, FreezeReasonType=FreezeReasonTypeType.{9}, FreezeType=FreezeTypeType.{10}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.OrderLocalID, 'GB2312'), str(self.TraderID, 'GB2312'), str(self.ParticipantID, 'GB2312'), self.InstallID, self.Volume, '' if ord(self.FreezeReasonType) == 0 else FreezeReasonTypeType(ord(self.FreezeReasonType)).name, '' if ord(self.FreezeType) == 0 else FreezeTypeType(ord(self.FreezeType)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'OrderLocalID':str(self.OrderLocalID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'InstallID':self.InstallID,'Volume':self.Volume,'FreezeReasonType':'' if ord(self.FreezeReasonType) == 0 else FreezeReasonTypeType(ord(self.FreezeReasonType)).name,'FreezeType':'' if ord(self.FreezeType) == 0 else FreezeTypeType(ord(self.FreezeType)).name}
+
+	def clone(self):
+		obj=CThostFtdcPosiFreezeField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.OrderLocalID=self.OrderLocalID
+		obj.TraderID=self.TraderID
+		obj.ParticipantID=self.ParticipantID
+		obj.InstallID=self.InstallID
+		obj.Volume=self.Volume
+		obj.FreezeReasonType=self.FreezeReasonType
+		obj.FreezeType=self.FreezeType
+		return obj
+
 class CThostFtdcQryExchangeLockField(Structure):
 	"""查询锁定"""
 	_fields_ = [
@@ -8254,6 +11224,19 @@ class CThostFtdcQryExchangeLockField(Structure):
 
 	def __str__(self):
 		return 'ParticipantID=\'{0}\', ClientID=\'{1}\', ExchangeInstID=\'{2}\', ExchangeID=\'{3}\', TraderID=\'{4}\''.format(str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.TraderID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeLockField()
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.ExchangeID=self.ExchangeID
+		obj.TraderID=self.TraderID
+		return obj
 
 class CThostFtdcExchangeLockField(Structure):
 	"""交易所锁定"""
@@ -8364,6 +11347,39 @@ class CThostFtdcExchangeLockField(Structure):
 	def __str__(self):
 		return 'Volume={0}, RequestID={1}, BusinessUnit=\'{2}\', LockType=LockTypeType.{3}, LockLocalID=\'{4}\', ExchangeID=\'{5}\', ParticipantID=\'{6}\', ClientID=\'{7}\', ExchangeInstID=\'{8}\', TraderID=\'{9}\', InstallID={10}, OrderSubmitStatus=OrderSubmitStatusType.{11}, NotifySequence={12}, TradingDay=\'{13}\', SettlementID={14}, LockSysID=\'{15}\', InsertDate=\'{16}\', InsertTime=\'{17}\', CancelTime=\'{18}\', LockStatus=OrderActionStatusType.{19}, ClearingPartID=\'{20}\', SequenceNo={21}, BranchID=\'{22}\', IPAddress=\'{23}\', MacAddress=\'{24}\''.format(self.Volume, self.RequestID, str(self.BusinessUnit, 'GB2312'), '' if ord(self.LockType) == 0 else LockTypeType(ord(self.LockType)).name, str(self.LockLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, '' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name, self.NotifySequence, str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.LockSysID, 'GB2312'), str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), str(self.CancelTime, 'GB2312'), '' if ord(self.LockStatus) == 0 else OrderActionStatusType(ord(self.LockStatus)).name, str(self.ClearingPartID, 'GB2312'), self.SequenceNo, str(self.BranchID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'Volume':self.Volume,'RequestID':self.RequestID,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'LockType':'' if ord(self.LockType) == 0 else LockTypeType(ord(self.LockType)).name,'LockLocalID':str(self.LockLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'OrderSubmitStatus':'' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name,'NotifySequence':self.NotifySequence,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'LockSysID':str(self.LockSysID, 'GB2312'),'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'CancelTime':str(self.CancelTime, 'GB2312'),'LockStatus':'' if ord(self.LockStatus) == 0 else OrderActionStatusType(ord(self.LockStatus)).name,'ClearingPartID':str(self.ClearingPartID, 'GB2312'),'SequenceNo':self.SequenceNo,'BranchID':str(self.BranchID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeLockField()
+		obj.Volume=self.Volume
+		obj.RequestID=self.RequestID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.LockType=self.LockType
+		obj.LockLocalID=self.LockLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.OrderSubmitStatus=self.OrderSubmitStatus
+		obj.NotifySequence=self.NotifySequence
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.LockSysID=self.LockSysID
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.CancelTime=self.CancelTime
+		obj.LockStatus=self.LockStatus
+		obj.ClearingPartID=self.ClearingPartID
+		obj.SequenceNo=self.SequenceNo
+		obj.BranchID=self.BranchID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcExchangeExecOrderActionErrorField(Structure):
 	"""交易所操作错误"""
 	_fields_ = [
@@ -8408,6 +11424,23 @@ class CThostFtdcExchangeExecOrderActionErrorField(Structure):
 
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', ExecOrderSysID=\'{1}\', TraderID=\'{2}\', InstallID={3}, ExecOrderLocalID=\'{4}\', ActionLocalID=\'{5}\', ErrorID={6}, ErrorMsg=\'{7}\', BrokerID=\'{8}\''.format(str(self.ExchangeID, 'GB2312'), str(self.ExecOrderSysID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.ExecOrderLocalID, 'GB2312'), str(self.ActionLocalID, 'GB2312'), self.ErrorID, str(self.ErrorMsg, 'GB2312'), str(self.BrokerID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExecOrderSysID':str(self.ExecOrderSysID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'ExecOrderLocalID':str(self.ExecOrderLocalID, 'GB2312'),'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeExecOrderActionErrorField()
+		obj.ExchangeID=self.ExchangeID
+		obj.ExecOrderSysID=self.ExecOrderSysID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.ExecOrderLocalID=self.ExecOrderLocalID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		obj.BrokerID=self.BrokerID
+		return obj
 
 class CThostFtdcInputBatchOrderActionField(Structure):
 	"""输入批量报单操作"""
@@ -8461,6 +11494,25 @@ class CThostFtdcInputBatchOrderActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', OrderActionRef={2}, RequestID={3}, FrontID={4}, SessionID={5}, ExchangeID=\'{6}\', UserID=\'{7}\', InvestUnitID=\'{8}\', IPAddress=\'{9}\', MacAddress=\'{10}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.OrderActionRef, self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'OrderActionRef':self.OrderActionRef,'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInputBatchOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.OrderActionRef=self.OrderActionRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.UserID=self.UserID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
 
 class CThostFtdcBatchOrderActionField(Structure):
 	"""批量报单操作"""
@@ -8555,6 +11607,35 @@ class CThostFtdcBatchOrderActionField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', OrderActionRef={2}, RequestID={3}, FrontID={4}, SessionID={5}, ExchangeID=\'{6}\', ActionDate=\'{7}\', ActionTime=\'{8}\', TraderID=\'{9}\', InstallID={10}, ActionLocalID=\'{11}\', ParticipantID=\'{12}\', ClientID=\'{13}\', BusinessUnit=\'{14}\', OrderActionStatus=OrderActionStatusType.{15}, UserID=\'{16}\', StatusMsg=\'{17}\', InvestUnitID=\'{18}\', IPAddress=\'{19}\', MacAddress=\'{20}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.OrderActionRef, self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.ActionDate, 'GB2312'), str(self.ActionTime, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.ActionLocalID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.BusinessUnit, 'GB2312'), '' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name, str(self.UserID, 'GB2312'), str(self.StatusMsg, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'OrderActionRef':self.OrderActionRef,'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'ActionDate':str(self.ActionDate, 'GB2312'),'ActionTime':str(self.ActionTime, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OrderActionStatus':'' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name,'UserID':str(self.UserID, 'GB2312'),'StatusMsg':str(self.StatusMsg, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcBatchOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.OrderActionRef=self.OrderActionRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.ActionDate=self.ActionDate
+		obj.ActionTime=self.ActionTime
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OrderActionStatus=self.OrderActionStatus
+		obj.UserID=self.UserID
+		obj.StatusMsg=self.StatusMsg
+		obj.InvestUnitID=self.InvestUnitID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcExchangeBatchOrderActionField(Structure):
 	"""交易所批量报单操作"""
 	_fields_ = [
@@ -8616,6 +11697,27 @@ class CThostFtdcExchangeBatchOrderActionField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', ActionDate=\'{1}\', ActionTime=\'{2}\', TraderID=\'{3}\', InstallID={4}, ActionLocalID=\'{5}\', ParticipantID=\'{6}\', ClientID=\'{7}\', BusinessUnit=\'{8}\', OrderActionStatus=OrderActionStatusType.{9}, UserID=\'{10}\', IPAddress=\'{11}\', MacAddress=\'{12}\''.format(str(self.ExchangeID, 'GB2312'), str(self.ActionDate, 'GB2312'), str(self.ActionTime, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.ActionLocalID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.BusinessUnit, 'GB2312'), '' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name, str(self.UserID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'ActionDate':str(self.ActionDate, 'GB2312'),'ActionTime':str(self.ActionTime, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OrderActionStatus':'' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name,'UserID':str(self.UserID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeBatchOrderActionField()
+		obj.ExchangeID=self.ExchangeID
+		obj.ActionDate=self.ActionDate
+		obj.ActionTime=self.ActionTime
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OrderActionStatus=self.OrderActionStatus
+		obj.UserID=self.UserID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcQryBatchOrderActionField(Structure):
 	"""查询批量报单操作"""
 	_fields_ = [
@@ -8636,6 +11738,17 @@ class CThostFtdcQryBatchOrderActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExchangeID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryBatchOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcLimitPosiField(Structure):
 	"""投资者持仓限制"""
@@ -8694,6 +11807,26 @@ class CThostFtdcLimitPosiField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\', TotalVolume={4}, LongVolume={5}, OpenVolume={6}, LongAmount={7}, TotalVolumeFrozen={8}, LongVolumeFrozen={9}, OpenVolumeFrozen={10}, LongAmountFrozen={11}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), self.TotalVolume, self.LongVolume, self.OpenVolume, self.LongAmount, self.TotalVolumeFrozen, self.LongVolumeFrozen, self.OpenVolumeFrozen, self.LongAmountFrozen)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TotalVolume':self.TotalVolume,'LongVolume':self.LongVolume,'OpenVolume':self.OpenVolume,'LongAmount':self.LongAmount,'TotalVolumeFrozen':self.TotalVolumeFrozen,'LongVolumeFrozen':self.LongVolumeFrozen,'OpenVolumeFrozen':self.OpenVolumeFrozen,'LongAmountFrozen':self.LongAmountFrozen}
+
+	def clone(self):
+		obj=CThostFtdcLimitPosiField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.TotalVolume=self.TotalVolume
+		obj.LongVolume=self.LongVolume
+		obj.OpenVolume=self.OpenVolume
+		obj.LongAmount=self.LongAmount
+		obj.TotalVolumeFrozen=self.TotalVolumeFrozen
+		obj.LongVolumeFrozen=self.LongVolumeFrozen
+		obj.OpenVolumeFrozen=self.OpenVolumeFrozen
+		obj.LongAmountFrozen=self.LongAmountFrozen
+		return obj
+
 class CThostFtdcQryLimitPosiField(Structure):
 	"""查询投资者持仓限制"""
 	_fields_ = [
@@ -8718,6 +11851,18 @@ class CThostFtdcQryLimitPosiField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryLimitPosiField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcBrokerLimitPosiField(Structure):
 	"""经纪公司持仓限制"""
@@ -8756,6 +11901,21 @@ class CThostFtdcBrokerLimitPosiField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InstrumentID=\'{1}\', ExchangeID=\'{2}\', TotalVolume={3}, LongVolume={4}, TotalVolumeFrozen={5}, LongVolumeFrozen={6}'.format(str(self.BrokerID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), self.TotalVolume, self.LongVolume, self.TotalVolumeFrozen, self.LongVolumeFrozen)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TotalVolume':self.TotalVolume,'LongVolume':self.LongVolume,'TotalVolumeFrozen':self.TotalVolumeFrozen,'LongVolumeFrozen':self.LongVolumeFrozen}
+
+	def clone(self):
+		obj=CThostFtdcBrokerLimitPosiField()
+		obj.BrokerID=self.BrokerID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.TotalVolume=self.TotalVolume
+		obj.LongVolume=self.LongVolume
+		obj.TotalVolumeFrozen=self.TotalVolumeFrozen
+		obj.LongVolumeFrozen=self.LongVolumeFrozen
+		return obj
+
 class CThostFtdcQryBrokerLimitPosiField(Structure):
 	"""查询经纪公司持仓限制"""
 	_fields_ = [
@@ -8776,6 +11936,17 @@ class CThostFtdcQryBrokerLimitPosiField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InstrumentID=\'{1}\', ExchangeID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryBrokerLimitPosiField()
+		obj.BrokerID=self.BrokerID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcLimitPosiSField(Structure):
 	"""投资者证券持仓限制"""
@@ -8818,6 +11989,22 @@ class CThostFtdcLimitPosiSField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\', TotalVolume={4}, OpenVolume={5}, TotalVolumeFrozen={6}, OpenVolumeFrozen={7}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), self.TotalVolume, self.OpenVolume, self.TotalVolumeFrozen, self.OpenVolumeFrozen)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TotalVolume':self.TotalVolume,'OpenVolume':self.OpenVolume,'TotalVolumeFrozen':self.TotalVolumeFrozen,'OpenVolumeFrozen':self.OpenVolumeFrozen}
+
+	def clone(self):
+		obj=CThostFtdcLimitPosiSField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.TotalVolume=self.TotalVolume
+		obj.OpenVolume=self.OpenVolume
+		obj.TotalVolumeFrozen=self.TotalVolumeFrozen
+		obj.OpenVolumeFrozen=self.OpenVolumeFrozen
+		return obj
+
 class CThostFtdcQryLimitPosiSField(Structure):
 	"""查询投资者证券持仓限制"""
 	_fields_ = [
@@ -8842,6 +12029,18 @@ class CThostFtdcQryLimitPosiSField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryLimitPosiSField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcLimitPosiParamField(Structure):
 	"""投资者持仓限制参数"""
@@ -8888,6 +12087,23 @@ class CThostFtdcLimitPosiParamField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', ExchangeID=\'{4}\', TotalVolume={5}, LongVolume={6}, OpenVolume={7}, LongAmount={8}'.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'), self.TotalVolume, self.LongVolume, self.OpenVolume, self.LongAmount)
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TotalVolume':self.TotalVolume,'LongVolume':self.LongVolume,'OpenVolume':self.OpenVolume,'LongAmount':self.LongAmount}
+
+	def clone(self):
+		obj=CThostFtdcLimitPosiParamField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		obj.TotalVolume=self.TotalVolume
+		obj.LongVolume=self.LongVolume
+		obj.OpenVolume=self.OpenVolume
+		obj.LongAmount=self.LongAmount
+		return obj
+
 class CThostFtdcBrokerLimitPosiParamField(Structure):
 	"""经纪公司持仓限制参数"""
 	_fields_ = [
@@ -8916,6 +12132,19 @@ class CThostFtdcBrokerLimitPosiParamField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InstrumentID=\'{1}\', ExchangeID=\'{2}\', TotalVolume={3}, LongVolume={4}'.format(str(self.BrokerID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), self.TotalVolume, self.LongVolume)
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TotalVolume':self.TotalVolume,'LongVolume':self.LongVolume}
+
+	def clone(self):
+		obj=CThostFtdcBrokerLimitPosiParamField()
+		obj.BrokerID=self.BrokerID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.TotalVolume=self.TotalVolume
+		obj.LongVolume=self.LongVolume
+		return obj
 
 class CThostFtdcLimitPosiParamSField(Structure):
 	"""投资者证券持仓限制参数"""
@@ -8953,6 +12182,21 @@ class CThostFtdcLimitPosiParamSField(Structure):
 
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', ExchangeID=\'{4}\', TotalVolume={5}, OpenVolume={6}'.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'), self.TotalVolume, self.OpenVolume)
+
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TotalVolume':self.TotalVolume,'OpenVolume':self.OpenVolume}
+
+	def clone(self):
+		obj=CThostFtdcLimitPosiParamSField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		obj.TotalVolume=self.TotalVolume
+		obj.OpenVolume=self.OpenVolume
+		return obj
 
 class CThostFtdcInputStockDisposalActionField(Structure):
 	"""输入证券处置操作"""
@@ -9010,6 +12254,26 @@ class CThostFtdcInputStockDisposalActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', StockDisposalActionRef={2}, StockDisposalRef=\'{3}\', RequestID={4}, FrontID={5}, SessionID={6}, ExchangeID=\'{7}\', StockDisposalSysID=\'{8}\', ActionFlag=ActionFlagType.{9}, UserID=\'{10}\', InstrumentID=\'{11}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.StockDisposalActionRef, str(self.StockDisposalRef, 'GB2312'), self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.StockDisposalSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, str(self.UserID, 'GB2312'), str(self.InstrumentID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'StockDisposalActionRef':self.StockDisposalActionRef,'StockDisposalRef':str(self.StockDisposalRef, 'GB2312'),'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'StockDisposalSysID':str(self.StockDisposalSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'UserID':str(self.UserID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInputStockDisposalActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.StockDisposalActionRef=self.StockDisposalActionRef
+		obj.StockDisposalRef=self.StockDisposalRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.StockDisposalSysID=self.StockDisposalSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.UserID=self.UserID
+		obj.InstrumentID=self.InstrumentID
+		return obj
 
 class CThostFtdcStockDisposalActionField(Structure):
 	"""证券处置操作"""
@@ -9120,6 +12384,39 @@ class CThostFtdcStockDisposalActionField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', StockDisposalActionRef={2}, StockDisposalRef=\'{3}\', RequestID={4}, FrontID={5}, SessionID={6}, ExchangeID=\'{7}\', StockDisposalSysID=\'{8}\', ActionFlag=ActionFlagType.{9}, ActionDate=\'{10}\', ActionTime=\'{11}\', TraderID=\'{12}\', InstallID={13}, StockDisposalLocalID=\'{14}\', ActionLocalID=\'{15}\', ParticipantID=\'{16}\', ClientID=\'{17}\', BusinessUnit=\'{18}\', OrderActionStatus=OrderActionStatusType.{19}, UserID=\'{20}\', ActionType=ActionTypeType.{21}, StatusMsg=\'{22}\', InstrumentID=\'{23}\', BranchID=\'{24}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.StockDisposalActionRef, str(self.StockDisposalRef, 'GB2312'), self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.StockDisposalSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, str(self.ActionDate, 'GB2312'), str(self.ActionTime, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.StockDisposalLocalID, 'GB2312'), str(self.ActionLocalID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.BusinessUnit, 'GB2312'), '' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name, str(self.UserID, 'GB2312'), '' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name, str(self.StatusMsg, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.BranchID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'StockDisposalActionRef':self.StockDisposalActionRef,'StockDisposalRef':str(self.StockDisposalRef, 'GB2312'),'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'StockDisposalSysID':str(self.StockDisposalSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'ActionDate':str(self.ActionDate, 'GB2312'),'ActionTime':str(self.ActionTime, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'StockDisposalLocalID':str(self.StockDisposalLocalID, 'GB2312'),'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OrderActionStatus':'' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name,'UserID':str(self.UserID, 'GB2312'),'ActionType':'' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name,'StatusMsg':str(self.StatusMsg, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcStockDisposalActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.StockDisposalActionRef=self.StockDisposalActionRef
+		obj.StockDisposalRef=self.StockDisposalRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.StockDisposalSysID=self.StockDisposalSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.ActionDate=self.ActionDate
+		obj.ActionTime=self.ActionTime
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.StockDisposalLocalID=self.StockDisposalLocalID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OrderActionStatus=self.OrderActionStatus
+		obj.UserID=self.UserID
+		obj.ActionType=self.ActionType
+		obj.StatusMsg=self.StatusMsg
+		obj.InstrumentID=self.InstrumentID
+		obj.BranchID=self.BranchID
+		return obj
+
 class CThostFtdcQryStockDisposalActionField(Structure):
 	"""证券处置操作查询"""
 	_fields_ = [
@@ -9140,6 +12437,17 @@ class CThostFtdcQryStockDisposalActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExchangeID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryStockDisposalActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcExchangeStockDisposalActionField(Structure):
 	"""交易所证券处置操作"""
@@ -9214,6 +12522,30 @@ class CThostFtdcExchangeStockDisposalActionField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', StockDisposalSysID=\'{1}\', ActionFlag=ActionFlagType.{2}, ActionDate=\'{3}\', ActionTime=\'{4}\', TraderID=\'{5}\', InstallID={6}, StockDisposalLocalID=\'{7}\', ActionLocalID=\'{8}\', ParticipantID=\'{9}\', ClientID=\'{10}\', BusinessUnit=\'{11}\', OrderActionStatus=OrderActionStatusType.{12}, UserID=\'{13}\', ActionType=ActionTypeType.{14}, BranchID=\'{15}\''.format(str(self.ExchangeID, 'GB2312'), str(self.StockDisposalSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, str(self.ActionDate, 'GB2312'), str(self.ActionTime, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.StockDisposalLocalID, 'GB2312'), str(self.ActionLocalID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.BusinessUnit, 'GB2312'), '' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name, str(self.UserID, 'GB2312'), '' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name, str(self.BranchID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'StockDisposalSysID':str(self.StockDisposalSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'ActionDate':str(self.ActionDate, 'GB2312'),'ActionTime':str(self.ActionTime, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'StockDisposalLocalID':str(self.StockDisposalLocalID, 'GB2312'),'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OrderActionStatus':'' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name,'UserID':str(self.UserID, 'GB2312'),'ActionType':'' if ord(self.ActionType) == 0 else ActionTypeType(ord(self.ActionType)).name,'BranchID':str(self.BranchID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeStockDisposalActionField()
+		obj.ExchangeID=self.ExchangeID
+		obj.StockDisposalSysID=self.StockDisposalSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.ActionDate=self.ActionDate
+		obj.ActionTime=self.ActionTime
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.StockDisposalLocalID=self.StockDisposalLocalID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OrderActionStatus=self.OrderActionStatus
+		obj.UserID=self.UserID
+		obj.ActionType=self.ActionType
+		obj.BranchID=self.BranchID
+		return obj
+
 class CThostFtdcQryExchangeStockDisposalActionField(Structure):
 	"""错误证券处置操作"""
 	_fields_ = [
@@ -9239,6 +12571,18 @@ class CThostFtdcQryExchangeStockDisposalActionField(Structure):
 	def __str__(self):
 		return 'ParticipantID=\'{0}\', ClientID=\'{1}\', ExchangeID=\'{2}\', TraderID=\'{3}\''.format(str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.TraderID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeStockDisposalActionField()
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeID=self.ExchangeID
+		obj.TraderID=self.TraderID
+		return obj
+
 class CThostFtdcQryErrStockDisposalActionField(Structure):
 	"""查询错误证券处置操作"""
 	_fields_ = [
@@ -9255,6 +12599,16 @@ class CThostFtdcQryErrStockDisposalActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryErrStockDisposalActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		return obj
 
 class CThostFtdcExchangeStockDisposalActionErrorField(Structure):
 	"""交易所证券处置操作错误"""
@@ -9300,6 +12654,23 @@ class CThostFtdcExchangeStockDisposalActionErrorField(Structure):
 
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', StockDisposalSysID=\'{1}\', TraderID=\'{2}\', InstallID={3}, StockDisposalLocalID=\'{4}\', ActionLocalID=\'{5}\', ErrorID={6}, ErrorMsg=\'{7}\', BrokerID=\'{8}\''.format(str(self.ExchangeID, 'GB2312'), str(self.StockDisposalSysID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.StockDisposalLocalID, 'GB2312'), str(self.ActionLocalID, 'GB2312'), self.ErrorID, str(self.ErrorMsg, 'GB2312'), str(self.BrokerID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'StockDisposalSysID':str(self.StockDisposalSysID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'StockDisposalLocalID':str(self.StockDisposalLocalID, 'GB2312'),'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeStockDisposalActionErrorField()
+		obj.ExchangeID=self.ExchangeID
+		obj.StockDisposalSysID=self.StockDisposalSysID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.StockDisposalLocalID=self.StockDisposalLocalID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		obj.BrokerID=self.BrokerID
+		return obj
 
 class CThostFtdcErrStockDisposalActionField(Structure):
 	"""错误证券处置操作"""
@@ -9366,6 +12737,28 @@ class CThostFtdcErrStockDisposalActionField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', StockDisposalActionRef={2}, StockDisposalRef=\'{3}\', RequestID={4}, FrontID={5}, SessionID={6}, ExchangeID=\'{7}\', StockDisposalSysID=\'{8}\', ActionFlag=ActionFlagType.{9}, UserID=\'{10}\', InstrumentID=\'{11}\', ErrorID={12}, ErrorMsg=\'{13}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.StockDisposalActionRef, str(self.StockDisposalRef, 'GB2312'), self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.StockDisposalSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, str(self.UserID, 'GB2312'), str(self.InstrumentID, 'GB2312'), self.ErrorID, str(self.ErrorMsg, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'StockDisposalActionRef':self.StockDisposalActionRef,'StockDisposalRef':str(self.StockDisposalRef, 'GB2312'),'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'StockDisposalSysID':str(self.StockDisposalSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'UserID':str(self.UserID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcErrStockDisposalActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.StockDisposalActionRef=self.StockDisposalActionRef
+		obj.StockDisposalRef=self.StockDisposalRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.StockDisposalSysID=self.StockDisposalSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.UserID=self.UserID
+		obj.InstrumentID=self.InstrumentID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
+
 class CThostFtdcInvestorLevelField(Structure):
 	"""投资者分级"""
 	_fields_ = [
@@ -9391,6 +12784,18 @@ class CThostFtdcInvestorLevelField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExchangeID=\'{2}\', LevelType=LevelTypeType.{3}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'), '' if ord(self.LevelType) == 0 else LevelTypeType(ord(self.LevelType)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'LevelType':'' if ord(self.LevelType) == 0 else LevelTypeType(ord(self.LevelType)).name}
+
+	def clone(self):
+		obj=CThostFtdcInvestorLevelField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		obj.LevelType=self.LevelType
+		return obj
+
 class CThostFtdcCombInstrumentGuardField(Structure):
 	"""组合合约安全系数"""
 	_fields_ = [
@@ -9412,6 +12817,17 @@ class CThostFtdcCombInstrumentGuardField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InstrumentID=\'{1}\', GuarantRatio={2}'.format(str(self.BrokerID, 'GB2312'), str(self.InstrumentID, 'GB2312'), self.GuarantRatio)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'GuarantRatio':self.GuarantRatio}
+
+	def clone(self):
+		obj=CThostFtdcCombInstrumentGuardField()
+		obj.BrokerID=self.BrokerID
+		obj.InstrumentID=self.InstrumentID
+		obj.GuarantRatio=self.GuarantRatio
+		return obj
+
 class CThostFtdcQryCombInstrumentGuardField(Structure):
 	"""组合合约安全系数查询"""
 	_fields_ = [
@@ -9428,6 +12844,16 @@ class CThostFtdcQryCombInstrumentGuardField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InstrumentID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.InstrumentID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryCombInstrumentGuardField()
+		obj.BrokerID=self.BrokerID
+		obj.InstrumentID=self.InstrumentID
+		return obj
 
 class CThostFtdcInputCombActionField(Structure):
 	"""输入的申请组合"""
@@ -9485,6 +12911,26 @@ class CThostFtdcInputCombActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', CombActionRef=\'{3}\', UserID=\'{4}\', Direction=DirectionType.{5}, Volume={6}, CombDirection=CombDirectionType.{7}, HedgeFlag=HedgeFlagType.{8}, ExchangeID=\'{9}\', IPAddress=\'{10}\', MacAddress=\'{11}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.CombActionRef, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, self.Volume, '' if ord(self.CombDirection) == 0 else CombDirectionType(ord(self.CombDirection)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, str(self.ExchangeID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'CombActionRef':str(self.CombActionRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'Volume':self.Volume,'CombDirection':'' if ord(self.CombDirection) == 0 else CombDirectionType(ord(self.CombDirection)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'ExchangeID':str(self.ExchangeID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInputCombActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.CombActionRef=self.CombActionRef
+		obj.UserID=self.UserID
+		obj.Direction=self.Direction
+		obj.Volume=self.Volume
+		obj.CombDirection=self.CombDirection
+		obj.HedgeFlag=self.HedgeFlag
+		obj.ExchangeID=self.ExchangeID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
 
 class CThostFtdcCombActionField(Structure):
 	"""申请组合"""
@@ -9611,6 +13057,43 @@ class CThostFtdcCombActionField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', CombActionRef=\'{3}\', UserID=\'{4}\', Direction=DirectionType.{5}, Volume={6}, CombDirection=CombDirectionType.{7}, HedgeFlag=HedgeFlagType.{8}, ActionLocalID=\'{9}\', ExchangeID=\'{10}\', ParticipantID=\'{11}\', ClientID=\'{12}\', ExchangeInstID=\'{13}\', TraderID=\'{14}\', InstallID={15}, ActionStatus=OrderActionStatusType.{16}, NotifySequence={17}, TradingDay=\'{18}\', SettlementID={19}, SequenceNo={20}, FrontID={21}, SessionID={22}, UserProductInfo=\'{23}\', StatusMsg=\'{24}\', IPAddress=\'{25}\', MacAddress=\'{26}\', ComTradeID=\'{27}\', BranchID=\'{28}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.CombActionRef, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, self.Volume, '' if ord(self.CombDirection) == 0 else CombDirectionType(ord(self.CombDirection)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, str(self.ActionLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, '' if ord(self.ActionStatus) == 0 else OrderActionStatusType(ord(self.ActionStatus)).name, self.NotifySequence, str(self.TradingDay, 'GB2312'), self.SettlementID, self.SequenceNo, self.FrontID, self.SessionID, str(self.UserProductInfo, 'GB2312'), str(self.StatusMsg, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'), str(self.ComTradeID, 'GB2312'), str(self.BranchID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'CombActionRef':str(self.CombActionRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'Volume':self.Volume,'CombDirection':'' if ord(self.CombDirection) == 0 else CombDirectionType(ord(self.CombDirection)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'ActionStatus':'' if ord(self.ActionStatus) == 0 else OrderActionStatusType(ord(self.ActionStatus)).name,'NotifySequence':self.NotifySequence,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'SequenceNo':self.SequenceNo,'FrontID':self.FrontID,'SessionID':self.SessionID,'UserProductInfo':str(self.UserProductInfo, 'GB2312'),'StatusMsg':str(self.StatusMsg, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312'),'ComTradeID':str(self.ComTradeID, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcCombActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.CombActionRef=self.CombActionRef
+		obj.UserID=self.UserID
+		obj.Direction=self.Direction
+		obj.Volume=self.Volume
+		obj.CombDirection=self.CombDirection
+		obj.HedgeFlag=self.HedgeFlag
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.ActionStatus=self.ActionStatus
+		obj.NotifySequence=self.NotifySequence
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.SequenceNo=self.SequenceNo
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.UserProductInfo=self.UserProductInfo
+		obj.StatusMsg=self.StatusMsg
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		obj.ComTradeID=self.ComTradeID
+		obj.BranchID=self.BranchID
+		return obj
+
 class CThostFtdcQryCombActionField(Structure):
 	"""申请组合查询"""
 	_fields_ = [
@@ -9635,6 +13118,18 @@ class CThostFtdcQryCombActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryCombActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcExchangeCombActionField(Structure):
 	"""交易所申请组合信息"""
@@ -9725,6 +13220,34 @@ class CThostFtdcExchangeCombActionField(Structure):
 	def __str__(self):
 		return 'Direction=DirectionType.{0}, Volume={1}, CombDirection=CombDirectionType.{2}, HedgeFlag=HedgeFlagType.{3}, ActionLocalID=\'{4}\', ExchangeID=\'{5}\', ParticipantID=\'{6}\', ClientID=\'{7}\', ExchangeInstID=\'{8}\', TraderID=\'{9}\', InstallID={10}, ActionStatus=OrderActionStatusType.{11}, NotifySequence={12}, TradingDay=\'{13}\', SettlementID={14}, SequenceNo={15}, IPAddress=\'{16}\', MacAddress=\'{17}\', ComTradeID=\'{18}\', BranchID=\'{19}\''.format('' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, self.Volume, '' if ord(self.CombDirection) == 0 else CombDirectionType(ord(self.CombDirection)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, str(self.ActionLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, '' if ord(self.ActionStatus) == 0 else OrderActionStatusType(ord(self.ActionStatus)).name, self.NotifySequence, str(self.TradingDay, 'GB2312'), self.SettlementID, self.SequenceNo, str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'), str(self.ComTradeID, 'GB2312'), str(self.BranchID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'Volume':self.Volume,'CombDirection':'' if ord(self.CombDirection) == 0 else CombDirectionType(ord(self.CombDirection)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'ActionStatus':'' if ord(self.ActionStatus) == 0 else OrderActionStatusType(ord(self.ActionStatus)).name,'NotifySequence':self.NotifySequence,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'SequenceNo':self.SequenceNo,'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312'),'ComTradeID':str(self.ComTradeID, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeCombActionField()
+		obj.Direction=self.Direction
+		obj.Volume=self.Volume
+		obj.CombDirection=self.CombDirection
+		obj.HedgeFlag=self.HedgeFlag
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.ActionStatus=self.ActionStatus
+		obj.NotifySequence=self.NotifySequence
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.SequenceNo=self.SequenceNo
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		obj.ComTradeID=self.ComTradeID
+		obj.BranchID=self.BranchID
+		return obj
+
 class CThostFtdcQryExchangeCombActionField(Structure):
 	"""交易所申请组合查询"""
 	_fields_ = [
@@ -9754,6 +13277,19 @@ class CThostFtdcQryExchangeCombActionField(Structure):
 	def __str__(self):
 		return 'ParticipantID=\'{0}\', ClientID=\'{1}\', ExchangeInstID=\'{2}\', ExchangeID=\'{3}\', TraderID=\'{4}\''.format(str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.TraderID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeCombActionField()
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.ExchangeID=self.ExchangeID
+		obj.TraderID=self.TraderID
+		return obj
+
 class CThostFtdcProductExchRateField(Structure):
 	"""产品报价汇率"""
 	_fields_ = [
@@ -9775,6 +13311,17 @@ class CThostFtdcProductExchRateField(Structure):
 	def __str__(self):
 		return 'ProductID=\'{0}\', QuoteCurrencyID=\'{1}\', ExchangeRate={2}'.format(str(self.ProductID, 'GB2312'), str(self.QuoteCurrencyID, 'GB2312'), self.ExchangeRate)
 
+	@property
+	def __dict__(self):
+		return {'ProductID':str(self.ProductID, 'GB2312'),'QuoteCurrencyID':str(self.QuoteCurrencyID, 'GB2312'),'ExchangeRate':self.ExchangeRate}
+
+	def clone(self):
+		obj=CThostFtdcProductExchRateField()
+		obj.ProductID=self.ProductID
+		obj.QuoteCurrencyID=self.QuoteCurrencyID
+		obj.ExchangeRate=self.ExchangeRate
+		return obj
+
 class CThostFtdcQryProductExchRateField(Structure):
 	"""产品报价汇率查询"""
 	_fields_ = [
@@ -9787,6 +13334,15 @@ class CThostFtdcQryProductExchRateField(Structure):
 
 	def __str__(self):
 		return 'ProductID=\'{0}\''.format(str(self.ProductID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ProductID':str(self.ProductID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryProductExchRateField()
+		obj.ProductID=self.ProductID
+		return obj
 
 class CThostFtdcInputDesignateField(Structure):
 	"""输入的指定"""
@@ -9820,6 +13376,20 @@ class CThostFtdcInputDesignateField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', DesignateRef=\'{2}\', UserID=\'{3}\', DesignateType=DesignateTypeType.{4}, ExchangeID=\'{5}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.DesignateRef, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.DesignateType) == 0 else DesignateTypeType(ord(self.DesignateType)).name, str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'DesignateRef':str(self.DesignateRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'DesignateType':'' if ord(self.DesignateType) == 0 else DesignateTypeType(ord(self.DesignateType)).name,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInputDesignateField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.DesignateRef=self.DesignateRef
+		obj.UserID=self.UserID
+		obj.DesignateType=self.DesignateType
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcDesignateField(Structure):
 	"""指定"""
@@ -9918,6 +13488,36 @@ class CThostFtdcDesignateField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', DesignateRef=\'{2}\', UserID=\'{3}\', DesignateType=DesignateTypeType.{4}, DesignateLocalID=\'{5}\', ExchangeID=\'{6}\', ParticipantID=\'{7}\', ClientID=\'{8}\', TraderID=\'{9}\', InstallID={10}, DesignateStatus=OrderActionStatusType.{11}, NotifySequence={12}, TradingDay=\'{13}\', SettlementID={14}, InsertDate=\'{15}\', InsertTime=\'{16}\', FrontID={17}, SessionID={18}, UserProductInfo=\'{19}\', StatusMsg=\'{20}\', BranchID=\'{21}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.DesignateRef, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.DesignateType) == 0 else DesignateTypeType(ord(self.DesignateType)).name, str(self.DesignateLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, '' if ord(self.DesignateStatus) == 0 else OrderActionStatusType(ord(self.DesignateStatus)).name, self.NotifySequence, str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), self.FrontID, self.SessionID, str(self.UserProductInfo, 'GB2312'), str(self.StatusMsg, 'GB2312'), str(self.BranchID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'DesignateRef':str(self.DesignateRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'DesignateType':'' if ord(self.DesignateType) == 0 else DesignateTypeType(ord(self.DesignateType)).name,'DesignateLocalID':str(self.DesignateLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'DesignateStatus':'' if ord(self.DesignateStatus) == 0 else OrderActionStatusType(ord(self.DesignateStatus)).name,'NotifySequence':self.NotifySequence,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'FrontID':self.FrontID,'SessionID':self.SessionID,'UserProductInfo':str(self.UserProductInfo, 'GB2312'),'StatusMsg':str(self.StatusMsg, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcDesignateField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.DesignateRef=self.DesignateRef
+		obj.UserID=self.UserID
+		obj.DesignateType=self.DesignateType
+		obj.DesignateLocalID=self.DesignateLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.DesignateStatus=self.DesignateStatus
+		obj.NotifySequence=self.NotifySequence
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.UserProductInfo=self.UserProductInfo
+		obj.StatusMsg=self.StatusMsg
+		obj.BranchID=self.BranchID
+		return obj
+
 class CThostFtdcQryDesignateField(Structure):
 	"""申请指定"""
 	_fields_ = [
@@ -9938,6 +13538,17 @@ class CThostFtdcQryDesignateField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExchangeID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryDesignateField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcExchangeDesignateField(Structure):
 	"""交易所指定信息"""
@@ -10004,6 +13615,28 @@ class CThostFtdcExchangeDesignateField(Structure):
 	def __str__(self):
 		return 'DesignateType=DesignateTypeType.{0}, DesignateLocalID=\'{1}\', ExchangeID=\'{2}\', ParticipantID=\'{3}\', ClientID=\'{4}\', TraderID=\'{5}\', InstallID={6}, DesignateStatus=OrderActionStatusType.{7}, NotifySequence={8}, TradingDay=\'{9}\', SettlementID={10}, InsertDate=\'{11}\', InsertTime=\'{12}\', BranchID=\'{13}\''.format('' if ord(self.DesignateType) == 0 else DesignateTypeType(ord(self.DesignateType)).name, str(self.DesignateLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, '' if ord(self.DesignateStatus) == 0 else OrderActionStatusType(ord(self.DesignateStatus)).name, self.NotifySequence, str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), str(self.BranchID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'DesignateType':'' if ord(self.DesignateType) == 0 else DesignateTypeType(ord(self.DesignateType)).name,'DesignateLocalID':str(self.DesignateLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'DesignateStatus':'' if ord(self.DesignateStatus) == 0 else OrderActionStatusType(ord(self.DesignateStatus)).name,'NotifySequence':self.NotifySequence,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeDesignateField()
+		obj.DesignateType=self.DesignateType
+		obj.DesignateLocalID=self.DesignateLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.DesignateStatus=self.DesignateStatus
+		obj.NotifySequence=self.NotifySequence
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.BranchID=self.BranchID
+		return obj
+
 class CThostFtdcInputStockDisposalField(Structure):
 	"""输入的证券处置"""
 	_fields_ = [
@@ -10044,6 +13677,22 @@ class CThostFtdcInputStockDisposalField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', StockDisposalRef=\'{2}\', UserID=\'{3}\', InstrumentID=\'{4}\', Volume={5}, StockDisposalType=StockDisposalTypeType.{6}, ExchangeID=\'{7}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.StockDisposalRef, 'GB2312'), str(self.UserID, 'GB2312'), str(self.InstrumentID, 'GB2312'), self.Volume, '' if ord(self.StockDisposalType) == 0 else StockDisposalTypeType(ord(self.StockDisposalType)).name, str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'StockDisposalRef':str(self.StockDisposalRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'Volume':self.Volume,'StockDisposalType':'' if ord(self.StockDisposalType) == 0 else StockDisposalTypeType(ord(self.StockDisposalType)).name,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcInputStockDisposalField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.StockDisposalRef=self.StockDisposalRef
+		obj.UserID=self.UserID
+		obj.InstrumentID=self.InstrumentID
+		obj.Volume=self.Volume
+		obj.StockDisposalType=self.StockDisposalType
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcStockDisposalField(Structure):
 	"""证券处置"""
@@ -10162,6 +13811,41 @@ class CThostFtdcStockDisposalField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', StockDisposalRef=\'{2}\', UserID=\'{3}\', InstrumentID=\'{4}\', Volume={5}, StockDisposalType=StockDisposalTypeType.{6}, StockDisposalLocalID=\'{7}\', ExchangeID=\'{8}\', ExchangeInstID=\'{9}\', ParticipantID=\'{10}\', ClientID=\'{11}\', TraderID=\'{12}\', InstallID={13}, StockDisposalStatus=StockDisposalStatusType.{14}, NotifySequence={15}, TradingDay=\'{16}\', SettlementID={17}, InsertDate=\'{18}\', InsertTime=\'{19}\', FrontID={20}, SessionID={21}, UserProductInfo=\'{22}\', StatusMsg=\'{23}\', BranchID=\'{24}\', StockDisposalSysID=\'{25}\', BusinessUnit=\'{26}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.StockDisposalRef, 'GB2312'), str(self.UserID, 'GB2312'), str(self.InstrumentID, 'GB2312'), self.Volume, '' if ord(self.StockDisposalType) == 0 else StockDisposalTypeType(ord(self.StockDisposalType)).name, str(self.StockDisposalLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, '' if ord(self.StockDisposalStatus) == 0 else StockDisposalStatusType(ord(self.StockDisposalStatus)).name, self.NotifySequence, str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), self.FrontID, self.SessionID, str(self.UserProductInfo, 'GB2312'), str(self.StatusMsg, 'GB2312'), str(self.BranchID, 'GB2312'), str(self.StockDisposalSysID, 'GB2312'), str(self.BusinessUnit, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'StockDisposalRef':str(self.StockDisposalRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'Volume':self.Volume,'StockDisposalType':'' if ord(self.StockDisposalType) == 0 else StockDisposalTypeType(ord(self.StockDisposalType)).name,'StockDisposalLocalID':str(self.StockDisposalLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'StockDisposalStatus':'' if ord(self.StockDisposalStatus) == 0 else StockDisposalStatusType(ord(self.StockDisposalStatus)).name,'NotifySequence':self.NotifySequence,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'FrontID':self.FrontID,'SessionID':self.SessionID,'UserProductInfo':str(self.UserProductInfo, 'GB2312'),'StatusMsg':str(self.StatusMsg, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312'),'StockDisposalSysID':str(self.StockDisposalSysID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcStockDisposalField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.StockDisposalRef=self.StockDisposalRef
+		obj.UserID=self.UserID
+		obj.InstrumentID=self.InstrumentID
+		obj.Volume=self.Volume
+		obj.StockDisposalType=self.StockDisposalType
+		obj.StockDisposalLocalID=self.StockDisposalLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.StockDisposalStatus=self.StockDisposalStatus
+		obj.NotifySequence=self.NotifySequence
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.UserProductInfo=self.UserProductInfo
+		obj.StatusMsg=self.StatusMsg
+		obj.BranchID=self.BranchID
+		obj.StockDisposalSysID=self.StockDisposalSysID
+		obj.BusinessUnit=self.BusinessUnit
+		return obj
+
 class CThostFtdcQryStockDisposalField(Structure):
 	"""申请证券处置"""
 	_fields_ = [
@@ -10182,6 +13866,17 @@ class CThostFtdcQryStockDisposalField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExchangeID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryStockDisposalField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcExchangeStockDisposalField(Structure):
 	"""交易所证券处置信息"""
@@ -10264,6 +13959,32 @@ class CThostFtdcExchangeStockDisposalField(Structure):
 	def __str__(self):
 		return 'Volume={0}, StockDisposalType=StockDisposalTypeType.{1}, StockDisposalLocalID=\'{2}\', ExchangeID=\'{3}\', ExchangeInstID=\'{4}\', ParticipantID=\'{5}\', ClientID=\'{6}\', TraderID=\'{7}\', InstallID={8}, StockDisposalStatus=StockDisposalStatusType.{9}, NotifySequence={10}, TradingDay=\'{11}\', SettlementID={12}, InsertDate=\'{13}\', InsertTime=\'{14}\', BranchID=\'{15}\', StockDisposalSysID=\'{16}\', BusinessUnit=\'{17}\''.format(self.Volume, '' if ord(self.StockDisposalType) == 0 else StockDisposalTypeType(ord(self.StockDisposalType)).name, str(self.StockDisposalLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, '' if ord(self.StockDisposalStatus) == 0 else StockDisposalStatusType(ord(self.StockDisposalStatus)).name, self.NotifySequence, str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), str(self.BranchID, 'GB2312'), str(self.StockDisposalSysID, 'GB2312'), str(self.BusinessUnit, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'Volume':self.Volume,'StockDisposalType':'' if ord(self.StockDisposalType) == 0 else StockDisposalTypeType(ord(self.StockDisposalType)).name,'StockDisposalLocalID':str(self.StockDisposalLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'StockDisposalStatus':'' if ord(self.StockDisposalStatus) == 0 else StockDisposalStatusType(ord(self.StockDisposalStatus)).name,'NotifySequence':self.NotifySequence,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312'),'StockDisposalSysID':str(self.StockDisposalSysID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcExchangeStockDisposalField()
+		obj.Volume=self.Volume
+		obj.StockDisposalType=self.StockDisposalType
+		obj.StockDisposalLocalID=self.StockDisposalLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.StockDisposalStatus=self.StockDisposalStatus
+		obj.NotifySequence=self.NotifySequence
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.BranchID=self.BranchID
+		obj.StockDisposalSysID=self.StockDisposalSysID
+		obj.BusinessUnit=self.BusinessUnit
+		return obj
+
 class CThostFtdcQryInvestorLevelField(Structure):
 	"""查询投资者分级"""
 	_fields_ = [
@@ -10285,6 +14006,17 @@ class CThostFtdcQryInvestorLevelField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExchangeID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryInvestorLevelField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcQryForQuoteParamField(Structure):
 	"""查询询价价差参数"""
 	_fields_ = [
@@ -10305,6 +14037,17 @@ class CThostFtdcQryForQuoteParamField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InstrumentID=\'{1}\', ExchangeID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryForQuoteParamField()
+		obj.BrokerID=self.BrokerID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcForQuoteParamField(Structure):
 	"""询价价差参数"""
@@ -10335,6 +14078,19 @@ class CThostFtdcForQuoteParamField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InstrumentID=\'{1}\', ExchangeID=\'{2}\', LastPrice={3}, PriceInterval={4}'.format(str(self.BrokerID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), self.LastPrice, self.PriceInterval)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'LastPrice':self.LastPrice,'PriceInterval':self.PriceInterval}
+
+	def clone(self):
+		obj=CThostFtdcForQuoteParamField()
+		obj.BrokerID=self.BrokerID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.LastPrice=self.LastPrice
+		obj.PriceInterval=self.PriceInterval
+		return obj
+
 class CThostFtdcQryExecFreezeField(Structure):
 	"""查询行权冻结"""
 	_fields_ = [
@@ -10359,6 +14115,18 @@ class CThostFtdcQryExecFreezeField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExecFreezeField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcExecFreezeField(Structure):
 	"""行权冻结"""
@@ -10400,6 +14168,22 @@ class CThostFtdcExecFreezeField(Structure):
 
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', ExchangeID=\'{1}\', BrokerID=\'{2}\', InvestorID=\'{3}\', PosiDirection=PosiDirectionType.{4}, OptionsType=OptionsTypeType.{5}, Volume={6}, FrozenAmount={7}'.format(str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), '' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name, '' if ord(self.OptionsType) == 0 else OptionsTypeType(ord(self.OptionsType)).name, self.Volume, self.FrozenAmount)
+
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'PosiDirection':'' if ord(self.PosiDirection) == 0 else PosiDirectionType(ord(self.PosiDirection)).name,'OptionsType':'' if ord(self.OptionsType) == 0 else OptionsTypeType(ord(self.OptionsType)).name,'Volume':self.Volume,'FrozenAmount':self.FrozenAmount}
+
+	def clone(self):
+		obj=CThostFtdcExecFreezeField()
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.PosiDirection=self.PosiDirection
+		obj.OptionsType=self.OptionsType
+		obj.Volume=self.Volume
+		obj.FrozenAmount=self.FrozenAmount
+		return obj
 
 class CThostFtdcMMOptionInstrCommRateField(Structure):
 	"""当前做市商期权合约手续费的详细内容"""
@@ -10462,6 +14246,27 @@ class CThostFtdcMMOptionInstrCommRateField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', OpenRatioByMoney={4}, OpenRatioByVolume={5}, CloseRatioByMoney={6}, CloseRatioByVolume={7}, CloseTodayRatioByMoney={8}, CloseTodayRatioByVolume={9}, StrikeRatioByMoney={10}, StrikeRatioByVolume={11}, ExchangeID=\'{12}\''.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.OpenRatioByMoney, self.OpenRatioByVolume, self.CloseRatioByMoney, self.CloseRatioByVolume, self.CloseTodayRatioByMoney, self.CloseTodayRatioByVolume, self.StrikeRatioByMoney, self.StrikeRatioByVolume, str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'OpenRatioByMoney':self.OpenRatioByMoney,'OpenRatioByVolume':self.OpenRatioByVolume,'CloseRatioByMoney':self.CloseRatioByMoney,'CloseRatioByVolume':self.CloseRatioByVolume,'CloseTodayRatioByMoney':self.CloseTodayRatioByMoney,'CloseTodayRatioByVolume':self.CloseTodayRatioByVolume,'StrikeRatioByMoney':self.StrikeRatioByMoney,'StrikeRatioByVolume':self.StrikeRatioByVolume,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcMMOptionInstrCommRateField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.OpenRatioByMoney=self.OpenRatioByMoney
+		obj.OpenRatioByVolume=self.OpenRatioByVolume
+		obj.CloseRatioByMoney=self.CloseRatioByMoney
+		obj.CloseRatioByVolume=self.CloseRatioByVolume
+		obj.CloseTodayRatioByMoney=self.CloseTodayRatioByMoney
+		obj.CloseTodayRatioByVolume=self.CloseTodayRatioByVolume
+		obj.StrikeRatioByMoney=self.StrikeRatioByMoney
+		obj.StrikeRatioByVolume=self.StrikeRatioByVolume
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcQryMMOptionInstrCommRateField(Structure):
 	"""做市商期权手续费率查询"""
 	_fields_ = [
@@ -10486,6 +14291,18 @@ class CThostFtdcQryMMOptionInstrCommRateField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryMMOptionInstrCommRateField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcMMInstrumentCommissionRateField(Structure):
 	"""做市商合约手续费率"""
@@ -10540,6 +14357,25 @@ class CThostFtdcMMInstrumentCommissionRateField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', OpenRatioByMoney={4}, OpenRatioByVolume={5}, CloseRatioByMoney={6}, CloseRatioByVolume={7}, CloseTodayRatioByMoney={8}, CloseTodayRatioByVolume={9}, ExchangeID=\'{10}\''.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.OpenRatioByMoney, self.OpenRatioByVolume, self.CloseRatioByMoney, self.CloseRatioByVolume, self.CloseTodayRatioByMoney, self.CloseTodayRatioByVolume, str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'OpenRatioByMoney':self.OpenRatioByMoney,'OpenRatioByVolume':self.OpenRatioByVolume,'CloseRatioByMoney':self.CloseRatioByMoney,'CloseRatioByVolume':self.CloseRatioByVolume,'CloseTodayRatioByMoney':self.CloseTodayRatioByMoney,'CloseTodayRatioByVolume':self.CloseTodayRatioByVolume,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcMMInstrumentCommissionRateField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.OpenRatioByMoney=self.OpenRatioByMoney
+		obj.OpenRatioByVolume=self.OpenRatioByVolume
+		obj.CloseRatioByMoney=self.CloseRatioByMoney
+		obj.CloseRatioByVolume=self.CloseRatioByVolume
+		obj.CloseTodayRatioByMoney=self.CloseTodayRatioByMoney
+		obj.CloseTodayRatioByVolume=self.CloseTodayRatioByVolume
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcQryMMInstrumentCommissionRateField(Structure):
 	"""查询做市商合约手续费率"""
 	_fields_ = [
@@ -10564,6 +14400,18 @@ class CThostFtdcQryMMInstrumentCommissionRateField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryMMInstrumentCommissionRateField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcInstrumentOrderCommRateField(Structure):
 	"""当前报单手续费的详细内容"""
@@ -10606,6 +14454,22 @@ class CThostFtdcInstrumentOrderCommRateField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', ExchangeID=\'{4}\', HedgeFlag=HedgeFlagType.{5}, OrderCommByVolume={6}, OrderActionCommByVolume={7}'.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, self.OrderCommByVolume, self.OrderActionCommByVolume)
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'OrderCommByVolume':self.OrderCommByVolume,'OrderActionCommByVolume':self.OrderActionCommByVolume}
+
+	def clone(self):
+		obj=CThostFtdcInstrumentOrderCommRateField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		obj.HedgeFlag=self.HedgeFlag
+		obj.OrderCommByVolume=self.OrderCommByVolume
+		obj.OrderActionCommByVolume=self.OrderActionCommByVolume
+		return obj
+
 class CThostFtdcQryInstrumentOrderCommRateField(Structure):
 	"""报单手续费率查询"""
 	_fields_ = [
@@ -10630,6 +14494,18 @@ class CThostFtdcQryInstrumentOrderCommRateField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryInstrumentOrderCommRateField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcLimitAmountField(Structure):
 	"""投资者金额限制"""
@@ -10660,6 +14536,19 @@ class CThostFtdcLimitAmountField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExchangeID=\'{2}\', LongAmount={3}, LongAmountFrozen={4}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'), self.LongAmount, self.LongAmountFrozen)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'LongAmount':self.LongAmount,'LongAmountFrozen':self.LongAmountFrozen}
+
+	def clone(self):
+		obj=CThostFtdcLimitAmountField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		obj.LongAmount=self.LongAmount
+		obj.LongAmountFrozen=self.LongAmountFrozen
+		return obj
+
 class CThostFtdcQryLimitAmountField(Structure):
 	"""查询投资者金额限制"""
 	_fields_ = [
@@ -10680,6 +14569,17 @@ class CThostFtdcQryLimitAmountField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExchangeID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryLimitAmountField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcLimitAmountParamField(Structure):
 	"""投资者金额限制参数"""
@@ -10709,6 +14609,19 @@ class CThostFtdcLimitAmountParamField(Structure):
 
 	def __str__(self):
 		return 'InvestorRange=InvestorRangeType.{0}, BrokerID=\'{1}\', InvestorID=\'{2}\', ExchangeID=\'{3}\', LongAmount={4}'.format('' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'), self.LongAmount)
+
+	@property
+	def __dict__(self):
+		return {'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'LongAmount':self.LongAmount}
+
+	def clone(self):
+		obj=CThostFtdcLimitAmountParamField()
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		obj.LongAmount=self.LongAmount
+		return obj
 
 class CThostFtdcOptionInstrMarginGuardField(Structure):
 	"""当前期权合约保证金保障系数"""
@@ -10766,6 +14679,26 @@ class CThostFtdcOptionInstrMarginGuardField(Structure):
 
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', InvestorRange=InvestorRangeType.{1}, BrokerID=\'{2}\', InvestorID=\'{3}\', SShortMarginRatioByMoney={4}, SShortMarginRatioByVolume={5}, HShortMarginRatioByMoney={6}, HShortMarginRatioByVolume={7}, AShortMarginRatioByMoney={8}, AShortMarginRatioByVolume={9}, IsRelative={10}, ExchangeID=\'{11}\''.format(str(self.InstrumentID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.SShortMarginRatioByMoney, self.SShortMarginRatioByVolume, self.HShortMarginRatioByMoney, self.HShortMarginRatioByVolume, self.AShortMarginRatioByMoney, self.AShortMarginRatioByVolume, self.IsRelative, str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'SShortMarginRatioByMoney':self.SShortMarginRatioByMoney,'SShortMarginRatioByVolume':self.SShortMarginRatioByVolume,'HShortMarginRatioByMoney':self.HShortMarginRatioByMoney,'HShortMarginRatioByVolume':self.HShortMarginRatioByVolume,'AShortMarginRatioByMoney':self.AShortMarginRatioByMoney,'AShortMarginRatioByVolume':self.AShortMarginRatioByVolume,'IsRelative':self.IsRelative,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcOptionInstrMarginGuardField()
+		obj.InstrumentID=self.InstrumentID
+		obj.InvestorRange=self.InvestorRange
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.SShortMarginRatioByMoney=self.SShortMarginRatioByMoney
+		obj.SShortMarginRatioByVolume=self.SShortMarginRatioByVolume
+		obj.HShortMarginRatioByMoney=self.HShortMarginRatioByMoney
+		obj.HShortMarginRatioByVolume=self.HShortMarginRatioByVolume
+		obj.AShortMarginRatioByMoney=self.AShortMarginRatioByMoney
+		obj.AShortMarginRatioByVolume=self.AShortMarginRatioByVolume
+		obj.IsRelative=self.IsRelative
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcMarketDataField(Structure):
 	"""市场行情"""
@@ -10868,6 +14801,37 @@ class CThostFtdcMarketDataField(Structure):
 	def __str__(self):
 		return 'TradingDay=\'{0}\', InstrumentID=\'{1}\', ExchangeID=\'{2}\', ExchangeInstID=\'{3}\', LastPrice={4}, PreSettlementPrice={5}, PreClosePrice={6}, PreOpenInterest={7}, OpenPrice={8}, HighestPrice={9}, LowestPrice={10}, Volume={11}, Turnover={12}, OpenInterest={13}, ClosePrice={14}, SettlementPrice={15}, UpperLimitPrice={16}, LowerLimitPrice={17}, PreDelta={18}, CurrDelta={19}, UpdateTime=\'{20}\', UpdateMillisec={21}, ActionDay=\'{22}\''.format(str(self.TradingDay, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), self.LastPrice, self.PreSettlementPrice, self.PreClosePrice, self.PreOpenInterest, self.OpenPrice, self.HighestPrice, self.LowestPrice, self.Volume, self.Turnover, self.OpenInterest, self.ClosePrice, self.SettlementPrice, self.UpperLimitPrice, self.LowerLimitPrice, self.PreDelta, self.CurrDelta, str(self.UpdateTime, 'GB2312'), self.UpdateMillisec, str(self.ActionDay, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'LastPrice':self.LastPrice,'PreSettlementPrice':self.PreSettlementPrice,'PreClosePrice':self.PreClosePrice,'PreOpenInterest':self.PreOpenInterest,'OpenPrice':self.OpenPrice,'HighestPrice':self.HighestPrice,'LowestPrice':self.LowestPrice,'Volume':self.Volume,'Turnover':self.Turnover,'OpenInterest':self.OpenInterest,'ClosePrice':self.ClosePrice,'SettlementPrice':self.SettlementPrice,'UpperLimitPrice':self.UpperLimitPrice,'LowerLimitPrice':self.LowerLimitPrice,'PreDelta':self.PreDelta,'CurrDelta':self.CurrDelta,'UpdateTime':str(self.UpdateTime, 'GB2312'),'UpdateMillisec':self.UpdateMillisec,'ActionDay':str(self.ActionDay, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcMarketDataField()
+		obj.TradingDay=self.TradingDay
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.LastPrice=self.LastPrice
+		obj.PreSettlementPrice=self.PreSettlementPrice
+		obj.PreClosePrice=self.PreClosePrice
+		obj.PreOpenInterest=self.PreOpenInterest
+		obj.OpenPrice=self.OpenPrice
+		obj.HighestPrice=self.HighestPrice
+		obj.LowestPrice=self.LowestPrice
+		obj.Volume=self.Volume
+		obj.Turnover=self.Turnover
+		obj.OpenInterest=self.OpenInterest
+		obj.ClosePrice=self.ClosePrice
+		obj.SettlementPrice=self.SettlementPrice
+		obj.UpperLimitPrice=self.UpperLimitPrice
+		obj.LowerLimitPrice=self.LowerLimitPrice
+		obj.PreDelta=self.PreDelta
+		obj.CurrDelta=self.CurrDelta
+		obj.UpdateTime=self.UpdateTime
+		obj.UpdateMillisec=self.UpdateMillisec
+		obj.ActionDay=self.ActionDay
+		return obj
+
 class CThostFtdcMarketDataBaseField(Structure):
 	"""行情基础属性"""
 	_fields_ = [
@@ -10896,6 +14860,19 @@ class CThostFtdcMarketDataBaseField(Structure):
 
 	def __str__(self):
 		return 'TradingDay=\'{0}\', PreSettlementPrice={1}, PreClosePrice={2}, PreOpenInterest={3}, PreDelta={4}'.format(str(self.TradingDay, 'GB2312'), self.PreSettlementPrice, self.PreClosePrice, self.PreOpenInterest, self.PreDelta)
+
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312'),'PreSettlementPrice':self.PreSettlementPrice,'PreClosePrice':self.PreClosePrice,'PreOpenInterest':self.PreOpenInterest,'PreDelta':self.PreDelta}
+
+	def clone(self):
+		obj=CThostFtdcMarketDataBaseField()
+		obj.TradingDay=self.TradingDay
+		obj.PreSettlementPrice=self.PreSettlementPrice
+		obj.PreClosePrice=self.PreClosePrice
+		obj.PreOpenInterest=self.PreOpenInterest
+		obj.PreDelta=self.PreDelta
+		return obj
 
 class CThostFtdcMarketDataStaticField(Structure):
 	"""行情静态属性"""
@@ -10938,6 +14915,22 @@ class CThostFtdcMarketDataStaticField(Structure):
 	def __str__(self):
 		return 'OpenPrice={0}, HighestPrice={1}, LowestPrice={2}, ClosePrice={3}, UpperLimitPrice={4}, LowerLimitPrice={5}, SettlementPrice={6}, CurrDelta={7}'.format(self.OpenPrice, self.HighestPrice, self.LowestPrice, self.ClosePrice, self.UpperLimitPrice, self.LowerLimitPrice, self.SettlementPrice, self.CurrDelta)
 
+	@property
+	def __dict__(self):
+		return {'OpenPrice':self.OpenPrice,'HighestPrice':self.HighestPrice,'LowestPrice':self.LowestPrice,'ClosePrice':self.ClosePrice,'UpperLimitPrice':self.UpperLimitPrice,'LowerLimitPrice':self.LowerLimitPrice,'SettlementPrice':self.SettlementPrice,'CurrDelta':self.CurrDelta}
+
+	def clone(self):
+		obj=CThostFtdcMarketDataStaticField()
+		obj.OpenPrice=self.OpenPrice
+		obj.HighestPrice=self.HighestPrice
+		obj.LowestPrice=self.LowestPrice
+		obj.ClosePrice=self.ClosePrice
+		obj.UpperLimitPrice=self.UpperLimitPrice
+		obj.LowerLimitPrice=self.LowerLimitPrice
+		obj.SettlementPrice=self.SettlementPrice
+		obj.CurrDelta=self.CurrDelta
+		return obj
+
 class CThostFtdcMarketDataLastMatchField(Structure):
 	"""行情最新成交属性"""
 	_fields_ = [
@@ -10962,6 +14955,18 @@ class CThostFtdcMarketDataLastMatchField(Structure):
 
 	def __str__(self):
 		return 'LastPrice={0}, Volume={1}, Turnover={2}, OpenInterest={3}'.format(self.LastPrice, self.Volume, self.Turnover, self.OpenInterest)
+
+	@property
+	def __dict__(self):
+		return {'LastPrice':self.LastPrice,'Volume':self.Volume,'Turnover':self.Turnover,'OpenInterest':self.OpenInterest}
+
+	def clone(self):
+		obj=CThostFtdcMarketDataLastMatchField()
+		obj.LastPrice=self.LastPrice
+		obj.Volume=self.Volume
+		obj.Turnover=self.Turnover
+		obj.OpenInterest=self.OpenInterest
+		return obj
 
 class CThostFtdcMarketDataBestPriceField(Structure):
 	"""行情最优价属性"""
@@ -10988,6 +14993,18 @@ class CThostFtdcMarketDataBestPriceField(Structure):
 	def __str__(self):
 		return 'BidPrice1={0}, BidVolume1={1}, AskPrice1={2}, AskVolume1={3}'.format(self.BidPrice1, self.BidVolume1, self.AskPrice1, self.AskVolume1)
 
+	@property
+	def __dict__(self):
+		return {'BidPrice1':self.BidPrice1,'BidVolume1':self.BidVolume1,'AskPrice1':self.AskPrice1,'AskVolume1':self.AskVolume1}
+
+	def clone(self):
+		obj=CThostFtdcMarketDataBestPriceField()
+		obj.BidPrice1=self.BidPrice1
+		obj.BidVolume1=self.BidVolume1
+		obj.AskPrice1=self.AskPrice1
+		obj.AskVolume1=self.AskVolume1
+		return obj
+
 class CThostFtdcMarketDataBid23Field(Structure):
 	"""行情申买二、三属性"""
 	_fields_ = [
@@ -11012,6 +15029,18 @@ class CThostFtdcMarketDataBid23Field(Structure):
 
 	def __str__(self):
 		return 'BidPrice2={0}, BidVolume2={1}, BidPrice3={2}, BidVolume3={3}'.format(self.BidPrice2, self.BidVolume2, self.BidPrice3, self.BidVolume3)
+
+	@property
+	def __dict__(self):
+		return {'BidPrice2':self.BidPrice2,'BidVolume2':self.BidVolume2,'BidPrice3':self.BidPrice3,'BidVolume3':self.BidVolume3}
+
+	def clone(self):
+		obj=CThostFtdcMarketDataBid23Field()
+		obj.BidPrice2=self.BidPrice2
+		obj.BidVolume2=self.BidVolume2
+		obj.BidPrice3=self.BidPrice3
+		obj.BidVolume3=self.BidVolume3
+		return obj
 
 class CThostFtdcMarketDataAsk23Field(Structure):
 	"""行情申卖二、三属性"""
@@ -11038,6 +15067,18 @@ class CThostFtdcMarketDataAsk23Field(Structure):
 	def __str__(self):
 		return 'AskPrice2={0}, AskVolume2={1}, AskPrice3={2}, AskVolume3={3}'.format(self.AskPrice2, self.AskVolume2, self.AskPrice3, self.AskVolume3)
 
+	@property
+	def __dict__(self):
+		return {'AskPrice2':self.AskPrice2,'AskVolume2':self.AskVolume2,'AskPrice3':self.AskPrice3,'AskVolume3':self.AskVolume3}
+
+	def clone(self):
+		obj=CThostFtdcMarketDataAsk23Field()
+		obj.AskPrice2=self.AskPrice2
+		obj.AskVolume2=self.AskVolume2
+		obj.AskPrice3=self.AskPrice3
+		obj.AskVolume3=self.AskVolume3
+		return obj
+
 class CThostFtdcMarketDataBid45Field(Structure):
 	"""行情申买四、五属性"""
 	_fields_ = [
@@ -11063,6 +15104,18 @@ class CThostFtdcMarketDataBid45Field(Structure):
 	def __str__(self):
 		return 'BidPrice4={0}, BidVolume4={1}, BidPrice5={2}, BidVolume5={3}'.format(self.BidPrice4, self.BidVolume4, self.BidPrice5, self.BidVolume5)
 
+	@property
+	def __dict__(self):
+		return {'BidPrice4':self.BidPrice4,'BidVolume4':self.BidVolume4,'BidPrice5':self.BidPrice5,'BidVolume5':self.BidVolume5}
+
+	def clone(self):
+		obj=CThostFtdcMarketDataBid45Field()
+		obj.BidPrice4=self.BidPrice4
+		obj.BidVolume4=self.BidVolume4
+		obj.BidPrice5=self.BidPrice5
+		obj.BidVolume5=self.BidVolume5
+		return obj
+
 class CThostFtdcMarketDataAsk45Field(Structure):
 	"""行情申卖四、五属性"""
 	_fields_ = [
@@ -11087,6 +15140,18 @@ class CThostFtdcMarketDataAsk45Field(Structure):
 
 	def __str__(self):
 		return 'AskPrice4={0}, AskVolume4={1}, AskPrice5={2}, AskVolume5={3}'.format(self.AskPrice4, self.AskVolume4, self.AskPrice5, self.AskVolume5)
+
+	@property
+	def __dict__(self):
+		return {'AskPrice4':self.AskPrice4,'AskVolume4':self.AskVolume4,'AskPrice5':self.AskPrice5,'AskVolume5':self.AskVolume5}
+
+	def clone(self):
+		obj=CThostFtdcMarketDataAsk45Field()
+		obj.AskPrice4=self.AskPrice4
+		obj.AskVolume4=self.AskVolume4
+		obj.AskPrice5=self.AskPrice5
+		obj.AskVolume5=self.AskVolume5
+		return obj
 
 class CThostFtdcMarketDataUpdateTimeField(Structure):
 	"""行情更新时间属性"""
@@ -11117,6 +15182,19 @@ class CThostFtdcMarketDataUpdateTimeField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', UpdateTime=\'{1}\', UpdateMillisec={2}, ActionDay=\'{3}\', ExchangeID=\'{4}\''.format(str(self.InstrumentID, 'GB2312'), str(self.UpdateTime, 'GB2312'), self.UpdateMillisec, str(self.ActionDay, 'GB2312'), str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'UpdateTime':str(self.UpdateTime, 'GB2312'),'UpdateMillisec':self.UpdateMillisec,'ActionDay':str(self.ActionDay, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcMarketDataUpdateTimeField()
+		obj.InstrumentID=self.InstrumentID
+		obj.UpdateTime=self.UpdateTime
+		obj.UpdateMillisec=self.UpdateMillisec
+		obj.ActionDay=self.ActionDay
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcMarketDataExchangeField(Structure):
 	"""行情交易所代码属性"""
 	_fields_ = [
@@ -11130,6 +15208,15 @@ class CThostFtdcMarketDataExchangeField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\''.format(str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcMarketDataExchangeField()
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcSpecificInstrumentField(Structure):
 	"""指定的合约"""
 	_fields_ = [
@@ -11142,6 +15229,15 @@ class CThostFtdcSpecificInstrumentField(Structure):
 
 	def __str__(self):
 		return 'InstrumentID=\'{0}\''.format(str(self.InstrumentID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcSpecificInstrumentField()
+		obj.InstrumentID=self.InstrumentID
+		return obj
 
 class CThostFtdcInstrumentStatusField(Structure):
 	"""合约状态"""
@@ -11184,6 +15280,22 @@ class CThostFtdcInstrumentStatusField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', ExchangeInstID=\'{1}\', SettlementGroupID=\'{2}\', InstrumentID=\'{3}\', InstrumentStatus=InstrumentStatusType.{4}, TradingSegmentSN={5}, EnterTime=\'{6}\', EnterReason=InstStatusEnterReasonType.{7}'.format(str(self.ExchangeID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.SettlementGroupID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.InstrumentStatus) == 0 else InstrumentStatusType(ord(self.InstrumentStatus)).name, self.TradingSegmentSN, str(self.EnterTime, 'GB2312'), '' if ord(self.EnterReason) == 0 else InstStatusEnterReasonType(ord(self.EnterReason)).name)
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'SettlementGroupID':str(self.SettlementGroupID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'InstrumentStatus':'' if ord(self.InstrumentStatus) == 0 else InstrumentStatusType(ord(self.InstrumentStatus)).name,'TradingSegmentSN':self.TradingSegmentSN,'EnterTime':str(self.EnterTime, 'GB2312'),'EnterReason':'' if ord(self.EnterReason) == 0 else InstStatusEnterReasonType(ord(self.EnterReason)).name}
+
+	def clone(self):
+		obj=CThostFtdcInstrumentStatusField()
+		obj.ExchangeID=self.ExchangeID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.SettlementGroupID=self.SettlementGroupID
+		obj.InstrumentID=self.InstrumentID
+		obj.InstrumentStatus=self.InstrumentStatus
+		obj.TradingSegmentSN=self.TradingSegmentSN
+		obj.EnterTime=self.EnterTime
+		obj.EnterReason=self.EnterReason
+		return obj
+
 class CThostFtdcQryInstrumentStatusField(Structure):
 	"""查询合约状态"""
 	_fields_ = [
@@ -11200,6 +15312,16 @@ class CThostFtdcQryInstrumentStatusField(Structure):
 
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', ExchangeInstID=\'{1}\''.format(str(self.ExchangeID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryInstrumentStatusField()
+		obj.ExchangeID=self.ExchangeID
+		obj.ExchangeInstID=self.ExchangeInstID
+		return obj
 
 class CThostFtdcInvestorAccountField(Structure):
 	"""投资者账户"""
@@ -11230,6 +15352,19 @@ class CThostFtdcInvestorAccountField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', AccountID=\'{2}\', CurrencyID=\'{3}\', BizType=BizTypeType.{4}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.CurrencyID, 'GB2312'), '' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'BizType':'' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name}
+
+	def clone(self):
+		obj=CThostFtdcInvestorAccountField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.AccountID=self.AccountID
+		obj.CurrencyID=self.CurrencyID
+		obj.BizType=self.BizType
+		return obj
+
 class CThostFtdcPositionProfitAlgorithmField(Structure):
 	"""浮动盈亏算法"""
 	_fields_ = [
@@ -11259,6 +15394,19 @@ class CThostFtdcPositionProfitAlgorithmField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', AccountID=\'{1}\', Algorithm=AlgorithmType.{2}, Memo=\'{3}\', CurrencyID=\'{4}\''.format(str(self.BrokerID, 'GB2312'), str(self.AccountID, 'GB2312'), '' if ord(self.Algorithm) == 0 else AlgorithmType(ord(self.Algorithm)).name, str(self.Memo, 'GB2312'), str(self.CurrencyID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Algorithm':'' if ord(self.Algorithm) == 0 else AlgorithmType(ord(self.Algorithm)).name,'Memo':str(self.Memo, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcPositionProfitAlgorithmField()
+		obj.BrokerID=self.BrokerID
+		obj.AccountID=self.AccountID
+		obj.Algorithm=self.Algorithm
+		obj.Memo=self.Memo
+		obj.CurrencyID=self.CurrencyID
+		return obj
+
 class CThostFtdcDiscountField(Structure):
 	"""会员资金折扣"""
 	_fields_ = [
@@ -11284,6 +15432,18 @@ class CThostFtdcDiscountField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorRange=InvestorRangeType.{1}, InvestorID=\'{2}\', Discount={3}'.format(str(self.BrokerID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.InvestorID, 'GB2312'), self.Discount)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'InvestorID':str(self.InvestorID, 'GB2312'),'Discount':self.Discount}
+
+	def clone(self):
+		obj=CThostFtdcDiscountField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorRange=self.InvestorRange
+		obj.InvestorID=self.InvestorID
+		obj.Discount=self.Discount
+		return obj
+
 class CThostFtdcQryTransferBankField(Structure):
 	"""查询转帐银行"""
 	_fields_ = [
@@ -11300,6 +15460,16 @@ class CThostFtdcQryTransferBankField(Structure):
 
 	def __str__(self):
 		return 'BankID=\'{0}\', BankBrchID=\'{1}\''.format(str(self.BankID, 'GB2312'), str(self.BankBrchID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BankID':str(self.BankID, 'GB2312'),'BankBrchID':str(self.BankBrchID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryTransferBankField()
+		obj.BankID=self.BankID
+		obj.BankBrchID=self.BankBrchID
+		return obj
 
 class CThostFtdcTransferBankField(Structure):
 	"""转帐银行"""
@@ -11326,6 +15496,18 @@ class CThostFtdcTransferBankField(Structure):
 	def __str__(self):
 		return 'BankID=\'{0}\', BankBrchID=\'{1}\', BankName=\'{2}\', IsActive={3}'.format(str(self.BankID, 'GB2312'), str(self.BankBrchID, 'GB2312'), str(self.BankName, 'GB2312'), self.IsActive)
 
+	@property
+	def __dict__(self):
+		return {'BankID':str(self.BankID, 'GB2312'),'BankBrchID':str(self.BankBrchID, 'GB2312'),'BankName':str(self.BankName, 'GB2312'),'IsActive':self.IsActive}
+
+	def clone(self):
+		obj=CThostFtdcTransferBankField()
+		obj.BankID=self.BankID
+		obj.BankBrchID=self.BankBrchID
+		obj.BankName=self.BankName
+		obj.IsActive=self.IsActive
+		return obj
+
 class CThostFtdcQryInvestorPositionDetailField(Structure):
 	"""查询投资者持仓明细"""
 	_fields_ = [
@@ -11350,6 +15532,18 @@ class CThostFtdcQryInvestorPositionDetailField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryInvestorPositionDetailField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcInvestorPositionDetailField(Structure):
 	"""投资者持仓明细"""
@@ -11464,6 +15658,40 @@ class CThostFtdcInvestorPositionDetailField(Structure):
 	def __str__(self):
 		return 'InstrumentID=\'{0}\', BrokerID=\'{1}\', InvestorID=\'{2}\', HedgeFlag=HedgeFlagType.{3}, Direction=DirectionType.{4}, OpenDate=\'{5}\', TradeID=\'{6}\', Volume={7}, OpenPrice={8}, TradingDay=\'{9}\', SettlementID={10}, TradeType=TradeTypeType.{11}, CombInstrumentID=\'{12}\', ExchangeID=\'{13}\', CloseProfitByDate={14}, CloseProfitByTrade={15}, PositionProfitByDate={16}, PositionProfitByTrade={17}, Margin={18}, ExchMargin={19}, MarginRateByMoney={20}, MarginRateByVolume={21}, LastSettlementPrice={22}, SettlementPrice={23}, CloseVolume={24}, CloseAmount={25}'.format(str(self.InstrumentID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, str(self.OpenDate, 'GB2312'), str(self.TradeID, 'GB2312'), self.Volume, self.OpenPrice, str(self.TradingDay, 'GB2312'), self.SettlementID, '' if ord(self.TradeType) == 0 else TradeTypeType(ord(self.TradeType)).name, str(self.CombInstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'), self.CloseProfitByDate, self.CloseProfitByTrade, self.PositionProfitByDate, self.PositionProfitByTrade, self.Margin, self.ExchMargin, self.MarginRateByMoney, self.MarginRateByVolume, self.LastSettlementPrice, self.SettlementPrice, self.CloseVolume, self.CloseAmount)
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID':str(self.InstrumentID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'OpenDate':str(self.OpenDate, 'GB2312'),'TradeID':str(self.TradeID, 'GB2312'),'Volume':self.Volume,'OpenPrice':self.OpenPrice,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'TradeType':'' if ord(self.TradeType) == 0 else TradeTypeType(ord(self.TradeType)).name,'CombInstrumentID':str(self.CombInstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'CloseProfitByDate':self.CloseProfitByDate,'CloseProfitByTrade':self.CloseProfitByTrade,'PositionProfitByDate':self.PositionProfitByDate,'PositionProfitByTrade':self.PositionProfitByTrade,'Margin':self.Margin,'ExchMargin':self.ExchMargin,'MarginRateByMoney':self.MarginRateByMoney,'MarginRateByVolume':self.MarginRateByVolume,'LastSettlementPrice':self.LastSettlementPrice,'SettlementPrice':self.SettlementPrice,'CloseVolume':self.CloseVolume,'CloseAmount':self.CloseAmount}
+
+	def clone(self):
+		obj=CThostFtdcInvestorPositionDetailField()
+		obj.InstrumentID=self.InstrumentID
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.HedgeFlag=self.HedgeFlag
+		obj.Direction=self.Direction
+		obj.OpenDate=self.OpenDate
+		obj.TradeID=self.TradeID
+		obj.Volume=self.Volume
+		obj.OpenPrice=self.OpenPrice
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.TradeType=self.TradeType
+		obj.CombInstrumentID=self.CombInstrumentID
+		obj.ExchangeID=self.ExchangeID
+		obj.CloseProfitByDate=self.CloseProfitByDate
+		obj.CloseProfitByTrade=self.CloseProfitByTrade
+		obj.PositionProfitByDate=self.PositionProfitByDate
+		obj.PositionProfitByTrade=self.PositionProfitByTrade
+		obj.Margin=self.Margin
+		obj.ExchMargin=self.ExchMargin
+		obj.MarginRateByMoney=self.MarginRateByMoney
+		obj.MarginRateByVolume=self.MarginRateByVolume
+		obj.LastSettlementPrice=self.LastSettlementPrice
+		obj.SettlementPrice=self.SettlementPrice
+		obj.CloseVolume=self.CloseVolume
+		obj.CloseAmount=self.CloseAmount
+		return obj
+
 class CThostFtdcTradingAccountPasswordField(Structure):
 	"""资金账户口令域"""
 	_fields_ = [
@@ -11488,6 +15716,18 @@ class CThostFtdcTradingAccountPasswordField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', AccountID=\'{1}\', Password=\'{2}\', CurrencyID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), str(self.CurrencyID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTradingAccountPasswordField()
+		obj.BrokerID=self.BrokerID
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.CurrencyID=self.CurrencyID
+		return obj
 
 class CThostFtdcMDTraderOfferField(Structure):
 	"""交易所行情报盘机"""
@@ -11578,6 +15818,34 @@ class CThostFtdcMDTraderOfferField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', TraderID=\'{1}\', ParticipantID=\'{2}\', Password=\'{3}\', InstallID={4}, OrderLocalID=\'{5}\', TraderConnectStatus=TraderConnectStatusType.{6}, ConnectRequestDate=\'{7}\', ConnectRequestTime=\'{8}\', LastReportDate=\'{9}\', LastReportTime=\'{10}\', ConnectDate=\'{11}\', ConnectTime=\'{12}\', StartDate=\'{13}\', StartTime=\'{14}\', TradingDay=\'{15}\', BrokerID=\'{16}\', MaxTradeID=\'{17}\', MaxOrderMessageReference=\'{18}\', BizType=BizTypeType.{19}'.format(str(self.ExchangeID, 'GB2312'), str(self.TraderID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.Password, 'GB2312'), self.InstallID, str(self.OrderLocalID, 'GB2312'), '' if ord(self.TraderConnectStatus) == 0 else TraderConnectStatusType(ord(self.TraderConnectStatus)).name, str(self.ConnectRequestDate, 'GB2312'), str(self.ConnectRequestTime, 'GB2312'), str(self.LastReportDate, 'GB2312'), str(self.LastReportTime, 'GB2312'), str(self.ConnectDate, 'GB2312'), str(self.ConnectTime, 'GB2312'), str(self.StartDate, 'GB2312'), str(self.StartTime, 'GB2312'), str(self.TradingDay, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.MaxTradeID, 'GB2312'), str(self.MaxOrderMessageReference, 'GB2312'), '' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name)
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'InstallID':self.InstallID,'OrderLocalID':str(self.OrderLocalID, 'GB2312'),'TraderConnectStatus':'' if ord(self.TraderConnectStatus) == 0 else TraderConnectStatusType(ord(self.TraderConnectStatus)).name,'ConnectRequestDate':str(self.ConnectRequestDate, 'GB2312'),'ConnectRequestTime':str(self.ConnectRequestTime, 'GB2312'),'LastReportDate':str(self.LastReportDate, 'GB2312'),'LastReportTime':str(self.LastReportTime, 'GB2312'),'ConnectDate':str(self.ConnectDate, 'GB2312'),'ConnectTime':str(self.ConnectTime, 'GB2312'),'StartDate':str(self.StartDate, 'GB2312'),'StartTime':str(self.StartTime, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'MaxTradeID':str(self.MaxTradeID, 'GB2312'),'MaxOrderMessageReference':str(self.MaxOrderMessageReference, 'GB2312'),'BizType':'' if ord(self.BizType) == 0 else BizTypeType(ord(self.BizType)).name}
+
+	def clone(self):
+		obj=CThostFtdcMDTraderOfferField()
+		obj.ExchangeID=self.ExchangeID
+		obj.TraderID=self.TraderID
+		obj.ParticipantID=self.ParticipantID
+		obj.Password=self.Password
+		obj.InstallID=self.InstallID
+		obj.OrderLocalID=self.OrderLocalID
+		obj.TraderConnectStatus=self.TraderConnectStatus
+		obj.ConnectRequestDate=self.ConnectRequestDate
+		obj.ConnectRequestTime=self.ConnectRequestTime
+		obj.LastReportDate=self.LastReportDate
+		obj.LastReportTime=self.LastReportTime
+		obj.ConnectDate=self.ConnectDate
+		obj.ConnectTime=self.ConnectTime
+		obj.StartDate=self.StartDate
+		obj.StartTime=self.StartTime
+		obj.TradingDay=self.TradingDay
+		obj.BrokerID=self.BrokerID
+		obj.MaxTradeID=self.MaxTradeID
+		obj.MaxOrderMessageReference=self.MaxOrderMessageReference
+		obj.BizType=self.BizType
+		return obj
+
 class CThostFtdcQryMDTraderOfferField(Structure):
 	"""查询行情报盘机"""
 	_fields_ = [
@@ -11599,6 +15867,17 @@ class CThostFtdcQryMDTraderOfferField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', ParticipantID=\'{1}\', TraderID=\'{2}\''.format(str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.TraderID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryMDTraderOfferField()
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.TraderID=self.TraderID
+		return obj
+
 class CThostFtdcQryNoticeField(Structure):
 	"""查询客户通知"""
 	_fields_ = [
@@ -11611,6 +15890,15 @@ class CThostFtdcQryNoticeField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\''.format(str(self.BrokerID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryNoticeField()
+		obj.BrokerID=self.BrokerID
+		return obj
 
 class CThostFtdcNoticeField(Structure):
 	"""客户通知"""
@@ -11632,6 +15920,17 @@ class CThostFtdcNoticeField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', Content=\'{1}\', SequenceLabel=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.Content, 'GB2312'), str(self.SequenceLabel, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'Content':str(self.Content, 'GB2312'),'SequenceLabel':str(self.SequenceLabel, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcNoticeField()
+		obj.BrokerID=self.BrokerID
+		obj.Content=self.Content
+		obj.SequenceLabel=self.SequenceLabel
+		return obj
 
 class CThostFtdcUserRightField(Structure):
 	"""用户权限"""
@@ -11658,6 +15957,18 @@ class CThostFtdcUserRightField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', UserRightType=UserRightTypeType.{2}, IsForbidden={3}'.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.UserRightType) == 0 else UserRightTypeType(ord(self.UserRightType)).name, self.IsForbidden)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'UserRightType':'' if ord(self.UserRightType) == 0 else UserRightTypeType(ord(self.UserRightType)).name,'IsForbidden':self.IsForbidden}
+
+	def clone(self):
+		obj=CThostFtdcUserRightField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.UserRightType=self.UserRightType
+		obj.IsForbidden=self.IsForbidden
+		return obj
+
 class CThostFtdcQrySettlementInfoConfirmField(Structure):
 	"""查询结算信息确认域"""
 	_fields_ = [
@@ -11675,6 +15986,16 @@ class CThostFtdcQrySettlementInfoConfirmField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQrySettlementInfoConfirmField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		return obj
+
 class CThostFtdcLoadSettlementInfoField(Structure):
 	"""装载结算信息"""
 	_fields_ = [
@@ -11687,6 +16008,15 @@ class CThostFtdcLoadSettlementInfoField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\''.format(str(self.BrokerID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcLoadSettlementInfoField()
+		obj.BrokerID=self.BrokerID
+		return obj
 
 class CThostFtdcBrokerWithdrawAlgorithmField(Structure):
 	"""经纪公司可提资金算法表"""
@@ -11737,6 +16067,24 @@ class CThostFtdcBrokerWithdrawAlgorithmField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', WithdrawAlgorithm=AlgorithmType.{1}, UsingRatio={2}, IncludeCloseProfit=IncludeCloseProfitType.{3}, AllWithoutTrade=AllWithoutTradeType.{4}, AvailIncludeCloseProfit=IncludeCloseProfitType.{5}, IsBrokerUserEvent={6}, CurrencyID=\'{7}\', FundMortgageRatio={8}, BalanceAlgorithm=BalanceAlgorithmType.{9}'.format(str(self.BrokerID, 'GB2312'), '' if ord(self.WithdrawAlgorithm) == 0 else AlgorithmType(ord(self.WithdrawAlgorithm)).name, self.UsingRatio, '' if ord(self.IncludeCloseProfit) == 0 else IncludeCloseProfitType(ord(self.IncludeCloseProfit)).name, '' if ord(self.AllWithoutTrade) == 0 else AllWithoutTradeType(ord(self.AllWithoutTrade)).name, '' if ord(self.AvailIncludeCloseProfit) == 0 else IncludeCloseProfitType(ord(self.AvailIncludeCloseProfit)).name, self.IsBrokerUserEvent, str(self.CurrencyID, 'GB2312'), self.FundMortgageRatio, '' if ord(self.BalanceAlgorithm) == 0 else BalanceAlgorithmType(ord(self.BalanceAlgorithm)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'WithdrawAlgorithm':'' if ord(self.WithdrawAlgorithm) == 0 else AlgorithmType(ord(self.WithdrawAlgorithm)).name,'UsingRatio':self.UsingRatio,'IncludeCloseProfit':'' if ord(self.IncludeCloseProfit) == 0 else IncludeCloseProfitType(ord(self.IncludeCloseProfit)).name,'AllWithoutTrade':'' if ord(self.AllWithoutTrade) == 0 else AllWithoutTradeType(ord(self.AllWithoutTrade)).name,'AvailIncludeCloseProfit':'' if ord(self.AvailIncludeCloseProfit) == 0 else IncludeCloseProfitType(ord(self.AvailIncludeCloseProfit)).name,'IsBrokerUserEvent':self.IsBrokerUserEvent,'CurrencyID':str(self.CurrencyID, 'GB2312'),'FundMortgageRatio':self.FundMortgageRatio,'BalanceAlgorithm':'' if ord(self.BalanceAlgorithm) == 0 else BalanceAlgorithmType(ord(self.BalanceAlgorithm)).name}
+
+	def clone(self):
+		obj=CThostFtdcBrokerWithdrawAlgorithmField()
+		obj.BrokerID=self.BrokerID
+		obj.WithdrawAlgorithm=self.WithdrawAlgorithm
+		obj.UsingRatio=self.UsingRatio
+		obj.IncludeCloseProfit=self.IncludeCloseProfit
+		obj.AllWithoutTrade=self.AllWithoutTrade
+		obj.AvailIncludeCloseProfit=self.AvailIncludeCloseProfit
+		obj.IsBrokerUserEvent=self.IsBrokerUserEvent
+		obj.CurrencyID=self.CurrencyID
+		obj.FundMortgageRatio=self.FundMortgageRatio
+		obj.BalanceAlgorithm=self.BalanceAlgorithm
+		return obj
+
 class CThostFtdcTradingAccountPasswordUpdateV1Field(Structure):
 	"""资金账户口令变更域"""
 	_fields_ = [
@@ -11761,6 +16109,18 @@ class CThostFtdcTradingAccountPasswordUpdateV1Field(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', OldPassword=\'{2}\', NewPassword=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.OldPassword, 'GB2312'), str(self.NewPassword, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'OldPassword':str(self.OldPassword, 'GB2312'),'NewPassword':str(self.NewPassword, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTradingAccountPasswordUpdateV1Field()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.OldPassword=self.OldPassword
+		obj.NewPassword=self.NewPassword
+		return obj
 
 class CThostFtdcTradingAccountPasswordUpdateField(Structure):
 	"""资金账户口令变更域"""
@@ -11791,6 +16151,19 @@ class CThostFtdcTradingAccountPasswordUpdateField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', AccountID=\'{1}\', OldPassword=\'{2}\', NewPassword=\'{3}\', CurrencyID=\'{4}\''.format(str(self.BrokerID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.OldPassword, 'GB2312'), str(self.NewPassword, 'GB2312'), str(self.CurrencyID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'OldPassword':str(self.OldPassword, 'GB2312'),'NewPassword':str(self.NewPassword, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTradingAccountPasswordUpdateField()
+		obj.BrokerID=self.BrokerID
+		obj.AccountID=self.AccountID
+		obj.OldPassword=self.OldPassword
+		obj.NewPassword=self.NewPassword
+		obj.CurrencyID=self.CurrencyID
+		return obj
+
 class CThostFtdcQryCombinationLegField(Structure):
 	"""查询组合合约分腿"""
 	_fields_ = [
@@ -11812,6 +16185,17 @@ class CThostFtdcQryCombinationLegField(Structure):
 	def __str__(self):
 		return 'CombInstrumentID=\'{0}\', LegID={1}, LegInstrumentID=\'{2}\''.format(str(self.CombInstrumentID, 'GB2312'), self.LegID, str(self.LegInstrumentID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'CombInstrumentID':str(self.CombInstrumentID, 'GB2312'),'LegID':self.LegID,'LegInstrumentID':str(self.LegInstrumentID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryCombinationLegField()
+		obj.CombInstrumentID=self.CombInstrumentID
+		obj.LegID=self.LegID
+		obj.LegInstrumentID=self.LegInstrumentID
+		return obj
+
 class CThostFtdcQrySyncStatusField(Structure):
 	"""查询组合合约分腿"""
 	_fields_ = [
@@ -11824,6 +16208,15 @@ class CThostFtdcQrySyncStatusField(Structure):
 
 	def __str__(self):
 		return 'TradingDay=\'{0}\''.format(str(self.TradingDay, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQrySyncStatusField()
+		obj.TradingDay=self.TradingDay
+		return obj
 
 class CThostFtdcCombinationLegField(Structure):
 	"""组合交易合约的单腿"""
@@ -11858,6 +16251,20 @@ class CThostFtdcCombinationLegField(Structure):
 	def __str__(self):
 		return 'CombInstrumentID=\'{0}\', LegID={1}, LegInstrumentID=\'{2}\', Direction=DirectionType.{3}, LegMultiple={4}, ImplyLevel={5}'.format(str(self.CombInstrumentID, 'GB2312'), self.LegID, str(self.LegInstrumentID, 'GB2312'), '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, self.LegMultiple, self.ImplyLevel)
 
+	@property
+	def __dict__(self):
+		return {'CombInstrumentID':str(self.CombInstrumentID, 'GB2312'),'LegID':self.LegID,'LegInstrumentID':str(self.LegInstrumentID, 'GB2312'),'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'LegMultiple':self.LegMultiple,'ImplyLevel':self.ImplyLevel}
+
+	def clone(self):
+		obj=CThostFtdcCombinationLegField()
+		obj.CombInstrumentID=self.CombInstrumentID
+		obj.LegID=self.LegID
+		obj.LegInstrumentID=self.LegInstrumentID
+		obj.Direction=self.Direction
+		obj.LegMultiple=self.LegMultiple
+		obj.ImplyLevel=self.ImplyLevel
+		return obj
+
 class CThostFtdcSyncStatusField(Structure):
 	"""数据同步状态"""
 	_fields_ = [
@@ -11875,6 +16282,16 @@ class CThostFtdcSyncStatusField(Structure):
 	def __str__(self):
 		return 'TradingDay=\'{0}\', DataSyncStatus=DataSyncStatusType.{1}'.format(str(self.TradingDay, 'GB2312'), '' if ord(self.DataSyncStatus) == 0 else DataSyncStatusType(ord(self.DataSyncStatus)).name)
 
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312'),'DataSyncStatus':'' if ord(self.DataSyncStatus) == 0 else DataSyncStatusType(ord(self.DataSyncStatus)).name}
+
+	def clone(self):
+		obj=CThostFtdcSyncStatusField()
+		obj.TradingDay=self.TradingDay
+		obj.DataSyncStatus=self.DataSyncStatus
+		return obj
+
 class CThostFtdcQryLinkManField(Structure):
 	"""查询联系人"""
 	_fields_ = [
@@ -11891,6 +16308,16 @@ class CThostFtdcQryLinkManField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryLinkManField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		return obj
 
 class CThostFtdcLinkManField(Structure):
 	"""联系人"""
@@ -11949,6 +16376,26 @@ class CThostFtdcLinkManField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', PersonType=PersonTypeType.{2}, IdentifiedCardType=IdCardTypeType.{3}, IdentifiedCardNo=\'{4}\', PersonName=\'{5}\', Telephone=\'{6}\', Address=\'{7}\', ZipCode=\'{8}\', Priority={9}, UOAZipCode=\'{10}\', PersonFullName=\'{11}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), '' if ord(self.PersonType) == 0 else PersonTypeType(ord(self.PersonType)).name, '' if ord(self.IdentifiedCardType) == 0 else IdCardTypeType(ord(self.IdentifiedCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), str(self.PersonName, 'GB2312'), str(self.Telephone, 'GB2312'), str(self.Address, 'GB2312'), str(self.ZipCode, 'GB2312'), self.Priority, str(self.UOAZipCode, 'GB2312'), str(self.PersonFullName, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'PersonType':'' if ord(self.PersonType) == 0 else PersonTypeType(ord(self.PersonType)).name,'IdentifiedCardType':'' if ord(self.IdentifiedCardType) == 0 else IdCardTypeType(ord(self.IdentifiedCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'PersonName':str(self.PersonName, 'GB2312'),'Telephone':str(self.Telephone, 'GB2312'),'Address':str(self.Address, 'GB2312'),'ZipCode':str(self.ZipCode, 'GB2312'),'Priority':self.Priority,'UOAZipCode':str(self.UOAZipCode, 'GB2312'),'PersonFullName':str(self.PersonFullName, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcLinkManField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.PersonType=self.PersonType
+		obj.IdentifiedCardType=self.IdentifiedCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.PersonName=self.PersonName
+		obj.Telephone=self.Telephone
+		obj.Address=self.Address
+		obj.ZipCode=self.ZipCode
+		obj.Priority=self.Priority
+		obj.UOAZipCode=self.UOAZipCode
+		obj.PersonFullName=self.PersonFullName
+		return obj
+
 class CThostFtdcQryBrokerUserEventField(Structure):
 	"""查询经纪公司用户事件"""
 	_fields_ = [
@@ -11969,6 +16416,17 @@ class CThostFtdcQryBrokerUserEventField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', UserEventType=UserEventTypeType.{2}'.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.UserEventType) == 0 else UserEventTypeType(ord(self.UserEventType)).name)
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'UserEventType':'' if ord(self.UserEventType) == 0 else UserEventTypeType(ord(self.UserEventType)).name}
+
+	def clone(self):
+		obj=CThostFtdcQryBrokerUserEventField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.UserEventType=self.UserEventType
+		return obj
 
 class CThostFtdcBrokerUserEventField(Structure):
 	"""查询经纪公司用户事件"""
@@ -12019,6 +16477,24 @@ class CThostFtdcBrokerUserEventField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', UserEventType=UserEventTypeType.{2}, EventSequenceNo={3}, EventDate=\'{4}\', EventTime=\'{5}\', UserEventInfo=\'{6}\', InvestorID=\'{7}\', InstrumentID=\'{8}\', ExchangeID=\'{9}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.UserEventType) == 0 else UserEventTypeType(ord(self.UserEventType)).name, self.EventSequenceNo, str(self.EventDate, 'GB2312'), str(self.EventTime, 'GB2312'), str(self.UserEventInfo, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'UserEventType':'' if ord(self.UserEventType) == 0 else UserEventTypeType(ord(self.UserEventType)).name,'EventSequenceNo':self.EventSequenceNo,'EventDate':str(self.EventDate, 'GB2312'),'EventTime':str(self.EventTime, 'GB2312'),'UserEventInfo':str(self.UserEventInfo, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcBrokerUserEventField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.UserEventType=self.UserEventType
+		obj.EventSequenceNo=self.EventSequenceNo
+		obj.EventDate=self.EventDate
+		obj.EventTime=self.EventTime
+		obj.UserEventInfo=self.UserEventInfo
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcQryContractBankField(Structure):
 	"""查询签约银行请求"""
 	_fields_ = [
@@ -12039,6 +16515,17 @@ class CThostFtdcQryContractBankField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', BankID=\'{1}\', BankBrchID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBrchID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBrchID':str(self.BankBrchID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryContractBankField()
+		obj.BrokerID=self.BrokerID
+		obj.BankID=self.BankID
+		obj.BankBrchID=self.BankBrchID
+		return obj
 
 class CThostFtdcContractBankField(Structure):
 	"""查询签约银行响应"""
@@ -12064,6 +16551,18 @@ class CThostFtdcContractBankField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', BankID=\'{1}\', BankBrchID=\'{2}\', BankName=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBrchID, 'GB2312'), str(self.BankName, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBrchID':str(self.BankBrchID, 'GB2312'),'BankName':str(self.BankName, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcContractBankField()
+		obj.BrokerID=self.BrokerID
+		obj.BankID=self.BankID
+		obj.BankBrchID=self.BankBrchID
+		obj.BankName=self.BankName
+		return obj
 
 class CThostFtdcInvestorPositionCombineDetailField(Structure):
 	"""投资者组合持仓明细"""
@@ -12153,6 +16652,34 @@ class CThostFtdcInvestorPositionCombineDetailField(Structure):
 
 	def __str__(self):
 		return 'TradingDay=\'{0}\', OpenDate=\'{1}\', ExchangeID=\'{2}\', SettlementID={3}, BrokerID=\'{4}\', InvestorID=\'{5}\', ComTradeID=\'{6}\', TradeID=\'{7}\', InstrumentID=\'{8}\', HedgeFlag=HedgeFlagType.{9}, Direction=DirectionType.{10}, TotalAmt={11}, Margin={12}, ExchMargin={13}, MarginRateByMoney={14}, MarginRateByVolume={15}, LegID={16}, LegMultiple={17}, CombInstrumentID=\'{18}\', TradeGroupID={19}'.format(str(self.TradingDay, 'GB2312'), str(self.OpenDate, 'GB2312'), str(self.ExchangeID, 'GB2312'), self.SettlementID, str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ComTradeID, 'GB2312'), str(self.TradeID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, self.TotalAmt, self.Margin, self.ExchMargin, self.MarginRateByMoney, self.MarginRateByVolume, self.LegID, self.LegMultiple, str(self.CombInstrumentID, 'GB2312'), self.TradeGroupID)
+
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312'),'OpenDate':str(self.OpenDate, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'SettlementID':self.SettlementID,'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ComTradeID':str(self.ComTradeID, 'GB2312'),'TradeID':str(self.TradeID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'TotalAmt':self.TotalAmt,'Margin':self.Margin,'ExchMargin':self.ExchMargin,'MarginRateByMoney':self.MarginRateByMoney,'MarginRateByVolume':self.MarginRateByVolume,'LegID':self.LegID,'LegMultiple':self.LegMultiple,'CombInstrumentID':str(self.CombInstrumentID, 'GB2312'),'TradeGroupID':self.TradeGroupID}
+
+	def clone(self):
+		obj=CThostFtdcInvestorPositionCombineDetailField()
+		obj.TradingDay=self.TradingDay
+		obj.OpenDate=self.OpenDate
+		obj.ExchangeID=self.ExchangeID
+		obj.SettlementID=self.SettlementID
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ComTradeID=self.ComTradeID
+		obj.TradeID=self.TradeID
+		obj.InstrumentID=self.InstrumentID
+		obj.HedgeFlag=self.HedgeFlag
+		obj.Direction=self.Direction
+		obj.TotalAmt=self.TotalAmt
+		obj.Margin=self.Margin
+		obj.ExchMargin=self.ExchMargin
+		obj.MarginRateByMoney=self.MarginRateByMoney
+		obj.MarginRateByVolume=self.MarginRateByVolume
+		obj.LegID=self.LegID
+		obj.LegMultiple=self.LegMultiple
+		obj.CombInstrumentID=self.CombInstrumentID
+		obj.TradeGroupID=self.TradeGroupID
+		return obj
 
 class CThostFtdcParkedOrderField(Structure):
 	"""预埋单"""
@@ -12303,6 +16830,49 @@ class CThostFtdcParkedOrderField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', OrderRef=\'{3}\', UserID=\'{4}\', OrderPriceType=OrderPriceTypeType.{5}, Direction=DirectionType.{6}, CombOffsetFlag=\'{7}\', CombHedgeFlag=\'{8}\', LimitPrice={9}, VolumeTotalOriginal={10}, TimeCondition=TimeConditionType.{11}, GTDDate=\'{12}\', VolumeCondition=VolumeConditionType.{13}, MinVolume={14}, ContingentCondition=ContingentConditionType.{15}, StopPrice={16}, ForceCloseReason=ForceCloseReasonType.{17}, IsAutoSuspend={18}, BusinessUnit=\'{19}\', RequestID={20}, UserForceClose={21}, ExchangeID=\'{22}\', ParkedOrderID=\'{23}\', UserType=UserTypeType.{24}, Status=ParkedOrderStatusType.{25}, ErrorID={26}, ErrorMsg=\'{27}\', IsSwapOrder={28}, AccountID=\'{29}\', CurrencyID=\'{30}\', ClientID=\'{31}\', InvestUnitID=\'{32}\', IPAddress=\'{33}\', MacAddress=\'{34}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.OrderRef, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.OrderPriceType) == 0 else OrderPriceTypeType(ord(self.OrderPriceType)).name, '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, str(self.CombOffsetFlag, 'GB2312'), str(self.CombHedgeFlag, 'GB2312'), self.LimitPrice, self.VolumeTotalOriginal, '' if ord(self.TimeCondition) == 0 else TimeConditionType(ord(self.TimeCondition)).name, str(self.GTDDate, 'GB2312'), '' if ord(self.VolumeCondition) == 0 else VolumeConditionType(ord(self.VolumeCondition)).name, self.MinVolume, '' if ord(self.ContingentCondition) == 0 else ContingentConditionType(ord(self.ContingentCondition)).name, self.StopPrice, '' if ord(self.ForceCloseReason) == 0 else ForceCloseReasonType(ord(self.ForceCloseReason)).name, self.IsAutoSuspend, str(self.BusinessUnit, 'GB2312'), self.RequestID, self.UserForceClose, str(self.ExchangeID, 'GB2312'), str(self.ParkedOrderID, 'GB2312'), '' if ord(self.UserType) == 0 else UserTypeType(ord(self.UserType)).name, '' if ord(self.Status) == 0 else ParkedOrderStatusType(ord(self.Status)).name, self.ErrorID, str(self.ErrorMsg, 'GB2312'), self.IsSwapOrder, str(self.AccountID, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'OrderRef':str(self.OrderRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'OrderPriceType':'' if ord(self.OrderPriceType) == 0 else OrderPriceTypeType(ord(self.OrderPriceType)).name,'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'CombOffsetFlag':str(self.CombOffsetFlag, 'GB2312'),'CombHedgeFlag':str(self.CombHedgeFlag, 'GB2312'),'LimitPrice':self.LimitPrice,'VolumeTotalOriginal':self.VolumeTotalOriginal,'TimeCondition':'' if ord(self.TimeCondition) == 0 else TimeConditionType(ord(self.TimeCondition)).name,'GTDDate':str(self.GTDDate, 'GB2312'),'VolumeCondition':'' if ord(self.VolumeCondition) == 0 else VolumeConditionType(ord(self.VolumeCondition)).name,'MinVolume':self.MinVolume,'ContingentCondition':'' if ord(self.ContingentCondition) == 0 else ContingentConditionType(ord(self.ContingentCondition)).name,'StopPrice':self.StopPrice,'ForceCloseReason':'' if ord(self.ForceCloseReason) == 0 else ForceCloseReasonType(ord(self.ForceCloseReason)).name,'IsAutoSuspend':self.IsAutoSuspend,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'RequestID':self.RequestID,'UserForceClose':self.UserForceClose,'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParkedOrderID':str(self.ParkedOrderID, 'GB2312'),'UserType':'' if ord(self.UserType) == 0 else UserTypeType(ord(self.UserType)).name,'Status':'' if ord(self.Status) == 0 else ParkedOrderStatusType(ord(self.Status)).name,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312'),'IsSwapOrder':self.IsSwapOrder,'AccountID':str(self.AccountID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcParkedOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.OrderRef=self.OrderRef
+		obj.UserID=self.UserID
+		obj.OrderPriceType=self.OrderPriceType
+		obj.Direction=self.Direction
+		obj.CombOffsetFlag=self.CombOffsetFlag
+		obj.CombHedgeFlag=self.CombHedgeFlag
+		obj.LimitPrice=self.LimitPrice
+		obj.VolumeTotalOriginal=self.VolumeTotalOriginal
+		obj.TimeCondition=self.TimeCondition
+		obj.GTDDate=self.GTDDate
+		obj.VolumeCondition=self.VolumeCondition
+		obj.MinVolume=self.MinVolume
+		obj.ContingentCondition=self.ContingentCondition
+		obj.StopPrice=self.StopPrice
+		obj.ForceCloseReason=self.ForceCloseReason
+		obj.IsAutoSuspend=self.IsAutoSuspend
+		obj.BusinessUnit=self.BusinessUnit
+		obj.RequestID=self.RequestID
+		obj.UserForceClose=self.UserForceClose
+		obj.ExchangeID=self.ExchangeID
+		obj.ParkedOrderID=self.ParkedOrderID
+		obj.UserType=self.UserType
+		obj.Status=self.Status
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		obj.IsSwapOrder=self.IsSwapOrder
+		obj.AccountID=self.AccountID
+		obj.CurrencyID=self.CurrencyID
+		obj.ClientID=self.ClientID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcParkedOrderActionField(Structure):
 	"""输入预埋单操作"""
 	_fields_ = [
@@ -12400,6 +16970,36 @@ class CThostFtdcParkedOrderActionField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', OrderActionRef={2}, OrderRef=\'{3}\', RequestID={4}, FrontID={5}, SessionID={6}, ExchangeID=\'{7}\', OrderSysID=\'{8}\', ActionFlag=ActionFlagType.{9}, LimitPrice={10}, VolumeChange={11}, UserID=\'{12}\', InstrumentID=\'{13}\', ParkedOrderActionID=\'{14}\', UserType=UserTypeType.{15}, Status=ParkedOrderStatusType.{16}, ErrorID={17}, ErrorMsg=\'{18}\', InvestUnitID=\'{19}\', IPAddress=\'{20}\', MacAddress=\'{21}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.OrderActionRef, str(self.OrderRef, 'GB2312'), self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.OrderSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, self.LimitPrice, self.VolumeChange, str(self.UserID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ParkedOrderActionID, 'GB2312'), '' if ord(self.UserType) == 0 else UserTypeType(ord(self.UserType)).name, '' if ord(self.Status) == 0 else ParkedOrderStatusType(ord(self.Status)).name, self.ErrorID, str(self.ErrorMsg, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'OrderActionRef':self.OrderActionRef,'OrderRef':str(self.OrderRef, 'GB2312'),'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'OrderSysID':str(self.OrderSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'LimitPrice':self.LimitPrice,'VolumeChange':self.VolumeChange,'UserID':str(self.UserID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ParkedOrderActionID':str(self.ParkedOrderActionID, 'GB2312'),'UserType':'' if ord(self.UserType) == 0 else UserTypeType(ord(self.UserType)).name,'Status':'' if ord(self.Status) == 0 else ParkedOrderStatusType(ord(self.Status)).name,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcParkedOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.OrderActionRef=self.OrderActionRef
+		obj.OrderRef=self.OrderRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.OrderSysID=self.OrderSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.LimitPrice=self.LimitPrice
+		obj.VolumeChange=self.VolumeChange
+		obj.UserID=self.UserID
+		obj.InstrumentID=self.InstrumentID
+		obj.ParkedOrderActionID=self.ParkedOrderActionID
+		obj.UserType=self.UserType
+		obj.Status=self.Status
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		obj.InvestUnitID=self.InvestUnitID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcQryParkedOrderField(Structure):
 	"""查询预埋单"""
 	_fields_ = [
@@ -12424,6 +17024,18 @@ class CThostFtdcQryParkedOrderField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryParkedOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcQryParkedOrderActionField(Structure):
 	"""查询预埋撤单"""
@@ -12450,6 +17062,18 @@ class CThostFtdcQryParkedOrderActionField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', ExchangeID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryParkedOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcRemoveParkedOrderField(Structure):
 	"""删除预埋单"""
 	_fields_ = [
@@ -12471,6 +17095,17 @@ class CThostFtdcRemoveParkedOrderField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ParkedOrderID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ParkedOrderID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ParkedOrderID':str(self.ParkedOrderID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcRemoveParkedOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ParkedOrderID=self.ParkedOrderID
+		return obj
+
 class CThostFtdcRemoveParkedOrderActionField(Structure):
 	"""删除预埋撤单"""
 	_fields_ = [
@@ -12491,6 +17126,17 @@ class CThostFtdcRemoveParkedOrderActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ParkedOrderActionID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ParkedOrderActionID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ParkedOrderActionID':str(self.ParkedOrderActionID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcRemoveParkedOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ParkedOrderActionID=self.ParkedOrderActionID
+		return obj
 
 class CThostFtdcInvestorWithdrawAlgorithmField(Structure):
 	"""经纪公司可提资金算法表"""
@@ -12525,6 +17171,20 @@ class CThostFtdcInvestorWithdrawAlgorithmField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorRange=InvestorRangeType.{1}, InvestorID=\'{2}\', UsingRatio={3}, CurrencyID=\'{4}\', FundMortgageRatio={5}'.format(str(self.BrokerID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.InvestorID, 'GB2312'), self.UsingRatio, str(self.CurrencyID, 'GB2312'), self.FundMortgageRatio)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'InvestorID':str(self.InvestorID, 'GB2312'),'UsingRatio':self.UsingRatio,'CurrencyID':str(self.CurrencyID, 'GB2312'),'FundMortgageRatio':self.FundMortgageRatio}
+
+	def clone(self):
+		obj=CThostFtdcInvestorWithdrawAlgorithmField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorRange=self.InvestorRange
+		obj.InvestorID=self.InvestorID
+		obj.UsingRatio=self.UsingRatio
+		obj.CurrencyID=self.CurrencyID
+		obj.FundMortgageRatio=self.FundMortgageRatio
+		return obj
+
 class CThostFtdcQryInvestorPositionCombineDetailField(Structure):
 	"""查询组合持仓明细"""
 	_fields_ = [
@@ -12546,6 +17206,17 @@ class CThostFtdcQryInvestorPositionCombineDetailField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', CombInstrumentID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.CombInstrumentID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'CombInstrumentID':str(self.CombInstrumentID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryInvestorPositionCombineDetailField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.CombInstrumentID=self.CombInstrumentID
+		return obj
+
 class CThostFtdcMarketDataAveragePriceField(Structure):
 	"""成交均价"""
 	_fields_ = [
@@ -12558,6 +17229,15 @@ class CThostFtdcMarketDataAveragePriceField(Structure):
 
 	def __str__(self):
 		return 'AveragePrice={0}'.format(self.AveragePrice)
+
+	@property
+	def __dict__(self):
+		return {'AveragePrice':self.AveragePrice}
+
+	def clone(self):
+		obj=CThostFtdcMarketDataAveragePriceField()
+		obj.AveragePrice=self.AveragePrice
+		return obj
 
 class CThostFtdcVerifyInvestorPasswordField(Structure):
 	"""校验投资者密码"""
@@ -12579,6 +17259,17 @@ class CThostFtdcVerifyInvestorPasswordField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', Password=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.Password, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'Password':str(self.Password, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcVerifyInvestorPasswordField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.Password=self.Password
+		return obj
 
 class CThostFtdcUserIPField(Structure):
 	"""用户IP"""
@@ -12608,6 +17299,19 @@ class CThostFtdcUserIPField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', IPAddress=\'{2}\', IPMask=\'{3}\', MacAddress=\'{4}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.IPMask, 'GB2312'), str(self.MacAddress, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'IPMask':str(self.IPMask, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcUserIPField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.IPAddress=self.IPAddress
+		obj.IPMask=self.IPMask
+		obj.MacAddress=self.MacAddress
+		return obj
 
 class CThostFtdcTradingNoticeInfoField(Structure):
 	"""用户事件通知信息"""
@@ -12641,6 +17345,20 @@ class CThostFtdcTradingNoticeInfoField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', SendTime=\'{2}\', FieldContent=\'{3}\', SequenceSeries={4}, SequenceNo={5}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.SendTime, 'GB2312'), str(self.FieldContent, 'GB2312'), self.SequenceSeries, self.SequenceNo)
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'SendTime':str(self.SendTime, 'GB2312'),'FieldContent':str(self.FieldContent, 'GB2312'),'SequenceSeries':self.SequenceSeries,'SequenceNo':self.SequenceNo}
+
+	def clone(self):
+		obj=CThostFtdcTradingNoticeInfoField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.SendTime=self.SendTime
+		obj.FieldContent=self.FieldContent
+		obj.SequenceSeries=self.SequenceSeries
+		obj.SequenceNo=self.SequenceNo
+		return obj
 
 class CThostFtdcTradingNoticeField(Structure):
 	"""用户事件通知"""
@@ -12683,6 +17401,22 @@ class CThostFtdcTradingNoticeField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorRange=InvestorRangeType.{1}, InvestorID=\'{2}\', SequenceSeries={3}, UserID=\'{4}\', SendTime=\'{5}\', SequenceNo={6}, FieldContent=\'{7}\''.format(str(self.BrokerID, 'GB2312'), '' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name, str(self.InvestorID, 'GB2312'), self.SequenceSeries, str(self.UserID, 'GB2312'), str(self.SendTime, 'GB2312'), self.SequenceNo, str(self.FieldContent, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorRange':'' if ord(self.InvestorRange) == 0 else InvestorRangeType(ord(self.InvestorRange)).name,'InvestorID':str(self.InvestorID, 'GB2312'),'SequenceSeries':self.SequenceSeries,'UserID':str(self.UserID, 'GB2312'),'SendTime':str(self.SendTime, 'GB2312'),'SequenceNo':self.SequenceNo,'FieldContent':str(self.FieldContent, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTradingNoticeField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorRange=self.InvestorRange
+		obj.InvestorID=self.InvestorID
+		obj.SequenceSeries=self.SequenceSeries
+		obj.UserID=self.UserID
+		obj.SendTime=self.SendTime
+		obj.SequenceNo=self.SequenceNo
+		obj.FieldContent=self.FieldContent
+		return obj
+
 class CThostFtdcQryTradingNoticeField(Structure):
 	"""查询交易事件通知"""
 	_fields_ = [
@@ -12700,6 +17434,16 @@ class CThostFtdcQryTradingNoticeField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryTradingNoticeField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		return obj
+
 class CThostFtdcQryErrOrderField(Structure):
 	"""查询错误报单"""
 	_fields_ = [
@@ -12716,6 +17460,16 @@ class CThostFtdcQryErrOrderField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryErrOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		return obj
 
 class CThostFtdcErrOrderField(Structure):
 	"""错误报单"""
@@ -12853,6 +17607,46 @@ class CThostFtdcErrOrderField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', OrderRef=\'{3}\', UserID=\'{4}\', OrderPriceType=OrderPriceTypeType.{5}, Direction=DirectionType.{6}, CombOffsetFlag=\'{7}\', CombHedgeFlag=\'{8}\', LimitPrice={9}, VolumeTotalOriginal={10}, TimeCondition=TimeConditionType.{11}, GTDDate=\'{12}\', VolumeCondition=VolumeConditionType.{13}, MinVolume={14}, ContingentCondition=ContingentConditionType.{15}, StopPrice={16}, ForceCloseReason=ForceCloseReasonType.{17}, IsAutoSuspend={18}, BusinessUnit=\'{19}\', RequestID={20}, UserForceClose={21}, ErrorID={22}, ErrorMsg=\'{23}\', IsSwapOrder={24}, ExchangeID=\'{25}\', InvestUnitID=\'{26}\', AccountID=\'{27}\', CurrencyID=\'{28}\', ClientID=\'{29}\', IPAddress=\'{30}\', MacAddress=\'{31}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.OrderRef, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.OrderPriceType) == 0 else OrderPriceTypeType(ord(self.OrderPriceType)).name, '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, str(self.CombOffsetFlag, 'GB2312'), str(self.CombHedgeFlag, 'GB2312'), self.LimitPrice, self.VolumeTotalOriginal, '' if ord(self.TimeCondition) == 0 else TimeConditionType(ord(self.TimeCondition)).name, str(self.GTDDate, 'GB2312'), '' if ord(self.VolumeCondition) == 0 else VolumeConditionType(ord(self.VolumeCondition)).name, self.MinVolume, '' if ord(self.ContingentCondition) == 0 else ContingentConditionType(ord(self.ContingentCondition)).name, self.StopPrice, '' if ord(self.ForceCloseReason) == 0 else ForceCloseReasonType(ord(self.ForceCloseReason)).name, self.IsAutoSuspend, str(self.BusinessUnit, 'GB2312'), self.RequestID, self.UserForceClose, self.ErrorID, str(self.ErrorMsg, 'GB2312'), self.IsSwapOrder, str(self.ExchangeID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'OrderRef':str(self.OrderRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'OrderPriceType':'' if ord(self.OrderPriceType) == 0 else OrderPriceTypeType(ord(self.OrderPriceType)).name,'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'CombOffsetFlag':str(self.CombOffsetFlag, 'GB2312'),'CombHedgeFlag':str(self.CombHedgeFlag, 'GB2312'),'LimitPrice':self.LimitPrice,'VolumeTotalOriginal':self.VolumeTotalOriginal,'TimeCondition':'' if ord(self.TimeCondition) == 0 else TimeConditionType(ord(self.TimeCondition)).name,'GTDDate':str(self.GTDDate, 'GB2312'),'VolumeCondition':'' if ord(self.VolumeCondition) == 0 else VolumeConditionType(ord(self.VolumeCondition)).name,'MinVolume':self.MinVolume,'ContingentCondition':'' if ord(self.ContingentCondition) == 0 else ContingentConditionType(ord(self.ContingentCondition)).name,'StopPrice':self.StopPrice,'ForceCloseReason':'' if ord(self.ForceCloseReason) == 0 else ForceCloseReasonType(ord(self.ForceCloseReason)).name,'IsAutoSuspend':self.IsAutoSuspend,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'RequestID':self.RequestID,'UserForceClose':self.UserForceClose,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312'),'IsSwapOrder':self.IsSwapOrder,'ExchangeID':str(self.ExchangeID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcErrOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.OrderRef=self.OrderRef
+		obj.UserID=self.UserID
+		obj.OrderPriceType=self.OrderPriceType
+		obj.Direction=self.Direction
+		obj.CombOffsetFlag=self.CombOffsetFlag
+		obj.CombHedgeFlag=self.CombHedgeFlag
+		obj.LimitPrice=self.LimitPrice
+		obj.VolumeTotalOriginal=self.VolumeTotalOriginal
+		obj.TimeCondition=self.TimeCondition
+		obj.GTDDate=self.GTDDate
+		obj.VolumeCondition=self.VolumeCondition
+		obj.MinVolume=self.MinVolume
+		obj.ContingentCondition=self.ContingentCondition
+		obj.StopPrice=self.StopPrice
+		obj.ForceCloseReason=self.ForceCloseReason
+		obj.IsAutoSuspend=self.IsAutoSuspend
+		obj.BusinessUnit=self.BusinessUnit
+		obj.RequestID=self.RequestID
+		obj.UserForceClose=self.UserForceClose
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		obj.IsSwapOrder=self.IsSwapOrder
+		obj.ExchangeID=self.ExchangeID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.AccountID=self.AccountID
+		obj.CurrencyID=self.CurrencyID
+		obj.ClientID=self.ClientID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
 
 class CThostFtdcErrorConditionalOrderField(Structure):
 	"""查询错误报单操作"""
@@ -13123,6 +17917,79 @@ class CThostFtdcErrorConditionalOrderField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', OrderRef=\'{3}\', UserID=\'{4}\', OrderPriceType=OrderPriceTypeType.{5}, Direction=DirectionType.{6}, CombOffsetFlag=\'{7}\', CombHedgeFlag=\'{8}\', LimitPrice={9}, VolumeTotalOriginal={10}, TimeCondition=TimeConditionType.{11}, GTDDate=\'{12}\', VolumeCondition=VolumeConditionType.{13}, MinVolume={14}, ContingentCondition=ContingentConditionType.{15}, StopPrice={16}, ForceCloseReason=ForceCloseReasonType.{17}, IsAutoSuspend={18}, BusinessUnit=\'{19}\', RequestID={20}, OrderLocalID=\'{21}\', ExchangeID=\'{22}\', ParticipantID=\'{23}\', ClientID=\'{24}\', ExchangeInstID=\'{25}\', TraderID=\'{26}\', InstallID={27}, OrderSubmitStatus=OrderSubmitStatusType.{28}, NotifySequence={29}, TradingDay=\'{30}\', SettlementID={31}, OrderSysID=\'{32}\', OrderSource=OrderSourceType.{33}, OrderStatus=OrderStatusType.{34}, OrderType=OrderTypeType.{35}, VolumeTraded={36}, VolumeTotal={37}, InsertDate=\'{38}\', InsertTime=\'{39}\', ActiveTime=\'{40}\', SuspendTime=\'{41}\', UpdateTime=\'{42}\', CancelTime=\'{43}\', ActiveTraderID=\'{44}\', ClearingPartID=\'{45}\', SequenceNo={46}, FrontID={47}, SessionID={48}, UserProductInfo=\'{49}\', StatusMsg=\'{50}\', UserForceClose={51}, ActiveUserID=\'{52}\', BrokerOrderSeq={53}, RelativeOrderSysID=\'{54}\', ZCETotalTradedVolume={55}, ErrorID={56}, ErrorMsg=\'{57}\', IsSwapOrder={58}, BranchID=\'{59}\', InvestUnitID=\'{60}\', AccountID=\'{61}\', CurrencyID=\'{62}\', IPAddress=\'{63}\', MacAddress=\'{64}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.OrderRef, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.OrderPriceType) == 0 else OrderPriceTypeType(ord(self.OrderPriceType)).name, '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, str(self.CombOffsetFlag, 'GB2312'), str(self.CombHedgeFlag, 'GB2312'), self.LimitPrice, self.VolumeTotalOriginal, '' if ord(self.TimeCondition) == 0 else TimeConditionType(ord(self.TimeCondition)).name, str(self.GTDDate, 'GB2312'), '' if ord(self.VolumeCondition) == 0 else VolumeConditionType(ord(self.VolumeCondition)).name, self.MinVolume, '' if ord(self.ContingentCondition) == 0 else ContingentConditionType(ord(self.ContingentCondition)).name, self.StopPrice, '' if ord(self.ForceCloseReason) == 0 else ForceCloseReasonType(ord(self.ForceCloseReason)).name, self.IsAutoSuspend, str(self.BusinessUnit, 'GB2312'), self.RequestID, str(self.OrderLocalID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.ExchangeInstID, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, '' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name, self.NotifySequence, str(self.TradingDay, 'GB2312'), self.SettlementID, str(self.OrderSysID, 'GB2312'), '' if ord(self.OrderSource) == 0 else OrderSourceType(ord(self.OrderSource)).name, '' if ord(self.OrderStatus) == 0 else OrderStatusType(ord(self.OrderStatus)).name, '' if ord(self.OrderType) == 0 else OrderTypeType(ord(self.OrderType)).name, self.VolumeTraded, self.VolumeTotal, str(self.InsertDate, 'GB2312'), str(self.InsertTime, 'GB2312'), str(self.ActiveTime, 'GB2312'), str(self.SuspendTime, 'GB2312'), str(self.UpdateTime, 'GB2312'), str(self.CancelTime, 'GB2312'), str(self.ActiveTraderID, 'GB2312'), str(self.ClearingPartID, 'GB2312'), self.SequenceNo, self.FrontID, self.SessionID, str(self.UserProductInfo, 'GB2312'), str(self.StatusMsg, 'GB2312'), self.UserForceClose, str(self.ActiveUserID, 'GB2312'), self.BrokerOrderSeq, str(self.RelativeOrderSysID, 'GB2312'), self.ZCETotalTradedVolume, self.ErrorID, str(self.ErrorMsg, 'GB2312'), self.IsSwapOrder, str(self.BranchID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'OrderRef':str(self.OrderRef, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'OrderPriceType':'' if ord(self.OrderPriceType) == 0 else OrderPriceTypeType(ord(self.OrderPriceType)).name,'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'CombOffsetFlag':str(self.CombOffsetFlag, 'GB2312'),'CombHedgeFlag':str(self.CombHedgeFlag, 'GB2312'),'LimitPrice':self.LimitPrice,'VolumeTotalOriginal':self.VolumeTotalOriginal,'TimeCondition':'' if ord(self.TimeCondition) == 0 else TimeConditionType(ord(self.TimeCondition)).name,'GTDDate':str(self.GTDDate, 'GB2312'),'VolumeCondition':'' if ord(self.VolumeCondition) == 0 else VolumeConditionType(ord(self.VolumeCondition)).name,'MinVolume':self.MinVolume,'ContingentCondition':'' if ord(self.ContingentCondition) == 0 else ContingentConditionType(ord(self.ContingentCondition)).name,'StopPrice':self.StopPrice,'ForceCloseReason':'' if ord(self.ForceCloseReason) == 0 else ForceCloseReasonType(ord(self.ForceCloseReason)).name,'IsAutoSuspend':self.IsAutoSuspend,'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'RequestID':self.RequestID,'OrderLocalID':str(self.OrderLocalID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'ExchangeInstID':str(self.ExchangeInstID, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'OrderSubmitStatus':'' if ord(self.OrderSubmitStatus) == 0 else OrderSubmitStatusType(ord(self.OrderSubmitStatus)).name,'NotifySequence':self.NotifySequence,'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'OrderSysID':str(self.OrderSysID, 'GB2312'),'OrderSource':'' if ord(self.OrderSource) == 0 else OrderSourceType(ord(self.OrderSource)).name,'OrderStatus':'' if ord(self.OrderStatus) == 0 else OrderStatusType(ord(self.OrderStatus)).name,'OrderType':'' if ord(self.OrderType) == 0 else OrderTypeType(ord(self.OrderType)).name,'VolumeTraded':self.VolumeTraded,'VolumeTotal':self.VolumeTotal,'InsertDate':str(self.InsertDate, 'GB2312'),'InsertTime':str(self.InsertTime, 'GB2312'),'ActiveTime':str(self.ActiveTime, 'GB2312'),'SuspendTime':str(self.SuspendTime, 'GB2312'),'UpdateTime':str(self.UpdateTime, 'GB2312'),'CancelTime':str(self.CancelTime, 'GB2312'),'ActiveTraderID':str(self.ActiveTraderID, 'GB2312'),'ClearingPartID':str(self.ClearingPartID, 'GB2312'),'SequenceNo':self.SequenceNo,'FrontID':self.FrontID,'SessionID':self.SessionID,'UserProductInfo':str(self.UserProductInfo, 'GB2312'),'StatusMsg':str(self.StatusMsg, 'GB2312'),'UserForceClose':self.UserForceClose,'ActiveUserID':str(self.ActiveUserID, 'GB2312'),'BrokerOrderSeq':self.BrokerOrderSeq,'RelativeOrderSysID':str(self.RelativeOrderSysID, 'GB2312'),'ZCETotalTradedVolume':self.ZCETotalTradedVolume,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312'),'IsSwapOrder':self.IsSwapOrder,'BranchID':str(self.BranchID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcErrorConditionalOrderField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.OrderRef=self.OrderRef
+		obj.UserID=self.UserID
+		obj.OrderPriceType=self.OrderPriceType
+		obj.Direction=self.Direction
+		obj.CombOffsetFlag=self.CombOffsetFlag
+		obj.CombHedgeFlag=self.CombHedgeFlag
+		obj.LimitPrice=self.LimitPrice
+		obj.VolumeTotalOriginal=self.VolumeTotalOriginal
+		obj.TimeCondition=self.TimeCondition
+		obj.GTDDate=self.GTDDate
+		obj.VolumeCondition=self.VolumeCondition
+		obj.MinVolume=self.MinVolume
+		obj.ContingentCondition=self.ContingentCondition
+		obj.StopPrice=self.StopPrice
+		obj.ForceCloseReason=self.ForceCloseReason
+		obj.IsAutoSuspend=self.IsAutoSuspend
+		obj.BusinessUnit=self.BusinessUnit
+		obj.RequestID=self.RequestID
+		obj.OrderLocalID=self.OrderLocalID
+		obj.ExchangeID=self.ExchangeID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.ExchangeInstID=self.ExchangeInstID
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.OrderSubmitStatus=self.OrderSubmitStatus
+		obj.NotifySequence=self.NotifySequence
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.OrderSysID=self.OrderSysID
+		obj.OrderSource=self.OrderSource
+		obj.OrderStatus=self.OrderStatus
+		obj.OrderType=self.OrderType
+		obj.VolumeTraded=self.VolumeTraded
+		obj.VolumeTotal=self.VolumeTotal
+		obj.InsertDate=self.InsertDate
+		obj.InsertTime=self.InsertTime
+		obj.ActiveTime=self.ActiveTime
+		obj.SuspendTime=self.SuspendTime
+		obj.UpdateTime=self.UpdateTime
+		obj.CancelTime=self.CancelTime
+		obj.ActiveTraderID=self.ActiveTraderID
+		obj.ClearingPartID=self.ClearingPartID
+		obj.SequenceNo=self.SequenceNo
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.UserProductInfo=self.UserProductInfo
+		obj.StatusMsg=self.StatusMsg
+		obj.UserForceClose=self.UserForceClose
+		obj.ActiveUserID=self.ActiveUserID
+		obj.BrokerOrderSeq=self.BrokerOrderSeq
+		obj.RelativeOrderSysID=self.RelativeOrderSysID
+		obj.ZCETotalTradedVolume=self.ZCETotalTradedVolume
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		obj.IsSwapOrder=self.IsSwapOrder
+		obj.BranchID=self.BranchID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.AccountID=self.AccountID
+		obj.CurrencyID=self.CurrencyID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		return obj
+
 class CThostFtdcQryErrOrderActionField(Structure):
 	"""查询错误报单操作"""
 	_fields_ = [
@@ -13139,6 +18006,16 @@ class CThostFtdcQryErrOrderActionField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryErrOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		return obj
 
 class CThostFtdcErrOrderActionField(Structure):
 	"""错误报单操作"""
@@ -13273,6 +18150,45 @@ class CThostFtdcErrOrderActionField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', OrderActionRef={2}, OrderRef=\'{3}\', RequestID={4}, FrontID={5}, SessionID={6}, ExchangeID=\'{7}\', OrderSysID=\'{8}\', ActionFlag=ActionFlagType.{9}, LimitPrice={10}, VolumeChange={11}, ActionDate=\'{12}\', ActionTime=\'{13}\', TraderID=\'{14}\', InstallID={15}, OrderLocalID=\'{16}\', ActionLocalID=\'{17}\', ParticipantID=\'{18}\', ClientID=\'{19}\', BusinessUnit=\'{20}\', OrderActionStatus=OrderActionStatusType.{21}, UserID=\'{22}\', StatusMsg=\'{23}\', InstrumentID=\'{24}\', BranchID=\'{25}\', InvestUnitID=\'{26}\', IPAddress=\'{27}\', MacAddress=\'{28}\', ErrorID={29}, ErrorMsg=\'{30}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.OrderActionRef, str(self.OrderRef, 'GB2312'), self.RequestID, self.FrontID, self.SessionID, str(self.ExchangeID, 'GB2312'), str(self.OrderSysID, 'GB2312'), '' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name, self.LimitPrice, self.VolumeChange, str(self.ActionDate, 'GB2312'), str(self.ActionTime, 'GB2312'), str(self.TraderID, 'GB2312'), self.InstallID, str(self.OrderLocalID, 'GB2312'), str(self.ActionLocalID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ClientID, 'GB2312'), str(self.BusinessUnit, 'GB2312'), '' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name, str(self.UserID, 'GB2312'), str(self.StatusMsg, 'GB2312'), str(self.InstrumentID, 'GB2312'), str(self.BranchID, 'GB2312'), str(self.InvestUnitID, 'GB2312'), str(self.IPAddress, 'GB2312'), str(self.MacAddress, 'GB2312'), self.ErrorID, str(self.ErrorMsg, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'OrderActionRef':self.OrderActionRef,'OrderRef':str(self.OrderRef, 'GB2312'),'RequestID':self.RequestID,'FrontID':self.FrontID,'SessionID':self.SessionID,'ExchangeID':str(self.ExchangeID, 'GB2312'),'OrderSysID':str(self.OrderSysID, 'GB2312'),'ActionFlag':'' if ord(self.ActionFlag) == 0 else ActionFlagType(ord(self.ActionFlag)).name,'LimitPrice':self.LimitPrice,'VolumeChange':self.VolumeChange,'ActionDate':str(self.ActionDate, 'GB2312'),'ActionTime':str(self.ActionTime, 'GB2312'),'TraderID':str(self.TraderID, 'GB2312'),'InstallID':self.InstallID,'OrderLocalID':str(self.OrderLocalID, 'GB2312'),'ActionLocalID':str(self.ActionLocalID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ClientID':str(self.ClientID, 'GB2312'),'BusinessUnit':str(self.BusinessUnit, 'GB2312'),'OrderActionStatus':'' if ord(self.OrderActionStatus) == 0 else OrderActionStatusType(ord(self.OrderActionStatus)).name,'UserID':str(self.UserID, 'GB2312'),'StatusMsg':str(self.StatusMsg, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'BranchID':str(self.BranchID, 'GB2312'),'InvestUnitID':str(self.InvestUnitID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312'),'MacAddress':str(self.MacAddress, 'GB2312'),'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcErrOrderActionField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.OrderActionRef=self.OrderActionRef
+		obj.OrderRef=self.OrderRef
+		obj.RequestID=self.RequestID
+		obj.FrontID=self.FrontID
+		obj.SessionID=self.SessionID
+		obj.ExchangeID=self.ExchangeID
+		obj.OrderSysID=self.OrderSysID
+		obj.ActionFlag=self.ActionFlag
+		obj.LimitPrice=self.LimitPrice
+		obj.VolumeChange=self.VolumeChange
+		obj.ActionDate=self.ActionDate
+		obj.ActionTime=self.ActionTime
+		obj.TraderID=self.TraderID
+		obj.InstallID=self.InstallID
+		obj.OrderLocalID=self.OrderLocalID
+		obj.ActionLocalID=self.ActionLocalID
+		obj.ParticipantID=self.ParticipantID
+		obj.ClientID=self.ClientID
+		obj.BusinessUnit=self.BusinessUnit
+		obj.OrderActionStatus=self.OrderActionStatus
+		obj.UserID=self.UserID
+		obj.StatusMsg=self.StatusMsg
+		obj.InstrumentID=self.InstrumentID
+		obj.BranchID=self.BranchID
+		obj.InvestUnitID=self.InvestUnitID
+		obj.IPAddress=self.IPAddress
+		obj.MacAddress=self.MacAddress
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
+
 class CThostFtdcQryExchangeSequenceField(Structure):
 	"""查询交易所状态"""
 	_fields_ = [
@@ -13285,6 +18201,15 @@ class CThostFtdcQryExchangeSequenceField(Structure):
 
 	def __str__(self):
 		return 'ExchangeID=\'{0}\''.format(str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryExchangeSequenceField()
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcExchangeSequenceField(Structure):
 	"""交易所状态"""
@@ -13306,6 +18231,17 @@ class CThostFtdcExchangeSequenceField(Structure):
 
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', SequenceNo={1}, MarketStatus=InstrumentStatusType.{2}'.format(str(self.ExchangeID, 'GB2312'), self.SequenceNo, '' if ord(self.MarketStatus) == 0 else InstrumentStatusType(ord(self.MarketStatus)).name)
+
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'SequenceNo':self.SequenceNo,'MarketStatus':'' if ord(self.MarketStatus) == 0 else InstrumentStatusType(ord(self.MarketStatus)).name}
+
+	def clone(self):
+		obj=CThostFtdcExchangeSequenceField()
+		obj.ExchangeID=self.ExchangeID
+		obj.SequenceNo=self.SequenceNo
+		obj.MarketStatus=self.MarketStatus
+		return obj
 
 class CThostFtdcQueryMaxOrderVolumeWithPriceField(Structure):
 	"""根据价格查询最大报单数量"""
@@ -13352,6 +18288,23 @@ class CThostFtdcQueryMaxOrderVolumeWithPriceField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', InstrumentID=\'{2}\', Direction=DirectionType.{3}, OffsetFlag=OffsetFlagType.{4}, HedgeFlag=HedgeFlagType.{5}, MaxVolume={6}, Price={7}, ExchangeID=\'{8}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, '' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, self.MaxVolume, self.Price, str(self.ExchangeID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'OffsetFlag':'' if ord(self.OffsetFlag) == 0 else OffsetFlagType(ord(self.OffsetFlag)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'MaxVolume':self.MaxVolume,'Price':self.Price,'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQueryMaxOrderVolumeWithPriceField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.InstrumentID=self.InstrumentID
+		obj.Direction=self.Direction
+		obj.OffsetFlag=self.OffsetFlag
+		obj.HedgeFlag=self.HedgeFlag
+		obj.MaxVolume=self.MaxVolume
+		obj.Price=self.Price
+		obj.ExchangeID=self.ExchangeID
+		return obj
+
 class CThostFtdcQryBrokerTradingParamsField(Structure):
 	"""查询经纪公司交易参数"""
 	_fields_ = [
@@ -13372,6 +18325,17 @@ class CThostFtdcQryBrokerTradingParamsField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', CurrencyID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.CurrencyID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryBrokerTradingParamsField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.CurrencyID=self.CurrencyID
+		return obj
 
 class CThostFtdcBrokerTradingParamsField(Structure):
 	"""经纪公司交易参数"""
@@ -13410,6 +18374,21 @@ class CThostFtdcBrokerTradingParamsField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', MarginPriceType=MarginPriceTypeType.{2}, Algorithm=AlgorithmType.{3}, AvailIncludeCloseProfit=IncludeCloseProfitType.{4}, CurrencyID=\'{5}\', OptionRoyaltyPriceType=OptionRoyaltyPriceTypeType.{6}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), '' if ord(self.MarginPriceType) == 0 else MarginPriceTypeType(ord(self.MarginPriceType)).name, '' if ord(self.Algorithm) == 0 else AlgorithmType(ord(self.Algorithm)).name, '' if ord(self.AvailIncludeCloseProfit) == 0 else IncludeCloseProfitType(ord(self.AvailIncludeCloseProfit)).name, str(self.CurrencyID, 'GB2312'), '' if ord(self.OptionRoyaltyPriceType) == 0 else OptionRoyaltyPriceTypeType(ord(self.OptionRoyaltyPriceType)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'MarginPriceType':'' if ord(self.MarginPriceType) == 0 else MarginPriceTypeType(ord(self.MarginPriceType)).name,'Algorithm':'' if ord(self.Algorithm) == 0 else AlgorithmType(ord(self.Algorithm)).name,'AvailIncludeCloseProfit':'' if ord(self.AvailIncludeCloseProfit) == 0 else IncludeCloseProfitType(ord(self.AvailIncludeCloseProfit)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'OptionRoyaltyPriceType':'' if ord(self.OptionRoyaltyPriceType) == 0 else OptionRoyaltyPriceTypeType(ord(self.OptionRoyaltyPriceType)).name}
+
+	def clone(self):
+		obj=CThostFtdcBrokerTradingParamsField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.MarginPriceType=self.MarginPriceType
+		obj.Algorithm=self.Algorithm
+		obj.AvailIncludeCloseProfit=self.AvailIncludeCloseProfit
+		obj.CurrencyID=self.CurrencyID
+		obj.OptionRoyaltyPriceType=self.OptionRoyaltyPriceType
+		return obj
+
 class CThostFtdcQryBrokerTradingAlgosField(Structure):
 	"""查询经纪公司交易算法"""
 	_fields_ = [
@@ -13430,6 +18409,17 @@ class CThostFtdcQryBrokerTradingAlgosField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', ExchangeID=\'{1}\', InstrumentID=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.InstrumentID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryBrokerTradingAlgosField()
+		obj.BrokerID=self.BrokerID
+		obj.ExchangeID=self.ExchangeID
+		obj.InstrumentID=self.InstrumentID
+		return obj
 
 class CThostFtdcBrokerTradingAlgosField(Structure):
 	"""经纪公司交易算法"""
@@ -13464,6 +18454,20 @@ class CThostFtdcBrokerTradingAlgosField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', ExchangeID=\'{1}\', InstrumentID=\'{2}\', HandlePositionAlgoID=HandlePositionAlgoIDType.{3}, FindMarginRateAlgoID=FindMarginRateAlgoIDType.{4}, HandleTradingAccountAlgoID=HandleTradingAccountAlgoIDType.{5}'.format(str(self.BrokerID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.HandlePositionAlgoID) == 0 else HandlePositionAlgoIDType(ord(self.HandlePositionAlgoID)).name, '' if ord(self.FindMarginRateAlgoID) == 0 else FindMarginRateAlgoIDType(ord(self.FindMarginRateAlgoID)).name, '' if ord(self.HandleTradingAccountAlgoID) == 0 else HandleTradingAccountAlgoIDType(ord(self.HandleTradingAccountAlgoID)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'HandlePositionAlgoID':'' if ord(self.HandlePositionAlgoID) == 0 else HandlePositionAlgoIDType(ord(self.HandlePositionAlgoID)).name,'FindMarginRateAlgoID':'' if ord(self.FindMarginRateAlgoID) == 0 else FindMarginRateAlgoIDType(ord(self.FindMarginRateAlgoID)).name,'HandleTradingAccountAlgoID':'' if ord(self.HandleTradingAccountAlgoID) == 0 else HandleTradingAccountAlgoIDType(ord(self.HandleTradingAccountAlgoID)).name}
+
+	def clone(self):
+		obj=CThostFtdcBrokerTradingAlgosField()
+		obj.BrokerID=self.BrokerID
+		obj.ExchangeID=self.ExchangeID
+		obj.InstrumentID=self.InstrumentID
+		obj.HandlePositionAlgoID=self.HandlePositionAlgoID
+		obj.FindMarginRateAlgoID=self.FindMarginRateAlgoID
+		obj.HandleTradingAccountAlgoID=self.HandleTradingAccountAlgoID
+		return obj
+
 class CThostFtdcQueryBrokerDepositField(Structure):
 	"""查询经纪公司资金"""
 	_fields_ = [
@@ -13480,6 +18484,16 @@ class CThostFtdcQueryBrokerDepositField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', ExchangeID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQueryBrokerDepositField()
+		obj.BrokerID=self.BrokerID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcBrokerDepositField(Structure):
 	"""经纪公司资金"""
@@ -13542,6 +18556,27 @@ class CThostFtdcBrokerDepositField(Structure):
 	def __str__(self):
 		return 'TradingDay=\'{0}\', BrokerID=\'{1}\', ParticipantID=\'{2}\', ExchangeID=\'{3}\', PreBalance={4}, CurrMargin={5}, CloseProfit={6}, Balance={7}, Deposit={8}, Withdraw={9}, Available={10}, Reserve={11}, FrozenMargin={12}'.format(str(self.TradingDay, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.ExchangeID, 'GB2312'), self.PreBalance, self.CurrMargin, self.CloseProfit, self.Balance, self.Deposit, self.Withdraw, self.Available, self.Reserve, self.FrozenMargin)
 
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'PreBalance':self.PreBalance,'CurrMargin':self.CurrMargin,'CloseProfit':self.CloseProfit,'Balance':self.Balance,'Deposit':self.Deposit,'Withdraw':self.Withdraw,'Available':self.Available,'Reserve':self.Reserve,'FrozenMargin':self.FrozenMargin}
+
+	def clone(self):
+		obj=CThostFtdcBrokerDepositField()
+		obj.TradingDay=self.TradingDay
+		obj.BrokerID=self.BrokerID
+		obj.ParticipantID=self.ParticipantID
+		obj.ExchangeID=self.ExchangeID
+		obj.PreBalance=self.PreBalance
+		obj.CurrMargin=self.CurrMargin
+		obj.CloseProfit=self.CloseProfit
+		obj.Balance=self.Balance
+		obj.Deposit=self.Deposit
+		obj.Withdraw=self.Withdraw
+		obj.Available=self.Available
+		obj.Reserve=self.Reserve
+		obj.FrozenMargin=self.FrozenMargin
+		return obj
+
 class CThostFtdcQryCFMMCBrokerKeyField(Structure):
 	"""查询保证金监管系统经纪公司密钥"""
 	_fields_ = [
@@ -13554,6 +18589,15 @@ class CThostFtdcQryCFMMCBrokerKeyField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\''.format(str(self.BrokerID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryCFMMCBrokerKeyField()
+		obj.BrokerID=self.BrokerID
+		return obj
 
 class CThostFtdcCFMMCBrokerKeyField(Structure):
 	"""保证金监管系统经纪公司密钥"""
@@ -13592,6 +18636,21 @@ class CThostFtdcCFMMCBrokerKeyField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', ParticipantID=\'{1}\', CreateDate=\'{2}\', CreateTime=\'{3}\', KeyID={4}, CurrentKey=\'{5}\', KeyKind=CFMMCKeyKindType.{6}'.format(str(self.BrokerID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.CreateDate, 'GB2312'), str(self.CreateTime, 'GB2312'), self.KeyID, str(self.CurrentKey, 'GB2312'), '' if ord(self.KeyKind) == 0 else CFMMCKeyKindType(ord(self.KeyKind)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'CreateDate':str(self.CreateDate, 'GB2312'),'CreateTime':str(self.CreateTime, 'GB2312'),'KeyID':self.KeyID,'CurrentKey':str(self.CurrentKey, 'GB2312'),'KeyKind':'' if ord(self.KeyKind) == 0 else CFMMCKeyKindType(ord(self.KeyKind)).name}
+
+	def clone(self):
+		obj=CThostFtdcCFMMCBrokerKeyField()
+		obj.BrokerID=self.BrokerID
+		obj.ParticipantID=self.ParticipantID
+		obj.CreateDate=self.CreateDate
+		obj.CreateTime=self.CreateTime
+		obj.KeyID=self.KeyID
+		obj.CurrentKey=self.CurrentKey
+		obj.KeyKind=self.KeyKind
+		return obj
+
 class CThostFtdcCFMMCTradingAccountKeyField(Structure):
 	"""保证金监管系统经纪公司资金账户密钥"""
 	_fields_ = [
@@ -13621,6 +18680,19 @@ class CThostFtdcCFMMCTradingAccountKeyField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', ParticipantID=\'{1}\', AccountID=\'{2}\', KeyID={3}, CurrentKey=\'{4}\''.format(str(self.BrokerID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.AccountID, 'GB2312'), self.KeyID, str(self.CurrentKey, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'KeyID':self.KeyID,'CurrentKey':str(self.CurrentKey, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcCFMMCTradingAccountKeyField()
+		obj.BrokerID=self.BrokerID
+		obj.ParticipantID=self.ParticipantID
+		obj.AccountID=self.AccountID
+		obj.KeyID=self.KeyID
+		obj.CurrentKey=self.CurrentKey
+		return obj
+
 class CThostFtdcQryCFMMCTradingAccountKeyField(Structure):
 	"""请求查询保证金监管系统经纪公司资金账户密钥"""
 	_fields_ = [
@@ -13637,6 +18709,16 @@ class CThostFtdcQryCFMMCTradingAccountKeyField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryCFMMCTradingAccountKeyField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		return obj
 
 class CThostFtdcBrokerUserOTPParamField(Structure):
 	"""用户动态令牌参数"""
@@ -13679,6 +18761,22 @@ class CThostFtdcBrokerUserOTPParamField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', OTPVendorsID=\'{2}\', SerialNumber=\'{3}\', AuthKey=\'{4}\', LastDrift={5}, LastSuccess={6}, OTPType=OTPTypeType.{7}'.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.OTPVendorsID, 'GB2312'), str(self.SerialNumber, 'GB2312'), str(self.AuthKey, 'GB2312'), self.LastDrift, self.LastSuccess, '' if ord(self.OTPType) == 0 else OTPTypeType(ord(self.OTPType)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'OTPVendorsID':str(self.OTPVendorsID, 'GB2312'),'SerialNumber':str(self.SerialNumber, 'GB2312'),'AuthKey':str(self.AuthKey, 'GB2312'),'LastDrift':self.LastDrift,'LastSuccess':self.LastSuccess,'OTPType':'' if ord(self.OTPType) == 0 else OTPTypeType(ord(self.OTPType)).name}
+
+	def clone(self):
+		obj=CThostFtdcBrokerUserOTPParamField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.OTPVendorsID=self.OTPVendorsID
+		obj.SerialNumber=self.SerialNumber
+		obj.AuthKey=self.AuthKey
+		obj.LastDrift=self.LastDrift
+		obj.LastSuccess=self.LastSuccess
+		obj.OTPType=self.OTPType
+		return obj
+
 class CThostFtdcManualSyncBrokerUserOTPField(Structure):
 	"""手工同步用户动态令牌"""
 	_fields_ = [
@@ -13708,6 +18806,19 @@ class CThostFtdcManualSyncBrokerUserOTPField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', OTPType=OTPTypeType.{2}, FirstOTP=\'{3}\', SecondOTP=\'{4}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.OTPType) == 0 else OTPTypeType(ord(self.OTPType)).name, str(self.FirstOTP, 'GB2312'), str(self.SecondOTP, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'OTPType':'' if ord(self.OTPType) == 0 else OTPTypeType(ord(self.OTPType)).name,'FirstOTP':str(self.FirstOTP, 'GB2312'),'SecondOTP':str(self.SecondOTP, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcManualSyncBrokerUserOTPField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.OTPType=self.OTPType
+		obj.FirstOTP=self.FirstOTP
+		obj.SecondOTP=self.SecondOTP
+		return obj
+
 class CThostFtdcCommRateModelField(Structure):
 	"""投资者手续费率模板"""
 	_fields_ = [
@@ -13729,6 +18840,17 @@ class CThostFtdcCommRateModelField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', CommModelID=\'{1}\', CommModelName=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.CommModelID, 'GB2312'), str(self.CommModelName, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'CommModelID':str(self.CommModelID, 'GB2312'),'CommModelName':str(self.CommModelName, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcCommRateModelField()
+		obj.BrokerID=self.BrokerID
+		obj.CommModelID=self.CommModelID
+		obj.CommModelName=self.CommModelName
+		return obj
+
 class CThostFtdcQryCommRateModelField(Structure):
 	"""请求查询投资者手续费率模板"""
 	_fields_ = [
@@ -13745,6 +18867,16 @@ class CThostFtdcQryCommRateModelField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', CommModelID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.CommModelID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'CommModelID':str(self.CommModelID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryCommRateModelField()
+		obj.BrokerID=self.BrokerID
+		obj.CommModelID=self.CommModelID
+		return obj
 
 class CThostFtdcMarginModelField(Structure):
 	"""投资者保证金率模板"""
@@ -13767,6 +18899,17 @@ class CThostFtdcMarginModelField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', MarginModelID=\'{1}\', MarginModelName=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.MarginModelID, 'GB2312'), str(self.MarginModelName, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'MarginModelID':str(self.MarginModelID, 'GB2312'),'MarginModelName':str(self.MarginModelName, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcMarginModelField()
+		obj.BrokerID=self.BrokerID
+		obj.MarginModelID=self.MarginModelID
+		obj.MarginModelName=self.MarginModelName
+		return obj
+
 class CThostFtdcQryMarginModelField(Structure):
 	"""请求查询投资者保证金率模板"""
 	_fields_ = [
@@ -13783,6 +18926,16 @@ class CThostFtdcQryMarginModelField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', MarginModelID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.MarginModelID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'MarginModelID':str(self.MarginModelID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryMarginModelField()
+		obj.BrokerID=self.BrokerID
+		obj.MarginModelID=self.MarginModelID
+		return obj
 
 class CThostFtdcEWarrantOffsetField(Structure):
 	"""仓单折抵信息"""
@@ -13825,6 +18978,22 @@ class CThostFtdcEWarrantOffsetField(Structure):
 	def __str__(self):
 		return 'TradingDay=\'{0}\', BrokerID=\'{1}\', InvestorID=\'{2}\', ExchangeID=\'{3}\', InstrumentID=\'{4}\', Direction=DirectionType.{5}, HedgeFlag=HedgeFlagType.{6}, Volume={7}'.format(str(self.TradingDay, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.InstrumentID, 'GB2312'), '' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name, self.Volume)
 
+	@property
+	def __dict__(self):
+		return {'TradingDay':str(self.TradingDay, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312'),'Direction':'' if ord(self.Direction) == 0 else DirectionType(ord(self.Direction)).name,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name,'Volume':self.Volume}
+
+	def clone(self):
+		obj=CThostFtdcEWarrantOffsetField()
+		obj.TradingDay=self.TradingDay
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		obj.InstrumentID=self.InstrumentID
+		obj.Direction=self.Direction
+		obj.HedgeFlag=self.HedgeFlag
+		obj.Volume=self.Volume
+		return obj
+
 class CThostFtdcQryEWarrantOffsetField(Structure):
 	"""查询仓单折抵信息"""
 	_fields_ = [
@@ -13850,6 +19019,18 @@ class CThostFtdcQryEWarrantOffsetField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ExchangeID=\'{2}\', InstrumentID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.InstrumentID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'InstrumentID':str(self.InstrumentID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryEWarrantOffsetField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ExchangeID=self.ExchangeID
+		obj.InstrumentID=self.InstrumentID
+		return obj
+
 class CThostFtdcQryInvestorProductGroupMarginField(Structure):
 	"""查询投资者品种/跨品种保证金"""
 	_fields_ = [
@@ -13874,6 +19055,18 @@ class CThostFtdcQryInvestorProductGroupMarginField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\', ProductGroupID=\'{2}\', HedgeFlag=HedgeFlagType.{3}'.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.ProductGroupID, 'GB2312'), '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name)
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'ProductGroupID':str(self.ProductGroupID, 'GB2312'),'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name}
+
+	def clone(self):
+		obj=CThostFtdcQryInvestorProductGroupMarginField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.ProductGroupID=self.ProductGroupID
+		obj.HedgeFlag=self.HedgeFlag
+		return obj
 
 class CThostFtdcInvestorProductGroupMarginField(Structure):
 	"""投资者品种/跨品种保证金"""
@@ -13992,6 +19185,41 @@ class CThostFtdcInvestorProductGroupMarginField(Structure):
 	def __str__(self):
 		return 'ProductGroupID=\'{0}\', BrokerID=\'{1}\', InvestorID=\'{2}\', TradingDay=\'{3}\', SettlementID={4}, FrozenMargin={5}, LongFrozenMargin={6}, ShortFrozenMargin={7}, UseMargin={8}, LongUseMargin={9}, ShortUseMargin={10}, ExchMargin={11}, LongExchMargin={12}, ShortExchMargin={13}, CloseProfit={14}, FrozenCommission={15}, Commission={16}, FrozenCash={17}, CashIn={18}, PositionProfit={19}, OffsetAmount={20}, LongOffsetAmount={21}, ShortOffsetAmount={22}, ExchOffsetAmount={23}, LongExchOffsetAmount={24}, ShortExchOffsetAmount={25}, HedgeFlag=HedgeFlagType.{26}'.format(str(self.ProductGroupID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), str(self.TradingDay, 'GB2312'), self.SettlementID, self.FrozenMargin, self.LongFrozenMargin, self.ShortFrozenMargin, self.UseMargin, self.LongUseMargin, self.ShortUseMargin, self.ExchMargin, self.LongExchMargin, self.ShortExchMargin, self.CloseProfit, self.FrozenCommission, self.Commission, self.FrozenCash, self.CashIn, self.PositionProfit, self.OffsetAmount, self.LongOffsetAmount, self.ShortOffsetAmount, self.ExchOffsetAmount, self.LongExchOffsetAmount, self.ShortExchOffsetAmount, '' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name)
 
+	@property
+	def __dict__(self):
+		return {'ProductGroupID':str(self.ProductGroupID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'SettlementID':self.SettlementID,'FrozenMargin':self.FrozenMargin,'LongFrozenMargin':self.LongFrozenMargin,'ShortFrozenMargin':self.ShortFrozenMargin,'UseMargin':self.UseMargin,'LongUseMargin':self.LongUseMargin,'ShortUseMargin':self.ShortUseMargin,'ExchMargin':self.ExchMargin,'LongExchMargin':self.LongExchMargin,'ShortExchMargin':self.ShortExchMargin,'CloseProfit':self.CloseProfit,'FrozenCommission':self.FrozenCommission,'Commission':self.Commission,'FrozenCash':self.FrozenCash,'CashIn':self.CashIn,'PositionProfit':self.PositionProfit,'OffsetAmount':self.OffsetAmount,'LongOffsetAmount':self.LongOffsetAmount,'ShortOffsetAmount':self.ShortOffsetAmount,'ExchOffsetAmount':self.ExchOffsetAmount,'LongExchOffsetAmount':self.LongExchOffsetAmount,'ShortExchOffsetAmount':self.ShortExchOffsetAmount,'HedgeFlag':'' if ord(self.HedgeFlag) == 0 else HedgeFlagType(ord(self.HedgeFlag)).name}
+
+	def clone(self):
+		obj=CThostFtdcInvestorProductGroupMarginField()
+		obj.ProductGroupID=self.ProductGroupID
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.TradingDay=self.TradingDay
+		obj.SettlementID=self.SettlementID
+		obj.FrozenMargin=self.FrozenMargin
+		obj.LongFrozenMargin=self.LongFrozenMargin
+		obj.ShortFrozenMargin=self.ShortFrozenMargin
+		obj.UseMargin=self.UseMargin
+		obj.LongUseMargin=self.LongUseMargin
+		obj.ShortUseMargin=self.ShortUseMargin
+		obj.ExchMargin=self.ExchMargin
+		obj.LongExchMargin=self.LongExchMargin
+		obj.ShortExchMargin=self.ShortExchMargin
+		obj.CloseProfit=self.CloseProfit
+		obj.FrozenCommission=self.FrozenCommission
+		obj.Commission=self.Commission
+		obj.FrozenCash=self.FrozenCash
+		obj.CashIn=self.CashIn
+		obj.PositionProfit=self.PositionProfit
+		obj.OffsetAmount=self.OffsetAmount
+		obj.LongOffsetAmount=self.LongOffsetAmount
+		obj.ShortOffsetAmount=self.ShortOffsetAmount
+		obj.ExchOffsetAmount=self.ExchOffsetAmount
+		obj.LongExchOffsetAmount=self.LongExchOffsetAmount
+		obj.ShortExchOffsetAmount=self.ShortExchOffsetAmount
+		obj.HedgeFlag=self.HedgeFlag
+		return obj
+
 class CThostFtdcQueryCFMMCTradingAccountTokenField(Structure):
 	"""查询监控中心用户令牌"""
 	_fields_ = [
@@ -14008,6 +19236,16 @@ class CThostFtdcQueryCFMMCTradingAccountTokenField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', InvestorID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQueryCFMMCTradingAccountTokenField()
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		return obj
 
 class CThostFtdcCFMMCTradingAccountTokenField(Structure):
 	"""监控中心用户令牌"""
@@ -14038,6 +19276,19 @@ class CThostFtdcCFMMCTradingAccountTokenField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', ParticipantID=\'{1}\', AccountID=\'{2}\', KeyID={3}, Token=\'{4}\''.format(str(self.BrokerID, 'GB2312'), str(self.ParticipantID, 'GB2312'), str(self.AccountID, 'GB2312'), self.KeyID, str(self.Token, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'ParticipantID':str(self.ParticipantID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'KeyID':self.KeyID,'Token':str(self.Token, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcCFMMCTradingAccountTokenField()
+		obj.BrokerID=self.BrokerID
+		obj.ParticipantID=self.ParticipantID
+		obj.AccountID=self.AccountID
+		obj.KeyID=self.KeyID
+		obj.Token=self.Token
+		return obj
+
 class CThostFtdcInstructionRightField(Structure):
 	"""投资者指令权限"""
 	_fields_ = [
@@ -14067,6 +19318,19 @@ class CThostFtdcInstructionRightField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', ExchangeID=\'{1}\', InvestorID=\'{2}\', InstructionRight=InstructionRightTypeType.{3}, IsForbidden={4}'.format(str(self.BrokerID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.InvestorID, 'GB2312'), '' if ord(self.InstructionRight) == 0 else InstructionRightTypeType(ord(self.InstructionRight)).name, self.IsForbidden)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'InstructionRight':'' if ord(self.InstructionRight) == 0 else InstructionRightTypeType(ord(self.InstructionRight)).name,'IsForbidden':self.IsForbidden}
+
+	def clone(self):
+		obj=CThostFtdcInstructionRightField()
+		obj.BrokerID=self.BrokerID
+		obj.ExchangeID=self.ExchangeID
+		obj.InvestorID=self.InvestorID
+		obj.InstructionRight=self.InstructionRight
+		obj.IsForbidden=self.IsForbidden
+		return obj
+
 class CThostFtdcQryProductGroupField(Structure):
 	"""查询产品组"""
 	_fields_ = [
@@ -14083,6 +19347,16 @@ class CThostFtdcQryProductGroupField(Structure):
 
 	def __str__(self):
 		return 'ProductID=\'{0}\', ExchangeID=\'{1}\''.format(str(self.ProductID, 'GB2312'), str(self.ExchangeID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ProductID':str(self.ProductID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryProductGroupField()
+		obj.ProductID=self.ProductID
+		obj.ExchangeID=self.ExchangeID
+		return obj
 
 class CThostFtdcProductGroupField(Structure):
 	"""投资者品种/跨品种保证金产品组"""
@@ -14104,6 +19378,17 @@ class CThostFtdcProductGroupField(Structure):
 
 	def __str__(self):
 		return 'ProductID=\'{0}\', ExchangeID=\'{1}\', ProductGroupID=\'{2}\''.format(str(self.ProductID, 'GB2312'), str(self.ExchangeID, 'GB2312'), str(self.ProductGroupID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ProductID':str(self.ProductID, 'GB2312'),'ExchangeID':str(self.ExchangeID, 'GB2312'),'ProductGroupID':str(self.ProductGroupID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcProductGroupField()
+		obj.ProductID=self.ProductID
+		obj.ExchangeID=self.ExchangeID
+		obj.ProductGroupID=self.ProductGroupID
+		return obj
 
 class CThostFtdcBulletinField(Structure):
 	"""交易所公告"""
@@ -14162,6 +19447,26 @@ class CThostFtdcBulletinField(Structure):
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', TradingDay=\'{1}\', BulletinID={2}, SequenceNo={3}, NewsType=\'{4}\', NewsUrgency=NewsUrgencyType.{5}, SendTime=\'{6}\', Abstract=\'{7}\', ComeFrom=\'{8}\', Content=\'{9}\', URLLink=\'{10}\', MarketID=\'{11}\''.format(str(self.ExchangeID, 'GB2312'), str(self.TradingDay, 'GB2312'), self.BulletinID, self.SequenceNo, str(self.NewsType, 'GB2312'), '' if ord(self.NewsUrgency) == 0 else NewsUrgencyType(ord(self.NewsUrgency)).name, str(self.SendTime, 'GB2312'), str(self.Abstract, 'GB2312'), str(self.ComeFrom, 'GB2312'), str(self.Content, 'GB2312'), str(self.URLLink, 'GB2312'), str(self.MarketID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'BulletinID':self.BulletinID,'SequenceNo':self.SequenceNo,'NewsType':str(self.NewsType, 'GB2312'),'NewsUrgency':'' if ord(self.NewsUrgency) == 0 else NewsUrgencyType(ord(self.NewsUrgency)).name,'SendTime':str(self.SendTime, 'GB2312'),'Abstract':str(self.Abstract, 'GB2312'),'ComeFrom':str(self.ComeFrom, 'GB2312'),'Content':str(self.Content, 'GB2312'),'URLLink':str(self.URLLink, 'GB2312'),'MarketID':str(self.MarketID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcBulletinField()
+		obj.ExchangeID=self.ExchangeID
+		obj.TradingDay=self.TradingDay
+		obj.BulletinID=self.BulletinID
+		obj.SequenceNo=self.SequenceNo
+		obj.NewsType=self.NewsType
+		obj.NewsUrgency=self.NewsUrgency
+		obj.SendTime=self.SendTime
+		obj.Abstract=self.Abstract
+		obj.ComeFrom=self.ComeFrom
+		obj.Content=self.Content
+		obj.URLLink=self.URLLink
+		obj.MarketID=self.MarketID
+		return obj
+
 class CThostFtdcQryBulletinField(Structure):
 	"""查询交易所公告"""
 	_fields_ = [
@@ -14190,6 +19495,19 @@ class CThostFtdcQryBulletinField(Structure):
 
 	def __str__(self):
 		return 'ExchangeID=\'{0}\', BulletinID={1}, SequenceNo={2}, NewsType=\'{3}\', NewsUrgency=NewsUrgencyType.{4}'.format(str(self.ExchangeID, 'GB2312'), self.BulletinID, self.SequenceNo, str(self.NewsType, 'GB2312'), '' if ord(self.NewsUrgency) == 0 else NewsUrgencyType(ord(self.NewsUrgency)).name)
+
+	@property
+	def __dict__(self):
+		return {'ExchangeID':str(self.ExchangeID, 'GB2312'),'BulletinID':self.BulletinID,'SequenceNo':self.SequenceNo,'NewsType':str(self.NewsType, 'GB2312'),'NewsUrgency':'' if ord(self.NewsUrgency) == 0 else NewsUrgencyType(ord(self.NewsUrgency)).name}
+
+	def clone(self):
+		obj=CThostFtdcQryBulletinField()
+		obj.ExchangeID=self.ExchangeID
+		obj.BulletinID=self.BulletinID
+		obj.SequenceNo=self.SequenceNo
+		obj.NewsType=self.NewsType
+		obj.NewsUrgency=self.NewsUrgency
+		return obj
 
 class CThostFtdcReqOpenAccountField(Structure):
 	"""转帐开户请求"""
@@ -14376,6 +19694,58 @@ class CThostFtdcReqOpenAccountField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, CustomerName=\'{12}\', IdCardType=IdCardTypeType.{13}, IdentifiedCardNo=\'{14}\', Gender=GenderType.{15}, CountryCode=\'{16}\', CustType=CustTypeType.{17}, Address=\'{18}\', ZipCode=\'{19}\', Telephone=\'{20}\', MobilePhone=\'{21}\', Fax=\'{22}\', EMail=\'{23}\', MoneyAccountStatus=MoneyAccountStatusType.{24}, BankAccount=\'{25}\', BankPassWord=\'{26}\', AccountID=\'{27}\', Password=\'{28}\', InstallID={29}, VerifyCertNoFlag=YesNoIndicatorType.{30}, CurrencyID=\'{31}\', CashExchangeCode=CashExchangeCodeType.{32}, Digest=\'{33}\', BankAccType=BankAccTypeType.{34}, DeviceID=\'{35}\', BankSecuAccType=BankAccTypeType.{36}, BrokerIDByBank=\'{37}\', BankSecuAcc=\'{38}\', BankPwdFlag=PwdFlagType.{39}, SecuPwdFlag=PwdFlagType.{40}, OperNo=\'{41}\', TID={42}, UserID=\'{43}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.Gender) == 0 else GenderType(ord(self.Gender)).name, str(self.CountryCode, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.Address, 'GB2312'), str(self.ZipCode, 'GB2312'), str(self.Telephone, 'GB2312'), str(self.MobilePhone, 'GB2312'), str(self.Fax, 'GB2312'), str(self.EMail, 'GB2312'), '' if ord(self.MoneyAccountStatus) == 0 else MoneyAccountStatusType(ord(self.MoneyAccountStatus)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), self.InstallID, '' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name, str(self.CurrencyID, 'GB2312'), '' if ord(self.CashExchangeCode) == 0 else CashExchangeCodeType(ord(self.CashExchangeCode)).name, str(self.Digest, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, str(self.DeviceID, 'GB2312'), '' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name, str(self.BrokerIDByBank, 'GB2312'), str(self.BankSecuAcc, 'GB2312'), '' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name, '' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name, str(self.OperNo, 'GB2312'), self.TID, str(self.UserID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'Gender':'' if ord(self.Gender) == 0 else GenderType(ord(self.Gender)).name,'CountryCode':str(self.CountryCode, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'Address':str(self.Address, 'GB2312'),'ZipCode':str(self.ZipCode, 'GB2312'),'Telephone':str(self.Telephone, 'GB2312'),'MobilePhone':str(self.MobilePhone, 'GB2312'),'Fax':str(self.Fax, 'GB2312'),'EMail':str(self.EMail, 'GB2312'),'MoneyAccountStatus':'' if ord(self.MoneyAccountStatus) == 0 else MoneyAccountStatusType(ord(self.MoneyAccountStatus)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'InstallID':self.InstallID,'VerifyCertNoFlag':'' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'CashExchangeCode':'' if ord(self.CashExchangeCode) == 0 else CashExchangeCodeType(ord(self.CashExchangeCode)).name,'Digest':str(self.Digest, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'DeviceID':str(self.DeviceID, 'GB2312'),'BankSecuAccType':'' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name,'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'BankSecuAcc':str(self.BankSecuAcc, 'GB2312'),'BankPwdFlag':'' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name,'SecuPwdFlag':'' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name,'OperNo':str(self.OperNo, 'GB2312'),'TID':self.TID,'UserID':str(self.UserID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcReqOpenAccountField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.Gender=self.Gender
+		obj.CountryCode=self.CountryCode
+		obj.CustType=self.CustType
+		obj.Address=self.Address
+		obj.ZipCode=self.ZipCode
+		obj.Telephone=self.Telephone
+		obj.MobilePhone=self.MobilePhone
+		obj.Fax=self.Fax
+		obj.EMail=self.EMail
+		obj.MoneyAccountStatus=self.MoneyAccountStatus
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.InstallID=self.InstallID
+		obj.VerifyCertNoFlag=self.VerifyCertNoFlag
+		obj.CurrencyID=self.CurrencyID
+		obj.CashExchangeCode=self.CashExchangeCode
+		obj.Digest=self.Digest
+		obj.BankAccType=self.BankAccType
+		obj.DeviceID=self.DeviceID
+		obj.BankSecuAccType=self.BankSecuAccType
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.BankSecuAcc=self.BankSecuAcc
+		obj.BankPwdFlag=self.BankPwdFlag
+		obj.SecuPwdFlag=self.SecuPwdFlag
+		obj.OperNo=self.OperNo
+		obj.TID=self.TID
+		obj.UserID=self.UserID
+		return obj
+
 class CThostFtdcReqCancelAccountField(Structure):
 	"""转帐销户请求"""
 	_fields_ = [
@@ -14561,6 +19931,58 @@ class CThostFtdcReqCancelAccountField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, CustomerName=\'{12}\', IdCardType=IdCardTypeType.{13}, IdentifiedCardNo=\'{14}\', Gender=GenderType.{15}, CountryCode=\'{16}\', CustType=CustTypeType.{17}, Address=\'{18}\', ZipCode=\'{19}\', Telephone=\'{20}\', MobilePhone=\'{21}\', Fax=\'{22}\', EMail=\'{23}\', MoneyAccountStatus=MoneyAccountStatusType.{24}, BankAccount=\'{25}\', BankPassWord=\'{26}\', AccountID=\'{27}\', Password=\'{28}\', InstallID={29}, VerifyCertNoFlag=YesNoIndicatorType.{30}, CurrencyID=\'{31}\', CashExchangeCode=CashExchangeCodeType.{32}, Digest=\'{33}\', BankAccType=BankAccTypeType.{34}, DeviceID=\'{35}\', BankSecuAccType=BankAccTypeType.{36}, BrokerIDByBank=\'{37}\', BankSecuAcc=\'{38}\', BankPwdFlag=PwdFlagType.{39}, SecuPwdFlag=PwdFlagType.{40}, OperNo=\'{41}\', TID={42}, UserID=\'{43}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.Gender) == 0 else GenderType(ord(self.Gender)).name, str(self.CountryCode, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.Address, 'GB2312'), str(self.ZipCode, 'GB2312'), str(self.Telephone, 'GB2312'), str(self.MobilePhone, 'GB2312'), str(self.Fax, 'GB2312'), str(self.EMail, 'GB2312'), '' if ord(self.MoneyAccountStatus) == 0 else MoneyAccountStatusType(ord(self.MoneyAccountStatus)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), self.InstallID, '' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name, str(self.CurrencyID, 'GB2312'), '' if ord(self.CashExchangeCode) == 0 else CashExchangeCodeType(ord(self.CashExchangeCode)).name, str(self.Digest, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, str(self.DeviceID, 'GB2312'), '' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name, str(self.BrokerIDByBank, 'GB2312'), str(self.BankSecuAcc, 'GB2312'), '' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name, '' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name, str(self.OperNo, 'GB2312'), self.TID, str(self.UserID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'Gender':'' if ord(self.Gender) == 0 else GenderType(ord(self.Gender)).name,'CountryCode':str(self.CountryCode, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'Address':str(self.Address, 'GB2312'),'ZipCode':str(self.ZipCode, 'GB2312'),'Telephone':str(self.Telephone, 'GB2312'),'MobilePhone':str(self.MobilePhone, 'GB2312'),'Fax':str(self.Fax, 'GB2312'),'EMail':str(self.EMail, 'GB2312'),'MoneyAccountStatus':'' if ord(self.MoneyAccountStatus) == 0 else MoneyAccountStatusType(ord(self.MoneyAccountStatus)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'InstallID':self.InstallID,'VerifyCertNoFlag':'' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'CashExchangeCode':'' if ord(self.CashExchangeCode) == 0 else CashExchangeCodeType(ord(self.CashExchangeCode)).name,'Digest':str(self.Digest, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'DeviceID':str(self.DeviceID, 'GB2312'),'BankSecuAccType':'' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name,'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'BankSecuAcc':str(self.BankSecuAcc, 'GB2312'),'BankPwdFlag':'' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name,'SecuPwdFlag':'' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name,'OperNo':str(self.OperNo, 'GB2312'),'TID':self.TID,'UserID':str(self.UserID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcReqCancelAccountField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.Gender=self.Gender
+		obj.CountryCode=self.CountryCode
+		obj.CustType=self.CustType
+		obj.Address=self.Address
+		obj.ZipCode=self.ZipCode
+		obj.Telephone=self.Telephone
+		obj.MobilePhone=self.MobilePhone
+		obj.Fax=self.Fax
+		obj.EMail=self.EMail
+		obj.MoneyAccountStatus=self.MoneyAccountStatus
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.InstallID=self.InstallID
+		obj.VerifyCertNoFlag=self.VerifyCertNoFlag
+		obj.CurrencyID=self.CurrencyID
+		obj.CashExchangeCode=self.CashExchangeCode
+		obj.Digest=self.Digest
+		obj.BankAccType=self.BankAccType
+		obj.DeviceID=self.DeviceID
+		obj.BankSecuAccType=self.BankSecuAccType
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.BankSecuAcc=self.BankSecuAcc
+		obj.BankPwdFlag=self.BankPwdFlag
+		obj.SecuPwdFlag=self.SecuPwdFlag
+		obj.OperNo=self.OperNo
+		obj.TID=self.TID
+		obj.UserID=self.UserID
+		return obj
+
 class CThostFtdcReqChangeAccountField(Structure):
 	"""变更银行账户请求"""
 	_fields_ = [
@@ -14729,6 +20151,54 @@ class CThostFtdcReqChangeAccountField(Structure):
 
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, CustomerName=\'{12}\', IdCardType=IdCardTypeType.{13}, IdentifiedCardNo=\'{14}\', Gender=GenderType.{15}, CountryCode=\'{16}\', CustType=CustTypeType.{17}, Address=\'{18}\', ZipCode=\'{19}\', Telephone=\'{20}\', MobilePhone=\'{21}\', Fax=\'{22}\', EMail=\'{23}\', MoneyAccountStatus=MoneyAccountStatusType.{24}, BankAccount=\'{25}\', BankPassWord=\'{26}\', NewBankAccount=\'{27}\', NewBankPassWord=\'{28}\', AccountID=\'{29}\', Password=\'{30}\', BankAccType=BankAccTypeType.{31}, InstallID={32}, VerifyCertNoFlag=YesNoIndicatorType.{33}, CurrencyID=\'{34}\', BrokerIDByBank=\'{35}\', BankPwdFlag=PwdFlagType.{36}, SecuPwdFlag=PwdFlagType.{37}, TID={38}, Digest=\'{39}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.Gender) == 0 else GenderType(ord(self.Gender)).name, str(self.CountryCode, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.Address, 'GB2312'), str(self.ZipCode, 'GB2312'), str(self.Telephone, 'GB2312'), str(self.MobilePhone, 'GB2312'), str(self.Fax, 'GB2312'), str(self.EMail, 'GB2312'), '' if ord(self.MoneyAccountStatus) == 0 else MoneyAccountStatusType(ord(self.MoneyAccountStatus)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.NewBankAccount, 'GB2312'), str(self.NewBankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, self.InstallID, '' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name, str(self.CurrencyID, 'GB2312'), str(self.BrokerIDByBank, 'GB2312'), '' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name, '' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name, self.TID, str(self.Digest, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'Gender':'' if ord(self.Gender) == 0 else GenderType(ord(self.Gender)).name,'CountryCode':str(self.CountryCode, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'Address':str(self.Address, 'GB2312'),'ZipCode':str(self.ZipCode, 'GB2312'),'Telephone':str(self.Telephone, 'GB2312'),'MobilePhone':str(self.MobilePhone, 'GB2312'),'Fax':str(self.Fax, 'GB2312'),'EMail':str(self.EMail, 'GB2312'),'MoneyAccountStatus':'' if ord(self.MoneyAccountStatus) == 0 else MoneyAccountStatusType(ord(self.MoneyAccountStatus)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'NewBankAccount':str(self.NewBankAccount, 'GB2312'),'NewBankPassWord':str(self.NewBankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'InstallID':self.InstallID,'VerifyCertNoFlag':'' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'BankPwdFlag':'' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name,'SecuPwdFlag':'' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name,'TID':self.TID,'Digest':str(self.Digest, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcReqChangeAccountField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.Gender=self.Gender
+		obj.CountryCode=self.CountryCode
+		obj.CustType=self.CustType
+		obj.Address=self.Address
+		obj.ZipCode=self.ZipCode
+		obj.Telephone=self.Telephone
+		obj.MobilePhone=self.MobilePhone
+		obj.Fax=self.Fax
+		obj.EMail=self.EMail
+		obj.MoneyAccountStatus=self.MoneyAccountStatus
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.NewBankAccount=self.NewBankAccount
+		obj.NewBankPassWord=self.NewBankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.BankAccType=self.BankAccType
+		obj.InstallID=self.InstallID
+		obj.VerifyCertNoFlag=self.VerifyCertNoFlag
+		obj.CurrencyID=self.CurrencyID
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.BankPwdFlag=self.BankPwdFlag
+		obj.SecuPwdFlag=self.SecuPwdFlag
+		obj.TID=self.TID
+		obj.Digest=self.Digest
+		return obj
 
 class CThostFtdcReqTransferField(Structure):
 	"""转账请求"""
@@ -14910,6 +20380,57 @@ class CThostFtdcReqTransferField(Structure):
 
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, CustomerName=\'{12}\', IdCardType=IdCardTypeType.{13}, IdentifiedCardNo=\'{14}\', CustType=CustTypeType.{15}, BankAccount=\'{16}\', BankPassWord=\'{17}\', AccountID=\'{18}\', Password=\'{19}\', InstallID={20}, FutureSerial={21}, UserID=\'{22}\', VerifyCertNoFlag=YesNoIndicatorType.{23}, CurrencyID=\'{24}\', TradeAmount={25}, FutureFetchAmount={26}, FeePayFlag=FeePayFlagType.{27}, CustFee={28}, BrokerFee={29}, Message=\'{30}\', Digest=\'{31}\', BankAccType=BankAccTypeType.{32}, DeviceID=\'{33}\', BankSecuAccType=BankAccTypeType.{34}, BrokerIDByBank=\'{35}\', BankSecuAcc=\'{36}\', BankPwdFlag=PwdFlagType.{37}, SecuPwdFlag=PwdFlagType.{38}, OperNo=\'{39}\', RequestID={40}, TID={41}, TransferStatus=TransferStatusType.{42}'.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), self.InstallID, self.FutureSerial, str(self.UserID, 'GB2312'), '' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name, str(self.CurrencyID, 'GB2312'), self.TradeAmount, self.FutureFetchAmount, '' if ord(self.FeePayFlag) == 0 else FeePayFlagType(ord(self.FeePayFlag)).name, self.CustFee, self.BrokerFee, str(self.Message, 'GB2312'), str(self.Digest, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, str(self.DeviceID, 'GB2312'), '' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name, str(self.BrokerIDByBank, 'GB2312'), str(self.BankSecuAcc, 'GB2312'), '' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name, '' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name, str(self.OperNo, 'GB2312'), self.RequestID, self.TID, '' if ord(self.TransferStatus) == 0 else TransferStatusType(ord(self.TransferStatus)).name)
+
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'InstallID':self.InstallID,'FutureSerial':self.FutureSerial,'UserID':str(self.UserID, 'GB2312'),'VerifyCertNoFlag':'' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'TradeAmount':self.TradeAmount,'FutureFetchAmount':self.FutureFetchAmount,'FeePayFlag':'' if ord(self.FeePayFlag) == 0 else FeePayFlagType(ord(self.FeePayFlag)).name,'CustFee':self.CustFee,'BrokerFee':self.BrokerFee,'Message':str(self.Message, 'GB2312'),'Digest':str(self.Digest, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'DeviceID':str(self.DeviceID, 'GB2312'),'BankSecuAccType':'' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name,'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'BankSecuAcc':str(self.BankSecuAcc, 'GB2312'),'BankPwdFlag':'' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name,'SecuPwdFlag':'' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name,'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID,'TransferStatus':'' if ord(self.TransferStatus) == 0 else TransferStatusType(ord(self.TransferStatus)).name}
+
+	def clone(self):
+		obj=CThostFtdcReqTransferField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.CustType=self.CustType
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.InstallID=self.InstallID
+		obj.FutureSerial=self.FutureSerial
+		obj.UserID=self.UserID
+		obj.VerifyCertNoFlag=self.VerifyCertNoFlag
+		obj.CurrencyID=self.CurrencyID
+		obj.TradeAmount=self.TradeAmount
+		obj.FutureFetchAmount=self.FutureFetchAmount
+		obj.FeePayFlag=self.FeePayFlag
+		obj.CustFee=self.CustFee
+		obj.BrokerFee=self.BrokerFee
+		obj.Message=self.Message
+		obj.Digest=self.Digest
+		obj.BankAccType=self.BankAccType
+		obj.DeviceID=self.DeviceID
+		obj.BankSecuAccType=self.BankSecuAccType
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.BankSecuAcc=self.BankSecuAcc
+		obj.BankPwdFlag=self.BankPwdFlag
+		obj.SecuPwdFlag=self.SecuPwdFlag
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		obj.TransferStatus=self.TransferStatus
+		return obj
 
 class CThostFtdcRspTransferField(Structure):
 	"""银行发起银行资金转期货响应"""
@@ -15099,6 +20620,59 @@ class CThostFtdcRspTransferField(Structure):
 
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, CustomerName=\'{12}\', IdCardType=IdCardTypeType.{13}, IdentifiedCardNo=\'{14}\', CustType=CustTypeType.{15}, BankAccount=\'{16}\', BankPassWord=\'{17}\', AccountID=\'{18}\', Password=\'{19}\', InstallID={20}, FutureSerial={21}, UserID=\'{22}\', VerifyCertNoFlag=YesNoIndicatorType.{23}, CurrencyID=\'{24}\', TradeAmount={25}, FutureFetchAmount={26}, FeePayFlag=FeePayFlagType.{27}, CustFee={28}, BrokerFee={29}, Message=\'{30}\', Digest=\'{31}\', BankAccType=BankAccTypeType.{32}, DeviceID=\'{33}\', BankSecuAccType=BankAccTypeType.{34}, BrokerIDByBank=\'{35}\', BankSecuAcc=\'{36}\', BankPwdFlag=PwdFlagType.{37}, SecuPwdFlag=PwdFlagType.{38}, OperNo=\'{39}\', RequestID={40}, TID={41}, TransferStatus=TransferStatusType.{42}, ErrorID={43}, ErrorMsg=\'{44}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), self.InstallID, self.FutureSerial, str(self.UserID, 'GB2312'), '' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name, str(self.CurrencyID, 'GB2312'), self.TradeAmount, self.FutureFetchAmount, '' if ord(self.FeePayFlag) == 0 else FeePayFlagType(ord(self.FeePayFlag)).name, self.CustFee, self.BrokerFee, str(self.Message, 'GB2312'), str(self.Digest, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, str(self.DeviceID, 'GB2312'), '' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name, str(self.BrokerIDByBank, 'GB2312'), str(self.BankSecuAcc, 'GB2312'), '' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name, '' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name, str(self.OperNo, 'GB2312'), self.RequestID, self.TID, '' if ord(self.TransferStatus) == 0 else TransferStatusType(ord(self.TransferStatus)).name, self.ErrorID, str(self.ErrorMsg, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'InstallID':self.InstallID,'FutureSerial':self.FutureSerial,'UserID':str(self.UserID, 'GB2312'),'VerifyCertNoFlag':'' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'TradeAmount':self.TradeAmount,'FutureFetchAmount':self.FutureFetchAmount,'FeePayFlag':'' if ord(self.FeePayFlag) == 0 else FeePayFlagType(ord(self.FeePayFlag)).name,'CustFee':self.CustFee,'BrokerFee':self.BrokerFee,'Message':str(self.Message, 'GB2312'),'Digest':str(self.Digest, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'DeviceID':str(self.DeviceID, 'GB2312'),'BankSecuAccType':'' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name,'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'BankSecuAcc':str(self.BankSecuAcc, 'GB2312'),'BankPwdFlag':'' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name,'SecuPwdFlag':'' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name,'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID,'TransferStatus':'' if ord(self.TransferStatus) == 0 else TransferStatusType(ord(self.TransferStatus)).name,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcRspTransferField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.CustType=self.CustType
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.InstallID=self.InstallID
+		obj.FutureSerial=self.FutureSerial
+		obj.UserID=self.UserID
+		obj.VerifyCertNoFlag=self.VerifyCertNoFlag
+		obj.CurrencyID=self.CurrencyID
+		obj.TradeAmount=self.TradeAmount
+		obj.FutureFetchAmount=self.FutureFetchAmount
+		obj.FeePayFlag=self.FeePayFlag
+		obj.CustFee=self.CustFee
+		obj.BrokerFee=self.BrokerFee
+		obj.Message=self.Message
+		obj.Digest=self.Digest
+		obj.BankAccType=self.BankAccType
+		obj.DeviceID=self.DeviceID
+		obj.BankSecuAccType=self.BankSecuAccType
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.BankSecuAcc=self.BankSecuAcc
+		obj.BankPwdFlag=self.BankPwdFlag
+		obj.SecuPwdFlag=self.SecuPwdFlag
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		obj.TransferStatus=self.TransferStatus
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
 
 class CThostFtdcReqRepealField(Structure):
 	"""冲正请求"""
@@ -15308,6 +20882,64 @@ class CThostFtdcReqRepealField(Structure):
 
 	def __str__(self):
 		return 'RepealTimeInterval={0}, RepealedTimes={1}, BankRepealFlag=BankRepealFlagType.{2}, BrokerRepealFlag=BrokerRepealFlagType.{3}, PlateRepealSerial={4}, BankRepealSerial=\'{5}\', FutureRepealSerial={6}, TradeCode=\'{7}\', BankID=\'{8}\', BankBranchID=\'{9}\', BrokerID=\'{10}\', BrokerBranchID=\'{11}\', TradeDate=\'{12}\', TradeTime=\'{13}\', BankSerial=\'{14}\', TradingDay=\'{15}\', PlateSerial={16}, LastFragment=LastFragmentType.{17}, SessionID={18}, CustomerName=\'{19}\', IdCardType=IdCardTypeType.{20}, IdentifiedCardNo=\'{21}\', CustType=CustTypeType.{22}, BankAccount=\'{23}\', BankPassWord=\'{24}\', AccountID=\'{25}\', Password=\'{26}\', InstallID={27}, FutureSerial={28}, UserID=\'{29}\', VerifyCertNoFlag=YesNoIndicatorType.{30}, CurrencyID=\'{31}\', TradeAmount={32}, FutureFetchAmount={33}, FeePayFlag=FeePayFlagType.{34}, CustFee={35}, BrokerFee={36}, Message=\'{37}\', Digest=\'{38}\', BankAccType=BankAccTypeType.{39}, DeviceID=\'{40}\', BankSecuAccType=BankAccTypeType.{41}, BrokerIDByBank=\'{42}\', BankSecuAcc=\'{43}\', BankPwdFlag=PwdFlagType.{44}, SecuPwdFlag=PwdFlagType.{45}, OperNo=\'{46}\', RequestID={47}, TID={48}, TransferStatus=TransferStatusType.{49}'.format(self.RepealTimeInterval, self.RepealedTimes, '' if ord(self.BankRepealFlag) == 0 else BankRepealFlagType(ord(self.BankRepealFlag)).name, '' if ord(self.BrokerRepealFlag) == 0 else BrokerRepealFlagType(ord(self.BrokerRepealFlag)).name, self.PlateRepealSerial, str(self.BankRepealSerial, 'GB2312'), self.FutureRepealSerial, str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), self.InstallID, self.FutureSerial, str(self.UserID, 'GB2312'), '' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name, str(self.CurrencyID, 'GB2312'), self.TradeAmount, self.FutureFetchAmount, '' if ord(self.FeePayFlag) == 0 else FeePayFlagType(ord(self.FeePayFlag)).name, self.CustFee, self.BrokerFee, str(self.Message, 'GB2312'), str(self.Digest, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, str(self.DeviceID, 'GB2312'), '' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name, str(self.BrokerIDByBank, 'GB2312'), str(self.BankSecuAcc, 'GB2312'), '' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name, '' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name, str(self.OperNo, 'GB2312'), self.RequestID, self.TID, '' if ord(self.TransferStatus) == 0 else TransferStatusType(ord(self.TransferStatus)).name)
+
+	@property
+	def __dict__(self):
+		return {'RepealTimeInterval':self.RepealTimeInterval,'RepealedTimes':self.RepealedTimes,'BankRepealFlag':'' if ord(self.BankRepealFlag) == 0 else BankRepealFlagType(ord(self.BankRepealFlag)).name,'BrokerRepealFlag':'' if ord(self.BrokerRepealFlag) == 0 else BrokerRepealFlagType(ord(self.BrokerRepealFlag)).name,'PlateRepealSerial':self.PlateRepealSerial,'BankRepealSerial':str(self.BankRepealSerial, 'GB2312'),'FutureRepealSerial':self.FutureRepealSerial,'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'InstallID':self.InstallID,'FutureSerial':self.FutureSerial,'UserID':str(self.UserID, 'GB2312'),'VerifyCertNoFlag':'' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'TradeAmount':self.TradeAmount,'FutureFetchAmount':self.FutureFetchAmount,'FeePayFlag':'' if ord(self.FeePayFlag) == 0 else FeePayFlagType(ord(self.FeePayFlag)).name,'CustFee':self.CustFee,'BrokerFee':self.BrokerFee,'Message':str(self.Message, 'GB2312'),'Digest':str(self.Digest, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'DeviceID':str(self.DeviceID, 'GB2312'),'BankSecuAccType':'' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name,'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'BankSecuAcc':str(self.BankSecuAcc, 'GB2312'),'BankPwdFlag':'' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name,'SecuPwdFlag':'' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name,'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID,'TransferStatus':'' if ord(self.TransferStatus) == 0 else TransferStatusType(ord(self.TransferStatus)).name}
+
+	def clone(self):
+		obj=CThostFtdcReqRepealField()
+		obj.RepealTimeInterval=self.RepealTimeInterval
+		obj.RepealedTimes=self.RepealedTimes
+		obj.BankRepealFlag=self.BankRepealFlag
+		obj.BrokerRepealFlag=self.BrokerRepealFlag
+		obj.PlateRepealSerial=self.PlateRepealSerial
+		obj.BankRepealSerial=self.BankRepealSerial
+		obj.FutureRepealSerial=self.FutureRepealSerial
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.CustType=self.CustType
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.InstallID=self.InstallID
+		obj.FutureSerial=self.FutureSerial
+		obj.UserID=self.UserID
+		obj.VerifyCertNoFlag=self.VerifyCertNoFlag
+		obj.CurrencyID=self.CurrencyID
+		obj.TradeAmount=self.TradeAmount
+		obj.FutureFetchAmount=self.FutureFetchAmount
+		obj.FeePayFlag=self.FeePayFlag
+		obj.CustFee=self.CustFee
+		obj.BrokerFee=self.BrokerFee
+		obj.Message=self.Message
+		obj.Digest=self.Digest
+		obj.BankAccType=self.BankAccType
+		obj.DeviceID=self.DeviceID
+		obj.BankSecuAccType=self.BankSecuAccType
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.BankSecuAcc=self.BankSecuAcc
+		obj.BankPwdFlag=self.BankPwdFlag
+		obj.SecuPwdFlag=self.SecuPwdFlag
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		obj.TransferStatus=self.TransferStatus
+		return obj
 
 class CThostFtdcRspRepealField(Structure):
 	"""冲正响应"""
@@ -15526,6 +21158,66 @@ class CThostFtdcRspRepealField(Structure):
 	def __str__(self):
 		return 'RepealTimeInterval={0}, RepealedTimes={1}, BankRepealFlag=BankRepealFlagType.{2}, BrokerRepealFlag=BrokerRepealFlagType.{3}, PlateRepealSerial={4}, BankRepealSerial=\'{5}\', FutureRepealSerial={6}, TradeCode=\'{7}\', BankID=\'{8}\', BankBranchID=\'{9}\', BrokerID=\'{10}\', BrokerBranchID=\'{11}\', TradeDate=\'{12}\', TradeTime=\'{13}\', BankSerial=\'{14}\', TradingDay=\'{15}\', PlateSerial={16}, LastFragment=LastFragmentType.{17}, SessionID={18}, CustomerName=\'{19}\', IdCardType=IdCardTypeType.{20}, IdentifiedCardNo=\'{21}\', CustType=CustTypeType.{22}, BankAccount=\'{23}\', BankPassWord=\'{24}\', AccountID=\'{25}\', Password=\'{26}\', InstallID={27}, FutureSerial={28}, UserID=\'{29}\', VerifyCertNoFlag=YesNoIndicatorType.{30}, CurrencyID=\'{31}\', TradeAmount={32}, FutureFetchAmount={33}, FeePayFlag=FeePayFlagType.{34}, CustFee={35}, BrokerFee={36}, Message=\'{37}\', Digest=\'{38}\', BankAccType=BankAccTypeType.{39}, DeviceID=\'{40}\', BankSecuAccType=BankAccTypeType.{41}, BrokerIDByBank=\'{42}\', BankSecuAcc=\'{43}\', BankPwdFlag=PwdFlagType.{44}, SecuPwdFlag=PwdFlagType.{45}, OperNo=\'{46}\', RequestID={47}, TID={48}, TransferStatus=TransferStatusType.{49}, ErrorID={50}, ErrorMsg=\'{51}\''.format(self.RepealTimeInterval, self.RepealedTimes, '' if ord(self.BankRepealFlag) == 0 else BankRepealFlagType(ord(self.BankRepealFlag)).name, '' if ord(self.BrokerRepealFlag) == 0 else BrokerRepealFlagType(ord(self.BrokerRepealFlag)).name, self.PlateRepealSerial, str(self.BankRepealSerial, 'GB2312'), self.FutureRepealSerial, str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), self.InstallID, self.FutureSerial, str(self.UserID, 'GB2312'), '' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name, str(self.CurrencyID, 'GB2312'), self.TradeAmount, self.FutureFetchAmount, '' if ord(self.FeePayFlag) == 0 else FeePayFlagType(ord(self.FeePayFlag)).name, self.CustFee, self.BrokerFee, str(self.Message, 'GB2312'), str(self.Digest, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, str(self.DeviceID, 'GB2312'), '' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name, str(self.BrokerIDByBank, 'GB2312'), str(self.BankSecuAcc, 'GB2312'), '' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name, '' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name, str(self.OperNo, 'GB2312'), self.RequestID, self.TID, '' if ord(self.TransferStatus) == 0 else TransferStatusType(ord(self.TransferStatus)).name, self.ErrorID, str(self.ErrorMsg, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'RepealTimeInterval':self.RepealTimeInterval,'RepealedTimes':self.RepealedTimes,'BankRepealFlag':'' if ord(self.BankRepealFlag) == 0 else BankRepealFlagType(ord(self.BankRepealFlag)).name,'BrokerRepealFlag':'' if ord(self.BrokerRepealFlag) == 0 else BrokerRepealFlagType(ord(self.BrokerRepealFlag)).name,'PlateRepealSerial':self.PlateRepealSerial,'BankRepealSerial':str(self.BankRepealSerial, 'GB2312'),'FutureRepealSerial':self.FutureRepealSerial,'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'InstallID':self.InstallID,'FutureSerial':self.FutureSerial,'UserID':str(self.UserID, 'GB2312'),'VerifyCertNoFlag':'' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'TradeAmount':self.TradeAmount,'FutureFetchAmount':self.FutureFetchAmount,'FeePayFlag':'' if ord(self.FeePayFlag) == 0 else FeePayFlagType(ord(self.FeePayFlag)).name,'CustFee':self.CustFee,'BrokerFee':self.BrokerFee,'Message':str(self.Message, 'GB2312'),'Digest':str(self.Digest, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'DeviceID':str(self.DeviceID, 'GB2312'),'BankSecuAccType':'' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name,'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'BankSecuAcc':str(self.BankSecuAcc, 'GB2312'),'BankPwdFlag':'' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name,'SecuPwdFlag':'' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name,'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID,'TransferStatus':'' if ord(self.TransferStatus) == 0 else TransferStatusType(ord(self.TransferStatus)).name,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcRspRepealField()
+		obj.RepealTimeInterval=self.RepealTimeInterval
+		obj.RepealedTimes=self.RepealedTimes
+		obj.BankRepealFlag=self.BankRepealFlag
+		obj.BrokerRepealFlag=self.BrokerRepealFlag
+		obj.PlateRepealSerial=self.PlateRepealSerial
+		obj.BankRepealSerial=self.BankRepealSerial
+		obj.FutureRepealSerial=self.FutureRepealSerial
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.CustType=self.CustType
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.InstallID=self.InstallID
+		obj.FutureSerial=self.FutureSerial
+		obj.UserID=self.UserID
+		obj.VerifyCertNoFlag=self.VerifyCertNoFlag
+		obj.CurrencyID=self.CurrencyID
+		obj.TradeAmount=self.TradeAmount
+		obj.FutureFetchAmount=self.FutureFetchAmount
+		obj.FeePayFlag=self.FeePayFlag
+		obj.CustFee=self.CustFee
+		obj.BrokerFee=self.BrokerFee
+		obj.Message=self.Message
+		obj.Digest=self.Digest
+		obj.BankAccType=self.BankAccType
+		obj.DeviceID=self.DeviceID
+		obj.BankSecuAccType=self.BankSecuAccType
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.BankSecuAcc=self.BankSecuAcc
+		obj.BankPwdFlag=self.BankPwdFlag
+		obj.SecuPwdFlag=self.SecuPwdFlag
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		obj.TransferStatus=self.TransferStatus
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
+
 class CThostFtdcReqQueryAccountField(Structure):
 	"""查询账户信息请求"""
 	_fields_ = [
@@ -15678,6 +21370,50 @@ class CThostFtdcReqQueryAccountField(Structure):
 
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, CustomerName=\'{12}\', IdCardType=IdCardTypeType.{13}, IdentifiedCardNo=\'{14}\', CustType=CustTypeType.{15}, BankAccount=\'{16}\', BankPassWord=\'{17}\', AccountID=\'{18}\', Password=\'{19}\', FutureSerial={20}, InstallID={21}, UserID=\'{22}\', VerifyCertNoFlag=YesNoIndicatorType.{23}, CurrencyID=\'{24}\', Digest=\'{25}\', BankAccType=BankAccTypeType.{26}, DeviceID=\'{27}\', BankSecuAccType=BankAccTypeType.{28}, BrokerIDByBank=\'{29}\', BankSecuAcc=\'{30}\', BankPwdFlag=PwdFlagType.{31}, SecuPwdFlag=PwdFlagType.{32}, OperNo=\'{33}\', RequestID={34}, TID={35}'.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), self.FutureSerial, self.InstallID, str(self.UserID, 'GB2312'), '' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name, str(self.CurrencyID, 'GB2312'), str(self.Digest, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, str(self.DeviceID, 'GB2312'), '' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name, str(self.BrokerIDByBank, 'GB2312'), str(self.BankSecuAcc, 'GB2312'), '' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name, '' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name, str(self.OperNo, 'GB2312'), self.RequestID, self.TID)
+
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'FutureSerial':self.FutureSerial,'InstallID':self.InstallID,'UserID':str(self.UserID, 'GB2312'),'VerifyCertNoFlag':'' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'Digest':str(self.Digest, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'DeviceID':str(self.DeviceID, 'GB2312'),'BankSecuAccType':'' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name,'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'BankSecuAcc':str(self.BankSecuAcc, 'GB2312'),'BankPwdFlag':'' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name,'SecuPwdFlag':'' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name,'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID}
+
+	def clone(self):
+		obj=CThostFtdcReqQueryAccountField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.CustType=self.CustType
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.FutureSerial=self.FutureSerial
+		obj.InstallID=self.InstallID
+		obj.UserID=self.UserID
+		obj.VerifyCertNoFlag=self.VerifyCertNoFlag
+		obj.CurrencyID=self.CurrencyID
+		obj.Digest=self.Digest
+		obj.BankAccType=self.BankAccType
+		obj.DeviceID=self.DeviceID
+		obj.BankSecuAccType=self.BankSecuAccType
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.BankSecuAcc=self.BankSecuAcc
+		obj.BankPwdFlag=self.BankPwdFlag
+		obj.SecuPwdFlag=self.SecuPwdFlag
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		return obj
 
 class CThostFtdcRspQueryAccountField(Structure):
 	"""查询账户信息响应"""
@@ -15840,6 +21576,52 @@ class CThostFtdcRspQueryAccountField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, CustomerName=\'{12}\', IdCardType=IdCardTypeType.{13}, IdentifiedCardNo=\'{14}\', CustType=CustTypeType.{15}, BankAccount=\'{16}\', BankPassWord=\'{17}\', AccountID=\'{18}\', Password=\'{19}\', FutureSerial={20}, InstallID={21}, UserID=\'{22}\', VerifyCertNoFlag=YesNoIndicatorType.{23}, CurrencyID=\'{24}\', Digest=\'{25}\', BankAccType=BankAccTypeType.{26}, DeviceID=\'{27}\', BankSecuAccType=BankAccTypeType.{28}, BrokerIDByBank=\'{29}\', BankSecuAcc=\'{30}\', BankPwdFlag=PwdFlagType.{31}, SecuPwdFlag=PwdFlagType.{32}, OperNo=\'{33}\', RequestID={34}, TID={35}, BankUseAmount={36}, BankFetchAmount={37}'.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), self.FutureSerial, self.InstallID, str(self.UserID, 'GB2312'), '' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name, str(self.CurrencyID, 'GB2312'), str(self.Digest, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, str(self.DeviceID, 'GB2312'), '' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name, str(self.BrokerIDByBank, 'GB2312'), str(self.BankSecuAcc, 'GB2312'), '' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name, '' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name, str(self.OperNo, 'GB2312'), self.RequestID, self.TID, self.BankUseAmount, self.BankFetchAmount)
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'FutureSerial':self.FutureSerial,'InstallID':self.InstallID,'UserID':str(self.UserID, 'GB2312'),'VerifyCertNoFlag':'' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'Digest':str(self.Digest, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'DeviceID':str(self.DeviceID, 'GB2312'),'BankSecuAccType':'' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name,'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'BankSecuAcc':str(self.BankSecuAcc, 'GB2312'),'BankPwdFlag':'' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name,'SecuPwdFlag':'' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name,'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID,'BankUseAmount':self.BankUseAmount,'BankFetchAmount':self.BankFetchAmount}
+
+	def clone(self):
+		obj=CThostFtdcRspQueryAccountField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.CustType=self.CustType
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.FutureSerial=self.FutureSerial
+		obj.InstallID=self.InstallID
+		obj.UserID=self.UserID
+		obj.VerifyCertNoFlag=self.VerifyCertNoFlag
+		obj.CurrencyID=self.CurrencyID
+		obj.Digest=self.Digest
+		obj.BankAccType=self.BankAccType
+		obj.DeviceID=self.DeviceID
+		obj.BankSecuAccType=self.BankSecuAccType
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.BankSecuAcc=self.BankSecuAcc
+		obj.BankPwdFlag=self.BankPwdFlag
+		obj.SecuPwdFlag=self.SecuPwdFlag
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		obj.BankUseAmount=self.BankUseAmount
+		obj.BankFetchAmount=self.BankFetchAmount
+		return obj
+
 class CThostFtdcFutureSignIOField(Structure):
 	"""期商签到签退"""
 	_fields_ = [
@@ -15932,6 +21714,35 @@ class CThostFtdcFutureSignIOField(Structure):
 
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, InstallID={12}, UserID=\'{13}\', Digest=\'{14}\', CurrencyID=\'{15}\', DeviceID=\'{16}\', BrokerIDByBank=\'{17}\', OperNo=\'{18}\', RequestID={19}, TID={20}'.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, self.InstallID, str(self.UserID, 'GB2312'), str(self.Digest, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.DeviceID, 'GB2312'), str(self.BrokerIDByBank, 'GB2312'), str(self.OperNo, 'GB2312'), self.RequestID, self.TID)
+
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'InstallID':self.InstallID,'UserID':str(self.UserID, 'GB2312'),'Digest':str(self.Digest, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'DeviceID':str(self.DeviceID, 'GB2312'),'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID}
+
+	def clone(self):
+		obj=CThostFtdcFutureSignIOField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.InstallID=self.InstallID
+		obj.UserID=self.UserID
+		obj.Digest=self.Digest
+		obj.CurrencyID=self.CurrencyID
+		obj.DeviceID=self.DeviceID
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		return obj
 
 class CThostFtdcRspFutureSignInField(Structure):
 	"""期商签到响应"""
@@ -16042,6 +21853,39 @@ class CThostFtdcRspFutureSignInField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, InstallID={12}, UserID=\'{13}\', Digest=\'{14}\', CurrencyID=\'{15}\', DeviceID=\'{16}\', BrokerIDByBank=\'{17}\', OperNo=\'{18}\', RequestID={19}, TID={20}, ErrorID={21}, ErrorMsg=\'{22}\', PinKey=\'{23}\', MacKey=\'{24}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, self.InstallID, str(self.UserID, 'GB2312'), str(self.Digest, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.DeviceID, 'GB2312'), str(self.BrokerIDByBank, 'GB2312'), str(self.OperNo, 'GB2312'), self.RequestID, self.TID, self.ErrorID, str(self.ErrorMsg, 'GB2312'), str(self.PinKey, 'GB2312'), str(self.MacKey, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'InstallID':self.InstallID,'UserID':str(self.UserID, 'GB2312'),'Digest':str(self.Digest, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'DeviceID':str(self.DeviceID, 'GB2312'),'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312'),'PinKey':str(self.PinKey, 'GB2312'),'MacKey':str(self.MacKey, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcRspFutureSignInField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.InstallID=self.InstallID
+		obj.UserID=self.UserID
+		obj.Digest=self.Digest
+		obj.CurrencyID=self.CurrencyID
+		obj.DeviceID=self.DeviceID
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		obj.PinKey=self.PinKey
+		obj.MacKey=self.MacKey
+		return obj
+
 class CThostFtdcReqFutureSignOutField(Structure):
 	"""期商签退请求"""
 	_fields_ = [
@@ -16134,6 +21978,35 @@ class CThostFtdcReqFutureSignOutField(Structure):
 
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, InstallID={12}, UserID=\'{13}\', Digest=\'{14}\', CurrencyID=\'{15}\', DeviceID=\'{16}\', BrokerIDByBank=\'{17}\', OperNo=\'{18}\', RequestID={19}, TID={20}'.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, self.InstallID, str(self.UserID, 'GB2312'), str(self.Digest, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.DeviceID, 'GB2312'), str(self.BrokerIDByBank, 'GB2312'), str(self.OperNo, 'GB2312'), self.RequestID, self.TID)
+
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'InstallID':self.InstallID,'UserID':str(self.UserID, 'GB2312'),'Digest':str(self.Digest, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'DeviceID':str(self.DeviceID, 'GB2312'),'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID}
+
+	def clone(self):
+		obj=CThostFtdcReqFutureSignOutField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.InstallID=self.InstallID
+		obj.UserID=self.UserID
+		obj.Digest=self.Digest
+		obj.CurrencyID=self.CurrencyID
+		obj.DeviceID=self.DeviceID
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		return obj
 
 class CThostFtdcRspFutureSignOutField(Structure):
 	"""期商签退响应"""
@@ -16235,6 +22108,37 @@ class CThostFtdcRspFutureSignOutField(Structure):
 
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, InstallID={12}, UserID=\'{13}\', Digest=\'{14}\', CurrencyID=\'{15}\', DeviceID=\'{16}\', BrokerIDByBank=\'{17}\', OperNo=\'{18}\', RequestID={19}, TID={20}, ErrorID={21}, ErrorMsg=\'{22}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, self.InstallID, str(self.UserID, 'GB2312'), str(self.Digest, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.DeviceID, 'GB2312'), str(self.BrokerIDByBank, 'GB2312'), str(self.OperNo, 'GB2312'), self.RequestID, self.TID, self.ErrorID, str(self.ErrorMsg, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'InstallID':self.InstallID,'UserID':str(self.UserID, 'GB2312'),'Digest':str(self.Digest, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'DeviceID':str(self.DeviceID, 'GB2312'),'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcRspFutureSignOutField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.InstallID=self.InstallID
+		obj.UserID=self.UserID
+		obj.Digest=self.Digest
+		obj.CurrencyID=self.CurrencyID
+		obj.DeviceID=self.DeviceID
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
 
 class CThostFtdcReqQueryTradeResultBySerialField(Structure):
 	"""查询指定流水号的交易结果请求"""
@@ -16349,6 +22253,40 @@ class CThostFtdcReqQueryTradeResultBySerialField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, Reference={12}, RefrenceIssureType=InstitutionTypeType.{13}, RefrenceIssure=\'{14}\', CustomerName=\'{15}\', IdCardType=IdCardTypeType.{16}, IdentifiedCardNo=\'{17}\', CustType=CustTypeType.{18}, BankAccount=\'{19}\', BankPassWord=\'{20}\', AccountID=\'{21}\', Password=\'{22}\', CurrencyID=\'{23}\', TradeAmount={24}, Digest=\'{25}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, self.Reference, '' if ord(self.RefrenceIssureType) == 0 else InstitutionTypeType(ord(self.RefrenceIssureType)).name, str(self.RefrenceIssure, 'GB2312'), str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), str(self.CurrencyID, 'GB2312'), self.TradeAmount, str(self.Digest, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'Reference':self.Reference,'RefrenceIssureType':'' if ord(self.RefrenceIssureType) == 0 else InstitutionTypeType(ord(self.RefrenceIssureType)).name,'RefrenceIssure':str(self.RefrenceIssure, 'GB2312'),'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'TradeAmount':self.TradeAmount,'Digest':str(self.Digest, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcReqQueryTradeResultBySerialField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.Reference=self.Reference
+		obj.RefrenceIssureType=self.RefrenceIssureType
+		obj.RefrenceIssure=self.RefrenceIssure
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.CustType=self.CustType
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.CurrencyID=self.CurrencyID
+		obj.TradeAmount=self.TradeAmount
+		obj.Digest=self.Digest
+		return obj
+
 class CThostFtdcRspQueryTradeResultBySerialField(Structure):
 	"""查询指定流水号的交易结果响应"""
 	_fields_ = [
@@ -16462,6 +22400,40 @@ class CThostFtdcRspQueryTradeResultBySerialField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, ErrorID={12}, ErrorMsg=\'{13}\', Reference={14}, RefrenceIssureType=InstitutionTypeType.{15}, RefrenceIssure=\'{16}\', OriginReturnCode=\'{17}\', OriginDescrInfoForReturnCode=\'{18}\', BankAccount=\'{19}\', BankPassWord=\'{20}\', AccountID=\'{21}\', Password=\'{22}\', CurrencyID=\'{23}\', TradeAmount={24}, Digest=\'{25}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, self.ErrorID, str(self.ErrorMsg, 'GB2312'), self.Reference, '' if ord(self.RefrenceIssureType) == 0 else InstitutionTypeType(ord(self.RefrenceIssureType)).name, str(self.RefrenceIssure, 'GB2312'), str(self.OriginReturnCode, 'GB2312'), str(self.OriginDescrInfoForReturnCode, 'GB2312'), str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), str(self.CurrencyID, 'GB2312'), self.TradeAmount, str(self.Digest, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312'),'Reference':self.Reference,'RefrenceIssureType':'' if ord(self.RefrenceIssureType) == 0 else InstitutionTypeType(ord(self.RefrenceIssureType)).name,'RefrenceIssure':str(self.RefrenceIssure, 'GB2312'),'OriginReturnCode':str(self.OriginReturnCode, 'GB2312'),'OriginDescrInfoForReturnCode':str(self.OriginDescrInfoForReturnCode, 'GB2312'),'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'TradeAmount':self.TradeAmount,'Digest':str(self.Digest, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcRspQueryTradeResultBySerialField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		obj.Reference=self.Reference
+		obj.RefrenceIssureType=self.RefrenceIssureType
+		obj.RefrenceIssure=self.RefrenceIssure
+		obj.OriginReturnCode=self.OriginReturnCode
+		obj.OriginDescrInfoForReturnCode=self.OriginDescrInfoForReturnCode
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.CurrencyID=self.CurrencyID
+		obj.TradeAmount=self.TradeAmount
+		obj.Digest=self.Digest
+		return obj
+
 class CThostFtdcReqDayEndFileReadyField(Structure):
 	"""日终文件就绪请求"""
 	_fields_ = [
@@ -16527,6 +22499,28 @@ class CThostFtdcReqDayEndFileReadyField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, FileBusinessCode=FileBusinessCodeType.{12}, Digest=\'{13}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, '' if ord(self.FileBusinessCode) == 0 else FileBusinessCodeType(ord(self.FileBusinessCode)).name, str(self.Digest, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'FileBusinessCode':'' if ord(self.FileBusinessCode) == 0 else FileBusinessCodeType(ord(self.FileBusinessCode)).name,'Digest':str(self.Digest, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcReqDayEndFileReadyField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.FileBusinessCode=self.FileBusinessCode
+		obj.Digest=self.Digest
+		return obj
+
 class CThostFtdcReturnResultField(Structure):
 	"""返回结果"""
 	_fields_ = [
@@ -16543,6 +22537,16 @@ class CThostFtdcReturnResultField(Structure):
 
 	def __str__(self):
 		return 'ReturnCode=\'{0}\', DescrInfoForReturnCode=\'{1}\''.format(str(self.ReturnCode, 'GB2312'), str(self.DescrInfoForReturnCode, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'ReturnCode':str(self.ReturnCode, 'GB2312'),'DescrInfoForReturnCode':str(self.DescrInfoForReturnCode, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcReturnResultField()
+		obj.ReturnCode=self.ReturnCode
+		obj.DescrInfoForReturnCode=self.DescrInfoForReturnCode
+		return obj
 
 class CThostFtdcVerifyFuturePasswordField(Structure):
 	"""验证期货资金密码"""
@@ -16629,6 +22633,33 @@ class CThostFtdcVerifyFuturePasswordField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, AccountID=\'{12}\', Password=\'{13}\', BankAccount=\'{14}\', BankPassWord=\'{15}\', InstallID={16}, TID={17}, CurrencyID=\'{18}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), self.InstallID, self.TID, str(self.CurrencyID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'InstallID':self.InstallID,'TID':self.TID,'CurrencyID':str(self.CurrencyID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcVerifyFuturePasswordField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.InstallID=self.InstallID
+		obj.TID=self.TID
+		obj.CurrencyID=self.CurrencyID
+		return obj
+
 class CThostFtdcVerifyCustInfoField(Structure):
 	"""验证客户信息"""
 	_fields_ = [
@@ -16653,6 +22684,18 @@ class CThostFtdcVerifyCustInfoField(Structure):
 
 	def __str__(self):
 		return 'CustomerName=\'{0}\', IdCardType=IdCardTypeType.{1}, IdentifiedCardNo=\'{2}\', CustType=CustTypeType.{3}'.format(str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name)
+
+	@property
+	def __dict__(self):
+		return {'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name}
+
+	def clone(self):
+		obj=CThostFtdcVerifyCustInfoField()
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.CustType=self.CustType
+		return obj
 
 class CThostFtdcVerifyFuturePasswordAndCustInfoField(Structure):
 	"""验证期货资金密码和客户信息"""
@@ -16691,6 +22734,21 @@ class CThostFtdcVerifyFuturePasswordAndCustInfoField(Structure):
 	def __str__(self):
 		return 'CustomerName=\'{0}\', IdCardType=IdCardTypeType.{1}, IdentifiedCardNo=\'{2}\', CustType=CustTypeType.{3}, AccountID=\'{4}\', Password=\'{5}\', CurrencyID=\'{6}\''.format(str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), str(self.CurrencyID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcVerifyFuturePasswordAndCustInfoField()
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.CustType=self.CustType
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.CurrencyID=self.CurrencyID
+		return obj
+
 class CThostFtdcDepositResultInformField(Structure):
 	"""验证期货资金密码和客户信息"""
 	_fields_ = [
@@ -16727,6 +22785,21 @@ class CThostFtdcDepositResultInformField(Structure):
 
 	def __str__(self):
 		return 'DepositSeqNo=\'{0}\', BrokerID=\'{1}\', InvestorID=\'{2}\', Deposit={3}, RequestID={4}, ReturnCode=\'{5}\', DescrInfoForReturnCode=\'{6}\''.format(str(self.DepositSeqNo, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.Deposit, self.RequestID, str(self.ReturnCode, 'GB2312'), str(self.DescrInfoForReturnCode, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'DepositSeqNo':str(self.DepositSeqNo, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'Deposit':self.Deposit,'RequestID':self.RequestID,'ReturnCode':str(self.ReturnCode, 'GB2312'),'DescrInfoForReturnCode':str(self.DescrInfoForReturnCode, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcDepositResultInformField()
+		obj.DepositSeqNo=self.DepositSeqNo
+		obj.BrokerID=self.BrokerID
+		obj.InvestorID=self.InvestorID
+		obj.Deposit=self.Deposit
+		obj.RequestID=self.RequestID
+		obj.ReturnCode=self.ReturnCode
+		obj.DescrInfoForReturnCode=self.DescrInfoForReturnCode
+		return obj
 
 class CThostFtdcReqSyncKeyField(Structure):
 	"""交易核心向银期报盘发出密钥同步请求"""
@@ -16816,6 +22889,34 @@ class CThostFtdcReqSyncKeyField(Structure):
 
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, InstallID={12}, UserID=\'{13}\', Message=\'{14}\', DeviceID=\'{15}\', BrokerIDByBank=\'{16}\', OperNo=\'{17}\', RequestID={18}, TID={19}'.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, self.InstallID, str(self.UserID, 'GB2312'), str(self.Message, 'GB2312'), str(self.DeviceID, 'GB2312'), str(self.BrokerIDByBank, 'GB2312'), str(self.OperNo, 'GB2312'), self.RequestID, self.TID)
+
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'InstallID':self.InstallID,'UserID':str(self.UserID, 'GB2312'),'Message':str(self.Message, 'GB2312'),'DeviceID':str(self.DeviceID, 'GB2312'),'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID}
+
+	def clone(self):
+		obj=CThostFtdcReqSyncKeyField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.InstallID=self.InstallID
+		obj.UserID=self.UserID
+		obj.Message=self.Message
+		obj.DeviceID=self.DeviceID
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		return obj
 
 class CThostFtdcRspSyncKeyField(Structure):
 	"""交易核心向银期报盘发出密钥同步响应"""
@@ -16913,6 +23014,36 @@ class CThostFtdcRspSyncKeyField(Structure):
 
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, InstallID={12}, UserID=\'{13}\', Message=\'{14}\', DeviceID=\'{15}\', BrokerIDByBank=\'{16}\', OperNo=\'{17}\', RequestID={18}, TID={19}, ErrorID={20}, ErrorMsg=\'{21}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, self.InstallID, str(self.UserID, 'GB2312'), str(self.Message, 'GB2312'), str(self.DeviceID, 'GB2312'), str(self.BrokerIDByBank, 'GB2312'), str(self.OperNo, 'GB2312'), self.RequestID, self.TID, self.ErrorID, str(self.ErrorMsg, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'InstallID':self.InstallID,'UserID':str(self.UserID, 'GB2312'),'Message':str(self.Message, 'GB2312'),'DeviceID':str(self.DeviceID, 'GB2312'),'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcRspSyncKeyField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.InstallID=self.InstallID
+		obj.UserID=self.UserID
+		obj.Message=self.Message
+		obj.DeviceID=self.DeviceID
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
 
 class CThostFtdcNotifyQueryAccountField(Structure):
 	"""查询账户信息通知"""
@@ -17083,6 +23214,54 @@ class CThostFtdcNotifyQueryAccountField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, CustomerName=\'{12}\', IdCardType=IdCardTypeType.{13}, IdentifiedCardNo=\'{14}\', CustType=CustTypeType.{15}, BankAccount=\'{16}\', BankPassWord=\'{17}\', AccountID=\'{18}\', Password=\'{19}\', FutureSerial={20}, InstallID={21}, UserID=\'{22}\', VerifyCertNoFlag=YesNoIndicatorType.{23}, CurrencyID=\'{24}\', Digest=\'{25}\', BankAccType=BankAccTypeType.{26}, DeviceID=\'{27}\', BankSecuAccType=BankAccTypeType.{28}, BrokerIDByBank=\'{29}\', BankSecuAcc=\'{30}\', BankPwdFlag=PwdFlagType.{31}, SecuPwdFlag=PwdFlagType.{32}, OperNo=\'{33}\', RequestID={34}, TID={35}, BankUseAmount={36}, BankFetchAmount={37}, ErrorID={38}, ErrorMsg=\'{39}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), self.FutureSerial, self.InstallID, str(self.UserID, 'GB2312'), '' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name, str(self.CurrencyID, 'GB2312'), str(self.Digest, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, str(self.DeviceID, 'GB2312'), '' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name, str(self.BrokerIDByBank, 'GB2312'), str(self.BankSecuAcc, 'GB2312'), '' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name, '' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name, str(self.OperNo, 'GB2312'), self.RequestID, self.TID, self.BankUseAmount, self.BankFetchAmount, self.ErrorID, str(self.ErrorMsg, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'FutureSerial':self.FutureSerial,'InstallID':self.InstallID,'UserID':str(self.UserID, 'GB2312'),'VerifyCertNoFlag':'' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'Digest':str(self.Digest, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'DeviceID':str(self.DeviceID, 'GB2312'),'BankSecuAccType':'' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name,'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'BankSecuAcc':str(self.BankSecuAcc, 'GB2312'),'BankPwdFlag':'' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name,'SecuPwdFlag':'' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name,'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID,'BankUseAmount':self.BankUseAmount,'BankFetchAmount':self.BankFetchAmount,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcNotifyQueryAccountField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.CustType=self.CustType
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.FutureSerial=self.FutureSerial
+		obj.InstallID=self.InstallID
+		obj.UserID=self.UserID
+		obj.VerifyCertNoFlag=self.VerifyCertNoFlag
+		obj.CurrencyID=self.CurrencyID
+		obj.Digest=self.Digest
+		obj.BankAccType=self.BankAccType
+		obj.DeviceID=self.DeviceID
+		obj.BankSecuAccType=self.BankSecuAccType
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.BankSecuAcc=self.BankSecuAcc
+		obj.BankPwdFlag=self.BankPwdFlag
+		obj.SecuPwdFlag=self.SecuPwdFlag
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		obj.BankUseAmount=self.BankUseAmount
+		obj.BankFetchAmount=self.BankFetchAmount
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
+
 class CThostFtdcTransferSerialField(Structure):
 	"""银期转账交易流水表"""
 	_fields_ = [
@@ -17204,6 +23383,42 @@ class CThostFtdcTransferSerialField(Structure):
 	def __str__(self):
 		return 'PlateSerial={0}, TradeDate=\'{1}\', TradingDay=\'{2}\', TradeTime=\'{3}\', TradeCode=\'{4}\', SessionID={5}, BankID=\'{6}\', BankBranchID=\'{7}\', BankAccType=BankAccTypeType.{8}, BankAccount=\'{9}\', BankSerial=\'{10}\', BrokerID=\'{11}\', BrokerBranchID=\'{12}\', FutureAccType=FutureAccTypeType.{13}, AccountID=\'{14}\', InvestorID=\'{15}\', FutureSerial={16}, IdCardType=IdCardTypeType.{17}, IdentifiedCardNo=\'{18}\', CurrencyID=\'{19}\', TradeAmount={20}, CustFee={21}, BrokerFee={22}, AvailabilityFlag=AvailabilityFlagType.{23}, OperatorCode=\'{24}\', BankNewAccount=\'{25}\', ErrorID={26}, ErrorMsg=\'{27}\''.format(self.PlateSerial, str(self.TradeDate, 'GB2312'), str(self.TradingDay, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.TradeCode, 'GB2312'), self.SessionID, str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, str(self.BankAccount, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), '' if ord(self.FutureAccType) == 0 else FutureAccTypeType(ord(self.FutureAccType)).name, str(self.AccountID, 'GB2312'), str(self.InvestorID, 'GB2312'), self.FutureSerial, '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), str(self.CurrencyID, 'GB2312'), self.TradeAmount, self.CustFee, self.BrokerFee, '' if ord(self.AvailabilityFlag) == 0 else AvailabilityFlagType(ord(self.AvailabilityFlag)).name, str(self.OperatorCode, 'GB2312'), str(self.BankNewAccount, 'GB2312'), self.ErrorID, str(self.ErrorMsg, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'PlateSerial':self.PlateSerial,'TradeDate':str(self.TradeDate, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'TradeCode':str(self.TradeCode, 'GB2312'),'SessionID':self.SessionID,'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'FutureAccType':'' if ord(self.FutureAccType) == 0 else FutureAccTypeType(ord(self.FutureAccType)).name,'AccountID':str(self.AccountID, 'GB2312'),'InvestorID':str(self.InvestorID, 'GB2312'),'FutureSerial':self.FutureSerial,'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'TradeAmount':self.TradeAmount,'CustFee':self.CustFee,'BrokerFee':self.BrokerFee,'AvailabilityFlag':'' if ord(self.AvailabilityFlag) == 0 else AvailabilityFlagType(ord(self.AvailabilityFlag)).name,'OperatorCode':str(self.OperatorCode, 'GB2312'),'BankNewAccount':str(self.BankNewAccount, 'GB2312'),'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTransferSerialField()
+		obj.PlateSerial=self.PlateSerial
+		obj.TradeDate=self.TradeDate
+		obj.TradingDay=self.TradingDay
+		obj.TradeTime=self.TradeTime
+		obj.TradeCode=self.TradeCode
+		obj.SessionID=self.SessionID
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BankAccType=self.BankAccType
+		obj.BankAccount=self.BankAccount
+		obj.BankSerial=self.BankSerial
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.FutureAccType=self.FutureAccType
+		obj.AccountID=self.AccountID
+		obj.InvestorID=self.InvestorID
+		obj.FutureSerial=self.FutureSerial
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.CurrencyID=self.CurrencyID
+		obj.TradeAmount=self.TradeAmount
+		obj.CustFee=self.CustFee
+		obj.BrokerFee=self.BrokerFee
+		obj.AvailabilityFlag=self.AvailabilityFlag
+		obj.OperatorCode=self.OperatorCode
+		obj.BankNewAccount=self.BankNewAccount
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
+
 class CThostFtdcQryTransferSerialField(Structure):
 	"""请求查询转帐流水"""
 	_fields_ = [
@@ -17228,6 +23443,18 @@ class CThostFtdcQryTransferSerialField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', AccountID=\'{1}\', BankID=\'{2}\', CurrencyID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.BankID, 'GB2312'), str(self.CurrencyID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryTransferSerialField()
+		obj.BrokerID=self.BrokerID
+		obj.AccountID=self.AccountID
+		obj.BankID=self.BankID
+		obj.CurrencyID=self.CurrencyID
+		return obj
 
 class CThostFtdcNotifyFutureSignInField(Structure):
 	"""期商签到通知"""
@@ -17338,6 +23565,39 @@ class CThostFtdcNotifyFutureSignInField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, InstallID={12}, UserID=\'{13}\', Digest=\'{14}\', CurrencyID=\'{15}\', DeviceID=\'{16}\', BrokerIDByBank=\'{17}\', OperNo=\'{18}\', RequestID={19}, TID={20}, ErrorID={21}, ErrorMsg=\'{22}\', PinKey=\'{23}\', MacKey=\'{24}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, self.InstallID, str(self.UserID, 'GB2312'), str(self.Digest, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.DeviceID, 'GB2312'), str(self.BrokerIDByBank, 'GB2312'), str(self.OperNo, 'GB2312'), self.RequestID, self.TID, self.ErrorID, str(self.ErrorMsg, 'GB2312'), str(self.PinKey, 'GB2312'), str(self.MacKey, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'InstallID':self.InstallID,'UserID':str(self.UserID, 'GB2312'),'Digest':str(self.Digest, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'DeviceID':str(self.DeviceID, 'GB2312'),'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312'),'PinKey':str(self.PinKey, 'GB2312'),'MacKey':str(self.MacKey, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcNotifyFutureSignInField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.InstallID=self.InstallID
+		obj.UserID=self.UserID
+		obj.Digest=self.Digest
+		obj.CurrencyID=self.CurrencyID
+		obj.DeviceID=self.DeviceID
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		obj.PinKey=self.PinKey
+		obj.MacKey=self.MacKey
+		return obj
+
 class CThostFtdcNotifyFutureSignOutField(Structure):
 	"""期商签退通知"""
 	_fields_ = [
@@ -17439,6 +23699,37 @@ class CThostFtdcNotifyFutureSignOutField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, InstallID={12}, UserID=\'{13}\', Digest=\'{14}\', CurrencyID=\'{15}\', DeviceID=\'{16}\', BrokerIDByBank=\'{17}\', OperNo=\'{18}\', RequestID={19}, TID={20}, ErrorID={21}, ErrorMsg=\'{22}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, self.InstallID, str(self.UserID, 'GB2312'), str(self.Digest, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.DeviceID, 'GB2312'), str(self.BrokerIDByBank, 'GB2312'), str(self.OperNo, 'GB2312'), self.RequestID, self.TID, self.ErrorID, str(self.ErrorMsg, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'InstallID':self.InstallID,'UserID':str(self.UserID, 'GB2312'),'Digest':str(self.Digest, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'DeviceID':str(self.DeviceID, 'GB2312'),'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcNotifyFutureSignOutField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.InstallID=self.InstallID
+		obj.UserID=self.UserID
+		obj.Digest=self.Digest
+		obj.CurrencyID=self.CurrencyID
+		obj.DeviceID=self.DeviceID
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
+
 class CThostFtdcNotifySyncKeyField(Structure):
 	"""交易核心向银期报盘发出密钥同步处理结果的通知"""
 	_fields_ = [
@@ -17536,6 +23827,36 @@ class CThostFtdcNotifySyncKeyField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, InstallID={12}, UserID=\'{13}\', Message=\'{14}\', DeviceID=\'{15}\', BrokerIDByBank=\'{16}\', OperNo=\'{17}\', RequestID={18}, TID={19}, ErrorID={20}, ErrorMsg=\'{21}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, self.InstallID, str(self.UserID, 'GB2312'), str(self.Message, 'GB2312'), str(self.DeviceID, 'GB2312'), str(self.BrokerIDByBank, 'GB2312'), str(self.OperNo, 'GB2312'), self.RequestID, self.TID, self.ErrorID, str(self.ErrorMsg, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'InstallID':self.InstallID,'UserID':str(self.UserID, 'GB2312'),'Message':str(self.Message, 'GB2312'),'DeviceID':str(self.DeviceID, 'GB2312'),'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'OperNo':str(self.OperNo, 'GB2312'),'RequestID':self.RequestID,'TID':self.TID,'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcNotifySyncKeyField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.InstallID=self.InstallID
+		obj.UserID=self.UserID
+		obj.Message=self.Message
+		obj.DeviceID=self.DeviceID
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.OperNo=self.OperNo
+		obj.RequestID=self.RequestID
+		obj.TID=self.TID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
+
 class CThostFtdcQryAccountregisterField(Structure):
 	"""请求查询银期签约关系"""
 	_fields_ = [
@@ -17564,6 +23885,19 @@ class CThostFtdcQryAccountregisterField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', AccountID=\'{1}\', BankID=\'{2}\', BankBranchID=\'{3}\', CurrencyID=\'{4}\''.format(str(self.BrokerID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.CurrencyID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryAccountregisterField()
+		obj.BrokerID=self.BrokerID
+		obj.AccountID=self.AccountID
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.CurrencyID=self.CurrencyID
+		return obj
 
 class CThostFtdcAccountregisterField(Structure):
 	"""客户开销户信息表"""
@@ -17641,6 +23975,31 @@ class CThostFtdcAccountregisterField(Structure):
 
 	def __str__(self):
 		return 'TradeDay=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BankAccount=\'{3}\', BrokerID=\'{4}\', BrokerBranchID=\'{5}\', AccountID=\'{6}\', IdCardType=IdCardTypeType.{7}, IdentifiedCardNo=\'{8}\', CustomerName=\'{9}\', CurrencyID=\'{10}\', OpenOrDestroy=OpenOrDestroyType.{11}, RegDate=\'{12}\', OutDate=\'{13}\', TID={14}, CustType=CustTypeType.{15}, BankAccType=BankAccTypeType.{16}'.format(str(self.TradeDay, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BankAccount, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.AccountID, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), str(self.CustomerName, 'GB2312'), str(self.CurrencyID, 'GB2312'), '' if ord(self.OpenOrDestroy) == 0 else OpenOrDestroyType(ord(self.OpenOrDestroy)).name, str(self.RegDate, 'GB2312'), str(self.OutDate, 'GB2312'), self.TID, '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name)
+
+	@property
+	def __dict__(self):
+		return {'TradeDay':str(self.TradeDay, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BankAccount':str(self.BankAccount, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'CustomerName':str(self.CustomerName, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'OpenOrDestroy':'' if ord(self.OpenOrDestroy) == 0 else OpenOrDestroyType(ord(self.OpenOrDestroy)).name,'RegDate':str(self.RegDate, 'GB2312'),'OutDate':str(self.OutDate, 'GB2312'),'TID':self.TID,'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name}
+
+	def clone(self):
+		obj=CThostFtdcAccountregisterField()
+		obj.TradeDay=self.TradeDay
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BankAccount=self.BankAccount
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.AccountID=self.AccountID
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.CustomerName=self.CustomerName
+		obj.CurrencyID=self.CurrencyID
+		obj.OpenOrDestroy=self.OpenOrDestroy
+		obj.RegDate=self.RegDate
+		obj.OutDate=self.OutDate
+		obj.TID=self.TID
+		obj.CustType=self.CustType
+		obj.BankAccType=self.BankAccType
+		return obj
 
 class CThostFtdcOpenAccountField(Structure):
 	"""银期开户信息"""
@@ -17835,6 +24194,60 @@ class CThostFtdcOpenAccountField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, CustomerName=\'{12}\', IdCardType=IdCardTypeType.{13}, IdentifiedCardNo=\'{14}\', Gender=GenderType.{15}, CountryCode=\'{16}\', CustType=CustTypeType.{17}, Address=\'{18}\', ZipCode=\'{19}\', Telephone=\'{20}\', MobilePhone=\'{21}\', Fax=\'{22}\', EMail=\'{23}\', MoneyAccountStatus=MoneyAccountStatusType.{24}, BankAccount=\'{25}\', BankPassWord=\'{26}\', AccountID=\'{27}\', Password=\'{28}\', InstallID={29}, VerifyCertNoFlag=YesNoIndicatorType.{30}, CurrencyID=\'{31}\', CashExchangeCode=CashExchangeCodeType.{32}, Digest=\'{33}\', BankAccType=BankAccTypeType.{34}, DeviceID=\'{35}\', BankSecuAccType=BankAccTypeType.{36}, BrokerIDByBank=\'{37}\', BankSecuAcc=\'{38}\', BankPwdFlag=PwdFlagType.{39}, SecuPwdFlag=PwdFlagType.{40}, OperNo=\'{41}\', TID={42}, UserID=\'{43}\', ErrorID={44}, ErrorMsg=\'{45}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.Gender) == 0 else GenderType(ord(self.Gender)).name, str(self.CountryCode, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.Address, 'GB2312'), str(self.ZipCode, 'GB2312'), str(self.Telephone, 'GB2312'), str(self.MobilePhone, 'GB2312'), str(self.Fax, 'GB2312'), str(self.EMail, 'GB2312'), '' if ord(self.MoneyAccountStatus) == 0 else MoneyAccountStatusType(ord(self.MoneyAccountStatus)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), self.InstallID, '' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name, str(self.CurrencyID, 'GB2312'), '' if ord(self.CashExchangeCode) == 0 else CashExchangeCodeType(ord(self.CashExchangeCode)).name, str(self.Digest, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, str(self.DeviceID, 'GB2312'), '' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name, str(self.BrokerIDByBank, 'GB2312'), str(self.BankSecuAcc, 'GB2312'), '' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name, '' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name, str(self.OperNo, 'GB2312'), self.TID, str(self.UserID, 'GB2312'), self.ErrorID, str(self.ErrorMsg, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'Gender':'' if ord(self.Gender) == 0 else GenderType(ord(self.Gender)).name,'CountryCode':str(self.CountryCode, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'Address':str(self.Address, 'GB2312'),'ZipCode':str(self.ZipCode, 'GB2312'),'Telephone':str(self.Telephone, 'GB2312'),'MobilePhone':str(self.MobilePhone, 'GB2312'),'Fax':str(self.Fax, 'GB2312'),'EMail':str(self.EMail, 'GB2312'),'MoneyAccountStatus':'' if ord(self.MoneyAccountStatus) == 0 else MoneyAccountStatusType(ord(self.MoneyAccountStatus)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'InstallID':self.InstallID,'VerifyCertNoFlag':'' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'CashExchangeCode':'' if ord(self.CashExchangeCode) == 0 else CashExchangeCodeType(ord(self.CashExchangeCode)).name,'Digest':str(self.Digest, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'DeviceID':str(self.DeviceID, 'GB2312'),'BankSecuAccType':'' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name,'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'BankSecuAcc':str(self.BankSecuAcc, 'GB2312'),'BankPwdFlag':'' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name,'SecuPwdFlag':'' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name,'OperNo':str(self.OperNo, 'GB2312'),'TID':self.TID,'UserID':str(self.UserID, 'GB2312'),'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcOpenAccountField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.Gender=self.Gender
+		obj.CountryCode=self.CountryCode
+		obj.CustType=self.CustType
+		obj.Address=self.Address
+		obj.ZipCode=self.ZipCode
+		obj.Telephone=self.Telephone
+		obj.MobilePhone=self.MobilePhone
+		obj.Fax=self.Fax
+		obj.EMail=self.EMail
+		obj.MoneyAccountStatus=self.MoneyAccountStatus
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.InstallID=self.InstallID
+		obj.VerifyCertNoFlag=self.VerifyCertNoFlag
+		obj.CurrencyID=self.CurrencyID
+		obj.CashExchangeCode=self.CashExchangeCode
+		obj.Digest=self.Digest
+		obj.BankAccType=self.BankAccType
+		obj.DeviceID=self.DeviceID
+		obj.BankSecuAccType=self.BankSecuAccType
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.BankSecuAcc=self.BankSecuAcc
+		obj.BankPwdFlag=self.BankPwdFlag
+		obj.SecuPwdFlag=self.SecuPwdFlag
+		obj.OperNo=self.OperNo
+		obj.TID=self.TID
+		obj.UserID=self.UserID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
+
 class CThostFtdcCancelAccountField(Structure):
 	"""银期销户信息"""
 	_fields_ = [
@@ -18028,6 +24441,60 @@ class CThostFtdcCancelAccountField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, CustomerName=\'{12}\', IdCardType=IdCardTypeType.{13}, IdentifiedCardNo=\'{14}\', Gender=GenderType.{15}, CountryCode=\'{16}\', CustType=CustTypeType.{17}, Address=\'{18}\', ZipCode=\'{19}\', Telephone=\'{20}\', MobilePhone=\'{21}\', Fax=\'{22}\', EMail=\'{23}\', MoneyAccountStatus=MoneyAccountStatusType.{24}, BankAccount=\'{25}\', BankPassWord=\'{26}\', AccountID=\'{27}\', Password=\'{28}\', InstallID={29}, VerifyCertNoFlag=YesNoIndicatorType.{30}, CurrencyID=\'{31}\', CashExchangeCode=CashExchangeCodeType.{32}, Digest=\'{33}\', BankAccType=BankAccTypeType.{34}, DeviceID=\'{35}\', BankSecuAccType=BankAccTypeType.{36}, BrokerIDByBank=\'{37}\', BankSecuAcc=\'{38}\', BankPwdFlag=PwdFlagType.{39}, SecuPwdFlag=PwdFlagType.{40}, OperNo=\'{41}\', TID={42}, UserID=\'{43}\', ErrorID={44}, ErrorMsg=\'{45}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.Gender) == 0 else GenderType(ord(self.Gender)).name, str(self.CountryCode, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.Address, 'GB2312'), str(self.ZipCode, 'GB2312'), str(self.Telephone, 'GB2312'), str(self.MobilePhone, 'GB2312'), str(self.Fax, 'GB2312'), str(self.EMail, 'GB2312'), '' if ord(self.MoneyAccountStatus) == 0 else MoneyAccountStatusType(ord(self.MoneyAccountStatus)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), self.InstallID, '' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name, str(self.CurrencyID, 'GB2312'), '' if ord(self.CashExchangeCode) == 0 else CashExchangeCodeType(ord(self.CashExchangeCode)).name, str(self.Digest, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, str(self.DeviceID, 'GB2312'), '' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name, str(self.BrokerIDByBank, 'GB2312'), str(self.BankSecuAcc, 'GB2312'), '' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name, '' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name, str(self.OperNo, 'GB2312'), self.TID, str(self.UserID, 'GB2312'), self.ErrorID, str(self.ErrorMsg, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'Gender':'' if ord(self.Gender) == 0 else GenderType(ord(self.Gender)).name,'CountryCode':str(self.CountryCode, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'Address':str(self.Address, 'GB2312'),'ZipCode':str(self.ZipCode, 'GB2312'),'Telephone':str(self.Telephone, 'GB2312'),'MobilePhone':str(self.MobilePhone, 'GB2312'),'Fax':str(self.Fax, 'GB2312'),'EMail':str(self.EMail, 'GB2312'),'MoneyAccountStatus':'' if ord(self.MoneyAccountStatus) == 0 else MoneyAccountStatusType(ord(self.MoneyAccountStatus)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'InstallID':self.InstallID,'VerifyCertNoFlag':'' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'CashExchangeCode':'' if ord(self.CashExchangeCode) == 0 else CashExchangeCodeType(ord(self.CashExchangeCode)).name,'Digest':str(self.Digest, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'DeviceID':str(self.DeviceID, 'GB2312'),'BankSecuAccType':'' if ord(self.BankSecuAccType) == 0 else BankAccTypeType(ord(self.BankSecuAccType)).name,'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'BankSecuAcc':str(self.BankSecuAcc, 'GB2312'),'BankPwdFlag':'' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name,'SecuPwdFlag':'' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name,'OperNo':str(self.OperNo, 'GB2312'),'TID':self.TID,'UserID':str(self.UserID, 'GB2312'),'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcCancelAccountField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.Gender=self.Gender
+		obj.CountryCode=self.CountryCode
+		obj.CustType=self.CustType
+		obj.Address=self.Address
+		obj.ZipCode=self.ZipCode
+		obj.Telephone=self.Telephone
+		obj.MobilePhone=self.MobilePhone
+		obj.Fax=self.Fax
+		obj.EMail=self.EMail
+		obj.MoneyAccountStatus=self.MoneyAccountStatus
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.InstallID=self.InstallID
+		obj.VerifyCertNoFlag=self.VerifyCertNoFlag
+		obj.CurrencyID=self.CurrencyID
+		obj.CashExchangeCode=self.CashExchangeCode
+		obj.Digest=self.Digest
+		obj.BankAccType=self.BankAccType
+		obj.DeviceID=self.DeviceID
+		obj.BankSecuAccType=self.BankSecuAccType
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.BankSecuAcc=self.BankSecuAcc
+		obj.BankPwdFlag=self.BankPwdFlag
+		obj.SecuPwdFlag=self.SecuPwdFlag
+		obj.OperNo=self.OperNo
+		obj.TID=self.TID
+		obj.UserID=self.UserID
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
+
 class CThostFtdcChangeAccountField(Structure):
 	"""银期变更银行账号信息"""
 	_fields_ = [
@@ -18205,6 +24672,56 @@ class CThostFtdcChangeAccountField(Structure):
 	def __str__(self):
 		return 'TradeCode=\'{0}\', BankID=\'{1}\', BankBranchID=\'{2}\', BrokerID=\'{3}\', BrokerBranchID=\'{4}\', TradeDate=\'{5}\', TradeTime=\'{6}\', BankSerial=\'{7}\', TradingDay=\'{8}\', PlateSerial={9}, LastFragment=LastFragmentType.{10}, SessionID={11}, CustomerName=\'{12}\', IdCardType=IdCardTypeType.{13}, IdentifiedCardNo=\'{14}\', Gender=GenderType.{15}, CountryCode=\'{16}\', CustType=CustTypeType.{17}, Address=\'{18}\', ZipCode=\'{19}\', Telephone=\'{20}\', MobilePhone=\'{21}\', Fax=\'{22}\', EMail=\'{23}\', MoneyAccountStatus=MoneyAccountStatusType.{24}, BankAccount=\'{25}\', BankPassWord=\'{26}\', NewBankAccount=\'{27}\', NewBankPassWord=\'{28}\', AccountID=\'{29}\', Password=\'{30}\', BankAccType=BankAccTypeType.{31}, InstallID={32}, VerifyCertNoFlag=YesNoIndicatorType.{33}, CurrencyID=\'{34}\', BrokerIDByBank=\'{35}\', BankPwdFlag=PwdFlagType.{36}, SecuPwdFlag=PwdFlagType.{37}, TID={38}, Digest=\'{39}\', ErrorID={40}, ErrorMsg=\'{41}\''.format(str(self.TradeCode, 'GB2312'), str(self.BankID, 'GB2312'), str(self.BankBranchID, 'GB2312'), str(self.BrokerID, 'GB2312'), str(self.BrokerBranchID, 'GB2312'), str(self.TradeDate, 'GB2312'), str(self.TradeTime, 'GB2312'), str(self.BankSerial, 'GB2312'), str(self.TradingDay, 'GB2312'), self.PlateSerial, '' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name, self.SessionID, str(self.CustomerName, 'GB2312'), '' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name, str(self.IdentifiedCardNo, 'GB2312'), '' if ord(self.Gender) == 0 else GenderType(ord(self.Gender)).name, str(self.CountryCode, 'GB2312'), '' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name, str(self.Address, 'GB2312'), str(self.ZipCode, 'GB2312'), str(self.Telephone, 'GB2312'), str(self.MobilePhone, 'GB2312'), str(self.Fax, 'GB2312'), str(self.EMail, 'GB2312'), '' if ord(self.MoneyAccountStatus) == 0 else MoneyAccountStatusType(ord(self.MoneyAccountStatus)).name, str(self.BankAccount, 'GB2312'), str(self.BankPassWord, 'GB2312'), str(self.NewBankAccount, 'GB2312'), str(self.NewBankPassWord, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.Password, 'GB2312'), '' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name, self.InstallID, '' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name, str(self.CurrencyID, 'GB2312'), str(self.BrokerIDByBank, 'GB2312'), '' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name, '' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name, self.TID, str(self.Digest, 'GB2312'), self.ErrorID, str(self.ErrorMsg, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'TradeCode':str(self.TradeCode, 'GB2312'),'BankID':str(self.BankID, 'GB2312'),'BankBranchID':str(self.BankBranchID, 'GB2312'),'BrokerID':str(self.BrokerID, 'GB2312'),'BrokerBranchID':str(self.BrokerBranchID, 'GB2312'),'TradeDate':str(self.TradeDate, 'GB2312'),'TradeTime':str(self.TradeTime, 'GB2312'),'BankSerial':str(self.BankSerial, 'GB2312'),'TradingDay':str(self.TradingDay, 'GB2312'),'PlateSerial':self.PlateSerial,'LastFragment':'' if ord(self.LastFragment) == 0 else LastFragmentType(ord(self.LastFragment)).name,'SessionID':self.SessionID,'CustomerName':str(self.CustomerName, 'GB2312'),'IdCardType':'' if ord(self.IdCardType) == 0 else IdCardTypeType(ord(self.IdCardType)).name,'IdentifiedCardNo':str(self.IdentifiedCardNo, 'GB2312'),'Gender':'' if ord(self.Gender) == 0 else GenderType(ord(self.Gender)).name,'CountryCode':str(self.CountryCode, 'GB2312'),'CustType':'' if ord(self.CustType) == 0 else CustTypeType(ord(self.CustType)).name,'Address':str(self.Address, 'GB2312'),'ZipCode':str(self.ZipCode, 'GB2312'),'Telephone':str(self.Telephone, 'GB2312'),'MobilePhone':str(self.MobilePhone, 'GB2312'),'Fax':str(self.Fax, 'GB2312'),'EMail':str(self.EMail, 'GB2312'),'MoneyAccountStatus':'' if ord(self.MoneyAccountStatus) == 0 else MoneyAccountStatusType(ord(self.MoneyAccountStatus)).name,'BankAccount':str(self.BankAccount, 'GB2312'),'BankPassWord':str(self.BankPassWord, 'GB2312'),'NewBankAccount':str(self.NewBankAccount, 'GB2312'),'NewBankPassWord':str(self.NewBankPassWord, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Password':str(self.Password, 'GB2312'),'BankAccType':'' if ord(self.BankAccType) == 0 else BankAccTypeType(ord(self.BankAccType)).name,'InstallID':self.InstallID,'VerifyCertNoFlag':'' if ord(self.VerifyCertNoFlag) == 0 else YesNoIndicatorType(ord(self.VerifyCertNoFlag)).name,'CurrencyID':str(self.CurrencyID, 'GB2312'),'BrokerIDByBank':str(self.BrokerIDByBank, 'GB2312'),'BankPwdFlag':'' if ord(self.BankPwdFlag) == 0 else PwdFlagType(ord(self.BankPwdFlag)).name,'SecuPwdFlag':'' if ord(self.SecuPwdFlag) == 0 else PwdFlagType(ord(self.SecuPwdFlag)).name,'TID':self.TID,'Digest':str(self.Digest, 'GB2312'),'ErrorID':self.ErrorID,'ErrorMsg':str(self.ErrorMsg, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcChangeAccountField()
+		obj.TradeCode=self.TradeCode
+		obj.BankID=self.BankID
+		obj.BankBranchID=self.BankBranchID
+		obj.BrokerID=self.BrokerID
+		obj.BrokerBranchID=self.BrokerBranchID
+		obj.TradeDate=self.TradeDate
+		obj.TradeTime=self.TradeTime
+		obj.BankSerial=self.BankSerial
+		obj.TradingDay=self.TradingDay
+		obj.PlateSerial=self.PlateSerial
+		obj.LastFragment=self.LastFragment
+		obj.SessionID=self.SessionID
+		obj.CustomerName=self.CustomerName
+		obj.IdCardType=self.IdCardType
+		obj.IdentifiedCardNo=self.IdentifiedCardNo
+		obj.Gender=self.Gender
+		obj.CountryCode=self.CountryCode
+		obj.CustType=self.CustType
+		obj.Address=self.Address
+		obj.ZipCode=self.ZipCode
+		obj.Telephone=self.Telephone
+		obj.MobilePhone=self.MobilePhone
+		obj.Fax=self.Fax
+		obj.EMail=self.EMail
+		obj.MoneyAccountStatus=self.MoneyAccountStatus
+		obj.BankAccount=self.BankAccount
+		obj.BankPassWord=self.BankPassWord
+		obj.NewBankAccount=self.NewBankAccount
+		obj.NewBankPassWord=self.NewBankPassWord
+		obj.AccountID=self.AccountID
+		obj.Password=self.Password
+		obj.BankAccType=self.BankAccType
+		obj.InstallID=self.InstallID
+		obj.VerifyCertNoFlag=self.VerifyCertNoFlag
+		obj.CurrencyID=self.CurrencyID
+		obj.BrokerIDByBank=self.BrokerIDByBank
+		obj.BankPwdFlag=self.BankPwdFlag
+		obj.SecuPwdFlag=self.SecuPwdFlag
+		obj.TID=self.TID
+		obj.Digest=self.Digest
+		obj.ErrorID=self.ErrorID
+		obj.ErrorMsg=self.ErrorMsg
+		return obj
+
 class CThostFtdcSecAgentACIDMapField(Structure):
 	"""二级代理操作员银期权限"""
 	_fields_ = [
@@ -18234,6 +24751,19 @@ class CThostFtdcSecAgentACIDMapField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', AccountID=\'{2}\', CurrencyID=\'{3}\', BrokerSecAgentID=\'{4}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.CurrencyID, 'GB2312'), str(self.BrokerSecAgentID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312'),'BrokerSecAgentID':str(self.BrokerSecAgentID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcSecAgentACIDMapField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.AccountID=self.AccountID
+		obj.CurrencyID=self.CurrencyID
+		obj.BrokerSecAgentID=self.BrokerSecAgentID
+		return obj
+
 class CThostFtdcQrySecAgentACIDMapField(Structure):
 	"""二级代理操作员银期权限查询"""
 	_fields_ = [
@@ -18259,6 +24789,18 @@ class CThostFtdcQrySecAgentACIDMapField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', AccountID=\'{2}\', CurrencyID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.AccountID, 'GB2312'), str(self.CurrencyID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'CurrencyID':str(self.CurrencyID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQrySecAgentACIDMapField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.AccountID=self.AccountID
+		obj.CurrencyID=self.CurrencyID
+		return obj
+
 class CThostFtdcUserRightsAssignField(Structure):
 	"""灾备中心交易权限"""
 	_fields_ = [
@@ -18280,6 +24822,17 @@ class CThostFtdcUserRightsAssignField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', DRIdentityID={2}'.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), self.DRIdentityID)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'DRIdentityID':self.DRIdentityID}
+
+	def clone(self):
+		obj=CThostFtdcUserRightsAssignField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.DRIdentityID=self.DRIdentityID
+		return obj
+
 class CThostFtdcBrokerUserRightAssignField(Structure):
 	"""经济公司是否有在本标示的交易权限"""
 	_fields_ = [
@@ -18300,6 +24853,17 @@ class CThostFtdcBrokerUserRightAssignField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', DRIdentityID={1}, Tradeable={2}'.format(str(self.BrokerID, 'GB2312'), self.DRIdentityID, self.Tradeable)
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'DRIdentityID':self.DRIdentityID,'Tradeable':self.Tradeable}
+
+	def clone(self):
+		obj=CThostFtdcBrokerUserRightAssignField()
+		obj.BrokerID=self.BrokerID
+		obj.DRIdentityID=self.DRIdentityID
+		obj.Tradeable=self.Tradeable
+		return obj
 
 class CThostFtdcDRTransferField(Structure):
 	"""灾备交易转换报文"""
@@ -18326,6 +24890,18 @@ class CThostFtdcDRTransferField(Structure):
 	def __str__(self):
 		return 'OrigDRIdentityID={0}, DestDRIdentityID={1}, OrigBrokerID=\'{2}\', DestBrokerID=\'{3}\''.format(self.OrigDRIdentityID, self.DestDRIdentityID, str(self.OrigBrokerID, 'GB2312'), str(self.DestBrokerID, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'OrigDRIdentityID':self.OrigDRIdentityID,'DestDRIdentityID':self.DestDRIdentityID,'OrigBrokerID':str(self.OrigBrokerID, 'GB2312'),'DestBrokerID':str(self.DestBrokerID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcDRTransferField()
+		obj.OrigDRIdentityID=self.OrigDRIdentityID
+		obj.DestDRIdentityID=self.DestDRIdentityID
+		obj.OrigBrokerID=self.OrigBrokerID
+		obj.DestBrokerID=self.DestBrokerID
+		return obj
+
 class CThostFtdcFensUserInfoField(Structure):
 	"""Fens用户信息"""
 	_fields_ = [
@@ -18347,6 +24923,17 @@ class CThostFtdcFensUserInfoField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', LoginMode=LoginModeType.{2}'.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), '' if ord(self.LoginMode) == 0 else LoginModeType(ord(self.LoginMode)).name)
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'LoginMode':'' if ord(self.LoginMode) == 0 else LoginModeType(ord(self.LoginMode)).name}
+
+	def clone(self):
+		obj=CThostFtdcFensUserInfoField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.LoginMode=self.LoginMode
+		return obj
+
 class CThostFtdcCurrTransferIdentityField(Structure):
 	"""当前银期所属交易中心"""
 	_fields_ = [
@@ -18359,6 +24946,15 @@ class CThostFtdcCurrTransferIdentityField(Structure):
 
 	def __str__(self):
 		return 'IdentityID={0}'.format(self.IdentityID)
+
+	@property
+	def __dict__(self):
+		return {'IdentityID':self.IdentityID}
+
+	def clone(self):
+		obj=CThostFtdcCurrTransferIdentityField()
+		obj.IdentityID=self.IdentityID
+		return obj
 
 class CThostFtdcLoginForbiddenUserField(Structure):
 	"""禁止登录用户"""
@@ -18381,6 +24977,17 @@ class CThostFtdcLoginForbiddenUserField(Structure):
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\', IPAddress=\'{2}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'), str(self.IPAddress, 'GB2312'))
 
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312'),'IPAddress':str(self.IPAddress, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcLoginForbiddenUserField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		obj.IPAddress=self.IPAddress
+		return obj
+
 class CThostFtdcQryLoginForbiddenUserField(Structure):
 	"""查询禁止登录用户"""
 	_fields_ = [
@@ -18397,6 +25004,16 @@ class CThostFtdcQryLoginForbiddenUserField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', UserID=\'{1}\''.format(str(self.BrokerID, 'GB2312'), str(self.UserID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'UserID':str(self.UserID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcQryLoginForbiddenUserField()
+		obj.BrokerID=self.BrokerID
+		obj.UserID=self.UserID
+		return obj
 
 class CThostFtdcMulticastGroupInfoField(Structure):
 	"""UDP组播组信息"""
@@ -18418,6 +25035,17 @@ class CThostFtdcMulticastGroupInfoField(Structure):
 
 	def __str__(self):
 		return 'GroupIP=\'{0}\', GroupPort={1}, SourceIP=\'{2}\''.format(str(self.GroupIP, 'GB2312'), self.GroupPort, str(self.SourceIP, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'GroupIP':str(self.GroupIP, 'GB2312'),'GroupPort':self.GroupPort,'SourceIP':str(self.SourceIP, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcMulticastGroupInfoField()
+		obj.GroupIP=self.GroupIP
+		obj.GroupPort=self.GroupPort
+		obj.SourceIP=self.SourceIP
+		return obj
 
 class CThostFtdcTradingAccountReserveField(Structure):
 	"""资金账户基本准备金"""
@@ -18443,6 +25071,18 @@ class CThostFtdcTradingAccountReserveField(Structure):
 
 	def __str__(self):
 		return 'BrokerID=\'{0}\', AccountID=\'{1}\', Reserve={2}, CurrencyID=\'{3}\''.format(str(self.BrokerID, 'GB2312'), str(self.AccountID, 'GB2312'), self.Reserve, str(self.CurrencyID, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'BrokerID':str(self.BrokerID, 'GB2312'),'AccountID':str(self.AccountID, 'GB2312'),'Reserve':self.Reserve,'CurrencyID':str(self.CurrencyID, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcTradingAccountReserveField()
+		obj.BrokerID=self.BrokerID
+		obj.AccountID=self.AccountID
+		obj.Reserve=self.Reserve
+		obj.CurrencyID=self.CurrencyID
+		return obj
 
 class CThostFtdcDBFRecordField(Structure):
 	"""DBF记录"""
@@ -18500,4 +25140,24 @@ class CThostFtdcDBFRecordField(Structure):
 
 	def __str__(self):
 		return 'DBFComdType=\'{0}\', DBFComTime=\'{1}\', DBFOComNo=\'{2}\', DBFComNo=\'{3}\', DBFFdName1=\'{4}\', DBFFdContent1=\'{5}\', DBFFdName2=\'{6}\', DBFFdContent2=\'{7}\', DBFFdName3=\'{8}\', DBFFdContent3=\'{9}\', DBFFdName4=\'{10}\', DBFFdContent4=\'{11}\''.format(str(self.DBFComdType, 'GB2312'), str(self.DBFComTime, 'GB2312'), str(self.DBFOComNo, 'GB2312'), str(self.DBFComNo, 'GB2312'), str(self.DBFFdName1, 'GB2312'), str(self.DBFFdContent1, 'GB2312'), str(self.DBFFdName2, 'GB2312'), str(self.DBFFdContent2, 'GB2312'), str(self.DBFFdName3, 'GB2312'), str(self.DBFFdContent3, 'GB2312'), str(self.DBFFdName4, 'GB2312'), str(self.DBFFdContent4, 'GB2312'))
+
+	@property
+	def __dict__(self):
+		return {'DBFComdType':str(self.DBFComdType, 'GB2312'),'DBFComTime':str(self.DBFComTime, 'GB2312'),'DBFOComNo':str(self.DBFOComNo, 'GB2312'),'DBFComNo':str(self.DBFComNo, 'GB2312'),'DBFFdName1':str(self.DBFFdName1, 'GB2312'),'DBFFdContent1':str(self.DBFFdContent1, 'GB2312'),'DBFFdName2':str(self.DBFFdName2, 'GB2312'),'DBFFdContent2':str(self.DBFFdContent2, 'GB2312'),'DBFFdName3':str(self.DBFFdName3, 'GB2312'),'DBFFdContent3':str(self.DBFFdContent3, 'GB2312'),'DBFFdName4':str(self.DBFFdName4, 'GB2312'),'DBFFdContent4':str(self.DBFFdContent4, 'GB2312')}
+
+	def clone(self):
+		obj=CThostFtdcDBFRecordField()
+		obj.DBFComdType=self.DBFComdType
+		obj.DBFComTime=self.DBFComTime
+		obj.DBFOComNo=self.DBFOComNo
+		obj.DBFComNo=self.DBFComNo
+		obj.DBFFdName1=self.DBFFdName1
+		obj.DBFFdContent1=self.DBFFdContent1
+		obj.DBFFdName2=self.DBFFdName2
+		obj.DBFFdContent2=self.DBFFdContent2
+		obj.DBFFdName3=self.DBFFdName3
+		obj.DBFFdContent3=self.DBFFdContent3
+		obj.DBFFdName4=self.DBFFdName4
+		obj.DBFFdContent4=self.DBFFdContent4
+		return obj
 

@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="//g.alicdn.com/sui/sui3/0.0.18/css/sui.min.css">
 </head>
-<body>
+<body onunload="disconnect()">
 	<script type="text/javascript" src="//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="//g.alicdn.com/sui/sui3/0.0.18/js/sui.min.js"></script>
 	<div class="sui-grid" data-role="grid" align="center">
@@ -62,26 +62,35 @@
 	</div>
 
 	<script type="text/javascript" charset="utf-8">
-		var inst = "";
-		var socket = io.connect('http://192.168.105.203:5000/shfe_multi',
-			{'reconnect':true, 'auto connect':true,'force new connection':true}); //此处的ip影响访问
+		var sub_inst = "";
+		var shfe = null;
+		if(shfe == null)
+			shfe = io.connect('http://192.168.105.203:5000/shfe_multi',
+				{'reconnect':true, 'auto connect':true,'force new connection':true, 'multiplex': false});
+		 //此处的ip影响访问
 
-		socket.on('connect', function () {
-			socket.emit('getinsts','');
+		shfe.on('connect', function () {
+			shfe.emit('getinsts','');
+			//alert(shfe.id);
 			//socket.emit('sub_instrument', 'rb1701');
+			//shfe.disconnect();
 		});
-		socket.on('disconnect', function(){
-			console.log('disconnect');
+		shfe.on('disconnect', function(){
+			//alert('disconnect');
 			//socket.socket.reconnect();
 		});
-		socket.on('rtninsts', function (insts) {
+		shfe.on('rtninsts', function (insts) {
+			var sele = document.getElementById('insts');
+			$("#insts").empty();
 			for(var i=0; i< insts.sort().length; i++){
 				if(insts[i] == 'finish') continue;
-				var sele = document.getElementById('insts');
-				sele.options.add(new Option(insts[i], insts[i]));
+				//sele.options.add(new Option(insts[i], insts[i]));
+				$("#insts").append(new Option(insts[i], insts[i]));
 			}
+			if(sub_inst != "")
+				shfe.emit('sub_instrument', sub_inst);
 		});
-		socket.on('rsp_data', function (msg) {
+		shfe.on('rsp_data', function (msg) {
 			var data = msg['data'];
 			//if(document.getElementById('insts').value = data['instrument']) return;
 
@@ -106,11 +115,18 @@
 
 		function subscribe(obj) {
 			if(obj.value != null)
-				if(inst != ""){
-					socket.emit('unsub_instrument', inst);
+				if(sub_inst != ""){
+					shfe.emit('unsub_instrument', sub_inst);
 				}
-				inst = obj.value;
-				socket.emit('sub_instrument', inst);
+				sub_inst = obj.value;
+				shfe.emit('sub_instrument', sub_inst);
+		}
+
+		function disconnect() {
+			if(shfe != null){
+				shfe.emit('unsub_instrument', sub_inst);
+				shfe.disconnect();
+			}
 		}
 
 	</script>

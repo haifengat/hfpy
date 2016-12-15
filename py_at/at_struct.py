@@ -8,7 +8,7 @@ __mtime__ = '2016/9/21'
 
 from enum import Enum
 
-class DirectionType(Enum):
+class DirectType(Enum):
 	""""""
 	Buy = 0
 	Sell = 1
@@ -26,7 +26,6 @@ class OffsetType(Enum):
 	def __int__(self):
 		return self.value
 
-
 ########################################################################
 class OrderType(Enum):
 	""""""
@@ -38,7 +37,6 @@ class OrderType(Enum):
 	# ----------------------------------------------------------------------
 	def __int__(self):
 		return self.value
-
 
 ########################################################################
 class OrderStatus(Enum):
@@ -53,7 +51,6 @@ class OrderStatus(Enum):
 	def __int__(self):
 		return self.value
 
-
 ########################################################################
 class InfoField:
 	""""""
@@ -67,6 +64,10 @@ class InfoField:
 	def __str__(self):
 		return 'ErrorID:{0}, ErrorMsg:{1}'.format(self.ErrorID, self.ErrorMsg)
 
+	@property
+	def __dict__(self):
+		return {'ErrorID':self.ErrorID, 'ErrorMsg':self.ErrorMsg}
+
 
 ########################################################################
 class OrderField:
@@ -78,7 +79,7 @@ class OrderField:
 
 		self.OrderID = ""
 		self.InstrumentID = ""
-		self.Direction = DirectionType.Buy
+		self.Direction = DirectType.Buy
 		self.Offset = OffsetType.Open
 		self.LimitPrice = 0.0
 		self.AvgPrice = 0.0
@@ -93,11 +94,18 @@ class OrderField:
 		self.Custom = 0
 		self.SysID = ""
 
+
 	# ----------------------------------------------------------------------
 	def __str__(self):
 		""""""
 		return '{self.OrderID}, {self.InstrumentID}, {self.Direction}, {self.Offset}, {self.LimitPrice}, {self.AvgPrice}, {self.InsertTime}, {self.TradeTime}, {self.TradeVolume}, {self.Volume}, {self.VolumeLeft}, {self.Status}, {self.StatusMsg}, {self.IsLocal}, {self.Custom}, {self.SysID}'.format(self=self)
 
+	@property
+	def __dict__(self):
+		return {'OrderID': self.OrderID, 'InstrumentID': self.InstrumentID, 'Direction': self.Direction.name, 'Offset': self.Offset.name,
+			'LimitPrice': self.LimitPrice, 'AvgPrice': self.AvgPrice, 'InsertTime': self.InsertTime, 'TradeTime': self.TradeTime,
+			'TradeVolume': self.TradeVolume, 'Volume': self.Volume, 'VolumeLeft': self.VolumeLeft, 'Status': self.Status.name,
+			'StatusMsg': self.StatusMsg, 'IsLocal': self.IsLocal, 'Custom': self.Custom, 'SysID': self.SysID}
 
 ########################################################################
 class TradeField:
@@ -109,7 +117,7 @@ class TradeField:
 		self.TradeID = ''
 		self.InstrumentID = ''
 		self.ExchangeID = ''
-		self.Direction = DirectionType.Buy
+		self.Direction = DirectType.Buy
 		self.Offset = OffsetType.Open
 		self.Price = 0.0
 		self.Volume = 0
@@ -121,8 +129,13 @@ class TradeField:
 	# ----------------------------------------------------------------------
 	def __str__(self):
 		""""""
-		return 'self.TradeID, self.InstrumentID, self.ExchangeID, self.Direction, self.Offset, self.Price, self.Volume, self.TradeTime, self.TradingDay, self.OrderID, self.SysID'.format(self=self)
+		return '{self.TradeID}, {self.InstrumentID}, {self.ExchangeID}, {self.Direction}, {self.Offset}, {self.Price}, {self.Volume}, {self.TradeTime}, {self.TradingDay}, {self.OrderID}, {self.SysID}'.format(self=self)
 
+	@property
+	def __dict__(self):
+		return {'TradeID': self.TradeID, 'InstrumentID': self.InstrumentID, 'ExchangeID': self.ExchangeID, 'Direction': self.Direction.name,
+			'Offset': self.Offset.name, 'Price': self.Price, 'Volume': self.Volume, 'TradeTime': self.TradeTime,
+			'TradingDay': self.TradingDay, 'OrderID': self.OrderID, 'SysID': self.SysID}
 
 ########################################################################
 class InstrumentField:
@@ -142,7 +155,12 @@ class InstrumentField:
 	# ----------------------------------------------------------------------
 	def __str__(self):
 		""""""
-		return 'self.InstrumentID, self.ProductID, self.ExchangeID, self.VolumeMultiple, self.PriceTick, self.MaxOrderVolume'.format(self=self)
+		return '{self.InstrumentID}, {self.ProductID}, {self.ExchangeID}, {self.VolumeMultiple}, {self.PriceTick}, {self.MaxOrderVolume}'.format(self=self)
+
+	@property
+	def __dict__(self):
+		return {'InstrumentID': self.InstrumentID, 'ProductID': self.ProductID, 'ExchangeID': self.ExchangeID,
+			'VolumeMultiple': self.VolumeMultiple, 'PriceTick': self.PriceTick, 'MaxOrderVolume': self.MaxOrderVolume}
 
 
 ########################################################################
@@ -166,7 +184,13 @@ class TradingAccount:
 	# ----------------------------------------------------------------------
 	def __str__(self):
 		""""""
-		return 'self.PreBalance, self.PositionProfit, self.CloseProfit, self.Commission, self.CurrMargin, self.FrozenCash, self.Available, self.Fund, self.Risk'.format(self=self)
+		return '{self.PreBalance}, {self.PositionProfit}, {self.CloseProfit}, {self.Commission}, {self.CurrMargin}, {self.FrozenCash}, {self.Available}, {self.Fund}, {self.Risk}'.format(self=self)
+
+	@property
+	def __dict__(self):
+		return {'PreBalance': self.PreBalance, 'PositionProfit': self.PositionProfit, 'CloseProfit': self.CloseProfit,
+			'Commission': self.Commission, 'CurrMargin': self.CurrMargin, 'FrozenCash': self.FrozenCash,
+			'Available': self.Available, 'Fund': self.Fund, 'Risk': self.Risk}
 
 
 ########################################################################
@@ -178,7 +202,7 @@ class PositionField:
 		"""Constructor"""
 
 		self.InstrumentID = ''
-		self.Direction = DirectionType.Buy
+		self.Direction = DirectType.Buy
 		self.Price = 0.0
 		self.Position = 1
 		self.YdPosition = 0
@@ -193,6 +217,11 @@ class PositionField:
 		""""""
 		return ('{self.InstrumentID}, {self.Direction}, {self.Price}, {self.Position}, {self.TdPosition}, {self.YdPosition}, {self.CloseProfit}, {self.PositionProfit}, {self.Commission}, {self.Margin}').format(self=self)
 
+	@property
+	def __dict__(self):
+		return {'InstrumentID': self.InstrumentID, 'Direction': self.Direction.name, 'Price': self.Price, 'Position': self.Position,
+			'TdPosition': self.TdPosition, 'YdPosition': self.YdPosition, 'CloseProfit': self.CloseProfit,
+			'PositionProfit': self.PositionProfit, 'Commission': self.Commission, 'Margin': self.Margin}
 
 ########################################################################
 class Tick:
@@ -216,5 +245,12 @@ class Tick:
 	# ----------------------------------------------------------------------
 	def __str__(self):
 		""""""
-		return '{self.Instrument}, {self.LastPrice}, {self.BidPrice}, {self.BidVolume}, {self.UpdateTime}, {self.Volume}, {self.OpenInterest}, {self.AveragePrice}'.format(self=self)
+		return '{self.Instrument}, {self.LastPrice}, {self.AskPrice}, {self.AskVolume}, {self.BidPrice}, {self.BidVolume}, {self.UpdateTime}, {self.Volume}, {self.OpenInterest}, {self.AveragePrice}'.format(self=self)
+
+	@property
+	def __dict__(self):
+		return {'Instrument': self.Instrument, 'LastPrice': self.LastPrice, 'AskPrice': self.AskPrice, 'AskVolume': self.AskVolume,
+			'BidPrice': self.BidPrice, 'BidVolume': self.BidVolume, 'UpdateTime': self.UpdateTime, 'Volume': self.Volume,
+			'OpenInterest': self.OpenInterest, 'AveragePrice': self.AveragePrice}
+
 

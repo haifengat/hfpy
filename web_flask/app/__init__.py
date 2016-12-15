@@ -3,7 +3,17 @@ from flask_socketio import SocketIO #pip install flask-socketio
 
 
 app = Flask(__name__, static_url_path='')   #创建 flask application 对象
-socketio = SocketIO(app, async_mode=None)#'eventlet')
+socketio = SocketIO(app, async_mode=None, engineio_logger=True) #eventlet存在多次连接不断开的现象
 
-from app import router   #引入视图,还没实现
-from app import socket_io
+@socketio.on_error()
+def error_handler(e):
+	print("error:" + e)
+
+#以下为需要加载的模块
+from app import router
+
+#socket.io通用处理
+from app import shfe_depth
+
+#ctp封装
+from app import ctp_proxy

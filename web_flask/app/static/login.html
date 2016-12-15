@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>登录</title>
+	<script src="http://cdn.bootcss.com/socket.io/1.5.1/socket.io.js"></script>
+	<link rel="stylesheet" href="//g.alicdn.com/sui/sui3/0.0.18/css/sui.css">
+</head>
+<body>
+	<!--<script type="text/javascript" src="//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>-->
+	<script type="text/javascript" src="//g.alicdn.com/sui/sui3/0.0.18/js/sui.min.js"></script>
+	<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+	<div class="input-group">
+		<span class="input-group-addon" id="basic-addon1">帐号</span>
+		<input id="investor" width="100" type="text" class="form-control" placeholder="99999999" aria-describedby="basic-addon1">
+		<span class="input-group-addon" id="basic-addon2">密码</span>
+		<input id="pwd" width="100" type="password" class="form-control" placeholder="99999999" aria-describedby="basic-addon2">
+		<span class="input-group-btn">
+			<button id="login"  class="btn btn-default" type="button">登录</button>
+		</span>
+	</div>
+
+	<div>
+		<table id="rsp_account" class="table table-striped table-bordered table-hover table-primary"></table>
+	</div>
+
+	<div>
+		<table id="rsp_posi" class="table table-striped table-bordered table-hover table-primary"></table>
+	</div>
+
+	<footer>
+		<div id="rsp_info">no error</div>
+	</footer>
+
+	<script>
+		$("#login").click(function(){
+			var data = {'investor': $('#investor').val(), 'pwd': $('#pwd').val()};
+			var ctp = io.connect('http://192.168.105.203:5000/ctp',
+				{'reconnect':false, 'auto connect':true,'force new connection':false, 'multiplex': false});
+
+			ctp.on('rsp_login', function (data) {
+				$("#rsp_info").html(data);
+			});
+
+			ctp.on('connect',function () {
+				ctp.emit('login', data);
+			});
+
+			ctp.on('rsp_account', function (data) {
+				//$("#account").text(data['Risk']);
+				var tr_title = $("#rsp_account").children("tr");
+				if(tr_title.length == 0){
+					$("#rsp_account").append('<tr></tr>');
+					$("#rsp_account").append('<tr></tr>');
+					tr_title = $("#rsp_account").children("tr").first();
+					var tr_content = tr_title.next();
+					for(var v in data) {
+						tr_title.append('<td>'+v+'</td>');
+						tr_content.append('<td id="'+v+'">'+data[v].toFixed(2)+'</td>');
+					}
+				}
+				else {
+					for (var v in data) {
+						var td = $("#" + v);
+						//alert(tr.children()[0]);
+						td.text(data[v].toFixed(2));
+					}
+				}
+			});
+
+			ctp.on('rsp_position', function (data) {
+				var title = $("#rsp_posi").children("tr");
+				if(title.length == 0){
+					$("#rsp_posi").append('<tr></tr>');
+					title = $("#rsp_posi").children("tr").first();
+					for(var v in data){
+						title.append('<td>'+v+'</td>');
+					}
+				}
+
+				var key = data["InstrumentID"]+"_"+data["Direction"];
+				var tr = $("#rsp_posi").children('#'+key);
+				if(tr.length == 0) {
+					$("#rsp_posi").append('<tr id="' + key + '"></tr>');
+					tr = $("#rsp_posi").children('#' + key).first();
+					for (var v in data) {
+						tr.append('<td>' + data[v] + '</td>');
+					}
+				}
+				else{
+					tr = $("#rsp_posi").children('#' + key).first();
+					var i=0;
+					for (var v in data) {
+						tr.children('td:eq('+(i++)+')').text(data[v]);
+					}
+				}
+			});
+
+//			var data = {'investor': $('#investor').val(), 'pwd': $('#password').val()};
+//			$.post('http://192.168.105.203:5000/ctp',
+//			data,
+//			function (data, status) {
+//				alert(status);
+		});
+	</script>
+</body>
+</html>

@@ -81,3 +81,4 @@ def test_stra():
 	a.read_data_test(stra)
 	data, bar_json = Statistics(stra).GetDataAndBars()
 	return render_template('report.html', data=data, bars=bar_json)
+

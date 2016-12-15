@@ -12,7 +12,7 @@ class Quote:
 		if not os.path.exists(logdir):
 			os.mkdir(logdir)
 
-		dlldir = os.path.join(sys.path[0], "dll")
+		dlldir = os.path.join(os.path.split(os.path.realpath(__file__))[0], "dll")
 		if not os.path.exists(dlldir):
 			print('缺少DLL借口文件')
 			return
