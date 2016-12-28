@@ -28,6 +28,7 @@ class CTPProxy:
 		self.t.OnRtnCancel = self.OnRtnCancel
 		self.t.OnRtnTrade = self.OnRtnTrade
 		self.t.OnRtnInstrumentStatus = self.OnRtnInstrumentStatus
+		self.t.OnRtnErrOrder = self.OnRtnErrOrder
 
 		self.Investor = investor
 		self.PassWord = pwd
@@ -43,10 +44,17 @@ class CTPProxy:
 	def OnRspUserLogin(self, info=InfoField):
 		""""""
 		print(info)
-		self.io_emit('rsp_login', info.__dict__,)
 		if info.ErrorID == 0:
 			_thread.start_new_thread(self.OnData, ())
 			self.q.ReqConnect('tcp://180.168.146.187:10010')
+		else:
+			self.io_emit('rsp_login', info.__dict__)
+			_thread.start_new_thread(self.release, ()) #须放在thread中，否则无法释放资源
+			ctps.pop(self.Investor)
+
+	def release(self):
+		self.t.Release()
+		self.t = None
 
 	#Onrspuserlogin中调用
 	def OnData(self):
@@ -59,6 +67,8 @@ class CTPProxy:
 			# 需要在struct中增加obj2json的转换函数
 			for p in self.t.DicPositionField:
 				self.io_emit('rsp_position', self.t.DicPositionField[p].__dict__)
+			#首次时发送title
+			#所有position一次发送,先合成str再发.
 
 	def OnRtnOrder(self, f = OrderField):
 		""""""
@@ -77,25 +87,21 @@ class CTPProxy:
 
 	def OnRtnErrOrder(self, f = OrderField, info = InfoField):
 		""""""
-		# print(f)
-		# print(info)
 		self.io_emit('rtn_err_order', {'order':f.__dict__, 'info':info.__dict__})
 
 	def q_OnFrontConnected(self):
 		""""""
-		print("q:connected by client")
 		self.q.ReqUserLogin(self.Investor, self.PassWord, '9999')
 
 	def OnRtnInstrumentStatus(self, inst, status):
-		print('{0}:{1}'.format(inst, status))
+		#print('{0}:{1}'.format(inst, status))
+		pass
 
 	# ----------------------------------------------------------------------
 	def q_OnRspUserLogin(self, info=InfoField):
 		""""""
-		print('quote')
-		print(info)
-
-		self.io_emit('rsp_login', info.__str__())
+		print('quote' + info.__str__())
+		self.io_emit('rsp_login', info.__dict__)
 
 
 	def q_Tick(self, field=Tick):
@@ -108,16 +114,33 @@ class CTPProxy:
 		self.t.ReqConnect('tcp://180.168.146.187:10000')
 
 from app import socketio
+import flask
 ctps = {}
+sid_investor = {}
 
+@socketio.on('release', namespace='/ctp')
+def ctp_release(data):
+	leave_room(data['investor'])
+	print('release from ' + data['investor'])
 
 @socketio.on('connect', namespace='/ctp')
 def ctp_connect():
-	print('ctp connect...')
+	# client_sid = socketio.__dict__['server'].__dict__['manager'].__dict__['rooms']['/ctp'].keys()
+	# ids = [id for id in client_sid if id not in ctps]
+	# print(ids)
+
+	#新连接
+	new_sid = flask.request.sid
+	print('ctp connect:' + new_sid)
+	#使用emit为对此客户端发送消息
+	emit('sid', new_sid)
 
 @socketio.on('disconnect', namespace='/ctp')
 def disconnect():
-	print('ctp disconnected')
+	sid = flask.request.sid
+	print('ctp disconnected:' + sid)
+	if sid in sid_investor:
+		leave_room(sid_investor[sid])
 
 @socketio.on('login', namespace='/ctp')
 def login(data):
@@ -132,13 +155,41 @@ def login(data):
 			ctps[user] = ctp
 			ctp.Run()
 		else:   #重复登录时需要发送的数据(收盘后不会发送)
-			socketio.emit('rsp_account', ctp.t.Account.__dict__, namespace='/ctp')
+			emit('rsp_login', {"ErrorID":0, "ErrorMsg":"正确"})
+			emit('rsp_account', ctp.t.Account.__dict__)
 			for p in ctp.t.DicPositionField:
-				socketio.emit('rsp_position', ctp.t.DicPositionField[p].__dict__, namespace='/ctp')
-		print(user)
+				emit('rsp_position', ctp.t.DicPositionField[p].__dict__, namespace='/ctp')
+			for o in ctp.t.DicOrderField:
+				emit('rtn_order', ctp.t.DicOrderField[o].__dict__, namespace='/ctp')
+			for t in ctp.t.DicTradeField:
+				emit('rtn_trade', ctp.t.DicTradeField[t].__dict__, namespace='/ctp')
 	else:
 		ctp = CTPProxy(data['investor'], data['pwd'])
 		ctps[user] = ctp
-		print(ctps)
 		ctp.Run()
-	join_room(user)
+	#等待登录
+	i = 0
+	while not ctp.t.IsLogin and i < 10:
+		sleep(1)
+		i+=1
+
+	if ctp.t.IsLogin:
+		join_room(user)
+		sid_investor[flask.request.sid] = user
+		print(sid_investor)
+
+@socketio.on('order', namespace='/ctp')
+def order(data):
+	print(data)
+	inst = data['instrument']
+	lots = int(data['lots'])
+	price = float(data['price'])
+	direction = data['direction']
+	offset = data['offset']
+
+	sid = data['sid']
+	investor = sid_investor[sid]
+	ctp = ctps[investor]
+	ctp.t.ReqOrderInsert(inst, DirectType.Buy if direction == 'buy' else DirectType.Sell, OffsetType.Open if offset=='open' else OffsetType.Close, price, lots)
+
+

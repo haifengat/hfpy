@@ -16,4 +16,4 @@ from app import router
 from app import shfe_depth
 
 #ctp封装
-from app import ctp_proxy
+from app import ctp_socketio

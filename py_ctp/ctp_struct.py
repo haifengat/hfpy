@@ -3378,7 +3378,7 @@ class CThostFtdcInputOrderField(Structure):
 	def getOrderPriceType(self):
 		return OrderPriceTypeType(ord(self.OrderPriceType))
 	def getDirection(self):
-		return DirectionType(ord(self.Direction))
+		return DirectionType.Buy if ord(self.Direction)==0 else DirectionType(ord(self.Direction))
 	def getCombOffsetFlag(self):
 		return str(self.CombOffsetFlag, 'GB2312')
 	def getCombHedgeFlag(self):

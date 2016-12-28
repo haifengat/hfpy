@@ -8,102 +8,219 @@
 	<script src="http://cdn.bootcss.com/socket.io/1.5.1/socket.io.js"></script>
 	<link rel="stylesheet" href="//g.alicdn.com/sui/sui3/0.0.18/css/sui.css">
 </head>
-<body>
-	<!--<script type="text/javascript" src="//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>-->
+<body onload="init()">
+	<!--用此连接无法显示数据<script type="text/javascript" src="//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>-->
 	<script type="text/javascript" src="//g.alicdn.com/sui/sui3/0.0.18/js/sui.min.js"></script>
 	<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 
 	<div class="input-group">
 		<span class="input-group-addon" id="basic-addon1">帐号</span>
-		<input id="investor" width="100" type="text" class="form-control" placeholder="99999999" aria-describedby="basic-addon1">
+		<input id="investor" width="100" type="text" class="form-control" placeholder="输入帐号" aria-describedby="basic-addon1">
 		<span class="input-group-addon" id="basic-addon2">密码</span>
-		<input id="pwd" width="100" type="password" class="form-control" placeholder="99999999" aria-describedby="basic-addon2">
+		<input id="pwd" width="100" type="password" class="form-control" placeholder="输入密码" aria-describedby="basic-addon2">
 		<span class="input-group-btn">
 			<button id="login"  class="btn btn-default" type="button">登录</button>
 		</span>
 	</div>
 
-	<div>
-		<table id="rsp_account" class="table table-striped table-bordered table-hover table-primary"></table>
+	<div>权益
+		<table id="account" class="table table-striped table-bordered table-hover table-primary"></table>
+	</div>
+下单
+	<div class="input-group">
+		<span class="input-group-addon" id="inst" class="form-control" >合约</span>
+		<input width="100" name="instrument" id="instrument" class="form-control" aria-describedby="inst" data-toggle="autocomplete">
+
+		<span class="input-group-addon" id="lots_on">手数</span>
+		<input width="100" class="form-control" aria-describedby="lots_on" type="text" id="lots">
+
+		<span class="input-group-addon" id="price_on">价格</span>
+		<input width="100" class="form-control" aria-describedby="price_on" type="text" id="price">
+
+		<span class="input-group-addon" id="offset_on">
+		开仓<input aria-describedby="offset_on" type="radio" id="offset_open" name="offset">
+		平仓<input aria-describedby="offset_on" type="radio" id="offset_close" name="offset">
+		</span>
+
+		<span class="input-group-addon" id="diff_on">偏移</span>
+		<input width="100" class="form-control" aria-describedby="diff_on" type="text" id="diff">
+
+		<span class="input-group-btn">
+			<button type="button" class="btn btn-default" id="buy">买</button>
+			<button type="button" class="btn btn-default" id="sell">卖</button>
+		</span>
 	</div>
 
-	<div>
-		<table id="rsp_posi" class="table table-striped table-bordered table-hover table-primary"></table>
+	<div>委托
+		<table id="order" class="table table-striped table-bordered table-hover table-primary"></table>
+	</div>
+
+	<div>持仓
+		<table id="position" class="table table-striped table-bordered table-hover table-primary"></table>
+	</div>
+
+	<div>成交
+		<table id="trade" class="table table-striped table-bordered table-hover table-primary"></table>
 	</div>
 
 	<footer>
-		<div id="rsp_info">no error</div>
+		<pre id="rsp_info">no error ... </pre>
 	</footer>
 
 	<script>
-		$("#login").click(function(){
-			var data = {'investor': $('#investor').val(), 'pwd': $('#pwd').val()};
-			var ctp = io.connect('http://192.168.105.203:5000/ctp',
-				{'reconnect':false, 'auto connect':true,'force new connection':false, 'multiplex': false});
-
-			ctp.on('rsp_login', function (data) {
-				$("#rsp_info").html(data);
+		//合约提示
+		function init() {
+			document.getElementById('offset_open').checked = true;
+			var inst = document.getElementById("instrument");
+			inst.autocomplete({
+				appendTo: "instrument",
+				lookup: ["rb1705", "ru1705"],
+				width: auto,
+				minChars: 1,
 			});
+		}
+
+		var rsp_info = document.getElementById("rsp_info");
+		var ctp = null;
+		var sid = '';
+
+		function table_show(table_name, data) {
+			var cols = null;
+			var key = null;
+			var t_id = table_name;
+
+			switch(table_name){
+				case "order":
+					key = data["OrderID"].replace(/\|/g, '');
+					cols = new Array("OrderID", "InstrumentID", "Direction", "Offset", "LimitPrice", "AvgPrice", "InsertTime", "TradeTime", "TradeVolume", "Volume", "VolumeLeft", "Status", "StatusMsg", "IsLocal", "Custom", "SysID");
+					break;
+				case "trade":
+					key = $.trim(data["TradeID"]);
+					cols = new Array("TradeID", "InstrumentID", "ExchangeID", "Direction", "Offset", "Price", "Volume", "TradeTime", "TradingDay", "OrderID", "SysID");
+					break;
+				case "position":
+					key = data["InstrumentID"]+"_"+data["Direction"];
+					cols = new Array("InstrumentID", "Direction", "Price", "Position", "TdPosition", "YdPosition", "CloseProfit", "PositionProfit", "Commission", "Margin");
+					break;
+				case 'account':
+					key = data["Investor"];
+					cols = new Array("PreBalance", "PositionProfit", "CloseProfit", "Commission", "CurrMargin", "FrozenCash", "Available", "Fund", "Risk");
+					break;
+			}
+
+			var title = $("#"+t_id).children("tr");
+			if(title.length == 0){
+				$("#"+t_id).append('<tr></tr>');
+				title = $("#"+t_id).children("tr").first();
+				for(var v in cols){
+					title.append('<td>'+cols[v]+'</td>');
+					var val = data[cols[v]];
+					if(typeof(val) == "number")//if(!isNaN(data[cols[v]])) //数字:右对齐
+						title.children("td").last().css('text-align', 'right');
+				}
+			}
+
+			//if(table_name=="trade")//order的id xxx|xx|xx 由于有|会导致bug//trade.TradeID去掉前空格否则报错
+			//	alert(key);
+			var tr = $("#"+t_id).children("#"+key);
+			if(tr.length == 0) {
+				$("#"+t_id).append('<tr id="' + key + '"></tr>');
+				tr = $("#"+t_id).children('#' + key).first();
+
+				//添加数据行时设置格式
+				for(var v in cols){
+					var val = data[cols[v]];
+					if(typeof(val) == "number")// !isNaN(val)) //数字
+						val = val.toFixed(2);
+					tr.append('<td id="'+cols[v]+'">' + val + '</td>');
+					if(!isNaN(data[cols[v]])) //数字:右对齐
+						tr.children("#"+cols[v]).css('text-align', 'right');
+				}
+			}
+			else{
+				tr = $("#"+t_id).children('#' + key).first();
+				for(var v in cols){
+					var val = data[cols[v]];
+					if(typeof(val) == "number") //if(!isNaN(val)) //数字
+						val = val.toFixed(2);
+					tr.children("#"+cols[v]).first().text(val);
+				}
+			}
+		}
+
+		function show_info(msg) {
+			var now = new Date();
+			//$("#rsp_info").html(now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + '\t' + JSON.stringify(msg));
+			rsp_info.innerHTML += "<p>" + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + '\t' + JSON.stringify(msg) + "</p>";
+		}
+
+		function io_emit(event, dict) {
+			if(ctp == null) return;
+			dict['sid'] = sid;
+			ctp.emit(event, dict);
+		}
+
+		$("#buy").click(function () {
+			var inst = document.getElementById('instrument').value;
+			var lots = document.getElementById('lots').value;
+			var price = document.getElementById('price').value;
+			var offset = document.getElementById('offset_open').checked?'open':'close';
+			var diff = document.getElementById('diff').value;
+
+			if(ctp == null) return;
+
+			io_emit('order', {
+				'instrument': inst,
+				'lots': lots,
+				'price': price,
+				'direction': 'buy',
+				'offset': offset
+			});
+		});
+
+		$("#login").click(function(){
+			ctp = io.connect('http://192.168.105.203:5000/ctp', {'reconnect':false, 'auto connect':false,'force new connection':false, 'multiplex': false});
 
 			ctp.on('connect',function () {
-				ctp.emit('login', data);
+			});
+
+			ctp.on('disconnect',function () {
+			});
+
+			ctp.on('sid',function (data) {
+				sid = data;
+				var msg = {'investor': $('#investor').val(), 'pwd': $('#pwd').val()};
+				io_emit('login', msg);
+			});
+
+			ctp.on('rsp_login', function (data) {
+				show_info(data);
+				if(data['ErrorID'] != 0){
+					io_emit('release', {'investor': $('#investor').val()});
+				}
 			});
 
 			ctp.on('rsp_account', function (data) {
-				//$("#account").text(data['Risk']);
-				var tr_title = $("#rsp_account").children("tr");
-				if(tr_title.length == 0){
-					$("#rsp_account").append('<tr></tr>');
-					$("#rsp_account").append('<tr></tr>');
-					tr_title = $("#rsp_account").children("tr").first();
-					var tr_content = tr_title.next();
-					for(var v in data) {
-						tr_title.append('<td>'+v+'</td>');
-						tr_content.append('<td id="'+v+'">'+data[v].toFixed(2)+'</td>');
-					}
-				}
-				else {
-					for (var v in data) {
-						var td = $("#" + v);
-						//alert(tr.children()[0]);
-						td.text(data[v].toFixed(2));
-					}
-				}
+				table_show('account', data);
 			});
 
 			ctp.on('rsp_position', function (data) {
-				var title = $("#rsp_posi").children("tr");
-				if(title.length == 0){
-					$("#rsp_posi").append('<tr></tr>');
-					title = $("#rsp_posi").children("tr").first();
-					for(var v in data){
-						title.append('<td>'+v+'</td>');
-					}
-				}
-
-				var key = data["InstrumentID"]+"_"+data["Direction"];
-				var tr = $("#rsp_posi").children('#'+key);
-				if(tr.length == 0) {
-					$("#rsp_posi").append('<tr id="' + key + '"></tr>');
-					tr = $("#rsp_posi").children('#' + key).first();
-					for (var v in data) {
-						tr.append('<td>' + data[v] + '</td>');
-					}
-				}
-				else{
-					tr = $("#rsp_posi").children('#' + key).first();
-					var i=0;
-					for (var v in data) {
-						tr.children('td:eq('+(i++)+')').text(data[v]);
-					}
-				}
+				table_show('position', data);
 			});
 
-//			var data = {'investor': $('#investor').val(), 'pwd': $('#password').val()};
-//			$.post('http://192.168.105.203:5000/ctp',
-//			data,
-//			function (data, status) {
-//				alert(status);
+			ctp.on('rtn_order', function (data) {
+				table_show('order', data);
+			});
+
+			ctp.on('rtn_trade', function (data) {
+				table_show('trade', data);
+			});
+
+			ctp.on('rtn_err_order', function (data) {
+				table_show('order', data['order']);
+				show_info(data['order']);
+				show_info(data['info']);
+			})
 		});
 	</script>
 </body>
