@@ -5,79 +5,113 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>登录</title>
-	<script src="http://cdn.bootcss.com/socket.io/1.5.1/socket.io.js"></script>
-	<link rel="stylesheet" href="//g.alicdn.com/sui/sui3/0.0.18/css/sui.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css">
+	<script src="//cdn.bootcss.com/socket.io/1.7.2/socket.io.js"></script>
+	<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+	<script src="https://code.ciphertrick.com/demo/jquerysession/js/jquerysession.js"></script>
 </head>
-<body onload="init()">
-	<!--用此连接无法显示数据<script type="text/javascript" src="//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>-->
-	<script type="text/javascript" src="//g.alicdn.com/sui/sui3/0.0.18/js/sui.min.js"></script>
-	<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-
-	<div class="input-group">
-		<span class="input-group-addon" id="basic-addon1">帐号</span>
-		<input id="investor" width="100" type="text" class="form-control" placeholder="输入帐号" aria-describedby="basic-addon1">
-		<span class="input-group-addon" id="basic-addon2">密码</span>
-		<input id="pwd" width="100" type="password" class="form-control" placeholder="输入密码" aria-describedby="basic-addon2">
+<body>
+<div class="container">
+	<div class="input-group input-group-sm" about="登录">
+		<span class="input-group-addon">帐号</span>
+		<input id="investor" width="100" type="text" class="form-control" placeholder="输入帐号">
+		<span class="input-group-addon">密码</span>
+		<input id="pwd" width="100" type="password" class="form-control" placeholder="输入密码">
 		<span class="input-group-btn">
 			<button id="login"  class="btn btn-default" type="button">登录</button>
 		</span>
 	</div>
+	<br>
 
-	<div>权益
-		<table id="account" class="table table-striped table-bordered table-hover table-primary"></table>
-	</div>
-下单
-	<div class="input-group">
-		<span class="input-group-addon" id="inst" class="form-control" >合约</span>
-		<input width="100" name="instrument" id="instrument" class="form-control" aria-describedby="inst" data-toggle="autocomplete">
+	<div class="input-group input-group-sm">
+		<span class="input-group-addon" id="inst">合约</span>
+		<input width="100" type="text" id="instrument" class="form-control">
 
-		<span class="input-group-addon" id="lots_on">手数</span>
-		<input width="100" class="form-control" aria-describedby="lots_on" type="text" id="lots">
+		<span class="input-group-addon">手数</span>
+		<input width="100" class="form-control" type="text" id="lots">
 
-		<span class="input-group-addon" id="price_on">价格</span>
-		<input width="100" class="form-control" aria-describedby="price_on" type="text" id="price">
+		<span class="input-group-addon">价格</span>
+		<input width="100" class="form-control" type="text" id="price">
 
-		<span class="input-group-addon" id="offset_on">
-		开仓<input aria-describedby="offset_on" type="radio" id="offset_open" name="offset">
-		平仓<input aria-describedby="offset_on" type="radio" id="offset_close" name="offset">
+		<span class="input-group-addon">
+		开仓<input type="radio" id="offset_open" name="offset">
+		平仓<input type="radio" id="offset_close" name="offset">
 		</span>
 
-		<span class="input-group-addon" id="diff_on">偏移</span>
-		<input width="100" class="form-control" aria-describedby="diff_on" type="text" id="diff">
+		<span class="input-group-addon">偏移</span>
+		<input width="100" class="form-control" type="text" id="diff">
 
 		<span class="input-group-btn">
-			<button type="button" class="btn btn-default" id="buy">买</button>
-			<button type="button" class="btn btn-default" id="sell">卖</button>
+			<button type="button" class="btn btn-default" id="buy" onclick="order('buy')">买</button>
+			<button type="button" class="btn btn-default" id="sell" onclick="order('sell')">卖</button>
 		</span>
 	</div>
+	<br>
 
-	<div>委托
-		<table id="order" class="table table-striped table-bordered table-hover table-primary"></table>
-	</div>
+	<div about="数据表格">
+	<table class="table table-bordered table-striped table-condensed table-hover" id="account">
+		<caption>权益</caption>
+		<thead></thead>
+		<tbody></tbody>
+	</table>
 
-	<div>持仓
-		<table id="position" class="table table-striped table-bordered table-hover table-primary"></table>
-	</div>
+	<table class="table table-bordered table-striped table-condensed table-hover" id="order">
+		<caption>委托</caption>
+		<thead></thead>
+		<tbody></tbody>
+	</table>
 
-	<div>成交
-		<table id="trade" class="table table-striped table-bordered table-hover table-primary"></table>
+	<table class="table table-bordered table-striped table-condensed table-hover" id="trade">
+		<caption>成交</caption>
+		<thead></thead>
+		<tbody></tbody>
+	</table>
+
+	<table class="table table-bordered table-striped table-condensed table-hover" id="position">
+		<caption>持仓</caption>
+		<thead></thead>
+		<tbody></tbody>
+	</table>
 	</div>
 
 	<footer>
 		<pre id="rsp_info">no error ... </pre>
 	</footer>
-
+</div>
 	<script>
-		//合约提示
-		function init() {
-			document.getElementById('offset_open').checked = true;
-			var inst = document.getElementById("instrument");
-			inst.autocomplete({
-				appendTo: "instrument",
-				lookup: ["rb1705", "ru1705"],
-				width: auto,
-				minChars: 1,
-			});
+		var table_cols = {};
+		//去掉order,trade中的OrderID
+		table_cols['order'] = new Array("InstrumentID", "Direction", "Offset", "LimitPrice", "AvgPrice", "InsertTime", "TradeTime", "TradeVolume", "Volume", "VolumeLeft", "Status", "StatusMsg", "IsLocal", "Custom", "SysID");
+		table_cols['trade'] = new Array("TradeID", "InstrumentID", "ExchangeID", "Direction", "Offset", "Price", "Volume", "TradeTime", "TradingDay", "SysID");
+		table_cols['position'] = new Array("InstrumentID", "Direction", "Price", "Position", "TdPosition", "YdPosition", "CloseProfit", "PositionProfit", "Commission", "Margin");
+		table_cols['account'] = new Array("PreBalance", "PositionProfit", "CloseProfit", "Commission", "CurrMargin", "FrozenCash", "Available", "Fund", "Risk");
+
+		$(document).ready(function () {
+			$('#offset_open').checked = true;
+			init_table('account');
+			init_table('order');
+			init_table('trade');
+			init_table('position');
+			//如果登录成功后刷新，则再次登录
+			var loginfo = $.session.get('login');
+			if(loginfo != null){
+				loginfo = eval('(' + loginfo + ')');
+				$('#investor').val(loginfo['investor']);
+				$('#pwd').val(loginfo['pwd']);
+				login();
+			}
+		});
+
+		function init_table(table_name) {
+			var cols = table_cols[table_name];
+
+			//用html()或$("#xx")[0].innerHTML
+			$("#"+table_name + " thead").html('<tr></tr>');
+			var title = $("#"+table_name + " thead tr")
+			for(var v in cols){
+				title.append('<th>'+cols[v]+'</th>');
+			}
 		}
 
 		var rsp_info = document.getElementById("rsp_info");
@@ -85,48 +119,30 @@
 		var sid = '';
 
 		function table_show(table_name, data) {
-			var cols = null;
+			var cols = table_cols[table_name];
 			var key = null;
-			var t_id = table_name;
 
 			switch(table_name){
 				case "order":
 					key = data["OrderID"].replace(/\|/g, '');
-					cols = new Array("OrderID", "InstrumentID", "Direction", "Offset", "LimitPrice", "AvgPrice", "InsertTime", "TradeTime", "TradeVolume", "Volume", "VolumeLeft", "Status", "StatusMsg", "IsLocal", "Custom", "SysID");
 					break;
 				case "trade":
 					key = $.trim(data["TradeID"]);
-					cols = new Array("TradeID", "InstrumentID", "ExchangeID", "Direction", "Offset", "Price", "Volume", "TradeTime", "TradingDay", "OrderID", "SysID");
 					break;
 				case "position":
 					key = data["InstrumentID"]+"_"+data["Direction"];
-					cols = new Array("InstrumentID", "Direction", "Price", "Position", "TdPosition", "YdPosition", "CloseProfit", "PositionProfit", "Commission", "Margin");
 					break;
 				case 'account':
 					key = data["Investor"];
-					cols = new Array("PreBalance", "PositionProfit", "CloseProfit", "Commission", "CurrMargin", "FrozenCash", "Available", "Fund", "Risk");
 					break;
-			}
-
-			var title = $("#"+t_id).children("tr");
-			if(title.length == 0){
-				$("#"+t_id).append('<tr></tr>');
-				title = $("#"+t_id).children("tr").first();
-				for(var v in cols){
-					title.append('<td>'+cols[v]+'</td>');
-					var val = data[cols[v]];
-					if(typeof(val) == "number")//if(!isNaN(data[cols[v]])) //数字:右对齐
-						title.children("td").last().css('text-align', 'right');
-				}
 			}
 
 			//if(table_name=="trade")//order的id xxx|xx|xx 由于有|会导致bug//trade.TradeID去掉前空格否则报错
 			//	alert(key);
-			var tr = $("#"+t_id).children("#"+key);
+			var tr = $("#"+table_name + ' tbody').children("#"+key);
 			if(tr.length == 0) {
-				$("#"+t_id).append('<tr id="' + key + '"></tr>');
-				tr = $("#"+t_id).children('#' + key).first();
-
+				$("#"+table_name + ' tbody')[0].innerHTML += '<tr id="' + key + '"></tr>';
+				tr = $("#"+table_name + " tbody #"+key);
 				//添加数据行时设置格式
 				for(var v in cols){
 					var val = data[cols[v]];
@@ -138,12 +154,21 @@
 				}
 			}
 			else{
-				tr = $("#"+t_id).children('#' + key).first();
+				tr = $("#"+table_name + " tbody #"+key);
 				for(var v in cols){
 					var val = data[cols[v]];
 					if(typeof(val) == "number") //if(!isNaN(val)) //数字
 						val = val.toFixed(2);
 					tr.children("#"+cols[v]).first().text(val);
+				}
+			}
+			//过滤持仓为0的数据
+			if(table_name == 'position'){
+				if(data['Position'] == 0){
+					tr.hide();
+				}
+				else {
+					tr.show();
 				}
 			}
 		}
@@ -160,7 +185,7 @@
 			ctp.emit(event, dict);
 		}
 
-		$("#buy").click(function () {
+		function order(dire) {
 			var inst = document.getElementById('instrument').value;
 			var lots = document.getElementById('lots').value;
 			var price = document.getElementById('price').value;
@@ -173,18 +198,25 @@
 				'instrument': inst,
 				'lots': lots,
 				'price': price,
-				'direction': 'buy',
+				'direction': dire,
 				'offset': offset
 			});
+		}
+
+		$("#login").click(function () {
+			login();
 		});
 
-		$("#login").click(function(){
-			ctp = io.connect('http://192.168.105.203:5000/ctp', {'reconnect':false, 'auto connect':false,'force new connection':false, 'multiplex': false});
+		function login(){
+			$.session.clear();
+
+			ctp = io.connect('http://192.168.105.203:5000/ctp', {'reconnect':true, 'auto connect':true,'force new connection':false, 'multiplex': false});
 
 			ctp.on('connect',function () {
 			});
 
 			ctp.on('disconnect',function () {
+				show_info('disconnected.');
 			});
 
 			ctp.on('sid',function (data) {
@@ -197,6 +229,10 @@
 				show_info(data);
 				if(data['ErrorID'] != 0){
 					io_emit('release', {'investor': $('#investor').val()});
+					io.socket.disconnect();
+				}
+				else{
+					$.session.set('login', "{'investor': '"+$('#investor').val()+"', 'pwd': '"+$('#pwd').val()+"'}");
 				}
 			});
 
@@ -206,6 +242,10 @@
 
 			ctp.on('rsp_position', function (data) {
 				table_show('position', data);
+			});
+
+			ctp.on('rtn_cancel', function (data) {
+				table_show('order', data);
 			});
 
 			ctp.on('rtn_order', function (data) {
@@ -221,7 +261,7 @@
 				show_info(data['order']);
 				show_info(data['info']);
 			})
-		});
+		}
 	</script>
 </body>
 </html>

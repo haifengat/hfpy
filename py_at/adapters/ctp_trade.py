@@ -97,14 +97,14 @@ class CtpTrade(TradeAdapter):
 
 	def __OnRspQryPosition(self, pInvestorPosition = CThostFtdcInvestorPositionField, pRspInfo = CThostFtdcRspInfoField, nRequestID = int, bIsLast = bool):
 		""""""
-		if not self.__posi:
-			self.__posi = []
 		if pInvestorPosition.getInstrumentID() != '':  # 偶尔出现NULL的数据导致数据转换错误
 			self.__posi.append(pInvestorPosition)# Struct(**f.__dict__)) #dict -> object
 
 		if bIsLast:
+			#先排序再group才有效
+			self.__posi = sorted(self.__posi, key= lambda c: '{0}_{1}'.format(c.getInstrumentID(), DirectType.Buy if c.getPosiDirection() == PosiDirectionType.Long else DirectType.Sell))
 			# direction需从posidiction转换为dictiontype
-			for key, group in itertools.groupby(self.__posi, lambda c: '{0}_{1}'.format(c.getInstrumentID(), int(DirectType.Buy if c.getPosiDirection() == PosiDirectionType.Long else DirectType.Sell))):
+			for key, group in itertools.groupby(self.__posi, lambda c: '{0}_{1}'.format(c.getInstrumentID(), DirectType.Buy if c.getPosiDirection() == PosiDirectionType.Long else DirectType.Sell)):
 				pf = self.DicPositionField.get(key)
 				if not pf:
 					pf = PositionField()
@@ -179,7 +179,7 @@ class CtpTrade(TradeAdapter):
 	def __OnRtnTrade(self, f):
 		""""""
 		tf = TradeField()
-		tf.Direction = f.getDirection()
+		tf.Direction = DirectType.Buy if f.getDirection() == DirectionType.Buy else DirectType.Sell
 		tf.ExchangeID = f.getExchangeID()
 		tf.InstrumentID = f.getInstrumentID()
 		tf.Offset = OffsetType.Open if f.getOffsetFlag() == OffsetFlagType.Open else OffsetType.Close if f.getOffsetFlag() == OffsetFlagType.Close else OffsetType.CloseToday
@@ -208,7 +208,7 @@ class CtpTrade(TradeAdapter):
 			of.StatusMsg = '部分成交'
 		# 更新持仓 *****
 		if tf.Offset == OffsetType.Open:
-			key = '{0}_{1}'.format(tf.InstrumentID, int(tf.Direction))
+			key = '{0}_{1}'.format(tf.InstrumentID, tf.Direction)
 			pf = self.DicPositionField.get(key)
 			if not pf:
 				pf = PositionField()
@@ -219,7 +219,7 @@ class CtpTrade(TradeAdapter):
 			pf.TdPosition += tf.Volume
 			pf.Position += tf.Volume
 		else:
-			key = '{0}_{1}'.format(tf.InstrumentID, int(DirectType.Sell if tf.Direction == DirectType.Buy else DirectType.Buy))
+			key = '{0}_{1}'.format(tf.InstrumentID, DirectType.Sell if tf.Direction == DirectType.Buy else DirectType.Buy)
 			pf = self.DicPositionField.get(key)
 			if pf:  # 有可能出现无持仓的情况
 				if tf.Offset == OffsetType.CloseToday:

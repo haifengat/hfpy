@@ -14,8 +14,20 @@ from flask_socketio import emit, join_room, leave_room, rooms, disconnect
 class CTPProxy:
 	''''''
 	def __init__(self, investor, pwd):
+		""""""
+		self.q = None
+		self.t = None
+		self.Investor = investor
+		self.PassWord = pwd
+		self.init_ctp()
 
-		# 目录到接口下
+	def init_ctp(self):
+		""""""
+		if self.q:
+			self.q.Release()
+		if self.t:
+			self.t.Release()
+
 		self.q = CtpQuote()
 		self.q.OnFrontConnected = self.q_OnFrontConnected
 		self.q.OnRspUserLogin = self.q_OnRspUserLogin
@@ -30,14 +42,11 @@ class CTPProxy:
 		self.t.OnRtnInstrumentStatus = self.OnRtnInstrumentStatus
 		self.t.OnRtnErrOrder = self.OnRtnErrOrder
 
-		self.Investor = investor
-		self.PassWord = pwd
-
 	def io_emit(self, rsp_type_str, data):
-		socketio.emit(rsp_type_str, data, namespace='/ctp', room=self.Investor)
+		socketio.emit(rsp_type_str, data, namespace='/ctp', room=self.Investor+self.PassWord)
 
 	def OnFrontConnected(self):
-		print('connected')
+		print('{0} ctp connected'.format(self.Investor))
 		self.t.ReqUserLogin(self.Investor, self.PassWord, '9999')
 
 
@@ -48,20 +57,28 @@ class CTPProxy:
 			_thread.start_new_thread(self.OnData, ())
 			self.q.ReqConnect('tcp://180.168.146.187:10010')
 		else:
-			self.io_emit('rsp_login', info.__dict__)
-			_thread.start_new_thread(self.release, ()) #须放在thread中，否则无法释放资源
-			ctps.pop(self.Investor)
+			if info.ErrorID == 7:
+				print('ctp relogin')
+				_thread.start_new_thread(self.relogin, ())
+			else:
+				self.io_emit('rsp_login', info.__dict__)
+				_thread.start_new_thread(self.release, ())  # 须放在thread中，否则无法释放资源
+
+	def relogin(self):
+		self.init_ctp()
+		sleep(60*5)
+		print('relogin')
+		self.Run()
 
 	def release(self):
 		self.t.Release()
-		self.t = None
 
 	#Onrspuserlogin中调用
 	def OnData(self):
 		stats = 1
-		while self.t.IsLogin and stats > 0:#没有交易的品种时不再循环发送
+		while self.t.IsLogin and stats > 0:#没有交易的品种时不再循环发送::隔夜重启后会停止发送
 			sleep(1)
-			stats = sum(1 for n in self.t.DicInstrumentStatus.keys() if self.t.DicInstrumentStatus[n] == InstrumentStatusType.Continous)
+			stats = sum(1 for n in self.t.DicInstrumentStatus.values() if n == InstrumentStatusType.Continous)
 			#print(self.t.Account.__dict__)
 			self.io_emit('rsp_account', self.t.Account.__dict__)
 			# 需要在struct中增加obj2json的转换函数
@@ -120,7 +137,7 @@ sid_investor = {}
 
 @socketio.on('release', namespace='/ctp')
 def ctp_release(data):
-	leave_room(data['investor'])
+	leave_room(sid_investor[data['sid']])
 	print('release from ' + data['investor'])
 
 @socketio.on('connect', namespace='/ctp')
@@ -145,14 +162,14 @@ def disconnect():
 @socketio.on('login', namespace='/ctp')
 def login(data):
 	#隔夜登录
-	user = data['investor']
+	ctp_id = data['investor'] + data['pwd']
 	ctp = None
-	if user in ctps.keys():
-		ctp = ctps[user]
+	if ctp_id in ctps.keys():
+		ctp = ctps[ctp_id]
 		if not ctp.t.IsLogin:
 			ctp.t.Release()
 			ctp = CTPProxy(data['investor'], data['pwd'])
-			ctps[user] = ctp
+			ctps[ctp_id] = ctp
 			ctp.Run()
 		else:   #重复登录时需要发送的数据(收盘后不会发送)
 			emit('rsp_login', {"ErrorID":0, "ErrorMsg":"正确"})
@@ -165,18 +182,22 @@ def login(data):
 				emit('rtn_trade', ctp.t.DicTradeField[t].__dict__, namespace='/ctp')
 	else:
 		ctp = CTPProxy(data['investor'], data['pwd'])
-		ctps[user] = ctp
+		ctps[ctp_id] = ctp
 		ctp.Run()
+	join_room(ctp_id)
+	sid_investor[flask.request.sid] = ctp_id
 	#等待登录
 	i = 0
-	while not ctp.t.IsLogin and i < 10:
+	while not ctp.t.IsLogin and i < 5:
 		sleep(1)
 		i+=1
 
 	if ctp.t.IsLogin:
-		join_room(user)
-		sid_investor[flask.request.sid] = user
 		print(sid_investor)
+	else:
+		ctps.pop(ctp_id)
+		leave_room(ctp_id)
+		sid_investor.pop(flask.request.sid)
 
 @socketio.on('order', namespace='/ctp')
 def order(data):
