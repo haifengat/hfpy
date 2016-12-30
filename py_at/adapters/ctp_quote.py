@@ -72,7 +72,7 @@ class CtpQuote(QuoteAdapter):
 		str = day + ' ' + pDepthMarketData.getUpdateTime()
 		if day == None or day == ' ':
 			str = time.strftime('%Y%m%d %H:%M:%S', time.localtime())
-		tick.UpdateTime = time.strptime(str, '%Y%m%d %H:%M:%S')
+		tick.UpdateTime = str #time.strptime(str, '%Y%m%d %H:%M:%S')
 		self.DicTick[tick.Instrument] = tick
 		_thread.start_new_thread(self.OnRtnTick, (tick,))
 

@@ -10,6 +10,10 @@
 	<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 	<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 	<script src="https://code.ciphertrick.com/demo/jquerysession/js/jquerysession.js"></script>
+	<!--输入框自动完成-->
+	<script src="//cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+	<!--spinner数字输入-->
+	<script src="//cdn.bootcss.com/bootstrap-touchspin/3.1.2/jquery.bootstrap-touchspin.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -24,34 +28,45 @@
 	</div>
 	<br>
 
-	<div class="input-group input-group-sm">
+	<div class="input-group input-group-sm" about="下单">
 		<span class="input-group-addon" id="inst">合约</span>
-		<input width="100" type="text" id="instrument" class="form-control">
+		<input size="18" type="text" id="instrument" class="form-control" data-provide="typeahead">
 
 		<span class="input-group-addon">手数</span>
-		<input width="100" class="form-control" type="text" id="lots">
+		<input size=10 class="form-control" type="number" id="lots" value="1" min="1">
 
 		<span class="input-group-addon">价格</span>
-		<input width="100" class="form-control" type="text" id="price">
+		<input class="form-control" type="number" id="price" value="9999" step="0.01">
 
 		<span class="input-group-addon">
-		开仓<input type="radio" id="offset_open" name="offset">
-		平仓<input type="radio" id="offset_close" name="offset">
+		<input type="radio" id="offset_open" name="offset" checked="checked">开仓
+		<input type="radio" id="offset_close" name="offset">平仓
 		</span>
 
 		<span class="input-group-addon">偏移</span>
-		<input width="100" class="form-control" type="text" id="diff">
+		<input class="form-control" type="number" id="diff" value="0" min="0">
 
 		<span class="input-group-btn">
-			<button type="button" class="btn btn-default" id="buy" onclick="order('buy')">买</button>
-			<button type="button" class="btn btn-default" id="sell" onclick="order('sell')">卖</button>
+			<button type="button" class="btn btn-success" id="buy" onclick="order('buy')">买</button>
+			<button type="button" class="btn btn-danger" id="sell" onclick="order('sell')">卖</button>
 		</span>
 	</div>
 	<br>
 
+	<table class="table table-bordered table-striped table-condensed table-hover" id="tick">
+		<thead></thead>
+		<tbody></tbody>
+	</table>
+
 	<div about="数据表格">
 	<table class="table table-bordered table-striped table-condensed table-hover" id="account">
 		<caption>权益</caption>
+		<thead></thead>
+		<tbody></tbody>
+	</table>
+
+	<table class="table table-bordered table-striped table-condensed table-hover" id="position">
+		<caption>持仓</caption>
 		<thead></thead>
 		<tbody></tbody>
 	</table>
@@ -64,12 +79,6 @@
 
 	<table class="table table-bordered table-striped table-condensed table-hover" id="trade">
 		<caption>成交</caption>
-		<thead></thead>
-		<tbody></tbody>
-	</table>
-
-	<table class="table table-bordered table-striped table-condensed table-hover" id="position">
-		<caption>持仓</caption>
 		<thead></thead>
 		<tbody></tbody>
 	</table>
@@ -86,13 +95,20 @@
 		table_cols['trade'] = new Array("TradeID", "InstrumentID", "ExchangeID", "Direction", "Offset", "Price", "Volume", "TradeTime", "TradingDay", "SysID");
 		table_cols['position'] = new Array("InstrumentID", "Direction", "Price", "Position", "TdPosition", "YdPosition", "CloseProfit", "PositionProfit", "Commission", "Margin");
 		table_cols['account'] = new Array("PreBalance", "PositionProfit", "CloseProfit", "Commission", "CurrMargin", "FrozenCash", "Available", "Fund", "Risk");
+		table_cols['tick'] = new Array("Instrument", "LastPrice", "AskPrice", "AskVolume", "BidPrice", "BidVolume", "UpdateTime", "Volume", "OpenInterest", "AveragePrice");
+
+		var ctp = null;
+		var sid = '';
+		var sub_inst = '';
 
 		$(document).ready(function () {
-			$('#offset_open').checked = true;
 			init_table('account');
 			init_table('order');
 			init_table('trade');
 			init_table('position');
+			init_table('tick');
+
+
 			//如果登录成功后刷新，则再次登录
 			var loginfo = $.session.get('login');
 			if(loginfo != null){
@@ -114,10 +130,6 @@
 			}
 		}
 
-		var rsp_info = document.getElementById("rsp_info");
-		var ctp = null;
-		var sid = '';
-
 		function table_show(table_name, data) {
 			var cols = table_cols[table_name];
 			var key = null;
@@ -132,8 +144,11 @@
 				case "position":
 					key = data["InstrumentID"]+"_"+data["Direction"];
 					break;
-				case 'account':
+				case "account":
 					key = data["Investor"];
+					break;
+				case "tick":
+					key = data["Instrument"];
 					break;
 			}
 
@@ -174,6 +189,7 @@
 		}
 
 		function show_info(msg) {
+			var rsp_info = document.getElementById("rsp_info");
 			var now = new Date();
 			//$("#rsp_info").html(now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + '\t' + JSON.stringify(msg));
 			rsp_info.innerHTML += "<p>" + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + '\t' + JSON.stringify(msg) + "</p>";
@@ -181,7 +197,7 @@
 
 		function io_emit(event, dict) {
 			if(ctp == null) return;
-			dict['sid'] = sid;
+			//dict['sid'] = sid;
 			ctp.emit(event, dict);
 		}
 
@@ -233,7 +249,55 @@
 				}
 				else{
 					$.session.set('login', "{'investor': '"+$('#investor').val()+"', 'pwd': '"+$('#pwd').val()+"'}");
+					//合约列表
+					io_emit('get_instruments', {});
 				}
+			});
+
+			//返回合约列表
+			ctp.on('rsp_instruments', function (data) {
+				var src = [];
+				//如何判断是否处理过？$input.typeahead();
+				for(var i = 0; i<data.length; i++) {
+					src.push({name: data[i]['InstrumentID'], val: data[i]});
+				}
+				src.sort(function (a, b) {
+					var x = a["name"];
+					var y = b["name"];
+					return x < y ? -1 : 1;
+				});
+				var $input = $('#instrument');
+				$input.typeahead({source: src, autoSelect: true});
+				$input.change(function(i, oldval) {
+					var current = $input.typeahead("getActive");
+					if (current) {
+						// Some item from your model is active!
+						if (current.name == $input.val()) {
+							// This means the exact match is found. Use toLowerCase() if you want case insensitive match.
+							var instField = current['val'];
+							$('#price').attr('step', instField['PriceTick']);
+
+							if(sub_inst != ''){
+								$("#tick tbody #"+sub_inst).remove();
+								//$('#tick tbody').remove($('#'+sub_inst));
+								io_emit('unsub_inst',{'instrument': sub_inst});
+							}
+							sub_inst = current.name;
+							io_emit('sub_inst',{'instrument': sub_inst});
+						} else {
+							// This means it is only a partial match, you can either add a new item
+							// or take the active if you don't want new items
+						}
+					} else {
+						// Nothing is active so it is a new value (or maybe empty value)
+					}
+				});
+
+			});
+
+			ctp.on('rtn_tick', function (data) {
+				//show_info(data['Instrument']);
+				table_show('tick', data);
 			});
 
 			ctp.on('rsp_account', function (data) {

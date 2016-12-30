@@ -123,7 +123,7 @@ class CTPProxy:
 
 	def q_Tick(self, field=Tick):
 		""""""
-		pass
+		socketio.emit('rtn_tick', field.__dict__, namespace='/ctp', room=field.Instrument)
 
 
 	def Run(self):
@@ -133,11 +133,11 @@ class CTPProxy:
 from app import socketio
 import flask
 ctps = {}
-sid_investor = {}
+sid_ctpid = {}
 
 @socketio.on('release', namespace='/ctp')
 def ctp_release(data):
-	leave_room(sid_investor[data['sid']])
+	leave_room(sid_ctpid[flask.request.sid])
 	print('release from ' + data['investor'])
 
 @socketio.on('connect', namespace='/ctp')
@@ -156,8 +156,8 @@ def ctp_connect():
 def disconnect():
 	sid = flask.request.sid
 	print('ctp disconnected:' + sid)
-	if sid in sid_investor:
-		leave_room(sid_investor[sid])
+	if sid in sid_ctpid:
+		leave_room(sid_ctpid[sid])
 
 @socketio.on('login', namespace='/ctp')
 def login(data):
@@ -185,7 +185,7 @@ def login(data):
 		ctps[ctp_id] = ctp
 		ctp.Run()
 	join_room(ctp_id)
-	sid_investor[flask.request.sid] = ctp_id
+	sid_ctpid[flask.request.sid] = ctp_id
 	#等待登录
 	i = 0
 	while not ctp.t.IsLogin and i < 5:
@@ -193,11 +193,37 @@ def login(data):
 		i+=1
 
 	if ctp.t.IsLogin:
-		print(sid_investor)
+		print(sid_ctpid)
 	else:
 		ctps.pop(ctp_id)
 		leave_room(ctp_id)
-		sid_investor.pop(flask.request.sid)
+		sid_ctpid.pop(flask.request.sid)
+
+@socketio.on('get_instruments', namespace='/ctp')
+def instrument(data):
+	sid = flask.request.sid
+	ctp = ctps[sid_ctpid[sid]]
+	rtn = []
+	for p in ctp.t.DicInstrument:
+		rtn.append(ctp.t.DicInstrument[p].__dict__)
+	emit('rsp_instruments', rtn)
+
+@socketio.on('sub_inst', namespace='/ctp')
+def sub_inst(data):
+	sid = flask.request.sid
+	ctp = ctps[sid_ctpid[sid]]
+	inst = data['instrument']
+	ctp.q.ReqSubscribeMarketData(inst)
+	join_room(inst)
+	tick = ctp.q.DicTick.get(inst)
+	if tick:
+		socketio.emit('rtn_tick', tick.__dict__, namespace='/ctp', room=inst)
+
+@socketio.on('unsub_inst', namespace='/ctp')
+def unsub_inst(data):
+	sid = flask.request.sid
+	ctp = ctps[sid_ctpid[sid]]
+	leave_room(data['instrument'])
 
 @socketio.on('order', namespace='/ctp')
 def order(data):
@@ -208,8 +234,8 @@ def order(data):
 	direction = data['direction']
 	offset = data['offset']
 
-	sid = data['sid']
-	investor = sid_investor[sid]
+	sid = flask.request.sid
+	investor = sid_ctpid[sid]
 	ctp = ctps[investor]
 	ctp.t.ReqOrderInsert(inst, DirectType.Buy if direction == 'buy' else DirectType.Sell, OffsetType.Open if offset=='open' else OffsetType.Close, price, lots)
 
