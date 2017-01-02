@@ -6,10 +6,13 @@ __author__ = 'HaiFeng'
 __mtime__ = '2016/12/5'
 """
 import _thread
+import logging
 
 from py_at.adapters.ctp_trade import *
 from py_at.adapters.ctp_quote import *
 from flask_socketio import emit, join_room, leave_room, rooms, disconnect
+
+logger = logging.getLogger('at_py')
 
 class CTPProxy:
 	''''''
@@ -46,19 +49,18 @@ class CTPProxy:
 		socketio.emit(rsp_type_str, data, namespace='/ctp', room=self.Investor+self.PassWord)
 
 	def OnFrontConnected(self):
-		print('{0} ctp connected'.format(self.Investor))
+		logger.info('{0} ctp connected'.format(self.Investor))
 		self.t.ReqUserLogin(self.Investor, self.PassWord, '9999')
 
 
 	def OnRspUserLogin(self, info=InfoField):
 		""""""
-		print(info)
+		logger.info(info)
 		if info.ErrorID == 0:
-			_thread.start_new_thread(self.OnData, ())
 			self.q.ReqConnect('tcp://180.168.146.187:10010')
 		else:
 			if info.ErrorID == 7:
-				print('ctp relogin')
+				logger.info('ctp relogin')
 				_thread.start_new_thread(self.relogin, ())
 			else:
 				self.io_emit('rsp_login', info.__dict__)
@@ -67,7 +69,7 @@ class CTPProxy:
 	def relogin(self):
 		self.init_ctp()
 		sleep(60*5)
-		print('relogin')
+		logger.info('relogin')
 		self.Run()
 
 	def release(self):
@@ -79,13 +81,13 @@ class CTPProxy:
 		while self.t.IsLogin and stats > 0:#没有交易的品种时不再循环发送::隔夜重启后会停止发送
 			sleep(1)
 			stats = sum(1 for n in self.t.DicInstrumentStatus.values() if n == InstrumentStatusType.Continous)
-			#print(self.t.Account.__dict__)
+			#logger.info(self.t.Account.__dict__)
 			self.io_emit('rsp_account', self.t.Account.__dict__)
 			# 需要在struct中增加obj2json的转换函数
+			rtn = []
 			for p in self.t.DicPositionField:
-				self.io_emit('rsp_position', self.t.DicPositionField[p].__dict__)
-			#首次时发送title
-			#所有position一次发送,先合成str再发.
+				rtn.append(self.t.DicPositionField[p].__dict__)
+			self.io_emit('rsp_position', rtn)
 
 	def OnRtnOrder(self, f = OrderField):
 		""""""
@@ -111,15 +113,33 @@ class CTPProxy:
 		self.q.ReqUserLogin(self.Investor, self.PassWord, '9999')
 
 	def OnRtnInstrumentStatus(self, inst, status):
-		#print('{0}:{1}'.format(inst, status))
+		#logger.info('{0}:{1}'.format(inst, status))
 		pass
 
 	# ----------------------------------------------------------------------
 	def q_OnRspUserLogin(self, info=InfoField):
 		""""""
-		print('quote' + info.__str__())
+		logger.info('quote' + info.__str__())
 		self.io_emit('rsp_login', info.__dict__)
 
+		self.io_emit('rsp_account', self.t.Account.__dict__)
+
+		rtn = []
+		for p in self.t.DicInstrument:
+			rtn.append(self.t.DicInstrument[p].__dict__)
+			self.io_emit('rsp_instrument', rtn)
+
+		rtn = []
+		for p in self.t.DicPositionField:
+			rtn.append(self.t.DicPositionField[p].__dict__)
+			self.io_emit('rsp_position', rtn)
+
+		for p in self.t.DicOrderField:
+			self.io_emit('rtn_order', self.t.DicOrderField[p].__dict__)
+		for p in self.t.DicTradeField:
+			self.io_emit('rtn_trade', self.t.DicTradeField[p].__dict__)
+		#开启循环发送权益与持仓
+		_thread.start_new_thread(self.OnData, ())
 
 	def q_Tick(self, field=Tick):
 		""""""
@@ -138,24 +158,24 @@ sid_ctpid = {}
 @socketio.on('release', namespace='/ctp')
 def ctp_release(data):
 	leave_room(sid_ctpid[flask.request.sid])
-	print('release from ' + data['investor'])
+	logger.info('release from ' + data['investor'])
 
 @socketio.on('connect', namespace='/ctp')
 def ctp_connect():
 	# client_sid = socketio.__dict__['server'].__dict__['manager'].__dict__['rooms']['/ctp'].keys()
 	# ids = [id for id in client_sid if id not in ctps]
-	# print(ids)
+	# logger.info(ids)
 
 	#新连接
 	new_sid = flask.request.sid
-	print('ctp connect:' + new_sid)
+	logger.info('ctp connect:' + new_sid)
 	#使用emit为对此客户端发送消息
 	emit('sid', new_sid)
 
 @socketio.on('disconnect', namespace='/ctp')
 def disconnect():
 	sid = flask.request.sid
-	print('ctp disconnected:' + sid)
+	logger.info('ctp disconnected:' + sid)
 	if sid in sid_ctpid:
 		leave_room(sid_ctpid[sid])
 
@@ -174,12 +194,20 @@ def login(data):
 		else:   #重复登录时需要发送的数据(收盘后不会发送)
 			emit('rsp_login', {"ErrorID":0, "ErrorMsg":"正确"})
 			emit('rsp_account', ctp.t.Account.__dict__)
+
+			rtn = []
+			for p in ctp.t.DicInstrument:
+				rtn.append(ctp.t.DicInstrument[p].__dict__)
+			emit('rsp_instrument', rtn)
+
+			rtn = []
 			for p in ctp.t.DicPositionField:
-				emit('rsp_position', ctp.t.DicPositionField[p].__dict__, namespace='/ctp')
-			for o in ctp.t.DicOrderField:
-				emit('rtn_order', ctp.t.DicOrderField[o].__dict__, namespace='/ctp')
-			for t in ctp.t.DicTradeField:
-				emit('rtn_trade', ctp.t.DicTradeField[t].__dict__, namespace='/ctp')
+				rtn.append(ctp.t.DicPositionField[p].__dict__)
+			emit('rsp_position', rtn)
+			for p in ctp.t.DicOrderField:
+				emit('rtn_order', ctp.t.DicOrderField[p].__dict__)
+			for p in ctp.t.DicTradeField:
+				emit('rtn_trade', ctp.t.DicTradeField[p].__dict__)
 	else:
 		ctp = CTPProxy(data['investor'], data['pwd'])
 		ctps[ctp_id] = ctp
@@ -193,20 +221,12 @@ def login(data):
 		i+=1
 
 	if ctp.t.IsLogin:
-		print(sid_ctpid)
+		logger.info(sid_ctpid)
 	else:
 		ctps.pop(ctp_id)
 		leave_room(ctp_id)
 		sid_ctpid.pop(flask.request.sid)
 
-@socketio.on('get_instruments', namespace='/ctp')
-def instrument(data):
-	sid = flask.request.sid
-	ctp = ctps[sid_ctpid[sid]]
-	rtn = []
-	for p in ctp.t.DicInstrument:
-		rtn.append(ctp.t.DicInstrument[p].__dict__)
-	emit('rsp_instruments', rtn)
 
 @socketio.on('sub_inst', namespace='/ctp')
 def sub_inst(data):
@@ -227,7 +247,7 @@ def unsub_inst(data):
 
 @socketio.on('order', namespace='/ctp')
 def order(data):
-	print(data)
+	logger.info(data)
 	inst = data['instrument']
 	lots = int(data['lots'])
 	price = float(data['price'])

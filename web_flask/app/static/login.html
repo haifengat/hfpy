@@ -5,8 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>登录</title>
-	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css">
 	<script src="//cdn.bootcss.com/socket.io/1.7.2/socket.io.js"></script>
+
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css">
 	<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 	<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 	<script src="https://code.ciphertrick.com/demo/jquerysession/js/jquerysession.js"></script>
@@ -15,8 +16,15 @@
 	<!--spinner数字输入-->
 	<script src="//cdn.bootcss.com/bootstrap-touchspin/3.1.2/jquery.bootstrap-touchspin.min.js"></script>
 </head>
+<style>
+ body {
+	padding-top: 50px;
+	padding-left: 50px;
+}
+</style>
 <body>
 <div class="container">
+	<br><br>
 	<div class="input-group input-group-sm" about="登录">
 		<span class="input-group-addon">帐号</span>
 		<input id="investor" width="100" type="text" class="form-control" placeholder="输入帐号">
@@ -226,7 +234,7 @@
 		function login(){
 			$.session.clear();
 
-			ctp = io.connect('http://192.168.105.203:5000/ctp', {'reconnect':true, 'auto connect':true,'force new connection':false, 'multiplex': false});
+			ctp = io.connect('http://'+document.location.href.split('/')[2]+'/ctp', {'reconnect':true, 'auto connect':true,'force new connection':false, 'multiplex': false});
 
 			ctp.on('connect',function () {
 			});
@@ -249,13 +257,11 @@
 				}
 				else{
 					$.session.set('login', "{'investor': '"+$('#investor').val()+"', 'pwd': '"+$('#pwd').val()+"'}");
-					//合约列表
-					io_emit('get_instruments', {});
 				}
 			});
 
 			//返回合约列表
-			ctp.on('rsp_instruments', function (data) {
+			ctp.on('rsp_instrument', function (data) {
 				var src = [];
 				//如何判断是否处理过？$input.typeahead();
 				for(var i = 0; i<data.length; i++) {
@@ -296,7 +302,9 @@
 			});
 
 			ctp.on('rtn_tick', function (data) {
-				//show_info(data['Instrument']);
+				if(Math.abs($("#price").val() - data['LastPrice']) > 100){
+					$("#price").val(data['LastPrice']);
+				}
 				table_show('tick', data);
 			});
 
@@ -305,7 +313,9 @@
 			});
 
 			ctp.on('rsp_position', function (data) {
-				table_show('position', data);
+				for(var i=0;i<data.length;i++) {
+					table_show('position', data[i]);
+				}
 			});
 
 			ctp.on('rtn_cancel', function (data) {
