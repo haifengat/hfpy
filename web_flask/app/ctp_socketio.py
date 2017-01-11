@@ -23,6 +23,7 @@ class CTPProxy:
 		self.Investor = investor
 		self.PassWord = pwd
 		self.init_ctp()
+		self.RelogEnable = True
 
 	def init_ctp(self):
 		""""""
@@ -50,6 +51,8 @@ class CTPProxy:
 
 	def OnFrontConnected(self):
 		logger.info('{0} ctp connected'.format(self.Investor))
+		if not self.RelogEnable:
+			return
 		self.t.ReqUserLogin(self.Investor, self.PassWord, '9999')
 
 
@@ -64,6 +67,8 @@ class CTPProxy:
 				_thread.start_new_thread(self.relogin, ())
 			else:
 				self.io_emit('rsp_login', info.__dict__)
+				self.t.OnFrontConnected = None
+				self.RelogEnable = False
 				_thread.start_new_thread(self.release, ())  # 须放在thread中，否则无法释放资源
 
 	def relogin(self):
@@ -148,6 +153,7 @@ class CTPProxy:
 
 	def Run(self):
 		""""""
+		self.RelogEnable = True
 		self.t.ReqConnect('tcp://180.168.146.187:10000')
 
 from app import socketio
@@ -157,7 +163,8 @@ sid_ctpid = {}
 
 @socketio.on('release', namespace='/ctp')
 def ctp_release(data):
-	leave_room(sid_ctpid[flask.request.sid])
+	#leave_room(sid_ctpid[flask.request.sid])
+	leave_room(data['sid'])
 	logger.info('release from ' + data['investor'])
 
 @socketio.on('connect', namespace='/ctp')
@@ -179,6 +186,24 @@ def disconnect():
 	if sid in sid_ctpid:
 		leave_room(sid_ctpid[sid])
 
+def logSucess(ctp):
+	emit('rsp_login', {"ErrorID": 0, "ErrorMsg": "正确"})
+	emit('rsp_account', ctp.t.Account.__dict__)
+
+	rtn = []
+	for p in ctp.t.DicInstrument:
+		rtn.append(ctp.t.DicInstrument[p].__dict__)
+	emit('rsp_instrument', rtn)
+
+	rtn = []
+	for p in ctp.t.DicPositionField:
+		rtn.append(ctp.t.DicPositionField[p].__dict__)
+	emit('rsp_position', rtn)
+	for p in ctp.t.DicOrderField:
+		emit('rtn_order', ctp.t.DicOrderField[p].__dict__)
+	for p in ctp.t.DicTradeField:
+		emit('rtn_trade', ctp.t.DicTradeField[p].__dict__)
+
 @socketio.on('login', namespace='/ctp')
 def login(data):
 	#隔夜登录
@@ -192,22 +217,7 @@ def login(data):
 			ctps[ctp_id] = ctp
 			ctp.Run()
 		else:   #重复登录时需要发送的数据(收盘后不会发送)
-			emit('rsp_login', {"ErrorID":0, "ErrorMsg":"正确"})
-			emit('rsp_account', ctp.t.Account.__dict__)
-
-			rtn = []
-			for p in ctp.t.DicInstrument:
-				rtn.append(ctp.t.DicInstrument[p].__dict__)
-			emit('rsp_instrument', rtn)
-
-			rtn = []
-			for p in ctp.t.DicPositionField:
-				rtn.append(ctp.t.DicPositionField[p].__dict__)
-			emit('rsp_position', rtn)
-			for p in ctp.t.DicOrderField:
-				emit('rtn_order', ctp.t.DicOrderField[p].__dict__)
-			for p in ctp.t.DicTradeField:
-				emit('rtn_trade', ctp.t.DicTradeField[p].__dict__)
+			logSucess(ctp)
 	else:
 		ctp = CTPProxy(data['investor'], data['pwd'])
 		ctps[ctp_id] = ctp
@@ -222,6 +232,7 @@ def login(data):
 
 	if ctp.t.IsLogin:
 		logger.info(sid_ctpid)
+		logSucess(ctp)
 	else:
 		ctps.pop(ctp_id)
 		leave_room(ctp_id)

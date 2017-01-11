@@ -1875,10 +1875,10 @@ class VirementAvailAbilityType(Enum):
 
 class VirementTradeCodeType(Enum):
 	"""交易代码类型"""
-	BankBankToFuture = 49
-	BankFutureToBank = 49
-	FutureBankToFuture = 50
-	FutureFutureToBank = 50
+	BankBankToFuture = 102001
+	BankFutureToBank = 102002
+	FutureBankToFuture = 202001
+	FutureFutureToBank = 202002
 
 	#----------------------------------------------------------------------
 	def __int__(self):
@@ -3232,10 +3232,10 @@ class MonthBillTradeSumType(Enum):
 
 class FBTTradeCodeEnumType(Enum):
 	"""银期交易代码枚举类型"""
-	BankLaunchBankToBroker = 49
-	BrokerLaunchBankToBroker = 50
-	BankLaunchBrokerToBank = 49
-	BrokerLaunchBrokerToBank = 50
+	BankLaunchBankToBroker = 102001
+	BrokerLaunchBankToBroker = 202001
+	BankLaunchBrokerToBank = 102002
+	BrokerLaunchBrokerToBank = 202002
 
 	#----------------------------------------------------------------------
 	def __int__(self):

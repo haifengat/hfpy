@@ -205,7 +205,7 @@
 
 		function io_emit(event, dict) {
 			if(ctp == null) return;
-			//dict['sid'] = sid;
+			dict['sid'] = sid;
 			ctp.emit(event, dict);
 		}
 
@@ -245,8 +245,7 @@
 
 			ctp.on('sid',function (data) {
 				sid = data;
-				var msg = {'investor': $('#investor').val(), 'pwd': $('#pwd').val()};
-				io_emit('login', msg);
+				io_emit('login', {'investor': $('#investor').val(), 'pwd': $('#pwd').val()});
 			});
 
 			ctp.on('rsp_login', function (data) {
@@ -260,7 +259,7 @@
 				}
 			});
 
-			//返回合约列表
+			//返回合约列表:可能出现多次返回的情况待处理******
 			ctp.on('rsp_instrument', function (data) {
 				var src = [];
 				//如何判断是否处理过？$input.typeahead();

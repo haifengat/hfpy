@@ -29,6 +29,7 @@ logger.setLevel(logging.DEBUG)
 
 
 if __name__ == "__main__":
-	socketio.run(app, debug=False, host='0.0.0.0')#, port=27017)
+	#socketio.run(app, debug=False, host='0.0.0.0')
+	socketio.run(app, debug=False, host='0.0.0.0', port=5000)
 	#app.run(debug=True, port=5000)
 	#socketio.run(app)
