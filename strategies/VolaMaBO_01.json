@@ -1,0 +1,27 @@
+{
+    "instance":
+    [
+        {
+            "ID":100,
+            "enable": false,
+            "BeginDate":20171110,
+            "Datas":[
+                {
+                    "Instrument":"rb1805",
+                    "IntervalType": "Hour",
+                    "Interval":1
+                }
+            ],
+            "Params":{
+                "malength":4,
+                "volalength1":21,
+                "volalength2":15,
+                "Noopen":3,
+                "lots":1
+
+
+            }
+            
+        }
+    ]
+}

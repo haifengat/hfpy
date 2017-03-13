@@ -3,7 +3,8 @@ from flask_socketio import SocketIO #pip install flask-socketio
 
 
 app = Flask(__name__, static_url_path='')   #创建 flask application 对象
-socketio = SocketIO(app, async_mode=None, engineio_logger=True) #eventlet存在多次连接不断开的现象
+#threading eventlet  gevent 后两者不能实现连续推送
+socketio = SocketIO(app, async_mode='threading', engineio_logger=False) #eventlet存在多次连接不断开的现象
 
 @socketio.on_error()
 def error_handler(e):
