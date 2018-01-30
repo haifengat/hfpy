@@ -5,89 +5,92 @@ __title__ = ''
 __author__ = 'HaiFeng'
 __mtime__ = '2016/9/23'
 """
+
 import _thread
-import sys
-import time
+from time import time
 
+from py_at.structs import InfoField
+from py_at.tick import Tick
+from py_at.adapters.quote import QuoteAdapter
+from py_ctp.quote import Quote
+from py_ctp.structs import CThostFtdcRspUserLoginField, CThostFtdcRspInfoField, CThostFtdcDepthMarketDataField
 
-from py_at.adapters.QuoteAdapter import *
-from py_ctp.quote import *
-from py_at.at_struct import *
 
 class CtpQuote(QuoteAdapter):
-	""""""
-	def __init__(self):
-		super().__init__()
-		self.q = Quote()
+    """"""
 
-	def ReqConnect(self, pAddress=''):
-		self.q.CreateApi()
-		spi = self.q.CreateSpi()
-		self.q.RegisterSpi(spi)
+    def __init__(self):
+        super().__init__()
+        self.q = Quote()
 
-		self.q.OnFrontConnected = self.__OnFrontConnected
-		self.q.OnRspUserLogin = self.__OnRspUserLogin
-		self.q.OnRtnDepthMarketData = self.__OnRtnDepthMarketData
+    def ReqConnect(self, pAddress=''):
+        self.q.CreateApi()
+        spi = self.q.CreateSpi()
+        self.q.RegisterSpi(spi)
 
-		self.q.RegCB()
+        self.q.OnFrontConnected = self.__OnFrontConnected
+        self.q.OnRspUserLogin = self.__OnRspUserLogin
+        self.q.OnRtnDepthMarketData = self.__OnRtnDepthMarketData
 
-		self.q.RegisterFront(pAddress)
-		self.q.Init()
+        self.q.RegCB()
 
-	def ReqUserLogin(self, user='', pwd='', broker=''):
-		self.q.ReqUserLogin(
-			BrokerID=broker,
-			UserID=user,
-			Password=pwd
-		)
+        self.q.RegisterFront(pAddress)
+        self.q.Init()
 
-	def ReqSubscribeMarketData(self, pInstrument=''):
-		self.q.SubscribeMarketData(pInstrument)
+    def ReqUserLogin(self, user='', pwd='', broker=''):
+        self.q.ReqUserLogin(BrokerID=broker, UserID=user, Password=pwd)
 
-	def __OnFrontConnected(self):
-		""""""
-		_thread.start_new_thread(self.OnFrontConnected, ())
+    def ReqSubscribeMarketData(self, pInstrument=''):
+        self.q.SubscribeMarketData(pInstrument)
 
-	def __OnRspUserLogin(self, pRspUserLogin = CThostFtdcRspUserLoginField, pRspInfo = CThostFtdcRspInfoField, nRequestID = int, bIsLast = bool):
-		""""""
-		info = InfoField()
-		info.ErrorID = pRspInfo.getErrorID()
-		info.ErrorMsg = pRspInfo.getErrorMsg()
-		_thread.start_new_thread(self.OnRspUserLogin, (info,))
+    def __OnFrontConnected(self):
+        """"""
+        _thread.start_new_thread(self.OnFrontConnected, ())
 
-	def __OnRtnDepthMarketData(self, pDepthMarketData = CThostFtdcDepthMarketDataField):
-		""""""
-		tick = Tick()
-		tick.AskPrice = pDepthMarketData.getAskPrice1()
-		tick.AskVolume = pDepthMarketData.getAskVolume1()
-		tick.AveragePrice = pDepthMarketData.getAveragePrice()
-		tick.BidPrice = pDepthMarketData.getBidPrice1()
-		tick.BidVolume = pDepthMarketData.getBidVolume1()
-		tick.Instrument = pDepthMarketData.getInstrumentID()
-		tick.LastPrice = pDepthMarketData.getLastPrice()
-		tick.OpenInterest = pDepthMarketData.getOpenInterest()
-		tick.Volume = pDepthMarketData.getVolume()
+    def __OnRspUserLogin(self,
+                         pRspUserLogin=CThostFtdcRspUserLoginField,
+                         pRspInfo=CThostFtdcRspInfoField,
+                         nRequestID=int,
+                         bIsLast=bool):
+        """"""
+        info = InfoField()
+        info.ErrorID = pRspInfo.getErrorID()
+        info.ErrorMsg = pRspInfo.getErrorMsg()
+        self.IsLogin = True
+        _thread.start_new_thread(self.OnRspUserLogin, (info, ))
 
-		day = pDepthMarketData.getTradingDay()
-		str = day + ' ' + pDepthMarketData.getUpdateTime()
-		if day == None or day == ' ':
-			str = time.strftime('%Y%m%d %H:%M:%S', time.localtime())
-		tick.UpdateTime = str #time.strptime(str, '%Y%m%d %H:%M:%S')
-		self.DicTick[tick.Instrument] = tick
-		_thread.start_new_thread(self.OnRtnTick, (tick,))
+    def __OnRtnDepthMarketData(
+            self, pDepthMarketData=CThostFtdcDepthMarketDataField):
+        """"""
+        tick = Tick()
+        tick.AskPrice = pDepthMarketData.getAskPrice1()
+        tick.AskVolume = pDepthMarketData.getAskVolume1()
+        tick.AveragePrice = pDepthMarketData.getAveragePrice()
+        tick.BidPrice = pDepthMarketData.getBidPrice1()
+        tick.BidVolume = pDepthMarketData.getBidVolume1()
+        tick.Instrument = pDepthMarketData.getInstrumentID()
+        tick.LastPrice = pDepthMarketData.getLastPrice()
+        tick.OpenInterest = pDepthMarketData.getOpenInterest()
+        tick.Volume = pDepthMarketData.getVolume()
 
+        day = pDepthMarketData.getTradingDay()
+        str = day + ' ' + pDepthMarketData.getUpdateTime()
+        if day is None or day == ' ':
+            str = time.strftime('%Y%m%d %H:%M:%S', time.localtime())
+        tick.UpdateTime = str  # time.strptime(str, '%Y%m%d %H:%M:%S')
+        self.DicTick[tick.Instrument] = tick
+        _thread.start_new_thread(self.OnRtnTick, (tick, ))
+        # self.OnRtnTick(tick)
 
-	def OnFrontDisConnected(self, error = 0):
-		""""""
-		pass
+    def OnFrontDisConnected(self, error=0):
+        """"""
+        pass
 
+    def OnRspUserLogin(self, info=InfoField):
+        """"""
+        pass
 
-	def OnRspUserLogin(self, info = InfoField):
-		""""""
-		pass
-
-
-	# ----------------------------------------------------------------------
-	def OnRtnTick(self, field = Tick):
-		""""""
-		pass
+    # ----------------------------------------------------------------------
+    def OnRtnTick(self, field=Tick):
+        """"""
+        pass

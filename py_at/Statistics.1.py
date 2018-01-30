@@ -20,11 +20,10 @@ import pandas as pd
 import logging
 import datetime
 import matplotlib.pyplot as plt
-import copy
 from py_at.enums import OffsetType, DirectType, IntervalType
 from py_at.switch import switch
 from py_at.structs import InfoField, OrderField, TradeField, ReqPackage
-# import matplotlib.finance as mf
+import matplotlib.finance as mf
 # import mpl_finance as mf
 class Statistics(object):
     """"""
@@ -32,21 +31,21 @@ class Statistics(object):
     def __init__(self, stra):
         """"""
         
-        self.__path=os.getcwd()+'/report/'
+        self.path=os.getcwd()+'/report/'
        
-        if not os.path.exists(self.__path):
-            os.makedirs(self.__path)
-        self.__interest='simple'
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
+        self.interest='simple'
         #基本变量定义
-        self.__stra = stra
-        self.__DictInstrument = {}
-        self.__Report = []
+        self.stra = stra
+        self.DictInstrument = {}
+        self.Report = []
         # 更新品种数据
-        products = self.__get_product_zmq()
+        products = self.get_product_zmq()
         for prod in products:
             for data in stra.Datas:
                 if prod['_id'] == data.Instrument[0:len(prod['_id'])]:
-                    self.__DictInstrument[data.Instrument] = prod
+                    self.DictInstrument[data.Instrument] = prod
                 break
         #定义equity
         self.minEquity=[]
@@ -55,7 +54,7 @@ class Statistics(object):
         self.monthEquity=[]
         self.yearEquity=[]
         # 定义按笔计算指标
-        self.listAccumuProfit = []  # 累计利润列表
+        self.tListSingleYield = []  # 单笔收益率列表
         self.tListSingleProfit=[] #单笔利润列表
         self.tTotalCount = .0 #交易次数
         self.tGainCount = .0  #盈利次数
@@ -138,24 +137,23 @@ class Statistics(object):
         self.yAvgGain = .0  # 平均每年盈
        
 
-        self.__countFromTradeRecord(stra)
-        self.minEquity=self.__getMinBarEquity(stra)
-        self.__getOtherEquitys()
-        self.__countBarPerfermence()
-        self.__countDayPerfermence()
-        self.__countWeekPerfermence()
-        self.__countMonthPerfermence()
-        self.__countYearPerfermence()
-        self.__printf()
-        # self.showSignalPoint()
-        #self.__plotf()
-        self.__ShowWeb()
+        self.countFromTradeRecord(stra)
+        self.minEquity=self.getMinBarEquity(stra)
+        self.getOtherEquitys()
+        self.countBarPerfermence()
+        self.countDayPerfermence()
+        self.countWeekPerfermence()
+        self.countMonthPerfermence()
+        self.countYearPerfermence()
+        self.printf()
+        self.showSignalPoint()
+        self.plotf()
         
         # self.CalculateProfit()
 
 
 
-    def __getMinBarEquity(self,stra):
+    def getMinBarEquity(self,stra):
         #获取交易记录
         # tradeRecords=stra.Orders
         # dfTrade=pd.DataFrame(index=['datet','instrument','direction','offset','volume','price'])
@@ -173,7 +171,7 @@ class Statistics(object):
         # dfLog=pd.merge(dfMin,dfTrade,how='left',left_on='D',right_on='datet')
         # # print(dfLog)
         # #计算权益
-        # Multiplier=self.__DictInstrument[stra.Instrument]['VolumeTuple']
+        # Multiplier=self.DictInstrument[stra.Instrument]['VolumeTuple']
         # position=0
         # entryprice=0
         # floatprofit=0
@@ -207,7 +205,7 @@ class Statistics(object):
         #     equity=initfund+floatprofit+closeprofit
         #     # print([row.D,equity])
         #     lstMinEquity.append([row.D,equity])
-        fmin = open(self.__path + 'MinEquity.csv', 'w')
+        fmin = open(self.path + 'MinEquity.csv', 'w')
         for item6 in stra.listEquity:
             fmin.write('%s,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n' % (item6[0], item6[1],item6[2],item6[3],item6[4],item6[5],item6[6],item6[7],item6[8],item6[9],item6[10]))
         fmin.flush()
@@ -216,10 +214,11 @@ class Statistics(object):
         #     print(item)
         return stra.listEquity
             # print(lstMinEquity)
-    def __getOtherEquitys(self):
+    def getOtherEquitys(self):
         
         ################计算日动态权益##########################################
         firstmin=True
+
         lastdthour=0
         lastdt=0
         lastequity=0
@@ -243,7 +242,7 @@ class Statistics(object):
                 lastdt = dt
         dtday = datetime.datetime.strftime(lastdt, '%Y-%m-%d')
         self.dayEquity.append([dtday,lastequity])
-        fday = open(self.__path + 'DayEquity.csv', 'w')
+        fday = open(self.path + 'DayEquity.csv', 'w')
         for item in self.dayEquity:
             fday.write('%s,%.8f\n' % (item[0], item[1]))
         fday.flush()
@@ -279,7 +278,7 @@ class Statistics(object):
             lastindex = witem[0]
             lastrow = witem[1]
         self.weekEquity.append([lastindex, lastrow])
-        fweek = open(self.__path + 'WeekEquity.csv', 'w')
+        fweek = open(self.path + 'WeekEquity.csv', 'w')
         for fwitem in self.weekEquity:
             fweek.write('%s,%.8f\n' % (fwitem[0], fwitem[1]))
         fweek.flush()
@@ -310,7 +309,7 @@ class Statistics(object):
                 lastrow = item2[1]
                 first = a
         self.monthEquity.append([lastindex, lastrow])
-        fmonth = open(self.__path + '/MonthEquity.csv', 'w')
+        fmonth = open(self.path + '/MonthEquity.csv', 'w')
         for item in self.monthEquity:
             fmonth.write('%s,%.8f\n' % (item[0], item[1]))
         fmonth.flush()
@@ -337,15 +336,15 @@ class Statistics(object):
                 lastindex = row[0]
                 first = day.year
         self.yearEquity.append(lastrow)
-        fyear = open(self.__path + '/YearEquity.csv', 'w')
+        fyear = open(self.path + '/YearEquity.csv', 'w')
         for item in self.yearEquity:
             fyear.write('%s,%.8f\n' % (item[0], item[1]))
         fyear.flush()
         fyear.close()
 
         
-    def __countBarPerfermence(self):
-        # equity = pd.read_csv(self.__path+'Equity.csv',names=['dtime','captical'])
+    def countBarPerfermence(self):
+        # equity = pd.read_csv(self.path+'Equity.csv',names=['dtime','captical'])
 
 
         mrdd = 0
@@ -392,10 +391,10 @@ class Statistics(object):
                 mrddend=(dayitem1[0],round(dayitem1[1],5))
                 ddperiod=str(mrddbegin)+'-'+str(mrddend)
         self.bListRddrate=bListrdd
-        self.bMddRate=np.round(mrdd,4)
+        self.bMddRate=mrdd
         self.dDropDownPeriod=ddperiod
 
-    def __plottest(self,eq):
+    def plottest(self,eq):
     
         fig1 = plt.figure('日级别动态权益图')
         ax1 = plt.subplot(311)
@@ -408,11 +407,11 @@ class Statistics(object):
 
         plt.plot(eq, color='red')
      
-        # plt.savefig(self.__path + 'Day2.png')
+        # plt.savefig(self.path + 'Day2.png')
 
 
-    def __countDayPerfermence(self):
-        dfday = pd.read_csv(self.__path + 'DayEquity.csv', header=None, index_col=0, \
+    def countDayPerfermence(self):
+        dfday = pd.read_csv(self.path + 'DayEquity.csv', header=None, index_col=0, \
                             names=['captical'])
         # self.plottest(dfday)
         eq = np.array(dfday['captical'])
@@ -478,16 +477,16 @@ class Statistics(object):
         gaincount = (eqYield[eqYield > 0]).size
         losscount = (eqYield[eqYield < 0]).size
         holdcount = (eqYield[eqYield == 0]).size - 1
-        winrate = gaincount / (gaincount + losscount) if (gaincount + losscount)!=0 else 0
+        winrate = gaincount / (gaincount + losscount) if (gaincount + losscount)!=0 else float('inf')
         avgyield = np.average(eqYield)
-        avgloss = np.average(eqYield[eqYield < 0]) if len(eqYield[eqYield < 0])>0 else 0
-        avggain = np.average(eqYield[eqYield > 0]) if len(eqYield[eqYield > 0])>0 else 0
-        avgPLRate = -avggain / avgloss if avgloss != 0 else 0
+        avgloss = np.average(eqYield[eqYield < 0]) if len(eqYield[eqYield < 0])>0 else float('inf')
+        avggain = np.average(eqYield[eqYield > 0]) if len(eqYield[eqYield > 0])>0 else float('inf')
+        avgPLRate = -avggain / avgloss if avgloss != 0 else float('inf')
 
-        totalYield = (eqNetValue[-1] - eqNetValue[0]) / eqNetValue[0] if eqNetValue[0] != 0 else 0
+        totalYield = (eqNetValue[-1] - eqNetValue[0]) / eqNetValue[0] if eqNetValue[0] != 0 else float('inf')
 
         #按复利计算
-        if self.__interest=='compound':
+        if self.interest=='compound':
             print('年化收益按复利计算')
             dayYield = np.power(totalYield + 1, 1.0 / float(eq.size)) - 1
             yearYield = (1 + float(dayYield)) ** 242.0 - 1
@@ -500,14 +499,9 @@ class Statistics(object):
             print(yearYield)
         # yearYield=np.power(3.87+1,242.0/1830)-1
         volatility = np.std(eqYield)
-        try:
-            sharpRitio = np.sqrt(242) * eqYield.mean() / np.std(eqYield) if len(eqYield)>0 else 0
-        except:
-            sharpRitio=0
 
-       
-
-        marrate = yearYield / self.bMddRate if self.bMddRate!=0 else 0
+        sharpRitio = np.sqrt(242) * eqYield.mean() / np.std(eqYield) if len(eqYield)>0 else float('inf')
+        marrate = yearYield / self.bMddRate if self.bMddRate!=0 else np.float('inf')
 
         self.dListDayYield = list(eqYield)
         self.dListDayNetValue = list(eqNetValue)
@@ -516,31 +510,31 @@ class Statistics(object):
         self.dGainCount = gaincount  # 盈利天数
         self.dLossCount = losscount  # 亏损天数
         self.dHoldCount = holdcount  # 持平天数
-        self.dWinRate = np.round(winrate,4)  # 胜率
-        self.dAvgYield = np.round(avgyield,4)  # 平均日收益
-        self.dAvgLoss = np.round(avgloss,4)  # 平均每天亏损
-        self.dAvgGain = np.round(avggain,4)  # 平均每天盈利
-        self.dAvgGLRate = np.round(avgPLRate,4)  # 日均盈亏比比率
+        self.dWinRate = winrate  # 胜率
+        self.dAvgYield = avgyield  # 平均日收益
+        self.dAvgLoss = avgloss  # 平均每天亏损
+        self.dAvgGain = avggain  # 平均每天盈利
+        self.dAvgGLRate = avgPLRate  # 日均盈亏比比率
         self.dMaxContGainCount = maxContGainDayCount  # 最大连续盈利天数
         self.dMaxContLossCount = maxContLossDayCount  # 最大连续亏损天数
 
-        self.dTotalyield = np.round(totalYield,4)  # 总收益率
-        self.dYearYield = np.round(yearYield,4)  # 年化收益率
-        self.dVolatility = np.round(volatility,4)  # 波动率
-        self.dSharpRitio = np.round(sharpRitio,4)  # 夏普比率
-        self.dMarRate = np.round(marrate,4)  # MAR比率
+        self.dTotalyield = totalYield  # 总收益率
+        self.dYearYield = yearYield  # 年化收益率
+        self.dVolatility = volatility  # 波动率
+        self.dSharpRitio = sharpRitio  # 夏普比率
+        self.dMarRate = marrate  # MAR比率
 
         self.dNoNewHighDays=maxNoNewHighDays
         self.dNoNewHighPeriod=str(maxNoNewHighBegin)+'----'+str(maxNoNewHighEnd)
 
-    def __countWeekPerfermence(self):
+    def countWeekPerfermence(self):
         losscount = 0
         gaincount = 0
         holdcount = 0
         maxContGainDayCount = 0
         maxContLossDayCount = 0
 
-        dfweek = pd.read_csv(self.__path + 'WeekEquity.csv', header=None, index_col=0, \
+        dfweek = pd.read_csv(self.path + 'WeekEquity.csv', header=None, index_col=0, \
                              names=['captical'])
         initfund = dfweek['captical'][0]
         isbegin = True
@@ -569,11 +563,11 @@ class Statistics(object):
         gaincount = eqYield[eqYield > 0].size
         holdcount = eqYield[eqYield == 0].size - 1
         totalcount = eqYield.size - 1
-        avgloss = np.average(eqYield[eqYield < 0]) if len(eqYield[eqYield < 0])>0 else 0
-        avggain = np.average(eqYield[eqYield > 0]) if len(eqYield[eqYield > 0])>0 else 0
+        avgloss = np.average(eqYield[eqYield < 0]) if len(eqYield[eqYield < 0])>0 else float('inf')
+        avggain = np.average(eqYield[eqYield > 0]) if len(eqYield[eqYield > 0])>0 else float('inf')
 
-        avgPLRate = avggain / avgloss if avgloss != 0 else 0
-        winRate = gaincount / (gaincount + losscount) if gaincount + losscount > 0 else 0
+        avgPLRate = avggain / avgloss if avgloss != 0 else float('inf')
+        winRate = gaincount / (gaincount + losscount) if gaincount + losscount > 0 else float('inf')
 
         self.wListWeekNetValue = eqNetValue  # 周净值
         self.wListWeekYield = eqYield  # 周收益率
@@ -582,13 +576,13 @@ class Statistics(object):
         self.wGainCount = gaincount  # 盈利周数
         self.wLossCount = losscount  # 亏损周数
         self.wHoldCount = holdcount  # 持平周数
-        self.wWinRate = np.round(winRate,4)  # 周胜率
-        self.wAvgLoss = np.round(avgloss,4)  # 平均每周亏损
-        self.wwvgGain = np.round(avggain,4)  # 平均每周盈利
+        self.wWinRate = winRate  # 周胜率
+        self.wAvgLoss = avgloss  # 平均每周亏损
+        self.wwvgGain = avggain  # 平均每周盈利
         self.wMaxContGainCount = maxContGainDayCount  # 最大连续盈利周数
         self.wMaxContLossCount = maxContLossDayCount  # 最大连续亏损周数
 
-    def __countMonthPerfermence(self):
+    def countMonthPerfermence(self):
 
         listMonthYield = []
         listMonthNetValue = []
@@ -598,7 +592,7 @@ class Statistics(object):
         maxContLossMonthCount = 0
         maxContGainMonthCount = 0
 
-        dfmonth = pd.read_csv(self.__path + 'MonthEquity.csv', header=None, index_col=0, \
+        dfmonth = pd.read_csv(self.path + 'MonthEquity.csv', header=None, index_col=0, \
                               names=['captical'])
         eq = dfmonth['captical']
         eq2 = np.zeros(len(eq))
@@ -637,15 +631,15 @@ class Statistics(object):
         self.mHoldCount = holdcount  # 持平月数
         self.mMaxContGainCount = maxContGainMonthCount  # 最大连续盈利月数
         self.mMaxContLossCount = maxContLossMonthCount  # 最大连续亏损月数
-        self.mAvgLoss = np.round(avgloss,4)  # 平均每月亏损
-        self.mAvgGain = np.round(avggain,4)  # 平均每月盈利
+        self.mAvgLoss = avgloss  # 平均每月亏损
+        self.mAvgGain = avggain  # 平均每月盈利
 
-    def __countYearPerfermence(self):
+    def countYearPerfermence(self):
         listYearNetValue = []
         listYearYield = []
         maxContGainCount = 0
         maxContLossCount = 0
-        dfyear = pd.read_csv(self.__path + 'YearEquity.csv', header=None, index_col=0, \
+        dfyear = pd.read_csv(self.path + 'YearEquity.csv', header=None, index_col=0, \
                              names=['captical'])
         eq = dfyear['captical']
 
@@ -685,15 +679,15 @@ class Statistics(object):
         self.yHoldCount = holdcount  # 持平年数
         self.yMAxContGainCount = maxContGainCount  # 最大连续盈利年数
         self.yMaxContLossCount = maxContLossCount  # 最大连续亏损年数
-        self.yAvgLoss = np.round(avgloss,4)  # 平均每年可亏损
-        self.yAvgGain = np.round(avggain,4)  # 平均每年盈
+        self.yAvgLoss = avgloss  # 平均每年可亏损
+        self.yAvgGain = avggain  # 平均每年盈
 
 
        
 
 
 
-    def __read_from_mq(self, data):
+    def read_from_mq(self, data):
         """netMQ"""
         # _stra = Strategy()  # 为了下面的提示信息创建
         # _stra = stra
@@ -732,7 +726,7 @@ class Statistics(object):
 
 
 
-    def __get_product_zmq(self):
+    def get_product_zmq(self):
         """从zmq读取合约信息"""
         context = zmq.Context()
         socket = context.socket(zmq.REQ)  # REQ模式,即REQ-RSP  CS结构
@@ -751,7 +745,7 @@ class Statistics(object):
     
     
 
-    def __countFromTradeRecord(self,stra):
+    def countFromTradeRecord(self,stra):
         tradeRecords=stra.Orders
 
 
@@ -795,7 +789,7 @@ class Statistics(object):
         maxContiLossAmount = .0  # 最大连续亏损金额
 
         
-        ftrade=open(self.__path+'/trade.csv','w')
+        ftrade=open(self.path+'/trade.csv','w')
         str2=''
         for trade in tradeRecords:
             dire= 'buy' if trade.Direction==DirectType.Buy else 'sell'
@@ -806,7 +800,7 @@ class Statistics(object):
         ftrade.close()
         # 获取每笔利润
         for trade in tradeRecords:
-            # print(trade.Instrument,trade.Direction,trade.Offset,trade.Price,trade.Volume,trade.DateTime)
+            print(trade.Instrument,trade.Direction,trade.Offset,trade.Price,trade.Volume,trade.DateTime)
             # listFee = queryFeeFromSymbol(trade[1])
             # contract = queryContractFromSymbol(trade[1])
         
@@ -837,20 +831,20 @@ class Statistics(object):
                     for p in pos:
                     #for i in range(len(pos)):
                         if p[0] == volume:
-                            # profit = (p[1] - float(trade.Price)) * volume * self.__DictInstrument[trade.Instrument] - closefee - openfee
-                            profit += (p[1] - trade.Price) * volume * self.__DictInstrument[trade.Instrument]['VolumeTuple']
+                            # profit = (p[1] - float(trade.Price)) * volume * self.DictInstrument[trade.Instrument] - closefee - openfee
+                            profit += (p[1] - trade.Price) * volume * self.DictInstrument[trade.Instrument]['VolumeTuple']
                             # pyield = profit / p[1]
                             pos.remove(p)
                             break
                         elif p[0] > volume:
-                            #profit = (p[1] - float(.Price)) * volume * self.__DictInstrument[trade.Instrument] - closefee - openfee
-                            profit += (p[1] - trade.Price) * volume * self.__DictInstrument[trade.Instrument]['VolumeTuple']
+                            #profit = (p[1] - float(.Price)) * volume * self.DictInstrument[trade.Instrument] - closefee - openfee
+                            profit += (p[1] - trade.Price) * volume * self.DictInstrument[trade.Instrument]['VolumeTuple']
                             # pyield = profit / p[1]
                             p[0] -= volume
                             break
                         else:
-                            # profit += (p[1] - trade.Price * p[0] * self.__DictInstrument[trade.Instrument]  - closefee - openfee
-                            profit += (p[1] - trade.Price )* p[0] * self.__DictInstrument[trade.Instrument]['VolumeTuple']
+                            # profit += (p[1] - trade.Price * p[0] * self.DictInstrument[trade.Instrument]  - closefee - openfee
+                            profit += (p[1] - trade.Price )* p[0] * self.DictInstrument[trade.Instrument]['VolumeTuple']
                             # pyield = profit / p[1]
                             volume -= p[0]
                             pos.remove(p)
@@ -860,19 +854,19 @@ class Statistics(object):
                     for p in pos:
                     # for i in range(len(pos)):
                         if p[0] == volume:
-                            # profit += (trade.Price - p[1]) * volume * self.__DictInstrument[trade.Instrument] - closefee - openfee
-                            profit += (trade.Price - p[1]) * volume * self.__DictInstrument[trade.Instrument]['VolumeTuple']
+                            # profit += (trade.Price - p[1]) * volume * self.DictInstrument[trade.Instrument] - closefee - openfee
+                            profit += (trade.Price - p[1]) * volume * self.DictInstrument[trade.Instrument]['VolumeTuple']
                             # pyield = profit / p[1]
                             pos.remove(p)
                             break
                         elif p[0] > volume:
-                            profit += (trade.Price - p[1]) * volume * self.__DictInstrument[trade.Instrument]['VolumeTuple']
+                            profit += (trade.Price - p[1]) * volume * self.DictInstrument[trade.Instrument]['VolumeTuple']
                             # pyield = profit / p[1]
                             p[0] -= volume
                             break
                         else:
-                            # profit += (float(trade[5]) - p[1]) * p[0] * self.__DictInstrument[trade.Instrument]  - closefee - openfee
-                            profit += (trade.Price - p[1]) * p[0] * self.__DictInstrument[trade.Instrument]['VolumeTuple']
+                            # profit += (float(trade[5]) - p[1]) * p[0] * self.DictInstrument[trade.Instrument]  - closefee - openfee
+                            profit += (trade.Price - p[1]) * p[0] * self.DictInstrument[trade.Instrument]['VolumeTuple']
                             # pyield = profit / p[1]
                             volume -= p[0]
                             pos.remove(p)
@@ -924,8 +918,8 @@ class Statistics(object):
         holdCount = np.sum(arraySingleProfit == 0) if len(arraySingleProfit[arraySingleProfit == 0])>0 else 0
         gainCount = np.sum(arraySingleProfit > 0) if len(arraySingleProfit[arraySingleProfit > 0])>0 else 0
         
-        winRate = gainCount / (totalCount) if totalCount>0 else 0
-        plRatio = -avgGain / avgLoss if avgLoss != 0 else 0
+        winRate = gainCount / (totalCount) if totalCount>0 else float('inf')
+        plRatio = -avgGain / avgLoss if avgLoss != 0 else float('inf')
 
         arrAccup=np.array(listSingleProfit)
         listAccumuProfit=list(arrAccup.cumsum())
@@ -938,64 +932,64 @@ class Statistics(object):
         self.tHoldCount = holdCount  #持平次数
         self.tGainAmount=gainAmount   #总盈利
         self.tLossAmount=lossAmount   #总亏损
-        self.tProfitFactor=np.round(-gainAmount/lossAmount if lossAmount!=0 else 0,4)#盈利因子
+        self.tProfitFactor=-gainAmount/lossAmount if lossAmount!=0 else float('inf')#盈利因子
         self.tTotalNetProfit=gainAmount+lossAmount #净利润
-        self.tWinRate = np.round(winRate,4)   #每笔交易胜率
-        self.tAvgGain = np.round(avgGain,4)    #平均每笔盈利
-        self.tAvgLoss = np.round(avgLoss,4)   #平均每笔亏损
-        self.tAvgGLRate = np.round(plRatio,4)  #平均盈亏比
+        self.tWinRate = winRate   #每笔交易胜率
+        self.tAvgGain = avgGain    #平均每笔盈利
+        self.tAvgLoss = avgLoss   #平均每笔亏损
+        self.tAvgGLRate = plRatio  #平均盈亏比
         self.tMaxGain=maxGain     #最大盈利
         self.tMaxLoss=maxLoss     #最大亏损
-        self.tMaxGainRatio=np.round(maxGain/gainAmount if gainAmount!=0 else 0,4) #最大盈利/总盈利
-        self.tMaxLossRatio=np.round(maxLoss/lossAmount if lossAmount!=0 else 0,4) #最大亏损/总亏损
+        self.tMaxGainRatio=maxGain/gainAmount if gainAmount!=0 else float('inf') #最大盈利/总盈利
+        self.tMaxLossRatio=maxLoss/lossAmount if lossAmount!=0 else float('inf') #最大亏损/总亏损
         self.tMaxContGainCount = maxContiGainCount  # 最大连续盈利次数
         self.tMaxContLossCount = maxContiLossCount  # 最大连续亏损次数
         self.tMaxContGainAmount= maxContiGainAmount  #最大连续盈利金额
         self.tMaxContLossAmount= maxContiLossAmount  #最大连续亏损金额
 
 
-    def __showSignalPoint(self):
-        # dfSignal = pd.read_csv(self.__path + 'MinEquity.csv')
-        # dfSignal.columns=['dt','equity','open','high','low','close','volume','openInt','dire','sprice','svolume']
-        # temcolum = np.arange(dfSignal.index.size)
-        # dfSignal['num']=temcolum
+    def showSignalPoint(self):
+        dfSignal = pd.read_csv(self.path + 'MinEquity.csv')
+        dfSignal.columns=['dt','equity','open','high','low','close','volume','openInt','dire','sprice','svolume']
+        temcolum = np.arange(dfSignal.index.size)
+        dfSignal['num']=temcolum
 
-        # longsignal = dfSignal[dfSignal.loc[:,'dire'] > 0]
-        # longx =longsignal['num']
-        # longy = longsignal.loc[:, 'sprice']
+        longsignal = dfSignal[dfSignal.loc[:,'dire'] > 0]
+        longx =longsignal['num']
+        longy = longsignal.loc[:, 'sprice']
 
-        # shortsignal = dfSignal[dfSignal.loc[:,'dire']  < 0]
-        # shortx =shortsignal['num']
-        # shorty = shortsignal.loc[:, 'sprice']
-        # #
-        # fig1=plt.figure('signal draw')
-        # ax1=plt.subplot(111)
+        shortsignal = dfSignal[dfSignal.loc[:,'dire']  < 0]
+        shortx =shortsignal['num']
+        shorty = shortsignal.loc[:, 'sprice']
+        #
+        fig1=plt.figure('signal draw')
+        ax1=plt.subplot(111)
         
-        # # plt.xaxis_date()
-        # plt.xticks(rotation=45)
-        # mf.candlestick2_ohlc(plt.axes(), dfSignal.loc[:,'open'],dfSignal.loc[:,'high'],dfSignal.loc[:,'low'],
-        #                      dfSignal.loc[:, 'close'], width=0.75, colorup=u'r', colordown=u'g', alpha=1)
-        # for i in range(dfSignal.shape[1] - 12):
+        # plt.xaxis_date()
+        plt.xticks(rotation=45)
+        mf.candlestick2_ohlc(plt.axes(), dfSignal.loc[:,'open'],dfSignal.loc[:,'high'],dfSignal.loc[:,'low'],
+                             dfSignal.loc[:, 'close'], width=0.75, colorup=u'r', colordown=u'g', alpha=1)
+        for i in range(dfSignal.shape[1] - 12):
 
 
-        #     plt.plot(dfSignal.index,dfSignal.iloc[:, i + 9], '.-',label=dfSignal.columns[i+9])
-        # plt.scatter(longx, longy, s=160, c='m', marker='^',label='long')
+            plt.plot(dfSignal.index,dfSignal.iloc[:, i + 9], '.-',label=dfSignal.columns[i+9])
+        plt.scatter(longx, longy, s=160, c='m', marker='^',label='long')
 
-        # plt.scatter(shortx, shorty, s=160, c='k', marker='v',label='short')
-        # ax2=ax1.twinx()
-        # ax2.plot(dfSignal.loc[:,'equity'],c='r')
+        plt.scatter(shortx, shorty, s=160, c='k', marker='v',label='short')
+        ax2=ax1.twinx()
+        ax2.plot(dfSignal.loc[:,'equity'],c='r')
 
-        # plt.legend()
-        # plt.grid()
-        # plt.tight_layout()
-        # plt.savefig(self.__path + 'Signal.png')
+        plt.legend()
+        plt.grid()
+        plt.tight_layout()
+        plt.savefig(self.path + 'Signal.png')
 
        
-        # plt.show()
-        # fig1.clear()
-        # plt.close()
-        pass
-    def __plotf(self, isshow=False):
+        plt.show()
+        fig1.clear()
+        plt.close()
+
+    def plotf(self, isshow=False):
 
         fig1 = plt.figure('日级别动态权益图')
         plt.subplot(311)
@@ -1010,7 +1004,7 @@ class Statistics(object):
         plt.ylabel('Absolute Each Day Profit')
         # plt.hist(self.dListDayYield, bins=30)
         plt.bar(np.arange(len(self.dListDayYield)), self.dListDayYield)
-        plt.savefig(self.__path + 'Day.png')
+        plt.savefig(self.path + 'Day.png')
         # fig2 = plt.figure('周级别动态权益图')
         # plt.subplot(311)
         # plt.ylabel('NetValue')
@@ -1022,7 +1016,7 @@ class Statistics(object):
         # plt.ylabel('Yield static')
         # plt.hist(self.wListWeekYield)
 
-        # plt.savefig(self.__path + 'Week.png')
+        # plt.savefig(self.path + 'Week.png')
         # fig3 = plt.figure('NetValue For Each Month')
         # plt.subplot(311)
         # plt.ylabel('NetValue')
@@ -1034,7 +1028,7 @@ class Statistics(object):
         # plt.ylabel('DayNum')
         # plt.hist(self.mListMonthYield)
 
-        # plt.savefig(self.__path + 'Month.png')
+        # plt.savefig(self.path + 'Month.png')
         # fig4 = plt.figure('NetValue for Each Year')
         # plt.subplot(311)
         # plt.ylabel('NetValue')
@@ -1063,7 +1057,7 @@ class Statistics(object):
         plt.close()
     
     
-    def __printf(self):
+    def printf(self):
 
         print('显示回测结果：')
         print('###################################################################################################')
@@ -1148,167 +1142,48 @@ class Statistics(object):
         print( '持平年数:%.4f' % self.yHoldCount)  # 持平月数
         print( '最大连续盈利年数:%.4f' % self.yMAxContGainCount)  # 最大连续盈利月数
         print( '最大连续亏损年数:%.4f' % self.yMaxContLossCount)  # 最大连续亏损月数
-        print( '平均每年亏损:%.4f' % self.yAvgLoss)  # 平均每月亏损
-        print( '平均每年盈利:%.4f' % self.yAvgGain)  # 平均每月盈利
+        print( '平均每年亏损:%.4f' % self.mAvgLoss)  # 平均每月亏损
+        print( '平均每年盈利:%.4f' % self.mAvgGain)  # 平均每月盈利
 
         print('###################################################################################################')
         print('###################################################################################################')
         print('###################################################################################################')
 
-    def __GetDataAndBars(self):
-        """处理数据"""
-        stra = copy.copy(self.__stra)
-        self.__stra=0
-        orders = stra.Orders
-        # orders = [{"Direction": 0, "DateTime": "20161019 14:00:00", "Price": 2300},
-        # #         {"Direction":1,"DateTime":"20161019 09:00:00","Price":2400}]
-        orders_json = []
-        for i in range(0, len(orders)):
-            # 遇到diction=Diction.Buy转换后:diction:<Diction.Buy:1> 后面报错
-            # orders_str.append(ord.__dict__)
-            ord = orders[i]
-            d=datetime.datetime.strptime(ord.DateTime,'%Y%m%d %H:%M:%S').strftime('%Y/%m/%d %H:%M:%S')
-            orders_json.append([d,(0 if ord.Direction == DirectType.Buy else 1),(0 if ord.Offset == OffsetType.Open else 1),ord.Price,ord.Volume])
 
-        it = 'year'
-        for case in switch(stra.IntervalType):
-            if case(IntervalType.Minute):
-                it = 'min'
-                break
-            if case(IntervalType.Hour):
-                it = 'hour'
-                break
-            if case(IntervalType.Day):
-                it = 'day'
-                break
-            if case(IntervalType.Month):
-                it = 'month'
-                break
+    def ShowWeb(self):
+        data, bars_json = self.GetDataAndBars()
+        data = json.dumps(data)
+        bars_json = json.dumps(bars_json)
+        tmp = open('tmp.html', 'w', encoding='utf-8')
 
-        data_req = {
-            'instrument': stra.Instrument,
-            # 'begin': stra.Datas[0].BeginDate,
-            #'end': str a.EndDate,
-            'interval': stra.Interval,
-            'intervalType': stra.IntervalType,
-        }
+        # url_report = 'http://58.247.171.146:27017/report'
+        url_report = 'http://127.0.0.1:5000/report'  # flask
+        tmp.write('''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta Content-Type="application/json">
+        <title>galaxy data</title>
+    </head>
+    <body onload="init()">
+        <form id="postToReport" action="{0}" method="post">
+            <input type="hidden" id="txt_data" name="data" />
+            <input type="hidden" id="txt_bars" name="bars" />
+        </form>
+        <script>
+            function init(){{
+                document.getElementById('txt_data').value='{1}';
+                document.getElementById('txt_bars').value='{2}';
+                document.getElementById('postToReport').submit();
+            }}
+        </script>
+    </body>
+    </html>'''.format(url_report, data, bars_json))  # 赋值时用',避免与json的"冲突
+        tmp.close()
 
-        indexes_json = []
-        # for key, values in stra.IndexDict.items():
-        #     array = []
-        #     for value in values:
-        #         array.append(value)
-        #     indexes_json.append({'name': key, 'array': array})
-
-        bars_json = []
-        for bar in stra.Bars:
-            d=datetime.datetime.strptime(bar.D,'%Y%m%d %H:%M:%S').strftime('%Y/%m/%d %H:%M:%S')
-            bars_json.append([d,bar.O,bar.C,bar.L,bar.H])
-        
-        report_json = {
-            'bMddRate':self.bMddRate,   # 最大回撤比率
-            'dDropDownPeriod':self.dDropDownPeriod, #最大回撤区间
-            'listAccumuProfit':self.listAccumuProfit,
-            'tTotalNetProfit':self.tTotalNetProfit,   
-            'tTotalCount':self.tTotalCount, 
-            'tGainCount':self.tGainCount,   
-            'tLossCount':self.tLossCount,  
-            'tHoldCount':self.tHoldCount,   
-            'tGainAmount':self.tGainAmount, 
-            'tLossAmount':self.tLossAmount, 
-            'tProfitFactor':self.tProfitFactor,  
-            'tWinRate':self.tWinRate,   
-            'tAvgGain':self.tAvgGain, 
-            'tAvgLoss':self.tAvgLoss, 
-            'tAvgGLRate':self.tAvgGLRate,  
-            'tMaxGain':self.tMaxGain,  
-            'tMaxLoss':self.tMaxLoss, 
-            'tMaxGainRatio':self.tMaxGainRatio, 
-            'tMaxLossRatio':self.tMaxLossRatio,  
-            'tMaxContGainCount':self.tMaxContGainCount,  
-            'tMaxContLossCount':self.tMaxContLossCount,  
-            'tMaxContGainAmount':self.tMaxContGainAmount,   
-            'tMaxContLossAmount':self.tMaxContLossAmount,
-            'dListDayYield':self.dListDayYield,
-            'dTotalCount':self.dTotalCount,  # 总交易天数
-            'dGainCount':self.dGainCount,  # 盈利天数
-            'dLossCount':self.dLossCount, # 亏损天数
-            'dHoldCount':self.dHoldCount  ,# 持平天数
-            'dWinRate':self.dWinRate,  # 胜率
-            'dAvgYield':self.dAvgYield , # 平均日收益
-            'dAvgLoss':self.dAvgLoss , # 平均每天亏损
-            'dAvgGain':self.dAvgGain , # 平均每天盈利
-            'dAvgGLRate':self.dAvgGLRate,  # 日均盈亏比比率
-            'dMaxContGainCount':self.dMaxContGainCount,  # 最大连续盈利天数
-            'dMaxContLossCount':self.dMaxContLossCount,  # 最大连续亏损天数
-            'dNoNewHighDays':self.dNoNewHighDays,#净值不创新高天数
-            'dNoNewHighPeriod':self.dNoNewHighPeriod ,#净值不创新高区间
-            'dTotalyield':self.dTotalyield ,# 总收益率
-            'dYearYield':self.dYearYield, # 年化收益率
-            'dVolatility':self.dVolatility,# 波动率
-            'dSharpRitio':self.dSharpRitio ,# 夏普比率
-            'dMarRate':self.dMarRate ,# MAR比率
-        
-
-            'wTotalCount':self.wTotalCount,  # 总交易周数
-            'wGainCount':self.wGainCount,  # 盈利周数
-            'wLossCount':self.wLossCount, # 亏损周数
-            'wHoldCount':self.wHoldCount, # 持平周数
-            'wWinRate':self.wWinRate , # 周胜率
-            'wAvgLoss':self.wAvgLoss , # 平均每周亏损
-            'wwvgGain':self.wwvgGain,  # 平均每周盈利
-            'wMaxContGainCount':self.wMaxContGainCount , # 最大连续盈利周数
-            'wMaxContLossCount':self.wMaxContLossCount , # 最大连续亏损周数
-        
-            'mTotalCount':self.mTotalCount,  # 总交易月数
-            'mGainCount':self.mGainCount,  # 盈利月数
-            'mLossCount':self.mLossCount , # 亏损月数
-            'mHoldCount':self.mHoldCount,  # 持平月数
-            'mMaxContGainCount':self.mMaxContGainCount,  # 最大连续盈利月数
-            'mMaxContLossCount':self.mMaxContLossCount , # 最大连续亏损月数
-            'mAvgLoss':self.mAvgLoss,  # 平均每月亏损
-            'mAvgGain':self.mAvgGain,  # 平均每月盈利
-        
-
-            'yTotalCount':self.yTotalCount, # 总交易月数
-            'yGainCount':self.yGainCount, # 盈利月数
-            'yLossCount':self.yLossCount ,# 亏损月数
-            'yHoldCount':self.yHoldCount, # 持平月数
-            'yMAxContGainCount':self.yMAxContGainCount, # 最大连续盈利月数
-            'yMaxContLossCount':self.yMaxContLossCount, # 最大连续亏损月数
-            'mAvgLoss':self.mAvgLoss, # 平均每月亏损
-            'mAvgGain':self.mAvgGain,
-            
-            'yTotalCount':self.yTotalCount, # 总交易月数
-            'yGainCount':self.yGainCount, # 盈利月数
-            'yLossCount':self.yLossCount ,# 亏损月数
-            'yHoldCount':self.yHoldCount, # 持平月数
-            'yMAxContGainCount':self.yMAxContGainCount, # 最大连续盈利月数
-            'yMaxContLossCount':self.yMaxContLossCount, # 最大连续亏损月数
-            'mAvgLoss':self.mAvgLoss, # 平均每月亏损
-            'mAvgGain':self.mAvgGain, # 平
-            'dayEquity':self.dayEquity,
-         }
-        # report_json.pop('_Statistics_stra')
-        
-
-        # data_req = json.dumps(data_req)
-        # orders_json = json.dumps(orders_json)
-        # indexes_json = json.dumps(indexes_json)
-        # report_json = json.dumps(report_json, ensure_ascii=False)
-
-        data = {'orders': orders_json, 'indexes': indexes_json, 'report': report_json}
-        return data, bars_json
-    def __ShowWeb(self):
-        '''输出网页'''
-        data, bars_json = self.__GetDataAndBars()
-        
-        print('#################################################################################################')
-     
-        # data = json.dumps(data)
-        # bars_json = json.dumps(bars_json)
-        from py_at.report import show
-        show(data, bars_json)
+        webbrowser.open(os.path.join(sys.path[0], 'tmp.html'))
+        # os.system('"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" {0}'.format(os.path.join(sys.path[0], 'tmp.html')))
 
 
 if __name__ == '__main__':
