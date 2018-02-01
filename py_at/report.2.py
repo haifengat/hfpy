@@ -18,17 +18,17 @@ def show(data, bars_json):
             <meta charset="utf-8">
             <title>交易策略绩效报告</title>
             <!-- 引入 echarts.js -->
-          
-            <script src="https://cdn.bootcss.com/echarts/4.0.2/echarts.js"></script>
+            <script src="echarts.js"></script>
+            <script src="dark.js"></script>
         </head>
         <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" align="center" style="width:100%;height:600px;"></div><br/>
+    <div id="main" align="center" style="width: 100%;height:600px;"></div><br/>
 	<h3>收益曲线</h3>
-	<div id="sub" style="width:100%;height:600px;"></div><br/>
-	<div id="table" style="width:100%;height:400px;"><br/>
+	<div id="sub" align="center" style="width: 100%;height:600px;"></div><br/>
+	<div id="table" style="width: 100%;height:400px;"><br/>
 	<h3>绩效报告</h3>
-    <table style="width:100%;height:400px;" border="1", align="center">
+    <table style="width: 100%;height:400px;" border="1", align="center">
       <tr>
         <td height="37" colspan="6"><div align="center">一、按1分钟Bar计算</div></td>
       </tr>
@@ -270,7 +270,7 @@ def show(data, bars_json):
         //数据意义：日期，方向（0为买，1为卖），开平（0为开，1为平），价格,手数
 
         var data1={1}
-        var data2=[]
+        var data2={2}
         var data3={3}
 
 
@@ -698,6 +698,7 @@ def show(data, bars_json):
                 min: function(value) {{
                 return value.min - 20
                 }}
+               
             }},
             series: [{{
                 data: dayEquity.values,
@@ -779,8 +780,8 @@ def show(data, bars_json):
         document.getElementById("yHoldCount").innerHTML=data3["yHoldCount"]
         document.getElementById("yMAxContGainCount").innerHTML=data3["yMAxContGainCount"] 
         document.getElementById("yMaxContLossCount").innerHTML=data3["yMaxContLossCount"] 
-        document.getElementById("yAvgLoss").innerHTML=data3["yAvgLoss"]
-        document.getElementById("yAvgGain").innerHTML=data3["yAvgGain"]
+        document.getElementById("yAvgLoss").innerHTML=data3["mAvgLoss"]
+        document.getElementById("yAvgGain").innerHTML=data3["mAvgGain"]
         
 
         </script>

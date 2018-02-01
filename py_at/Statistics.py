@@ -24,7 +24,7 @@ import copy
 from py_at.enums import OffsetType, DirectType, IntervalType
 from py_at.switch import switch
 from py_at.structs import InfoField, OrderField, TradeField, ReqPackage
-# import matplotlib.finance as mf
+#import matplotlib.finance as mf
 # import mpl_finance as mf
 class Statistics(object):
     """"""
@@ -209,7 +209,7 @@ class Statistics(object):
         #     lstMinEquity.append([row.D,equity])
         fmin = open(self.__path + 'MinEquity.csv', 'w')
         for item6 in stra.listEquity:
-            fmin.write('%s,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n' % (item6[0], item6[1],item6[2],item6[3],item6[4],item6[5],item6[6],item6[7],item6[8],item6[9],item6[10]))
+            fmin.write('%s,%.2f\n' % (item6[0], item6[1]))
         fmin.flush()
         fmin.close()
         # for item in stra.listEquity:
@@ -245,7 +245,7 @@ class Statistics(object):
         self.dayEquity.append([dtday,lastequity])
         fday = open(self.__path + 'DayEquity.csv', 'w')
         for item in self.dayEquity:
-            fday.write('%s,%.8f\n' % (item[0], item[1]))
+            fday.write('%s,%.2f\n' % (item[0], item[1]))
         fday.flush()
         fday.close()
 
@@ -281,7 +281,7 @@ class Statistics(object):
         self.weekEquity.append([lastindex, lastrow])
         fweek = open(self.__path + 'WeekEquity.csv', 'w')
         for fwitem in self.weekEquity:
-            fweek.write('%s,%.8f\n' % (fwitem[0], fwitem[1]))
+            fweek.write('%s,%.2f\n' % (fwitem[0], fwitem[1]))
         fweek.flush()
         fweek.close()
        #######################################################################3
@@ -312,7 +312,7 @@ class Statistics(object):
         self.monthEquity.append([lastindex, lastrow])
         fmonth = open(self.__path + '/MonthEquity.csv', 'w')
         for item in self.monthEquity:
-            fmonth.write('%s,%.8f\n' % (item[0], item[1]))
+            fmonth.write('%s,%.2f\n' % (item[0], item[1]))
         fmonth.flush()
         fmonth.close()
         ########################################################################3
@@ -339,7 +339,7 @@ class Statistics(object):
         self.yearEquity.append(lastrow)
         fyear = open(self.__path + '/YearEquity.csv', 'w')
         for item in self.yearEquity:
-            fyear.write('%s,%.8f\n' % (item[0], item[1]))
+            fyear.write('%s,%.2f\n' % (item[0], item[1]))
         fyear.flush()
         fyear.close()
 
@@ -500,13 +500,8 @@ class Statistics(object):
             print(yearYield)
         # yearYield=np.power(3.87+1,242.0/1830)-1
         volatility = np.std(eqYield)
-        try:
-            sharpRitio = np.sqrt(242) * eqYield.mean() / np.std(eqYield) if len(eqYield)>0 else 0
-        except:
-            sharpRitio=0
 
-       
-
+        sharpRitio = np.sqrt(242) * eqYield.mean() / np.std(eqYield) if len(eqYield)>0 else 0
         marrate = yearYield / self.bMddRate if self.bMddRate!=0 else 0
 
         self.dListDayYield = list(eqYield)
@@ -955,46 +950,46 @@ class Statistics(object):
 
 
     def __showSignalPoint(self):
-        # dfSignal = pd.read_csv(self.__path + 'MinEquity.csv')
-        # dfSignal.columns=['dt','equity','open','high','low','close','volume','openInt','dire','sprice','svolume']
-        # temcolum = np.arange(dfSignal.index.size)
-        # dfSignal['num']=temcolum
+        dfSignal = pd.read_csv(self.__path + 'MinEquity.csv')
+        dfSignal.columns=['dt','equity','open','high','low','close','volume','openInt','dire','sprice','svolume']
+        temcolum = np.arange(dfSignal.index.size)
+        dfSignal['num']=temcolum
 
-        # longsignal = dfSignal[dfSignal.loc[:,'dire'] > 0]
-        # longx =longsignal['num']
-        # longy = longsignal.loc[:, 'sprice']
+        longsignal = dfSignal[dfSignal.loc[:,'dire'] > 0]
+        longx =longsignal['num']
+        longy = longsignal.loc[:, 'sprice']
 
-        # shortsignal = dfSignal[dfSignal.loc[:,'dire']  < 0]
-        # shortx =shortsignal['num']
-        # shorty = shortsignal.loc[:, 'sprice']
-        # #
-        # fig1=plt.figure('signal draw')
-        # ax1=plt.subplot(111)
+        shortsignal = dfSignal[dfSignal.loc[:,'dire']  < 0]
+        shortx =shortsignal['num']
+        shorty = shortsignal.loc[:, 'sprice']
+        #
+        fig1=plt.figure('signal draw')
+        ax1=plt.subplot(111)
         
-        # # plt.xaxis_date()
-        # plt.xticks(rotation=45)
-        # mf.candlestick2_ohlc(plt.axes(), dfSignal.loc[:,'open'],dfSignal.loc[:,'high'],dfSignal.loc[:,'low'],
-        #                      dfSignal.loc[:, 'close'], width=0.75, colorup=u'r', colordown=u'g', alpha=1)
-        # for i in range(dfSignal.shape[1] - 12):
+        # plt.xaxis_date()
+        plt.xticks(rotation=45)
+        mf.candlestick2_ohlc(plt.axes(), dfSignal.loc[:,'open'],dfSignal.loc[:,'high'],dfSignal.loc[:,'low'],
+                             dfSignal.loc[:, 'close'], width=0.75, colorup=u'r', colordown=u'g', alpha=1)
+        for i in range(dfSignal.shape[1] - 12):
 
 
-        #     plt.plot(dfSignal.index,dfSignal.iloc[:, i + 9], '.-',label=dfSignal.columns[i+9])
-        # plt.scatter(longx, longy, s=160, c='m', marker='^',label='long')
+            plt.plot(dfSignal.index,dfSignal.iloc[:, i + 9], '.-',label=dfSignal.columns[i+9])
+        plt.scatter(longx, longy, s=160, c='m', marker='^',label='long')
 
-        # plt.scatter(shortx, shorty, s=160, c='k', marker='v',label='short')
-        # ax2=ax1.twinx()
-        # ax2.plot(dfSignal.loc[:,'equity'],c='r')
+        plt.scatter(shortx, shorty, s=160, c='k', marker='v',label='short')
+        ax2=ax1.twinx()
+        ax2.plot(dfSignal.loc[:,'equity'],c='r')
 
-        # plt.legend()
-        # plt.grid()
-        # plt.tight_layout()
-        # plt.savefig(self.__path + 'Signal.png')
+        plt.legend()
+        plt.grid()
+        plt.tight_layout()
+        plt.savefig(self.__path + 'Signal.png')
 
        
-        # plt.show()
-        # fig1.clear()
-        # plt.close()
-        pass
+        plt.show()
+        fig1.clear()
+        plt.close()
+
     def __plotf(self, isshow=False):
 
         fig1 = plt.figure('日级别动态权益图')
@@ -1187,18 +1182,18 @@ class Statistics(object):
 
         data_req = {
             'instrument': stra.Instrument,
-            # 'begin': stra.Datas[0].BeginDate,
+            'begin': stra.BeginDate,
             #'end': str a.EndDate,
             'interval': stra.Interval,
             'intervalType': stra.IntervalType,
         }
 
         indexes_json = []
-        # for key, values in stra.IndexDict.items():
-        #     array = []
-        #     for value in values:
-        #         array.append(value)
-        #     indexes_json.append({'name': key, 'array': array})
+        for key, values in stra.IndexDict.items():
+            array = []
+            for value in values:
+                array.append(value)
+            indexes_json.append({'name': key, 'array': array})
 
         bars_json = []
         for bar in stra.Bars:
@@ -1285,8 +1280,8 @@ class Statistics(object):
             'yHoldCount':self.yHoldCount, # 持平月数
             'yMAxContGainCount':self.yMAxContGainCount, # 最大连续盈利月数
             'yMaxContLossCount':self.yMaxContLossCount, # 最大连续亏损月数
-            'mAvgLoss':self.mAvgLoss, # 平均每月亏损
-            'mAvgGain':self.mAvgGain, # 平
+            'yAvgLoss':self.yAvgLoss, # 平均每月亏损
+            'yAvgGain':self.yAvgGain, # 平
             'dayEquity':self.dayEquity,
          }
         # report_json.pop('_Statistics_stra')
