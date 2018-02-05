@@ -1,6 +1,6 @@
 {
     "comment": "是否启用此策略",
-    "enable": false,
+    "enable": true,
     "instance": [
         {
             "comment_0": "是否启用此实例",

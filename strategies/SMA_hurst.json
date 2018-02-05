@@ -7,7 +7,7 @@
             "enable": false,
             "comment_1": "ID用于区分不同策略实例的委托",
             "ID": 101,
-            "BeginDate": 20180101,
+            "BeginDate": 20170101,
             "comment_2": "可通过增加Data实现多合约多周期引用",
             "Datas": [
                 {
