@@ -1300,7 +1300,7 @@ class Statistics(object):
         
         print('#################################################################################################')
      
-        # data = json.dumps(data)
+        # data = json.dumps(data)  
         # bars_json = json.dumps(bars_json)
         from py_at.report import show
         show(data, bars_json)

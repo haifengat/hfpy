@@ -4,7 +4,7 @@
     "instance": [
         {
             "comment_0": "是否启用此实例",
-            "enable": true,
+            "enable": false,
             "comment_1": "ID用于区分不同策略实例的委托",
             "ID": 101,
             "BeginDate": 20170910,
