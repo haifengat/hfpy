@@ -14,7 +14,7 @@ from py_at.order import OrderItem
 
 
 class Strategy(object):
-    '''策略类'''
+    '''策略类 '''
 
     def __init__(self, json_cfg):
         '''初始化'''
