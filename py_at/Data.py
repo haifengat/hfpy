@@ -8,7 +8,7 @@ __mtime__ = '2016/8/16'
 
 import time
 import numpy as np
-
+import copy
 from py_at.enums import IntervalType, DirectType, OffsetType
 from py_at.structs import InstrumentField
 from py_at.tick import Tick
@@ -229,8 +229,9 @@ class Data(object):
 
             self.__update_bar__(bar)
 
-    def __new_min_bar__(self, bar):
+    def __new_min_bar__(self, bar2):
         """有新min_bar添加"""
+        bar=copy.copy(bar2)
         bar_time = time.strptime(bar.D, "%Y%m%d %H:%M:%S")
         year = bar_time.tm_year
         mon = bar_time.tm_mon
