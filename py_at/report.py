@@ -267,7 +267,7 @@ def show(data, bars_json):
         // 数据意义：开盘(open)，收盘(close)，最低(lowest)，最高(highest)
         var data0=splitData({0})
         
-        //数据意义：日期，方向（0为买，1为卖），开平（0为开，1为平），价格,手数
+        //数据意义：日期，方向（0为买，1为卖），开平（0为开，1为平）+，价格,手数
 
         var data1={1}
         var data2=[]

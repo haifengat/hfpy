@@ -1,0 +1,44 @@
+{
+    "comment": "是否启用此策略",
+    "enable": false,
+    "instance": [
+        {
+            "comment_0": "是否启用此实例",
+            "enable": true,
+            "comment_1": "ID用于区分不同策略实例的委托",
+            "ID": 101,
+            "BeginDate": 20170910,
+            "comment_2": "可通过增加Data实现多合约多周期引用",
+            "Datas": [
+                {
+                    "Instrument": "rb1805",
+                    "IntervalType": "Minute",
+                    "Interval": 5
+                }
+            ],
+            "Params": {
+                "MA1": 5,
+                "MA2": 30,
+                "Lots": 1
+
+            }
+        },
+        {
+            "ID": 102,
+            "enable": false,
+            "BeginDate": 20171110,
+            "Datas": [
+                {
+                    "Instrument": "j1805",
+                    "IntervalType": "Hour",
+                    "Interval": 1
+                }
+            ],
+            "Params": {
+                "MA1": 6,
+                "MA2": 27,
+                "Lots": 1
+            }
+        }
+    ]
+}
