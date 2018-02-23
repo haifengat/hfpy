@@ -81,6 +81,7 @@ class Statistics(object):
         self.bListRddrate=[]
         self.bMddRate=.0
         self.dDropDownPeriod=''
+        self.bInitFund=0
         #定义按日线计算指标
         self.dListDayYield = []
         self.dListDayNetValue = []
@@ -371,7 +372,7 @@ class Statistics(object):
         mrddbegin=''
         # equity.captical = equity.captical / equity.captical[0] if equity.captical[0] != 0 else float('inf')
         #for key, value in equity.iterrows():
-        for dayitem1 in self.dayEquity:
+        for dayitem1 in self.minEquity:
             if isfirst:
                 frontpoint=dayitem1[1]
                 isfirst=False
@@ -394,6 +395,7 @@ class Statistics(object):
         self.bListRddrate=bListrdd
         self.bMddRate=np.round(mrdd,4)
         self.dDropDownPeriod=ddperiod
+        self.bInitFund=self.minEquity[0][1]
 
     def __plottest(self,eq):
     
@@ -1066,7 +1068,7 @@ class Statistics(object):
         print('###################################################################################################')
 
         print ('一、按Bar计算')
-
+        print('初始资金:%.4f'%(self.bInitFund))
         print ('最大回撤比率:%.4f' %(self.bMddRate))   # 最大回撤比率
         print ('最大回撤区间:%s'%(self.dDropDownPeriod)) #最大回撤区间
         print('二、按交易笔数计算')
@@ -1181,19 +1183,21 @@ class Statistics(object):
                 break
 
         data_req = {
+            'id':stra.ID,
             'instrument': stra.Instrument,
             'begin': stra.BeginDate,
             #'end': str a.EndDate,
             'interval': stra.Interval,
-            'intervalType': stra.IntervalType,
+            'intervalType': str(stra.IntervalType),
+            'params':str(stra.Params),
         }
 
         indexes_json = []
-        for key, values in stra.IndexDict.items():
-            array = []
-            for value in values:
-                array.append(value)
-            indexes_json.append({'name': key, 'array': array})
+        # for key, values in stra.IndexDict.items():
+        #     array = []
+        #     for value in values:
+        #         array.append(value)
+        #     indexes_json.append({'name': key, 'array': array})
 
         bars_json = []
         for bar in stra.Bars:
@@ -1201,6 +1205,7 @@ class Statistics(object):
             bars_json.append([d,bar.O,bar.C,bar.L,bar.H])
         
         report_json = {
+            'bInitFund':self.bInitFund,
             'bMddRate':self.bMddRate,   # 最大回撤比率
             'dDropDownPeriod':self.dDropDownPeriod, #最大回撤区间
             'listAccumuProfit':self.listAccumuProfit,
@@ -1292,7 +1297,7 @@ class Statistics(object):
         # indexes_json = json.dumps(indexes_json)
         # report_json = json.dumps(report_json, ensure_ascii=False)
 
-        data = {'orders': orders_json, 'indexes': indexes_json, 'report': report_json}
+        data = {'orders': orders_json, 'indexes': indexes_json, 'report': report_json,'req':data_req}
         return data, bars_json
     def __ShowWeb(self):
         '''输出网页'''

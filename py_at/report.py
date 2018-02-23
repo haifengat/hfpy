@@ -22,6 +22,31 @@ def show(data, bars_json):
             <script src="https://cdn.bootcss.com/echarts/4.0.2/echarts.js"></script>
         </head>
         <body>
+    <h3>策略详情</h3>
+	<div id="title">
+	
+  <table style="width:100%;height:50px;" border="1", align="center">
+  <tr>
+    <td width="20%" height="24"><div align="center">策略名</div></td>
+    <td width="25%"><div align="center" id="ID"></div></td>
+    <td width="24%"><div align="center">交易合约</div></td>
+    <td width="31%"><div align="center" id="Ins"></div></td>
+  </tr>
+  <tr>
+    <td height="28"><div align="center">开始时间</div></td>
+    <td><div align="center" id="BeginTime"></div></td>
+    <td><div align="center">最小时间周期</div></td>
+    <td><div align="center" id="Internal"></div></td>
+  </tr>
+  <tr>
+    <td height="32"><div align="center">周期类型</div></td>
+    <td> <div align="center" id="InternalType"> </div></td>
+    <td><div align="center">参数</div></td>
+    <td><div align="center" id="Params"></div></td>
+  </tr>
+   </table>
+  </div>
+	<br/>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="main" align="center" style="width:100%;height:600px;"></div><br/>
 	<h3>收益曲线</h3>
@@ -33,12 +58,16 @@ def show(data, bars_json):
         <td height="37" colspan="6"><div align="center">一、按1分钟Bar计算</div></td>
       </tr>
       <tr>
-        <td width="108" height="26"><div align="center">最大回撤比率</div></td>
-        <td width="221"><div align="center" id="bMddRate"></div></td>
-        <td width="197"><div align="center"><div align="center">最大回撤区间</div>
-        </div></td>
-        <td colspan="3"><div align="center" id="dDropDownPeriod"></div></td>
+	    <td width="172"><div align="center">初始资金</div></td>
+	    <td width="230"><div align="center" id="bInitFund"></div></td>
+		<td width="154" height="26"><div align="center">最大回撤比率</div></td>
+			<td width="212"><div align="center" id="bMddRate"></div></td>
+      
+		   <td width="221"><div align="center">
+        <div align="center">最大回撤区间</div></td>
+           <td colspan="3"><div align="center" id="dDropDownPeriod"></div></td>
       </tr>
+	 
       <tr>
         <td height="35" colspan="6"><div align="center">二、按成交记录计算</div></td>
       </tr>
@@ -46,9 +75,9 @@ def show(data, bars_json):
         <td><div align="center">净利润</div></td>
         <td><div align="center" id="tTotalNetProfit"></div></td>
         <td><div align="center">总盈利</div></td>
-        <td width="208"><div align="center" id="tGainAmount"></div></td>
-        <td width="168"><div align="center">最大盈利占比</div></td>
-        <td width="169"><div align="center" id="tMaxGainRatio"></div></td>
+        <td width="212"><div align="center" id="tGainAmount"></div></td>
+        <td width="221"><div align="center">最大盈利占比</div></td>
+        <td width="255"><div align="center" id="tMaxGainRatio"></div></td>
       </tr>
       <tr>
         <td><div align="center">交易次数</div></td>
@@ -266,12 +295,12 @@ def show(data, bars_json):
 
         // 数据意义：开盘(open)，收盘(close)，最低(lowest)，最高(highest)
         var data0=splitData({0})
-        
-        //数据意义：日期，方向（0为买，1为卖），开平（0为开，1为平）+，价格,手数
+        //数据意义：日期，方向（0为买，1为卖），开平（0为开，1为平）,价格,手数
 
         var data1={1}
-        var data2=[]
+        var data2={2}
         var data3={3}
+        var data4={4}
 
 
         function splitData(rawData) {{
@@ -707,6 +736,8 @@ def show(data, bars_json):
 	    }};
                     
         myChart2.setOption(option2);
+        
+        document.getElementById("bInitFund").innerHTML=data3["bInitFund"]
         document.getElementById("bMddRate").innerHTML=data3["bMddRate"]
         document.getElementById("dNoNewHighPeriod").innerHTML=data3["dNoNewHighPeriod"] 
         document.getElementById("dDropDownPeriod").innerHTML=data3["dDropDownPeriod"] 
@@ -781,7 +812,14 @@ def show(data, bars_json):
         document.getElementById("yMaxContLossCount").innerHTML=data3["yMaxContLossCount"] 
         document.getElementById("yAvgLoss").innerHTML=data3["yAvgLoss"]
         document.getElementById("yAvgGain").innerHTML=data3["yAvgGain"]
-        
+
+        document.getElementById("ID").innerHTML=data4["id"]
+        document.getElementById("Ins").innerHTML=data4["instrument"]
+        document.getElementById("BeginTime").innerHTML=data4["begin"]
+        document.getElementById("Internal").innerHTML=data4["interval"]
+        document.getElementById("InternalType").innerHTML=data4["intervalType"]
+        document.getElementById("Params").innerHTML=data4["params"]
+       
 
         </script>
     </body>
@@ -794,6 +832,6 @@ def show(data, bars_json):
 
 
 
-'''.format(bars_json,data['orders'],data['indexes'],data['report']))
+'''.format(bars_json,data['orders'],data['indexes'],data['report'],data['req']))
     tmp.close()
     webbrowser.open('report.html')
