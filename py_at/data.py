@@ -231,7 +231,7 @@ class Data(object):
 
     def __new_min_bar__(self, bar2):
         """有新min_bar添加"""
-        bar=copy.copy(bar2)
+        bar = copy.copy(bar2)
         bar_time = time.strptime(bar.D, "%Y%m%d %H:%M:%S")
         year = bar_time.tm_year
         mon = bar_time.tm_mon
@@ -269,7 +269,8 @@ class Data(object):
                 break
 
         # time -> str
-        bar_time = '{0}{1:02d}{2:02d} {3:02d}:{4:02d}:00'.format(year, mon, day, hour, mins)
+        bar_time = '{0}{1:02d}{2:02d} {3:02d}:{4:02d}:00'.format(
+            year, mon, day, hour, mins)
         if len(self.Bars) == 0 or self.Bars[-1].D != bar_time:
             bar.D = bar_time
             self.Bars.append(bar)

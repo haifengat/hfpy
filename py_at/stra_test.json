@@ -1,5 +1,26 @@
 {
-    "stra_path": [
-        "strategies"
-    ]
+    "ctp_config": {
+        "sim_now": {
+            "trade": "tcp://180.168.146.187:10001",
+            "quote": "tcp://180.168.146.187:10011",
+            "broker": "9999"
+        },
+        "galaxy_real": {
+            "trade": "tcp://192.168.106.51:41205",
+            "quote": "tcp://192.168.106.51:41213",
+            "broker": "4040"
+        }
+    },
+    "comment_": "为空时不登录",
+    "ctp_front": "",
+    "investor": "",
+    "password": "",
+    "comment": "目录：文件：参数的ID[int]",
+    "stra_path": {
+        "strategies": {
+            "SMA_factor": [
+                101
+            ]
+        }
+    }
 }
