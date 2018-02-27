@@ -33,7 +33,6 @@ class stra_test(object):
     """"""
 
     def __init__(self):
-        """初始化 运行的目录下需要创建log目录"""
         """交易前置"""
         self.front_trade = ''
         # 行情前置
@@ -45,8 +44,8 @@ class stra_test(object):
         # self.log = open('orders.csv', 'w')
         # self.log.write('')  # 清空内容
 
-        stra_cfg = json.load(open(sys.path[0] + '/stra_test.json'))
-        self.stra_path_list = stra_cfg['stra_path']
+        self.stra_cfg = json.load(
+            open(sys.path[0] + '/stra_test.json', encoding='utf-8'))
         self.stra_instances = []
 
         self.q = CtpQuote()
@@ -139,19 +138,21 @@ class stra_test(object):
     def load_strategy(self):
         """加载../strategy目录下的策略"""
         """通过文件名取到对应的继承Data的类并实例"""
-        # for path in ['strategies', 'private']:
-        for path in self.stra_path_list:
-            files = os.listdir(os.path.join(sys.path[0], '../{0}'.format(path)))
-            for f in files:
-                if os.path.isdir(f) or os.path.splitext(f)[0] == '__init__' or os.path.splitext(f)[-1] != ".py":
+        for path in self.stra_cfg['stra_path']:
+            for filename in self.stra_cfg['stra_path'][path]:
+                f = os.path.join(sys.path[0], '../{0}/{1}.py'.format(
+                    path, filename))
+                # 只处理对应的 py文件
+                if os.path.isdir(f) or os.path.splitext(f)[0] == '__init__':
                     continue
-                # 目录结构???
-                module_name = "{1}.{0}".format(os.path.splitext(f)[0], path)
-                class_name = os.path.splitext(f)[0]
+                # 以目录结构作为 namespace
+                module_name = "{0}.{1}".format(path, filename)
+                class_name = filename
 
                 module = __import__(module_name)  # import module
 
-                c = getattr(getattr(module, class_name), class_name)  # 双层调用才是class,单层是为module
+                c = getattr(getattr(module, class_name),
+                            class_name)  # 双层调用才是class,单层是为module
 
                 if not issubclass(c, Strategy):  # 类c是Data的子类
                     continue
@@ -159,19 +160,18 @@ class stra_test(object):
                 # 与策略文件同名的json作为配置文件处理
                 file_name = os.path.join(sys.path[0], '../{0}/'.format(path),
                                          '{0}.json'.format(class_name))
-                if os.path.split(file_name)[1] in files:
+                if os.path.exists(file_name):
                     with open(
                             file_name, encoding='utf-8') as stra_cfg_json_file:
                         cfg = json.load(stra_cfg_json_file)
-                        # 是否启用此策略
-                        if 'enable' in cfg and not cfg['enable']:
-                            continue
                         for json_cfg in cfg['instance']:
                             if 'enable' in json_cfg and not json_cfg['enable']:
                                 continue
                             obj = c(json_cfg)
                             print("# obj:{0}", obj)
                             self.stra_instances.append(obj)
+                else:
+                    print("缺少对应的json文件{0}".format(file_name))
 
     def read_from_mq(self, stra):
         """netMQ"""
@@ -334,17 +334,21 @@ class stra_test(object):
 
 
 if __name__ == '__main__':
+    if not os.path.exists('log'):
+        os.mkdir('log')
     p = stra_test()
-    if len(sys.argv) == 1:
-        print("无参时将不登录接口")
-    else:
+    if p.stra_cfg['ctp_front'] != '':
+        ctp_cfg = p.stra_cfg['ctp_config'][p.stra_cfg['ctp_front']]
         if len(sys.argv) == 3:
-            p.CTPRun(investor=sys.argv[1], pwd=sys.argv[2])
-        elif len(sys.argv) == 6:   # 包括前置
-            p.CTPRun(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4],
-                     sys.argv[5])
+            p.CTPRun(
+                ctp_cfg['trade'],
+                ctp_cfg['quote'],
+                ctp_cfg['broker'],
+                investor=sys.argv[1],
+                pwd=sys.argv[2])
         else:
-            sys.exit("参数数目不正确,程序退出.")
+            p.CTPRun(ctp_cfg['trade'], ctp_cfg['quote'], ctp_cfg['broker'],
+                     p.stra_cfg['investor'], p.stra_cfg['password'])
         while not p.q.IsLogin:
             time.sleep(1)
     p.load_strategy()
