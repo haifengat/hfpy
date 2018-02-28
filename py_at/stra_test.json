@@ -12,7 +12,7 @@
         }
     },
     "comment_": "为空时不登录",
-    "ctp_front": "sim_now",
+    "ctp_front": "",
     "investor": "",
     "password": "",
     "comment": "目录：文件：参数的ID[int]",

@@ -165,7 +165,7 @@ class stra_test(object):
                             file_name, encoding='utf-8') as stra_cfg_json_file:
                         cfg = json.load(stra_cfg_json_file)
                         for json_cfg in cfg['instance']:
-                            if 'enable' in json_cfg and not json_cfg['enable']:
+                            if json_cfg['ID'] not in self.stra_cfg['stra_path'][path][filename]:
                                 continue
                             obj = c(json_cfg)
                             print("# obj:{0}", obj)
