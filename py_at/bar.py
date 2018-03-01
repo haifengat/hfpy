@@ -10,11 +10,13 @@ __mtime__ = '2016/8/16'
 class Bar(object):
     '''K线数据'''
 
-    def __init__(self, datetime='', h=0.0, l=0.0, o=0.0, c=0.0, v=0, i=0.0):
+    def __init__(self, datetime='', ins='',h=0.0, l=0.0, o=0.0, c=0.0, v=0, i=0.0):
         """初始化"""
         '''时间
         yyyyMMdd HH:mm:ss'''
         self.D = datetime
+        '''合约'''
+        self.Instrument=ins
         '''最高价'''
         self.H = h
         '''最低价'''

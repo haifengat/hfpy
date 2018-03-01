@@ -422,7 +422,7 @@ class Statistics(object):
 
         eqtemp = np.zeros(len(eq))
         eqYield = np.zeros(len(eq))
-        eqtemp[0] = eq[0]
+        eqtemp[0] = np.array(eq[0])
         eqtemp[1:] = eq[0:len(eq) - 1]
         # eqYield = (eq - eqtemp) / eqtemp
         eqYield = (eq - eqtemp) 
@@ -541,7 +541,7 @@ class Statistics(object):
                              names=['captical'])
         initfund = dfweek['captical'][0]
         isbegin = True
-        eq = dfweek['captical']
+        eq = np.array(dfweek['captical'])
         eq2 = np.zeros(len(dfweek))
         eq2[0] = eq[0]
         eq2[1:] = eq[0:len(eq) - 1]
@@ -597,7 +597,7 @@ class Statistics(object):
 
         dfmonth = pd.read_csv(self.__path + 'MonthEquity.csv', header=None, index_col=0, \
                               names=['captical'])
-        eq = dfmonth['captical']
+        eq = np.array(dfmonth['captical'])
         eq2 = np.zeros(len(eq))
         eq3 = np.zeros(len(eq))
         eq2[0] = eq[0]
@@ -644,7 +644,7 @@ class Statistics(object):
         maxContLossCount = 0
         dfyear = pd.read_csv(self.__path + 'YearEquity.csv', header=None, index_col=0, \
                              names=['captical'])
-        eq = dfyear['captical']
+        eq = np.array(dfyear['captical'])
 
         eq2 = np.zeros(len(eq))
         eq2[0] = eq[0]

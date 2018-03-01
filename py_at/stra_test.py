@@ -27,6 +27,7 @@ from py_at.structs import InfoField, OrderField, TradeField, ReqPackage
 from py_at.tick import Tick
 from py_at.strategy import Strategy
 from py_at.Statistics import Statistics
+import pickle as pkl
 
 
 class stra_test(object):
@@ -229,18 +230,29 @@ class stra_test(object):
         stra = Strategy('')  # 只为后面的提示信息创建
         for stra in self.stra_instances:
             stra.EnableOrder = False
-            # print params os strategy
-            # stra.OnOrder = self.on_order
-            for p in stra.Params:
-                print("{0}:{1}".format(p, stra.Params[p]), end=' ')
-
-            # 取数据
-            bars = self.read_from_mq(stra)
-            for doc in bars:
-                bar = Bar(doc["_id"], doc["High"], doc["Low"], doc["Open"],
-                          doc["Close"], doc["Volume"], doc["OpenInterest"])
+            lstBar=[]
+            path='data/{0}_{1}_{2}.pkl'.format(stra.ID,stra.BeginDate,stra.Datas[0].Instrument)
+            if os.path.exists(path):
+                print('策略 {0} 正在从本地加载历史数据'.format(stra.ID))
+                f=open(path,'rb')
+                lstBar=pkl.load(f)
+            else:
+                print('策略 {0} 正在从网络加载历史数据'.format(stra.ID))
+                bars = self.read_from_mq(stra)
+                for doc in bars:
+                    bar = Bar(doc["_id"],doc["Instrument"], doc["High"], doc["Low"], doc["Open"],
+                            doc["Close"], doc["Volume"], doc["OpenInterest"])
+                    lstBar.append(bar)
+                
+                if not os.path.exists('data/'):
+                    os.makedirs('data/')
+                f=open(path,'wb')
+                pkl.dump(lstBar,f)
+           
+            stra.OnOrder = self.on_order
+            for bar in lstBar:
                 for data in stra.Datas:
-                    if data.Instrument == doc["Instrument"]:
+                    if data.Instrument ==bar.Instrument:
                         data.__new_min_bar__(bar)  # 调Data的onbar
             # 生成策略的测试报告
             stra = Statistics(stra)
@@ -328,7 +340,7 @@ class stra_test(object):
         self.front_trade = front_trade
         self.front_quote = front_quote
         self.broker = broker
-        self.investor = investor
+        self.investor = investor      
         self.pwd = pwd
         self.t.ReqConnect(front_trade)
 
