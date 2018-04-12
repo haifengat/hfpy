@@ -61,6 +61,7 @@ class Strategy(object):
                 newdata.Interval = data['Interval']
                 newdata.IntervalType = IntervalType[data['IntervalType']]
                 self.Datas.append(newdata)
+
     @property
     def Bars(self):
         '''k'''

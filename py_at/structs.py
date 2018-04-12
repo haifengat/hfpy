@@ -16,12 +16,16 @@ class ReqPackage:
         """Constructor"""
         '''请求类型'''
         self.Type = BarType.Min
+        '''请求类型'''
         '''合约'''
         self.Instrument = ''
+        '''合约'''
         '''开始时间'''
         self.Begin = ''
+        '''开始时间'''
         '''结束时间'''
         self.End = ''
+        '''结束时间'''
 
 
 class InfoField:
@@ -31,8 +35,10 @@ class InfoField:
         """Constructor"""
         '''错误号'''
         self.ErrorID = 0
+        '''错误号'''
         '''错误描述'''
         self.ErrorMsg = '正确'
+        '''错误描述'''
 
     def __str__(self):
         # return 'ErrorID:{0}, ErrorMsg:{1}'.format(self.ErrorID, self.ErrorMsg)
@@ -51,36 +57,52 @@ class OrderField:
         """initionalize"""
         '''委托标识'''
         self.OrderID = ""
+        '''委托标识'''
         '''合约'''
         self.InstrumentID = ""
+        '''合约'''
         '''买卖'''
         self.Direction = DirectType.Buy
+        '''买卖'''
         '''开平'''
         self.Offset = OffsetType.Open
+        '''开平'''
         '''限价单价格'''
         self.LimitPrice = 0.0
+        '''限价单价格'''
         '''报单均价'''
         self.AvgPrice = 0.0
+        '''报单均价'''
         '''委托时间'''
         self.InsertTime = ""
+        '''委托时间'''
         '''成交时间'''
         self.TradeTime = ""
+        '''成交时间'''
         '''成交数量(本次)'''
         self.TradeVolume = 0
+        '''成交数量(本次)'''
         '''委托数量'''
         self.Volume = 0
+        '''委托数量'''
         '''未成交数量'''
         self.VolumeLeft = 0
+        '''未成交数量'''
         '''委托状态'''
         self.Status = OrderStatus.Normal
+        '''委托状态'''
         '''状态描述'''
         self.StatusMsg = ""
+        '''状态描述'''
         '''是否本地委托'''
         self.IsLocal = False
+        '''是否本地委托'''
         '''委托自定义标识'''
         self.Custom = 0
+        '''委托自定义标识'''
         '''系统(交易所)ID'''
         self.SysID = ""
+        '''系统(交易所)ID'''
 
     def __str__(self):
         """"""

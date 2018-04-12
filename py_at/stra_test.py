@@ -28,6 +28,7 @@ from py_at.tick import Tick
 from py_at.strategy import Strategy
 from py_at.Statistics import Statistics
 import pickle as pkl
+import getpass
 
 
 class stra_test(object):
@@ -166,7 +167,8 @@ class stra_test(object):
                             file_name, encoding='utf-8') as stra_cfg_json_file:
                         cfg = json.load(stra_cfg_json_file)
                         for json_cfg in cfg['instance']:
-                            if json_cfg['ID'] not in self.stra_cfg['stra_path'][path][filename]:
+                            if json_cfg['ID'] not in self.stra_cfg[
+                                    'stra_path'][path][filename]:
                                 continue
                             obj = c(json_cfg)
                             print("# obj:{0}", obj)
@@ -230,29 +232,31 @@ class stra_test(object):
         stra = Strategy('')  # 只为后面的提示信息创建
         for stra in self.stra_instances:
             stra.EnableOrder = False
-            lstBar=[]
-            path='data/{0}_{1}_{2}.pkl'.format(stra.ID,stra.BeginDate,stra.Datas[0].Instrument)
+            lstBar = []
+            path = 'data/{0}_{1}_{2}.pkl'.format(stra.ID, stra.BeginDate,
+                                                 stra.Datas[0].Instrument)
             if os.path.exists(path):
                 print('策略 {0} 正在从本地加载历史数据'.format(stra.ID))
-                f=open(path,'rb')
-                lstBar=pkl.load(f)
+                f = open(path, 'rb')
+                lstBar = pkl.load(f)
             else:
                 print('策略 {0} 正在从网络加载历史数据'.format(stra.ID))
                 bars = self.read_from_mq(stra)
                 for doc in bars:
-                    bar = Bar(doc["_id"],doc["Instrument"], doc["High"], doc["Low"], doc["Open"],
-                            doc["Close"], doc["Volume"], doc["OpenInterest"])
+                    bar = Bar(doc["_id"], doc["Instrument"], doc["High"],
+                              doc["Low"], doc["Open"], doc["Close"],
+                              doc["Volume"], doc["OpenInterest"])
                     lstBar.append(bar)
-                
+
                 if not os.path.exists('data/'):
                     os.makedirs('data/')
-                f=open(path,'wb')
-                pkl.dump(lstBar,f)
-           
+                f = open(path, 'wb')
+                pkl.dump(lstBar, f)
+
             stra.OnOrder = self.on_order
             for bar in lstBar:
                 for data in stra.Datas:
-                    if data.Instrument ==bar.Instrument:
+                    if data.Instrument == bar.Instrument:
                         data.__new_min_bar__(bar)  # 调Data的onbar
             # 生成策略的测试报告
             stra = Statistics(stra)
@@ -340,7 +344,7 @@ class stra_test(object):
         self.front_trade = front_trade
         self.front_quote = front_quote
         self.broker = broker
-        self.investor = investor      
+        self.investor = investor
         self.pwd = pwd
         self.t.ReqConnect(front_trade)
 
@@ -350,6 +354,7 @@ if __name__ == '__main__':
         os.mkdir('log')
     p = stra_test()
     if p.stra_cfg['ctp_front'] != '':
+        print('connecting == ' + p.stra_cfg['ctp_front'] + ' ==')
         ctp_cfg = p.stra_cfg['ctp_config'][p.stra_cfg['ctp_front']]
         if len(sys.argv) == 3:
             p.CTPRun(
@@ -359,8 +364,18 @@ if __name__ == '__main__':
                 investor=sys.argv[1],
                 pwd=sys.argv[2])
         else:
+            investor = ''
+            pwd = ''
+            if 'investor' in p.stra_cfg and p.stra_cfg['investor'] != '':
+                investor = p.stra_cfg['investor']
+            else:
+                investor = input('invesorid:')
+            if 'password' in p.stra_cfg['password'] and p.stra_cfg['password'] != '':
+                pwd = p.stra_cfg['password']
+            else:
+                pwd = getpass.getpass()
             p.CTPRun(ctp_cfg['trade'], ctp_cfg['quote'], ctp_cfg['broker'],
-                     p.stra_cfg['investor'], p.stra_cfg['password'])
+                     investor, pwd)
         while not p.q.IsLogin:
             time.sleep(1)
     p.load_strategy()

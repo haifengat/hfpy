@@ -5,8 +5,9 @@ __title__ = ''
 __author__ = 'HaiFeng'
 __mtime__ = '2016/11/2'
 """
-# import urllib
+
 import webbrowser
+
 
 def show(data, bars_json):
     '''生成网页版报告'''
@@ -18,14 +19,14 @@ def show(data, bars_json):
             <meta charset="utf-8">
             <title>交易策略绩效报告</title>
             <!-- 引入 echarts.js -->
-          
+
             <script src="https://cdn.bootcss.com/echarts/4.0.2/echarts.js"></script>
         </head>
         <body>
     <h3>策略详情</h3>
-	<div id="title">
-	
-  <table style="width:100%;height:50px;" border="1", align="center">
+    <div id="title">
+
+    <table style="width:100%;height:50px;" border="1", align="center">
   <tr>
     <td width="20%" height="24"><div align="center">策略名</div></td>
     <td width="25%"><div align="center" id="ID"></div></td>
@@ -824,14 +825,6 @@ def show(data, bars_json):
         </script>
     </body>
     </html>
-
-
-
-
-
-
-
-
-'''.format(bars_json,data['orders'],data['indexes'],data['report'],data['req']))
+'''.format(bars_json, data['orders'], data['indexes'], data['report'], data['req']))
     tmp.close()
     webbrowser.open('report.html')

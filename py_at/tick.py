@@ -14,24 +14,34 @@ class Tick:
         """初始化"""
         '''合约'''
         self.Instrument = ''
+        '''合约'''
         '''最新价'''
         self.LastPrice = 0.0
+        '''最新价'''
         '''挂卖价'''
         self.AskPrice = 0.0
+        '''挂卖价'''
         '''挂买价'''
         self.BidPrice = 0.0
+        '''挂买价'''
         '''挂卖量'''
         self.AskVolume = 1
+        '''挂卖量'''
         '''挂买量'''
         self.BidVolume = 1
+        '''挂买量'''
         '''时间'''
         self.UpdateTime = ''
+        '''时间'''
         '''成交量'''
         self.Volume = 1
+        '''成交量'''
         '''持仓量'''
         self.OpenInterest = 1.0
+        '''持仓量'''
         '''均价'''
         self.AveragePrice = 0.0
+        '''均价'''
 
     def __str__(self):
         """"""

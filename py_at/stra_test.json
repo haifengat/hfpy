@@ -12,8 +12,9 @@
         }
     },
     "comment_": "为空时不登录",
-    "ctp_front": "",
+    "ctp_front": "sim_now",
     "investor": "",
+    "command__": "此处不配置,则需要开启后输入.",
     "password": "",
     "comment": "目录：文件：参数的ID[int]",
     "stra_path": {

@@ -20,7 +20,7 @@ from py_at.switch import switch
 class Data(object):
     '''数据类, 策略继承此类'''
 
-    def __init__(self, stra_barupdate='', stra_onorder=''):
+    def __init__(self, stra_barupdate=None, stra_onorder=None):
         '''初始所有变量'''
         self.stra_uppdate = stra_barupdate
         self.stra_onorder = stra_onorder
