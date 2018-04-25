@@ -11,6 +11,7 @@ from py_at.data import Data
 from py_at.bar import Bar
 from py_at.strategy import Strategy
 from py_at.enums import IntervalType
+import numpy as np
 
 
 class SMACross(Strategy):
@@ -26,8 +27,8 @@ class SMACross(Strategy):
             return
 
         # print('{0}-{1}'.format(self.D[-1], self.C[-1]))
-        ma1 = talib.SMA(self.C, self.p_ma1)
-        ma2 = talib.SMA(self.C, self.p_ma2)
+        ma1 = talib.SMA(np.array(self.C), self.p_ma1)
+        ma2 = talib.SMA(np.array(self.C), self.p_ma2)
 
         self.IndexDict['ma5'] = ma1
         self.IndexDict['ma10'] = ma2

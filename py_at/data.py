@@ -58,25 +58,25 @@ class Data(object):
         策略使用的指标保存在此字典中
         以便管理程序显示和处理'''
         '''时间'''
-        self.D = np.array([])
+        self.D = []
         '''时间'''
         '''最高价'''
-        self.H = np.array([])
+        self.H = []
         '''最高价'''
         '''最低价'''
-        self.L = np.array([])
+        self.L = []
         '''最低价'''
         '''开盘价'''
-        self.O = np.array([])
+        self.O = []
         '''开盘价'''
         '''收盘价'''
-        self.C = np.array([])
+        self.C = []
         '''收盘价'''
         '''交易量'''
-        self.V = np.array([])
+        self.V = []
         '''交易量'''
         '''持仓量'''
-        self.I = np.array([])
+        self.I = []
         '''持仓量'''
 
         self._lastOrder = OrderItem()
@@ -275,13 +275,13 @@ class Data(object):
             bar.D = bar_time
             self.Bars.append(bar)
 
-            self.D = np.append(self.D, bar.D)
-            self.H = np.append(self.H, bar.H)
-            self.L = np.append(self.L, bar.L)
-            self.O = np.append(self.O, bar.O)
-            self.C = np.append(self.C, bar.C)
-            self.V = np.append(self.V, bar.V)
-            self.I = np.append(self.I, bar.I)
+            self.D.append(bar.D)
+            self.H.append(bar.H)
+            self.L.append(bar.L)
+            self.O.append(bar.O)
+            self.C.append(bar.C)
+            self.V.append(bar.V)
+            self.I.append(bar.I)
         else:
             old_bar = self.Bars[-1]
             self.H[-1] = old_bar.H = max(bar.H, old_bar.H)
@@ -419,15 +419,15 @@ class Data(object):
         """买开"""
         self.__order__(DirectType.Buy, OffsetType.Open, price, volume, remark)
 
-    def Sell(self, price, volume, remark):
+    def Sell(self, price, volume, remark=''):
         """买平"""
         self.__order__(DirectType.Sell, OffsetType.Close, price, volume,
                        remark)
 
-    def SellShort(self, price, volume, remark):
+    def SellShort(self, price, volume, remark=''):
         """卖开"""
         self.__order__(DirectType.Sell, OffsetType.Open, price, volume, remark)
 
-    def BuyToCover(self, price, volume, remark):
+    def BuyToCover(self, price, volume, remark=''):
         """买平"""
         self.__order__(DirectType.Buy, OffsetType.Close, price, volume, remark)
