@@ -308,12 +308,19 @@ class Data(object):
 
     def __order__(self, direction, offset, price, volume, remark):
         """策略执行信号"""
-
-        if self.SingleOrderOneBar and (self.LastEntryDateLong == self.D[-1]
-                                       or self.LastEntryDateShort == self.D[-1]
-                                       or self.ExitDateLong == self.D[-1]
-                                       or self.ExitDateShort == self.D[-1]):
-            return
+        if self.SingleOrderOneBar:
+            # 平仓后允许开仓
+            if self.ExitDateShort == self.D[-1] and (not (direction == DirectType.Buy and offset == OffsetType.Open)):
+                return
+            if self.ExitDateLong == self.D[-1] and (not (direction == DirectType.Sell and offset == OffsetType.Open)):
+                return
+            if self.LastEntryDateLong == self.D[-1] or self.LastEntryDateShort == self.D[-1]:
+                return
+        # if self.SingleOrderOneBar and (self.LastEntryDateLong == self.D[-1]
+        #                                or self.LastEntryDateShort == self.D[-1]
+        #                                or self.ExitDateLong == self.D[-1]
+        #                                or self.ExitDateShort == self.D[-1]):
+        #     return
         order = OrderItem()
         order.Instrument = self.Instrument
         order.DateTime = self.D[-1]
