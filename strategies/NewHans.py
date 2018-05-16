@@ -20,43 +20,44 @@ class NewHans(Strategy):
     def __init__(self, jsonfile=''):
         super().__init__(jsonfile)
        
-        self.up=0
-        self.down=1000000
-        self.rate=20
+        self.up = 0
+        self.down = 1000000
+        self.rate = 20
         
-        self.openflag=False
+        self.openflag = False
 
-        self.highD=self.Datas[1].H
-        self.lowD=self.Datas[1].L
+        self.highD = self.Datas[1].H
+        self.lowD = self.Datas[1].L
 
-        self.token=1
-    def OnBar(self,data=Data, bar=Bar):
+        self.token = 1
+
+    def OnBar(self, data=Data, bar=Bar):
         if not self.openflag:
-            if bar.D[-8:]>'21:00:00' and bar.D[-8:]<'21:30:00':
-                self.up=max(self.up,bar.H)
-                self.down=min(self.down,bar.L)
+            if bar.D[-8:] > '21:00:00' and bar.D[-8:] < '21:30:00':
+                self.up = max(self.up, bar.H)
+                self.down = min(self.down, bar.L)
                 
-            elif bar.D[-8:]>'21:30:00' and bar.D[-8:]<'21:40:00':
-                self.openflag=True
-                diff=np.array(self.Datas[1].H)-np.array(self.Datas[1].L) 
-                self.rate=np.std(diff)
+            elif bar.D[-8:] > '21:30:00' and bar.D[-8:] < '21:40:00':
+                self.openflag = True
+                diff = np.array(self.Datas[1].H) - np.array(self.Datas[1].L) 
+                self.rate = np.std(diff)
                 
         else:
-            if self.rate>20:
+            if self.rate > 20:
                 
-                if self.Position==0 and self.token>0: 
-                    if  bar.C>self.up:
-                        self.Buy(bar.C,self.Lots)
-                        self.token=self.token-1 
-                    elif bar.C<self.down:
-                        self.token=self.token-1 
-                        self.SellShort(bar.C,self.Lots)
+                if self.Position == 0 and self.token > 0: 
+                    if  bar.C > self.up:
+                        self.Buy(bar.C, self.Lots)
+                        self.token = self.token - 1 
+                    elif bar.C < self.down:
+                        self.token = self.token - 1 
+                        self.SellShort(bar.C, self.Lots)
                 else:
-                    if bar.D[-8:]>'14:55:00' and bar.D[-8:]<'15:00:00':
-                        if self.PositionLong>0:
-                            self.Sell(bar.C,self.PositionLong)
-                        elif self.PositionShort>0:
-                            self.BuyToCover(bar.C,self.PositionShort)
+                    if bar.D[-8:] > '14:55:00' and bar.D[-8:] < '15:00:00':
+                        if self.PositionLong > 0:
+                            self.Sell(bar.C, self.PositionLong)
+                        elif self.PositionShort > 0:
+                            self.BuyToCover(bar.C, self.PositionShort)
                             
         
           

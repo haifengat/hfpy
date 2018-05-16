@@ -176,15 +176,30 @@ class stra_test(object):
                 else:
                     print("缺少对应的json文件{0}".format(file_name))
 
-    def read_from_mq(self, stra):
-        """netMQ"""
-        _stra = Strategy('')  # 为了下面的提示信息创建
-        _stra = stra
+    def read_data_zmq(self, req: ReqPackage) -> []:
+        ''''''
         # pip install pyzmq即可安装
         context = zmq.Context()
         socket = context.socket(zmq.REQ)  # REQ模式,即REQ-RSP  CS结构
         # socket.connect('tcp://localhost:8888')	# 连接本地测试
         socket.connect('tcp://58.247.171.146:5055')  # 实际netMQ数据服务器地址
+
+        p = req.__dict__
+        socket.send_json(p)  # 直接发送__dict__转换的{}即可,不需要再转换成str
+
+        # msg = socket.recv_unicode()	# 服务器此处查询出现异常, 排除中->C# 正常
+        # 用recv接收,但是默认的socket中并没有此提示函数(可能是向下兼容的函数),不知能否转换为其他格式
+        bs = socket.recv()  # 此处得到的是bytes
+
+        # gzip解压:decompress(bytes)解压,会得到解压后的bytes,再用decode转成string
+        gzipper = gzip.decompress(bs).decode()  # decode转换为string
+
+        # json解析:与dumps对应,将str转换为{}
+        bs = json.loads(gzipper)  # json解析
+        return bs
+
+    def read_bars_from_zmq(self, _stra: Strategy)->[]:
+        """netMQ"""
         bars = []
         for data in _stra.Datas:
             # 请求数据格式
@@ -194,33 +209,15 @@ class stra_test(object):
             req.Begin = _stra.BeginDate
             req.End = _stra.EndDate
             # __dict__返回diction格式,即{key,value}格式
-            p = req.__dict__
-            socket.send_json(p)  # 直接发送__dict__转换的{}即可,不需要再转换成str
 
-            # msg = socket.recv_unicode()	# 服务器此处查询出现异常, 排除中->C# 正常
-            # 用recv接收,但是默认的socket中并没有此提示函数(可能是向下兼容的函数),不知能否转换为其他格式
-            bs = socket.recv()  # 此处得到的是bytes
-
-            # gzip解压:decompress(bytes)解压,会得到解压后的bytes,再用decode转成string
-            gzipper = gzip.decompress(bs).decode()  # decode转换为string
-
-            # json解析:与dumps对应,将str转换为{}
-            bs = json.loads(gzipper)  # json解析
-            for bar in bs:
+            for bar in self.read_data_zmq(req):
                 bar['Instrument'] = data.Instrument
                 bars.append(bar)
 
             if _stra.EndDate == time.strftime("%Y%m%d", time.localtime()):
                 # 实时K线数据
                 req.Type = 2  # BarType.Real
-                p = req.__dict__
-                socket.send_json(p)  # 直接发送__dict__转换的{}即可,不需要再转换成str
-                bs = socket.recv()  # 此处得到的是bytes
-                # gzip解压:decompress(bytes)解压,会得到解压后的bytes,再用decode转成string
-                gzipper = gzip.decompress(bs).decode()  # decode转换为string
-                # json解析:与dumps对应,将str转换为{}
-                bs = json.loads(gzipper)  # json解析
-                for bar in bs:
+                for bar in self.read_data_zmq(req):
                     bar['Instrument'] = data.Instrument
                     bars.append(bar)
 
@@ -233,25 +230,25 @@ class stra_test(object):
         for stra in self.stra_instances:
             stra.EnableOrder = False
             lstBar = []
-            path = 'data/{0}_{1}_{2}.pkl'.format(stra.ID, stra.BeginDate,
-                                                 stra.Datas[0].Instrument)
-            if os.path.exists(path):
-                print('策略 {0} 正在从本地加载历史数据'.format(stra.ID))
-                f = open(path, 'rb')
-                lstBar = pkl.load(f)
-            else:
-                print('策略 {0} 正在从网络加载历史数据'.format(stra.ID))
-                bars = self.read_from_mq(stra)
-                for doc in bars:
-                    bar = Bar(doc["_id"], doc["Instrument"], doc["High"],
-                              doc["Low"], doc["Open"], doc["Close"],
-                              doc["Volume"], doc["OpenInterest"])
-                    lstBar.append(bar)
+            # path = 'data/{0}_{1}_{2}.pkl'.format(stra.ID, stra.BeginDate,
+            #                                      stra.Datas[0].Instrument)
+            # if os.path.exists(path):
+            #     print('策略 {0} 正在从本地加载历史数据'.format(stra.ID))
+            #     f = open(path, 'rb')
+            #     lstBar = pkl.load(f)
+            # else:
+            print('策略 {0} 正在从网络加载历史数据'.format(stra.ID))
+            bars = self.read_bars_from_zmq(stra)
+            for doc in bars:
+                bar = Bar(doc["_id"], doc["Instrument"], doc["High"],
+                          doc["Low"], doc["Open"], doc["Close"],
+                          doc["Volume"], doc["OpenInterest"])
+                lstBar.append(bar)
 
-                if not os.path.exists('data/'):
-                    os.makedirs('data/')
-                f = open(path, 'wb')
-                pkl.dump(lstBar, f)
+            # if not os.path.exists('data/'):
+            #     os.makedirs('data/')
+            # f = open(path, 'wb')
+            # pkl.dump(lstBar, f)
 
             stra.OnOrder = self.on_order
             for bar in lstBar:
@@ -318,9 +315,14 @@ class stra_test(object):
             for data in stra.Datas:
                 self.q.ReqSubscribeMarketData(data.Instrument)
 
+    def fix_tick(self, tick: Tick):
+        '''数据修正:小节收盘数据归入上一分钟;兑价数据归入开盘分钟'''
+        cur_time = tick.UpdateTime[:-2] + '00'
+
     def q_Tick(self, tick=Tick):
         """"""
         # print(tick)
+        self.fix_tick(tick)
         for stra in self.stra_instances:
             for data in stra.Datas:
                 if data.Instrument == tick.Instrument:

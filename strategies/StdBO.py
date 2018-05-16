@@ -9,7 +9,6 @@ import talib as tl
 
 class StdBO(Strategy):
     ''''''
-
     def __init__(self, jsonfile=''):
         super().__init__(jsonfile)
         self.ordered = False
@@ -20,14 +19,11 @@ class StdBO(Strategy):
         if self.CurrentBar <= self.Params['length']:
             return
 
-        ma1 = tl.SMA(self.C,self.Params['length'])
-        std1 = tl.STDDEV(self.C,self.Params['length'])
+        ma1 = tl.SMA(self.C, self.Params['length'])
+        std1 = tl.STDDEV(self.C, self.Params['length'])
         UpperBand = ma1[-2] + std1[-2]
         UnderBand = ma1[-2] - std1[-2]
         
-        #print(data.D[-1])
-
-
         '''
         print('上轨==',UpperBand)
         print('下轨==',UnderBand)
@@ -39,15 +35,13 @@ class StdBO(Strategy):
         if data.PositionLong < 1 and data.C[-2] > UpperBand and data.C[-3] < UpperBand:
             print('进入做多')
             if data.PositionShort > 0:
-                data.BuyToCover(data.O[-1],data.PositionShort,'')
-            data.Buy(data.O[-1],1,'')
+                data.BuyToCover(data.O[-1], data.PositionShort, '')
+            data.Buy(data.O[-1], 1, '')
         if data.PositionShort < 1 and data.C[-2] > UnderBand and data.C[-3] < UnderBand:
             if data.PositionLong > 0:
-                data.Sell(data.O[-1],data.PositionLong,'')
-            data.SellShort(data.O[-1],1,'')
+                data.Sell(data.O[-1], data.PositionLong, '')
+            data.SellShort(data.O[-1], 1, '')
             print('进入做空')
-
-
 
     def OnOrder(self, order=OrderField()):
         """委托响应"""
@@ -62,14 +56,14 @@ class StdBO(Strategy):
     def OnCancel(self, order):
         """撤单响应"""
         print('strategy cancel')
-        #print(order)
+        # print(order)
 
     def OnErrOrder(self, order=OrderField(), info=InfoField()):
         """委托错误"""
         print('strategy err order')
-        #print(order)
+        # print(order)
 
     def OnErrCancel(self, order=OrderField(), info=InfoField()):
         """撤单错误"""
         print('strategy err cancel')
-        #print(order)
+        # print(order)

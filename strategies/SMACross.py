@@ -6,7 +6,6 @@ __author__ = 'HaiFeng'
 __mtime__ = '2016/8/16'
 """
 import talib
-
 from py_at.data import Data
 from py_at.bar import Bar
 from py_at.strategy import Strategy
@@ -23,12 +22,13 @@ class SMACross(Strategy):
         self.p_lots = self.Params['Lots'] = 1
 
     def OnBarUpdate(self, data=Data, bar=Bar):
+        print(self.C[-1],self.I[-1])
         if len(self.C) < self.p_ma2:
             return
 
         # print('{0}-{1}'.format(self.D[-1], self.C[-1]))
-        ma1 = talib.SMA(np.array(self.C), self.p_ma1)
-        ma2 = talib.SMA(np.array(self.C), self.p_ma2)
+        ma1 = talib.SMA(np.array(self.C, dtype=float), self.p_ma1)
+        ma2 = talib.SMA(np.array(self.C, dtype=float), self.p_ma2)
 
         self.IndexDict['ma5'] = ma1
         self.IndexDict['ma10'] = ma2

@@ -2,7 +2,6 @@
     "instance":[
             {
                 "ID":101,
-                "enable": false,
                 "BeginDate":20170101,
                 "Datas":[
                     {

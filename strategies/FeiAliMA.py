@@ -24,6 +24,7 @@ class FeiAliMA():
         self.hh = 0
         self.ll = 0
         self.trading = True
+
     def OnBarUpdate(self, data=Data, bar=Bar):
     
         # 计算日内最高价和最低价  换日时候更新list
@@ -34,50 +35,39 @@ class FeiAliMA():
             self.hh = self.H[-1]
             self.ll = self.L[-1]
 
-        self.hh = max(self.H[-1],self.hh)
-        self.ll = min(self.L[-1],self.ll)
+        self.hh = max(self.H[-1], self.hh)
+        self.ll = min(self.L[-1], self.ll)
 
         if data.CurrentBar < self.Params['vola']:
             return
-        
-        # 移动平均线，是个array
-        ma1 = tl.SMA(data.C,self.Params['malength'])
-        
+               
         # 计算上下轨
-        upband = self.openD[-1]*(1 + self.Params['vola']/1000)
-        udband = self.openD[-1]*(1 - self.Params['vola']/1000)
-        if self.D[-1][9:13] >'14:30:00' and self.D[-1][9:13] <'15:00:00':
+        upband = self.openD[-1] * (1 + self.Params['vola'] / 1000)
+        udband = self.openD[-1] * (1 - self.Params['vola'] / 1000)
+        if self.D[-1][9:13] > '14:30:00' and self.D[-1][9:13] < '15:00:00':
             self.trading = False
         else:
             self.trading = True
 
         if upband < self.C[-2] and data.PositionShort >= 0:
             if data.PositionShort > 0:
-                data.BuyToCover( data.O[-1] + 1,1,'')
-                #print('平卖', data.D[-1])
-                #print('upband1:',upband)
+                data.BuyToCover(data.O[-1] + 1, 1, '')
 
             if data.PositionLong == 0 and data.PositionShort == 0:
-                data.Buy( data.O[-1] + 1,1,'')
-                #print('买入', data.D[-1])
-                #print('upband2:',upband)
- 
+                data.Buy(data.O[-1] + 1, 1, '')
+
         if udband > self.C[-2] and data.PositionLong >= 0:  
             if data.PositionLong > 0:
-                data.Sell(data.O[-1] - 1,1,'')
-                #print('平买', data.D[-1])
-                #print('udband1:',udband)
+                data.Sell(data.O[-1] - 1, 1, '')
 
             if data.PositionShort == 0 and data.PositionLong == 0:
-                data.SellShort(data.O[-1] - 1,1,'')
-                #print('卖出', data.D[-1])
-                #print('udband2:',udband)
+                data.SellShort(data.O[-1] - 1, 1, '')
         
         if self.D[-1][9:13] >= '14:59:00' and self.D[-1][9:13] <= '15:01:00':
             if data.PositionLong > 0:
-                data.Sell(data.O[-1] - 1,1,'')
+                data.Sell(data.O[-1] - 1, 1, '')
             if data.PositionShort > 0:
-                data.BuyToCover( data.O[-1] + 1,1,'')
+                data.BuyToCover(data.O[-1] + 1, 1, '')
          
             
         

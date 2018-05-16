@@ -14,6 +14,7 @@ from py_at.bar import Bar
 import time
 import talib as tl
 import datetime,time
+import numpy as np
 
 class VolaMaBO():
     ''''''
@@ -21,13 +22,13 @@ class VolaMaBO():
         super().__init__(jsonfile)
 
     def OnBarUpdate(self, data=Data, bar=Bar):
-        if data.CurrentBar<50:
+        if data.CurrentBar < 50:
             return
-        #移动平均线
-        ma1 = tl.SMA(data.C,self.Params['malength'])
-        #atr计算
-        vola1 = tl.ATR(data.H, data.L, data.C, timeperiod=self.Params['volalength1'])
-        vola2 = tl.ATR(data.H, data.L, data.C, timeperiod=self.Params['volalength2'])
+        # 移动平均线
+        ma1 = tl.SMA(np.array(data.C, dtype=float), self.Params['malength'])
+        # atr计算
+        vola1 = tl.ATR(np.array(data.H, dtype=float), np.array(data.L, dtype=float), np.array(data.C, dtype=float), timeperiod=self.Params['volalength1'])
+        vola2 = tl.ATR(np.array(data.H, dtype=float), np.array(data.L, dtype=float), np.array(data.C, dtype=float), timeperiod=self.Params['volalength2'])
 
         '''
         print('c==',data.D[-2])
@@ -36,22 +37,22 @@ class VolaMaBO():
         print('vola1 == ',vola1[-2])
         print('vola2==',vola2[-2])
         '''
-        dd =5
+        dd = 5
 
-        if data.C[-2]>ma1[-2] and vola1[-2] > vola2[-2] and data.PositionShort >= 0:
+        if data.C[-2] > ma1[-2] and vola1[-2] > vola2[-2] and data.PositionShort >= 0:
             if data.PositionShort > 0:
-                data.BuyToCover( data.O[-1] + 1,1,'')
+                data.BuyToCover(data.O[-1] + 1, 1, '')
                 print('平卖')
             if dd != self.Params['Noopen'] and data.PositionLong == 0:
-                data.Buy( data.O[-1] + 1,1,'')
+                data.Buy(data.O[-1] + 1, 1, '')
                 print('买入')
  
-        if data.C[-2]<ma1[-2] and vola1[-2] > vola2[-2] and data.PositionLong >= 0:  
+        if data.C[-2] < ma1[-2] and vola1[-2] > vola2[-2] and data.PositionLong >= 0:  
             if data.PositionLong > 0:
-                data.Sell(data.O[-1] - 1,1,'')
+                data.Sell(data.O[-1] - 1, 1, '')
                 print('平买')
             if dd != self.Params['Noopen'] and data.PositionShort == 0:
-                data.SellShort(data.O[-1] - 1,1,'')
+                data.SellShort(data.O[-1] - 1, 1, '')
                 print('卖出')
          
             

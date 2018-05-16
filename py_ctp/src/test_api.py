@@ -204,8 +204,8 @@ class Test:
         pass
 
     def CTPRun(self,
-               front_trade='tcp://180.168.146.187:10000',
-               front_quote='tcp://180.168.146.187:10010',
+               front_trade='tcp://180.168.146.187:10001',
+               front_quote='tcp://180.168.146.187:10011',
                broker='9999',
                investor='008109',
                pwd='1'):

@@ -1,10 +1,8 @@
 {
     "comment": "是否启用此策略",
-    "enable": true,
     "instance": [
         {
             "comment_0": "是否启用此实例",
-            "enable": true,
             "comment_1": "ID用于区分不同策略实例的委托",
             "ID": 110,
             "BeginDate": 20170101,

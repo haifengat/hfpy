@@ -48,51 +48,50 @@ class SMA_factor(Strategy):
         self.corrlist = []
         self.longcorrlist = []
         self.shortcorrlist = []
-    def func(self,p,x1):
-        k,b=p
-        return k*x1+b
 
-    def error(self,p,x1,y):
-        #print(s)
-        return self.func(p,x1) - y
+    def func(self, p, x1):
+        k, b = p
+        return k * x1 + b
+
+    def error(self, p, x1, y):
+        # print(s)
+        return self.func(p, x1) - y
 
     def OnBarUpdate(self, data=Data, bar=Bar):
         if len(self.C) < self.p_ma2:
             return
 
         # print('{0}-{1}'.format(self.D[-1], self.C[-1]))
-        ma1 = talib.SMA(self.C, self.p_ma1)
-        ma2 = talib.SMA(self.C, self.p_ma2)
+        ma1 = talib.SMA(np.array(self.C, dtype=float), self.p_ma1)
+        ma2 = talib.SMA(np.array(self.C, dtype=float), self.p_ma2)
 
-        vol1 = talib.SMA(self.V,5)
-        vol2 = talib.SMA(self.V,15)
+        vol1 = talib.SMA(np.array(self.V, dtype=float), 5)
+        vol2 = talib.SMA(np.array(self.V, dtype=float), 15)
 
         ll = vol1[-2] - vol2[-2]
         mm = ma1[-2] - ma2[-2]
         self.IndexDict['ma5'] = ma1
         self.IndexDict['ma10'] = ma2
 
-        #
         if len(self.longwinnlist) > 30:
             g = np.array(self.longwinnlist)
             f1 = np.array(self.longmaRatio)
 
             # 求拟合因子参数
-            p0 = np.array([1.0,1.0])
-            para = leastsq(self.error,p0,args=(f1,g))
-            self.longk,self.longb = para[0]
-
+            p0 = np.array([1.0, 1.0])
+            para = leastsq(self.error, p0, args=(f1, g))
+            self.longk, self.longb = para[0]
 
         if len(self.longwinnlist) > 30:
             g = np.array(self.shortwinnlist)
             f1 = np.array(self.shortmaRatio)
 
             # 求拟合因子参数
-            p0 = np.array([1.0,1.0])
-            para = leastsq(self.error,p0,args=(f1,g))
-            self.shortk,self.shortb = para[0]
-            #print("求解的拟合直线：")
-            #print('y=' + str(round(self.k,4)) + 'x1' + str(round(self.b,4)))
+            p0 = np.array([1.0, 1.0])
+            para = leastsq(self.error, p0, args=(f1, g))
+            self.shortk, self.shortb = para[0]
+            # print("求解的拟合直线：")
+            # print('y=' + str(round(self.k,4)) + 'x1' + str(round(self.b,4)))
 
         if self.PositionLong == 0:
             if ma1[-2] >= ma2[-2] and ma1[-3] < ma2[-3]:
@@ -106,30 +105,28 @@ class SMA_factor(Strategy):
                     self.shortf_list.append(self.tempF)
                     self.winnlist.append(self.inprice - self.O[-1])
                     self.shortwinnlist.append(self.inprice - self.O[-1])
-                    if len(self.f_list)>1:
+                    if len(self.f_list) > 1:
                         pass
-                        #print('f = ',self.f_list[-1],'g = ',self.winnlist[-1])
+                        # print('f = ',self.f_list[-1],'g = ',self.winnlist[-1])
                     if len(self.winnlist) > 30:
                         s1 = pd.Series(self.shortf_list[-30:])
                         yy = pd.Series(self.shortwinnlist[-30:])
                         self.shortcorrlist.append(s1.corr(yy))
                 if len(self.longwinnlist) > 32:
-                    if self.longcorrlist[-1] < -0.2 and self.longk*mm + self.longb < -2.5:
-                        lots = self.p_lots*2
+                    if self.longcorrlist[-1] < -0.2 and self.longk * mm + self.longb < -2.5:
+                        lots = self.p_lots * 2
                         self.Buy(self.O[-1], lots, '买开')
-                    elif self.longcorrlist[-1] < -0.2 and self.longk*mm + self.longb > 2.5:
+                    elif self.longcorrlist[-1] < -0.2 and self.longk * mm + self.longb > 2.5:
                         pass
                     else:
                         self.Buy(self.O[-1], self.p_lots, '买开')
-                        print('123123456')
 
                 else:
                     self.Buy(self.O[-1], self.p_lots, '买开')
-                    print('123123456')
                 self.inprice = self.O[-1]
                 self.tempMaRatio = mm
                 self.tempVolRatio = ll
-                self.tempF =  self.longk*mm + self.longb
+                self.tempF = self.longk * mm + self.longb
                 
         elif self.PositionShort == 0:
             if ma1[-2] <= ma2[-2] and ma1[-3] > ma2[-3]:
@@ -144,9 +141,9 @@ class SMA_factor(Strategy):
                     self.winnlist.append(self.O[-1] - self.inprice)
                     self.longwinnlist.append(self.inprice - self.O[-1])
 
-                    if len(self.f_list)>1:
+                    if len(self.f_list) > 1:
                         pass
-                        #print('f = ',self.f_list[-1],'g = ',self.winnlist[-1])
+                        # print('f = ',self.f_list[-1],'g = ',self.winnlist[-1])
 
                     if len(self.winnlist) > 30:
                         s1 = pd.Series(self.longf_list[-30:])
@@ -155,23 +152,21 @@ class SMA_factor(Strategy):
 
                 if len(self.shortwinnlist) > 32:
                     
-                    if self.shortcorrlist[-1] < -0.1 and self.shortk*mm + self.shortb <-4:
-                        lots = self.p_lots*2
+                    if self.shortcorrlist[-1] < -0.1 and self.shortk * mm + self.shortb < -4:
+                        lots = self.p_lots * 2
                         self.SellShort(self.O[-1], lots, 'mai开')
-                    elif self.shortcorrlist[-1] < -0.1 and self.shortk*mm + self.shortb > 4:
+                    elif self.shortcorrlist[-1] < -0.1 and self.shortk * mm + self.shortb > 4:
                         pass
                     else:
                         self.SellShort(self.O[-1], self.p_lots, 'mai开')
-                        print('123123456')
 
                 else:
                     self.SellShort(self.O[-1], self.p_lots, '卖开')
-                    print('123123456')
 
                 self.inprice = self.O[-1]
                 self.tempMaRatio = mm
                 self.tempVolRatio = ll
-                self.tempF =  self.shortk*mm + self.shortb
+                self.tempF = self.shortk * mm + self.shortb
 
 
                 

@@ -201,7 +201,7 @@ class Data(object):
         '''当前K线序号(0开始)'''
         return max(len(self.Bars) - 1, 0)
 
-    def on_tick(self, tick):
+    def on_tick(self, tick: Tick):
         '''分笔数据处理'''
         # 避免相同tick重复调用
         if self.Tick.UpdateTime == tick.UpdateTime and self.Tick.Volume == tick.Volume:
@@ -211,9 +211,14 @@ class Data(object):
         # bar_time = time.strptime(time.strftime("%Y-%m-%d %H:%M", tick.UpdateTime), "%Y-%m-%d %H:%M")
         bar_time = tick.UpdateTime[:-2] + '00'  # time.strftime("%Y%m%d %H:%M:00", time.strptime(tick.UpdateTime, "%Y%m%d %H:%M:%S"))
         if len(self.Bars) == 0 or self.Bars[-1].D != bar_time:  # 新数据
-            # bar_time, h, l, o, c, v, i, a)
-            bar = Bar(bar_time, tick.LastPrice, tick.LastPrice, tick.LastPrice,
+            # bar_time, ins, h, l, o, c, v, i, a)
+            bar = Bar(bar_time, tick.Instrument, tick.LastPrice, tick.LastPrice, tick.LastPrice,
                       tick.LastPrice, tick.Volume, tick.OpenInterest)
+            if len(self.Bars) > 0:
+                if self.Bars[-1]._pre_volume == 0:  # 实时行情首K即为新的分钟
+                    bar.V = 0
+                else:
+                    bar.V = tick.Volume - self.Bars[-1]._pre_volume - self.Bars[-1].V
             bar._pre_volume = tick.Volume
 
             self.__new_min_bar__(bar)  # 新K线数据插入
@@ -222,8 +227,12 @@ class Data(object):
             bar.H = max(bar.H, tick.LastPrice)
             bar.L = min(bar.L, tick.LastPrice)
             bar.C = tick.LastPrice
-            bar.V = tick.Volume - bar._pre_volume
-            bar._pre_volume = tick.Volume
+            # 当时从服务器取到的数据,与ctp实时数据处于同一分钟,需做衔接处理.
+            if bar._pre_volume == 0:
+                bar._pre_volume = tick.Volume - bar.V  # 此tick产生的成交量忽略
+            else:
+                bar.V = tick.Volume - bar._pre_volume
+            # bar._pre_volume = tick.Volume
             bar.I = tick.OpenInterest
             bar.A = tick.AveragePrice
 

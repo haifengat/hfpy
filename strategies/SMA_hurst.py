@@ -25,8 +25,8 @@ class SMA_hurst(Strategy):
         self.hurstlist = []
         self.mahurstlist = []
         self.vola = []
-    #github版本 hurst 指数
-    def churst(self,ts):
+    # github版本 hurst 指数
+    def churst(self, ts):
         """Returns the Hurst Exponent of the time series vector ts"""
 
         # create the range of lag values
@@ -48,22 +48,22 @@ class SMA_hurst(Strategy):
             print('error')
             return
         '''
-        n_min, n_max = 2, len(ts)//3
+        n_min, n_max = 2, len(ts) // 3
         RSlist = []
         for cut in range(n_min, n_max):
             children = len(ts) // cut
-            children_list = [ts[i*children:(i+1)*children] for i in range(cut)]
+            children_list = [ts[i * children:(i + 1) * children] for i in range(cut)]
             L = []
             for a_children in children_list:
-                Ma = np.mean(a_children)
-                Xta = pd.Series(map(lambda x: x-Ma, a_children)).cumsum()
+                Ma = np.mean(np.array(a_children, dtype=float))
+                Xta = pd.Series(map(lambda x: x - Ma, a_children)).cumsum()
                 Ra = max(Xta) - min(Xta)
                 Sa = np.std(a_children)
                 rs = Ra / Sa
                 L.append(rs)
             RS = np.mean(L)
             RSlist.append(RS)
-        return np.polyfit(np.log(range(2+len(RSlist),2,-1)), np.log(RSlist), 1)[0]
+        return np.polyfit(np.log(np.array(range(2 + len(RSlist), 2, -1), dtype=float)), np.log(np.array(RSlist, dtype=float)), 1)[0]
 
     def OnBarUpdate(self, data=Data, bar=Bar):
         if len(self.C) > 2:
@@ -78,22 +78,21 @@ class SMA_hurst(Strategy):
             return
 
         # print('{0}-{1}'.format(self.D[-1], self.C[-1]))
-        ma1 = talib.SMA(self.C, self.p_ma1)
-        ma2 = talib.SMA(self.C, self.p_ma2)
+        ma1 = talib.SMA(np.array(self.C, dtype=float), self.p_ma1)
+        ma2 = talib.SMA(np.array(self.C, dtype=float), self.p_ma2)
 
         # 实盘需要考虑tick的连续添加
-        #self.hurstlist.append(np.array(self.churst(self.vola[-30:-1])))   
+        # self.hurstlist.append(np.array(self.churst(self.vola[-30:-1])))   
         
-        self.hurstlist.append(np.array(self.calcHurst2(self.vola[-30:-1])))   
-
+        self.hurstlist.append(np.array(self.calcHurst2(self.vola[-30:-1]), dtype=float))
 
         if len(self.hurstlist) > 5:
-            mahurst = np.mean(self.hurstlist[-6:-2]) 
+            mahurst = np.mean(np.array(self.hurstlist[-6:-2], dtype=float))
             self.mahurstlist.append(mahurst)
-            #talib.SMA(self.hurst,5)
-            print('hurst = ',mahurst)
-            print('date = ',self.D[-1])
-            #print('***********************************')
+            # talib.SMA(self.hurst,5)
+            print('hurst = ', mahurst)
+            print('date = ', self.D[-1])
+            # print('***********************************')
 
             self.IndexDict['ma5'] = ma1
             self.IndexDict['ma10'] = ma2
@@ -111,7 +110,7 @@ class SMA_hurst(Strategy):
                     if mahurst > 1 and mahurst < 1.25:
                         self.SellShort(self.O[-1], self.p_lots, '卖开')
 
-            if ((mahurst < 0.5 and mahurst > 0.3) or mahurst > 1.25 )and self.PositionLong >0:
+            if ((mahurst < 0.5 and mahurst > 0.3) or mahurst > 1.25)and self.PositionLong >0:
                 self.Sell(self.O[-1], self.p_lots, '卖平')
             
             if ((mahurst < 0.5 and mahurst > 0.3) or mahurst > 1.25) and self.PositionShort >0:
