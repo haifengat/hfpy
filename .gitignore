@@ -46,3 +46,5 @@ orders.csv
 ./log/*.*
 strategies/send.py
 report*/
+.vscode*/
+/.vscode/settings.json

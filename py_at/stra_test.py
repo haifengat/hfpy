@@ -22,13 +22,14 @@ from py_at.data import Data
 from py_at.order import OrderItem
 from py_at.adapters.ctp_trade import CtpTrade
 from py_at.adapters.ctp_quote import CtpQuote
-from py_at.enums import DirectType, OffsetType, OrderType, OrderStatus
+from py_at.enums import DirectType, OffsetType, OrderType, OrderStatus, BarType
 from py_at.structs import InfoField, OrderField, TradeField, ReqPackage
 from py_at.tick import Tick
 from py_at.strategy import Strategy
 from py_at.Statistics import Statistics
 import pickle as pkl
 import getpass
+from config import Config
 
 
 class stra_test(object):
@@ -45,9 +46,8 @@ class stra_test(object):
         self.TradingDay = ''
         # self.log = open('orders.csv', 'w')
         # self.log.write('')  # 清空内容
-
-        self.stra_cfg = json.load(
-            open(sys.path[0] + '/stra_test.json', encoding='utf-8'))
+        os.chdir(os.path.split(os.path.abspath(__file__))[0])
+        self.cfg = Config()  # json.load(open(sys.path[0] + '/stra_test.json', encoding='utf-8'))
         self.stra_instances = []
 
         self.q = CtpQuote()
@@ -71,7 +71,7 @@ class stra_test(object):
                 # 无效,没提示...pf = PositionField()
                 pf = self.t.DicPositionField.get(key)
                 if not pf or pf.Position <= 0:
-                    print('没有对应的持仓')
+                    self.cfg.log.error('没有对应的持仓')
                 else:
                     volClose = min(pf.Position, order.Volume)  # 可平量
                     instField = self.t.DicInstrument[order.Instrument]
@@ -140,8 +140,8 @@ class stra_test(object):
     def load_strategy(self):
         """加载../strategy目录下的策略"""
         """通过文件名取到对应的继承Data的类并实例"""
-        for path in self.stra_cfg['stra_path']:
-            for filename in self.stra_cfg['stra_path'][path]:
+        for path in self.cfg.config['stra_path']:
+            for filename in self.cfg.config['stra_path'][path]:
                 f = os.path.join(sys.path[0], '../{0}/{1}.py'.format(
                     path, filename))
                 # 只处理对应的 py文件
@@ -167,17 +167,31 @@ class stra_test(object):
                             file_name, encoding='utf-8') as stra_cfg_json_file:
                         cfg = json.load(stra_cfg_json_file)
                         for json_cfg in cfg['instance']:
-                            if json_cfg['ID'] not in self.stra_cfg[
-                                    'stra_path'][path][filename]:
+                            if json_cfg['ID'] not in self.cfg.config['stra_path'][path][filename]:
                                 continue
                             obj = c(json_cfg)
-                            print("# obj:{0}", obj)
+                            self.cfg.log.info("# obj:{0}".format(obj))
                             self.stra_instances.append(obj)
                 else:
-                    print("缺少对应的json文件{0}".format(file_name))
+                    self.cfg.log.error("缺少对应的json文件{0}".format(file_name))
 
     def read_data_zmq(self, req: ReqPackage) -> []:
         ''''''
+        if self.cfg.engine_postgres:
+            if req.Type == BarType.Min:
+                conn = self.cfg.engine_postgres.raw_connection()
+                cursor = conn.cursor()
+                sql = 'select "DateTime", \'{0}\' as "Instrument", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min."{0}" where "Tradingday" between \'{1}\' and \'{2}\''.format(req.Instrument, req.Begin, req.End)
+                cursor.execute(sql)
+                data = cursor.fetchall()
+                keys = ["DateTime", "Instrument", "High", "Low", "Open", "Close", "Volume", "OpenInterest"]
+                parsed_data = []
+                for row in data:
+                    parsed_data.append(dict(zip(keys, row)))
+                return parsed_data
+            if req.Type == BarType.Real:
+                return []
+
         # pip install pyzmq即可安装
         context = zmq.Context()
         socket = context.socket(zmq.REQ)  # REQ模式,即REQ-RSP  CS结构
@@ -185,6 +199,7 @@ class stra_test(object):
         socket.connect('tcp://58.247.171.146:5055')  # 实际netMQ数据服务器地址
 
         p = req.__dict__
+        req['Type'] = req.Type.value
         socket.send_json(p)  # 直接发送__dict__转换的{}即可,不需要再转换成str
 
         # msg = socket.recv_unicode()	# 服务器此处查询出现异常, 排除中->C# 正常
@@ -204,24 +219,33 @@ class stra_test(object):
         for data in _stra.Datas:
             # 请求数据格式
             req = ReqPackage()
-            req.Type = 0  # BarType.Min
+            req.Type = BarType.Min
             req.Instrument = _stra.Instrument
             req.Begin = _stra.BeginDate
             req.End = _stra.EndDate
             # __dict__返回diction格式,即{key,value}格式
 
-            for bar in self.read_data_zmq(req):
-                bar['Instrument'] = data.Instrument
-                bars.append(bar)
-
-            if _stra.EndDate == time.strftime("%Y%m%d", time.localtime()):
-                # 实时K线数据
-                req.Type = 2  # BarType.Real
+            if self.cfg.engine_postgres:
+                bars = bars + self.read_data_zmq(req)
+            else:
                 for bar in self.read_data_zmq(req):
                     bar['Instrument'] = data.Instrument
                     bars.append(bar)
 
-        bars.sort(key=lambda bar: bar['_id'])  # 按时间升序
+            if _stra.EndDate == time.strftime("%Y%m%d", time.localtime()):
+                # 实时K线数据
+                req.Type = BarType.Real
+                if self.cfg.engine_postgres:
+                    bars = bars + self.read_data_zmq(req)
+                else:
+                    for bar in self.read_data_zmq(req):
+                        bar['Instrument'] = data.Instrument
+                        bars.append(bar)
+
+        if self.cfg.engine_postgres:
+            bars.sort(key=lambda bar: bar['DateTime'])  # 按时间升序
+        else:
+            bars.sort(key=lambda bar: bar['_id'])  # 按时间升序
         return bars
 
     def read_data_test(self):
@@ -229,29 +253,32 @@ class stra_test(object):
         stra = Strategy('')  # 只为后面的提示信息创建
         for stra in self.stra_instances:
             stra.EnableOrder = False
-            lstBar = []
             # path = 'data/{0}_{1}_{2}.pkl'.format(stra.ID, stra.BeginDate,
             #                                      stra.Datas[0].Instrument)
             # if os.path.exists(path):
             #     print('策略 {0} 正在从本地加载历史数据'.format(stra.ID))
             #     f = open(path, 'rb')
-            #     lstBar = pkl.load(f)
+            #     listBar = pkl.load(f)
             # else:
-            print('策略 {0} 正在从网络加载历史数据'.format(stra.ID))
+            self.cfg.log.info('策略 {0} 正在从网络加载历史数据'.format(stra.ID))
             bars = self.read_bars_from_zmq(stra)
-            for doc in bars:
-                bar = Bar(doc["_id"], doc["Instrument"], doc["High"],
-                          doc["Low"], doc["Open"], doc["Close"],
-                          doc["Volume"], doc["OpenInterest"])
-                lstBar.append(bar)
+            listBar = []
+            if self.cfg.engine_postgres:
+                listBar = [Bar(b['DateTime'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest']) for b in bars]
+            else:
+                for doc in bars:
+                    bar = Bar(doc["_id"], doc["Instrument"], doc["High"],
+                              doc["Low"], doc["Open"], doc["Close"],
+                              doc["Volume"], doc["OpenInterest"])
+                    listBar.append(bar)
 
             # if not os.path.exists('data/'):
             #     os.makedirs('data/')
             # f = open(path, 'wb')
-            # pkl.dump(lstBar, f)
+            # pkl.dump(listBar, f)
 
             stra.OnOrder = self.on_order
-            for bar in lstBar:
+            for bar in listBar:
                 for data in stra.Datas:
                     if data.Instrument == bar.Instrument:
                         data.__new_min_bar__(bar)  # 调Data的onbar
@@ -259,24 +286,24 @@ class stra_test(object):
             stra = Statistics(stra)
             stra.EnableOrder = True
 
-        print("\ntest history is end.")
+        self.cfg.log.war("\ntest history is end.")
 
     def OnFrontConnected(self):
         """"""
-        print("t:connected by client")
+        self.cfg.log.war("t:connected by client")
         self.t.ReqUserLogin(self.investor, self.pwd, self.broker)
 
     def relogin(self):
         """"""
         self.t.Release()
-        print('sleep 60 seconds to wait try connect next time')
+        self.cfg.log.info('sleep 60 seconds to wait try connect next time')
         time.sleep(60)
         self.t.ReqConnect(self.front_trade)
 
     def OnRspUserLogin(self, info=InfoField()):
         """"""
 
-        print('{0}:{1}'.format(info.ErrorID, info.ErrorMsg))
+        self.cfg.log.info('{0}:{1}'.format(info.ErrorID, info.ErrorMsg))
         if info.ErrorID == 7:
             _thread.start_new_thread(self.relogin, ())
         if info.ErrorID == 0:
@@ -289,35 +316,31 @@ class stra_test(object):
 
     def OnOrder(self, order=OrderField):
         """"""
-        print(order)
+        self.cfg.log.info(order)
 
     def OnCancel(self, order=OrderField):
         """"""
-        print(order)
+        self.cfg.log.info(order)
 
     def OnTrade(self, trade=TradeField):
         """"""
-        print(trade)
+        self.cfg.log.info(trade)
 
     def OnRtnErrOrder(self, order=OrderField, info=InfoField):
         """"""
-        print(order)
+        self.cfg.log.info(order)
 
     def q_OnFrontConnected(self):
         """"""
-        print("q:connected by client")
+        self.cfg.log.info("q:connected by client")
         self.q.ReqUserLogin(self.broker, self.investor, self.pwd)
 
     def q_OnRspUserLogin(self, info=InfoField):
         """"""
-        print(info)
+        self.cfg.log.info(info)
         for stra in self.stra_instances:
             for data in stra.Datas:
                 self.q.ReqSubscribeMarketData(data.Instrument)
-
-    def fix_tick(self, tick: Tick):
-        '''数据修正:小节收盘数据归入上一分钟;兑价数据归入开盘分钟'''
-        cur_time = tick.UpdateTime[:-2] + '00'
 
     def q_Tick(self, tick=Tick):
         """"""
@@ -355,9 +378,9 @@ if __name__ == '__main__':
     if not os.path.exists('log'):
         os.mkdir('log')
     p = stra_test()
-    if p.stra_cfg['ctp_front'] != '':
-        print('connecting == ' + p.stra_cfg['ctp_front'] + ' ==')
-        ctp_cfg = p.stra_cfg['ctp_config'][p.stra_cfg['ctp_front']]
+    if p.cfg.config['ctp_front'] != '':
+        p.cfg.log.war('connecting == ' + p.cfg.config['ctp_front'] + ' ==')
+        ctp_cfg = p.cfg.config['ctp_config'][p.cfg.config['ctp_front']]
         if len(sys.argv) == 3:
             p.CTPRun(
                 ctp_cfg['trade'],
@@ -368,12 +391,12 @@ if __name__ == '__main__':
         else:
             investor = ''
             pwd = ''
-            if 'investor' in p.stra_cfg and p.stra_cfg['investor'] != '':
-                investor = p.stra_cfg['investor']
+            if 'investor' in p.cfg and p.cfg.config['investor'] != '':
+                investor = p.cfg.config['investor']
             else:
                 investor = input('invesorid:')
-            if 'password' in p.stra_cfg['password'] and p.stra_cfg['password'] != '':
-                pwd = p.stra_cfg['password']
+            if 'password' in p.cfg.config['password'] and p.cfg.config['password'] != '':
+                pwd = p.cfg.config['password']
             else:
                 pwd = getpass.getpass()
             p.CTPRun(ctp_cfg['trade'], ctp_cfg['quote'], ctp_cfg['broker'],

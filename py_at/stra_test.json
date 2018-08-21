@@ -11,6 +11,13 @@
             "broker": "4040"
         }
     },
+    "postgres_config": {
+        "host": "192.168.52.219",
+        "port": 5432,
+        "db": "future",
+        "user": "postgres",
+        "pwd": "kingisgod."
+    },
     "comment_": "为空时不登录",
     "ctp_front": "",
     "investor": "",

@@ -1,8 +1,0 @@
-使用说明：
-1.设置系统语言为：zh_CN.UTF-8
-2.把源码中的文件复制到目标计算机上
-3.进入dll目录，执行以下指令
-	g++ -shared -fPIC ../../ctp_trade/trade.cpp -o ./ctp_trade.so ./thosttraderapi.so
-	g++ -shared -fPIC ../../ctp_quote/quote.cpp -o ./ctp_quote.so ./thostmduserapi.so
-4.运行 python test_api.py
-
