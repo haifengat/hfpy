@@ -10,9 +10,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 import platform
 if 'Windows' in platform.system():
-    from hf_log_win import Logger
+    from .hf_log_win import Logger
 else:
-    from hf_log_linux import Logger
+    from .hf_log_linux import Logger
 
 
 class Config(object):

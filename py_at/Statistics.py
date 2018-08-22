@@ -12,14 +12,12 @@ import json
 import os
 import numpy as np
 import pandas as pd
-import logging
 import datetime
 import matplotlib.pyplot as plt
 import copy
-from py_ctp.py_ctp.enums import OffsetType, DirectType
-from py_ctp.py_ctp.structs import InfoField, OrderField, TradeField
-from py_at.structs import IntervalType, ReqPackage
-from py_at.switch import switch
+from py_ctp.enums import OffsetType, DirectType
+from .structs import IntervalType, ReqPackage
+from .switch import switch
 
 
 class Statistics(object):

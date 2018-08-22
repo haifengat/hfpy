@@ -6,12 +6,12 @@ __author__ = 'HaiFeng'
 __mtime__ = '2017/11/13'
 """
 import time
-from py_ctp.py_ctp.enums import DirectType, OffsetType, OrderType
-from py_at.structs import IntervalType
-from py_ctp.py_ctp.structs import OrderField, TradeField, InfoField
-from py_at.bar import Bar
-from py_at.data import Data
-from py_at.order import OrderItem
+from .structs import IntervalType
+from .bar import Bar
+from .data import Data
+from .order import OrderItem
+from py_ctp.enums import DirectType, OffsetType, OrderType
+from py_ctp.structs import OrderField, TradeField, InfoField
 
 
 class Strategy(object):

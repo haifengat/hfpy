@@ -8,12 +8,12 @@ __mtime__ = '2016/8/16 '
 
 import time
 import copy
-from py_ctp.py_ctp.enums import DirectType, OffsetType
-from py_at.structs import IntervalType
-from py_ctp.py_ctp.structs import InstrumentField, Tick
-from py_at.order import OrderItem
-from py_at.bar import Bar
-from py_at.switch import switch
+from .structs import IntervalType
+from .order import OrderItem
+from .bar import Bar
+from .switch import switch
+from py_ctp.enums import DirectType, OffsetType
+from py_ctp.structs import InstrumentField, Tick
 
 
 class Data(object):

@@ -8,17 +8,16 @@
 - 邮件(hubert28@qq.com)
 - QQ: 24918700
 - Q群:65164336
-- 代码同步
-    - https://github.com/haifengat
 
 ## 海风AT的功能
 - 策略编写
     -  提供常用指标
     -  采用HLOC调用K线数据
 - 历史数据
-    -  提供数据日常维护服务
-    -  提供实时数据分钟级服务
-    -  提供分笔数据(内网)
+    - <del> 提供数据日常维护服务 </del>
+    - <del> 提供实时数据分钟级服务 </del>
+    - <del> 提供分笔数据(内网) </del>
+    - 提供历史数据库搭建服务
 
 ## 运行环境
 - python 3.6
@@ -28,7 +27,9 @@
     - talib
         - windows http://user.qzone.qq.com/24918700/blog/1486954718
         - linux   http://user.qzone.qq.com/24918700/blog/1483279805
-
+    - ctp 接口
+        - 下载地址 https://gitee.com/haifengat/hf_ctp_py_proxy/releases
+        - 解压到python目录下Lib/site_packages/
 ## 开发环境
 - vscode
     - windows  https://code.visualstudio.com/Download
