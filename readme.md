@@ -40,7 +40,8 @@
 
 ## 运行
 - 项目配置
-    - stra_test.json
+    - a_t_p.json
+        - ctp_dll_path 指定接口dll路径
         - stra_path 策略路径[],可多个
             - path:{file:[ID]}
             - 目录,文件(不带py),策略配置中参数的ID

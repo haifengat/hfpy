@@ -5,6 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: main",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py"
+        },
+        {
+            "name": "Attach (Remote Debug)",
+            "type": "python",
+            "request": "attach",
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "${workspaceFolder}",
+            "port": 3000,
+            "secret": "my_secret",
+            "host": "localhost"
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",

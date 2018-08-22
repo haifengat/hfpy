@@ -8,12 +8,13 @@
 
 import sys
 import os
-
-import zmq  # netMQ
-import gzip  # 解压
 import json
 import threading
 import time  # from time import sleep, strftime  # 可能前面的import模块对time有影响,故放在最后
+import getpass
+
+import zmq  # netMQ
+import gzip  # 解压
 
 from .bar import Bar
 from .data import Data
@@ -34,20 +35,11 @@ class ATP(object):
     """"""
 
     def __init__(self):
-        """交易前置"""
-        self.front_trade = ''
-        # 行情前置
-        self.front_quote = ''
-        self.investor = ''
-        self.pwd = ''
-        self.broker = ''
         self.TradingDay = ''
-        # self.log = open('orders.csv', 'w')
-        # self.log.write('')  # 清空内容
-        self.cfg = Config()  # json.load(open(sys.path[0] + '/stra_test.json', encoding='utf-8'))
+        self.cfg = Config()
         self.stra_instances = []
 
-        dllpath = os.path.join(os.getcwd(), 'py_ctp', 'dll')
+        dllpath = os.path.join(os.getcwd(), self.cfg.ctp_dll_path)
         self.q = CtpQuote(dllpath)
         self.t = CtpTrade(dllpath)
 
@@ -138,8 +130,8 @@ class ATP(object):
     def load_strategy(self):
         """加载../strategy目录下的策略"""
         """通过文件名取到对应的继承Data的类并实例"""
-        for path in self.cfg.config['stra_path']:
-            for filename in self.cfg.config['stra_path'][path]:
+        for path in self.cfg.stra_path:
+            for filename in self.cfg.stra_path[path]:
                 f = os.path.join(sys.path[0], '../{0}/{1}.py'.format(
                     path, filename))
                 # 只处理对应的 py文件
@@ -164,7 +156,7 @@ class ATP(object):
                             file_name, encoding='utf-8') as stra_cfg_json_file:
                         cfg = json.load(stra_cfg_json_file)
                         for json_cfg in cfg['instance']:
-                            if json_cfg['ID'] not in self.cfg.config['stra_path'][path][filename]:
+                            if json_cfg['ID'] not in self.cfg.stra_path[path][filename]:
                                 continue
                             obj = c(json_cfg)
                             self.cfg.log.info("# obj:{0}".format(obj))
@@ -288,14 +280,14 @@ class ATP(object):
     def OnFrontConnected(self):
         """"""
         self.cfg.log.war("t:connected by client")
-        self.t.ReqUserLogin(self.investor, self.pwd, self.broker)
+        self.t.ReqUserLogin(self.cfg.investor, self.cfg.pwd, self.cfg.broker)
 
     def relogin(self):
         """"""
         self.t.Release()
         self.cfg.log.info('sleep 60 seconds to wait try connect next time')
         time.sleep(60)
-        self.t.ReqConnect(self.front_trade)
+        self.t.ReqConnect(self.cfg.front_trade)
 
     def OnRspUserLogin(self, info=InfoField()):
         """"""
@@ -309,7 +301,7 @@ class ATP(object):
                 self.q.OnFrontConnected = self.q_OnFrontConnected
                 self.q.OnRspUserLogin = self.q_OnRspUserLogin
                 self.q.OnRtnTick = self.q_Tick
-                self.q.ReqConnect(self.front_quote)
+                self.q.ReqConnect(self.cfg.front_quote)
 
     def OnOrder(self, order=OrderField):
         """"""
@@ -330,7 +322,7 @@ class ATP(object):
     def q_OnFrontConnected(self):
         """"""
         self.cfg.log.info("q:connected by client")
-        self.q.ReqUserLogin(self.broker, self.investor, self.pwd)
+        self.q.ReqUserLogin(self.cfg.broker, self.cfg.investor, self.cfg.pwd)
 
     def q_OnRspUserLogin(self, info=InfoField):
         """"""
@@ -349,13 +341,17 @@ class ATP(object):
                     data.on_tick(tick)
                     # print(tick)
 
-    def CTPRun(self,
-               front_trade='tcp://180.168.146.187:10001',
-               front_quote='tcp://180.168.146.187:10011',
-               broker='9999',
-               investor='008109',
-               pwd='1'):
+    def CTPRun(self):
         """"""
+        if self.cfg.front_trade == '' or self.cfg.front_quote == '':
+            self.cfg.log.war('交易接口未配置')
+            return
+        if self.cfg.investor == '':
+            self.cfg.investor = input('invesorid:')
+        else:
+            self.cfg.log.war('{} loging by ctp'.format(self.cfg.investor))
+        if self.cfg.pwd == '':
+            self.cfg.pwd = getpass.getpass()
         self.t.OnFrontConnected = self.OnFrontConnected
         self.t.OnRspUserLogin = self.OnRspUserLogin
         self.t.OnRtnOrder = self.OnOrder
@@ -363,9 +359,6 @@ class ATP(object):
         self.t.OnRtnCancel = self.OnCancel
         self.t.OnRtnErrOrder = self.OnRtnErrOrder
 
-        self.front_trade = front_trade
-        self.front_quote = front_quote
-        self.broker = broker
-        self.investor = investor
-        self.pwd = pwd
-        self.t.ReqConnect(front_trade)
+        self.t.ReqConnect(self.cfg.front_trade)
+        while not self.q.logined:
+            time.sleep(1)

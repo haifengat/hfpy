@@ -15,31 +15,7 @@ if __name__ == '__main__':
     if not os.path.exists('log'):
         os.mkdir('log')
     p = ATP()
-    if p.cfg.config['ctp_front'] != '':
-        p.cfg.log.war('connecting == ' + p.cfg.config['ctp_front'] + ' ==')
-        ctp_cfg = p.cfg.config['ctp_config'][p.cfg.config['ctp_front']]
-        if len(sys.argv) == 3:
-            p.CTPRun(
-                ctp_cfg['trade'],
-                ctp_cfg['quote'],
-                ctp_cfg['broker'],
-                investor=sys.argv[1],
-                pwd=sys.argv[2])
-        else:
-            investor = ''
-            pwd = ''
-            if 'investor' in p.cfg and p.cfg.config['investor'] != '':
-                investor = p.cfg.config['investor']
-            else:
-                investor = input('invesorid:')
-            if 'password' in p.cfg.config['password'] and p.cfg.config['password'] != '':
-                pwd = p.cfg.config['password']
-            else:
-                pwd = getpass.getpass()
-            p.CTPRun(ctp_cfg['trade'], ctp_cfg['quote'], ctp_cfg['broker'],
-                     investor, pwd)
-        while not p.q.IsLogin:
-            time.sleep(1)
+    p.CTPRun()
     p.load_strategy()
     p.read_data_test()
 
