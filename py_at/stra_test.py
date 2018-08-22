@@ -20,11 +20,12 @@ sys.path.append(os.path.join(sys.path[0], '..'))  # 调用父目录下的模块
 from py_at.bar import Bar
 from py_at.data import Data
 from py_at.order import OrderItem
-from py_at.adapters.ctp_trade import CtpTrade
-from py_at.adapters.ctp_quote import CtpQuote
-from py_at.enums import DirectType, OffsetType, OrderType, OrderStatus, BarType
-from py_at.structs import InfoField, OrderField, TradeField, ReqPackage
-from py_at.tick import Tick
+from py_ctp.py_ctp.trade import CtpTrade
+from py_ctp.py_ctp.quote import CtpQuote
+from py_ctp.py_ctp.enums import DirectType, OffsetType, OrderType, OrderStatus
+from py_at.structs import BarType
+from py_ctp.py_ctp.structs import InfoField, OrderField, TradeField, Tick
+from py_at.structs import ReqPackage
 from py_at.strategy import Strategy
 from py_at.Statistics import Statistics
 import pickle as pkl
@@ -46,12 +47,12 @@ class stra_test(object):
         self.TradingDay = ''
         # self.log = open('orders.csv', 'w')
         # self.log.write('')  # 清空内容
-        os.chdir(os.path.split(os.path.abspath(__file__))[0])
         self.cfg = Config()  # json.load(open(sys.path[0] + '/stra_test.json', encoding='utf-8'))
         self.stra_instances = []
 
-        self.q = CtpQuote()
-        self.t = CtpTrade()
+        dllpath = os.path.join(os.getcwd(), 'py_ctp', 'dll')
+        self.q = CtpQuote(dllpath)
+        self.t = CtpTrade(dllpath)
 
     def on_order(self, stra=Strategy(''), data=Data(), order=OrderItem()):
         """此处调用ctp接口即可实现实际下单"""

@@ -5,6 +5,7 @@ __author__ = 'HaiFeng'
 __mtime__ = '20180820'
 
 import json
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 import platform
@@ -18,7 +19,7 @@ class Config(object):
     """"""
 
     def __init__(self):
-        cfg_file = './stra_test.json'
+        cfg_file = os.path.join(os.getcwd(), 'py_at', 'stra_test.json')
         self.config = json.load(open(cfg_file, 'r', encoding='utf-8'))
         self.log = Logger()
         self.engine_postgres: Engine = None

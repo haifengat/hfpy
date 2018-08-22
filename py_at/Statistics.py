@@ -16,9 +16,10 @@ import logging
 import datetime
 import matplotlib.pyplot as plt
 import copy
-from py_at.enums import OffsetType, DirectType, IntervalType
+from py_ctp.py_ctp.enums import OffsetType, DirectType
+from py_ctp.py_ctp.structs import InfoField, OrderField, TradeField
+from py_at.structs import IntervalType, ReqPackage
 from py_at.switch import switch
-from py_at.structs import InfoField, OrderField, TradeField, ReqPackage
 
 
 class Statistics(object):
@@ -1153,7 +1154,7 @@ class Statistics(object):
             'id': stra.ID,
             'instrument': stra.Instrument,
             'begin': stra.BeginDate,
-            #'end': str a.EndDate,
+            # 'end': str a.EndDate,
             'interval': stra.Interval,
             'intervalType': str(stra.IntervalType),
             'params': str(stra.Params),

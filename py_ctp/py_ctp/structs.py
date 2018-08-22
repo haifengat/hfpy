@@ -6,7 +6,7 @@ __author__ = 'HaiFeng'
 __mtime__ = '2016/9/21'
 """
 
-from py_ctp.enums import DirectType, OffsetType, OrderStatus
+from .enums import DirectType, OffsetType, OrderStatus
 
 
 class InfoField:
@@ -337,6 +337,8 @@ class Tick:
         '''跌板价'''
         self.LowerLimitPrice = 0.0
         '''跌板价'''
+        '''昨结算价'''
+        self.PreOpenInterest = 0.0
 
     def __str__(self):
         """"""

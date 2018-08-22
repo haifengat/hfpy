@@ -7,7 +7,7 @@ __mtime__ = '2016/8/16 '
 """
 
 import time
-from py_at.enums import DirectType, OffsetType
+from py_ctp.py_ctp.enums import DirectType, OffsetType
 
 
 class OrderItem(object):

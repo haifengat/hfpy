@@ -9,7 +9,6 @@ import talib
 from py_at.data import Data
 from py_at.bar import Bar
 from py_at.strategy import Strategy
-from py_at.enums import IntervalType
 import numpy as np
 
 
@@ -22,7 +21,7 @@ class SMACross(Strategy):
         self.p_lots = self.Params['Lots'] = 1
 
     def OnBarUpdate(self, data=Data, bar=Bar):
-        print(self.C[-1],self.I[-1])
+        print(self.C[-1], self.I[-1])
         if len(self.C) < self.p_ma2:
             return
 

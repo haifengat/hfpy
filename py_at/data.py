@@ -7,11 +7,10 @@ __mtime__ = '2016/8/16 '
 """
 
 import time
-import numpy as np
 import copy
-from py_at.enums import IntervalType, DirectType, OffsetType
-from py_at.structs import InstrumentField
-from py_at.tick import Tick
+from py_ctp.py_ctp.enums import DirectType, OffsetType
+from py_at.structs import IntervalType
+from py_ctp.py_ctp.structs import InstrumentField, Tick
 from py_at.order import OrderItem
 from py_at.bar import Bar
 from py_at.switch import switch
