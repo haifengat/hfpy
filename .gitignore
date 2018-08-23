@@ -48,3 +48,4 @@ strategies/send.py
 report*/
 .vscode*/
 /.vscode/settings.json
+/render.html

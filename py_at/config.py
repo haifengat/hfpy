@@ -20,7 +20,7 @@ class Config(object):
 
     def __init__(self):
         self.log = Logger()
-        cfg_file = os.path.join(os.getcwd(), 'py_at', 'a_t_p.json')
+        cfg_file = os.path.join(os.getcwd(), 'py_at', 'config.json')
         cfg = json.load(open(cfg_file, 'r', encoding='utf-8'))
         self.ctp_dll_path = cfg['ctp_dll_path']
         self.stra_path = cfg['stra_path']

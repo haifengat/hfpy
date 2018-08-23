@@ -29,7 +29,8 @@
         - linux   http://user.qzone.qq.com/24918700/blog/1483279805
     - ctp 接口
         - 下载地址 https://gitee.com/haifengat/hf_ctp_py_proxy/releases
-        - 解压到python目录下Lib/site_packages/
+        - 解压后,复制py_ctp到python目录下Lib/site_packages/
+        - 复制dll到at上级目录,并改名为ctp_dll
 ## 开发环境
 - vscode
     - windows  https://code.visualstudio.com/Download

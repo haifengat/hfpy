@@ -23,6 +23,7 @@ from .structs import BarType
 from .structs import ReqPackage
 from .strategy import Strategy
 from .Statistics import Statistics
+from .show_candle import show
 from .config import Config
 
 from py_ctp.trade import CtpTrade
@@ -164,23 +165,25 @@ class ATP(object):
                 else:
                     self.cfg.log.error("缺少对应的json文件{0}".format(file_name))
 
+    def read_data_pg(self, req: ReqPackage)->[]:
+        """从postgres中读取数据"""
+        if self.cfg.engine_postgres:
+            conn = self.cfg.engine_postgres.raw_connection()
+            cursor = conn.cursor()
+            if req.Type == BarType.Min:
+                sql = 'select "DateTime", \'{0}\' as "Instrument", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min."{0}" where "Tradingday" between \'{1}\' and \'{2}\''.format(req.Instrument, req.Begin, req.End)
+            if req.Type == BarType.Real:
+                sql = 'select "DateTime", "Instrument", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min.future_real where "Instrument" = \'{}\''.format(req.Instrument)
+            cursor.execute(sql)
+            data = cursor.fetchall()
+            keys = ["DateTime", "Instrument", "High", "Low", "Open", "Close", "Volume", "OpenInterest"]
+            parsed_data = []
+            for row in data:
+                parsed_data.append(dict(zip(keys, row)))
+            return parsed_data
+
     def read_data_zmq(self, req: ReqPackage) -> []:
         ''''''
-        if self.cfg.engine_postgres:
-            if req.Type == BarType.Min:
-                conn = self.cfg.engine_postgres.raw_connection()
-                cursor = conn.cursor()
-                sql = 'select "DateTime", \'{0}\' as "Instrument", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min."{0}" where "Tradingday" between \'{1}\' and \'{2}\''.format(req.Instrument, req.Begin, req.End)
-                cursor.execute(sql)
-                data = cursor.fetchall()
-                keys = ["DateTime", "Instrument", "High", "Low", "Open", "Close", "Volume", "OpenInterest"]
-                parsed_data = []
-                for row in data:
-                    parsed_data.append(dict(zip(keys, row)))
-                return parsed_data
-            if req.Type == BarType.Real:
-                return []
-
         # pip install pyzmq即可安装
         context = zmq.Context()
         socket = context.socket(zmq.REQ)  # REQ模式,即REQ-RSP  CS结构
@@ -215,7 +218,7 @@ class ATP(object):
             # __dict__返回diction格式,即{key,value}格式
 
             if self.cfg.engine_postgres:
-                bars = bars + self.read_data_zmq(req)
+                bars = bars + self.read_data_pg(req)
             else:
                 for bar in self.read_data_zmq(req):
                     bar['Instrument'] = data.Instrument
@@ -225,7 +228,7 @@ class ATP(object):
                 # 实时K线数据
                 req.Type = BarType.Real
                 if self.cfg.engine_postgres:
-                    bars = bars + self.read_data_zmq(req)
+                    bars = bars + self.read_data_pg(req)
                 else:
                     for bar in self.read_data_zmq(req):
                         bar['Instrument'] = data.Instrument
@@ -250,16 +253,12 @@ class ATP(object):
             #     listBar = pkl.load(f)
             # else:
             self.cfg.log.info('策略 {0} 正在从网络加载历史数据'.format(stra.ID))
-            bars = self.read_bars_from_zmq(stra)
             listBar = []
+            bars = self.read_bars_from_zmq(stra)
             if self.cfg.engine_postgres:
                 listBar = [Bar(b['DateTime'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest']) for b in bars]
             else:
-                for doc in bars:
-                    bar = Bar(doc["_id"], doc["Instrument"], doc["High"],
-                              doc["Low"], doc["Open"], doc["Close"],
-                              doc["Volume"], doc["OpenInterest"])
-                    listBar.append(bar)
+                listBar = [Bar(b['_id'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest']) for b in bars]
 
             # if not os.path.exists('data/'):
             #     os.makedirs('data/')
@@ -272,10 +271,12 @@ class ATP(object):
                     if data.Instrument == bar.Instrument:
                         data.__new_min_bar__(bar)  # 调Data的onbar
             # 生成策略的测试报告
-            stra = Statistics(stra)
+            # stra = Statistics(stra)
+            bar_dict = [{'DateTime': b.D, 'Open': b.O, 'Close': b.C, 'Low': b.L, 'High': b.H} for b in data.Bars]
+            show(bar_dict)
             stra.EnableOrder = True
 
-        self.cfg.log.war("\ntest history is end.")
+        self.cfg.log.war("test history is end.")
 
     def OnFrontConnected(self):
         """"""

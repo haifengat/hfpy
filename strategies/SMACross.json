@@ -2,21 +2,15 @@
     "comment": "是否启用此策略",
     "instance": [
         {
-            "comment_0": "是否启用此实例",
             "comment_1": "ID用于区分不同策略实例的委托",
             "ID": 119,
-            "BeginDate": 20180101,
+            "BeginDate": 20180501,
             "comment_2": "可通过增加Data实现多合约多周期引用",
             "Datas": [
                 {
                     "Instrument": "rb1810",
                     "IntervalType": "Minute",
-                    "Interval": 1
-                },
-                {
-                    "Instrument": "j1809",
-                    "IntervalType": "Minute",
-                    "Interval": 30
+                    "Interval": 5
                 }
             ],
             "Params": {
@@ -26,7 +20,6 @@
             }
         },
         {
-            "comment_0": "是否启用此实例",
             "comment_1": "ID用于区分不同策略实例的委托",
             "ID": 102,
             "BeginDate": 20171110,

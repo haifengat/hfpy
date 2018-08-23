@@ -39,6 +39,6 @@ if __name__ == '__main__':
 
         for data in stra.Datas:
             data.SingleOrderOneBar = False
-            if p.q and p.q.IsLogin:
+            if p.q and p.q.logined:
                 p.q.ReqSubscribeMarketData(data.Instrument)
     input()
