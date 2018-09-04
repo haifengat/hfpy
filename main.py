@@ -20,7 +20,7 @@ if __name__ == '__main__':
     p.read_data_test()
 
     # 注销148行
-    stra = Strategy('')
+    stra: Strategy = None
     for stra in p.stra_instances:
         stra.EnableOrder = True
         stra._data_order = p.on_order
@@ -30,12 +30,6 @@ if __name__ == '__main__':
         stra._req_order = p.req_order
         stra.ReqCancel = p.t.ReqOrderAction
         stra._req_cancel_all = p.cancel_all
-
-        p.t.OnRtnOrder = stra.OnOrder
-        p.t.OnRtnTrade = stra.OnTrade
-        p.t.OnRtnCancel = stra.OnCancel
-        p.t.OnRtnErrOrder = stra.OnErrOrder
-        p.t.OnErrCancel = stra.OnErrCancel
 
         for data in stra.Datas:
             data.SingleOrderOneBar = False

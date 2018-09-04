@@ -11,6 +11,7 @@ import os
 import json
 import threading
 import time  # from time import sleep, strftime  # 可能前面的import模块对time有影响,故放在最后
+from datetime import datetime, timedelta
 import getpass
 
 import zmq  # netMQ
@@ -37,6 +38,8 @@ class ATP(object):
 
     def __init__(self):
         self.TradingDay = ''
+        self.ActionDay = ''
+        self.ActionDay1 = ''
         self.cfg = Config()
         self.stra_instances = []
 
@@ -294,6 +297,7 @@ class ATP(object):
             threading.Thread(target=self.relogin).start()
         if info.ErrorID == 0:
             self.TradingDay = self.t.tradingday
+            self.get_actionday()  # 取得交易日后才能取actionday
             if not self.q.logined:
                 self.q.OnConnected = self.q_OnFrontConnected
                 self.q.OnUserLogin = self.q_OnRspUserLogin
@@ -326,17 +330,41 @@ class ATP(object):
         self.cfg.log.info(info)
         for stra in self.stra_instances:
             for data in stra.Datas:
-                self.q.ReqSubscribeMarketData(data.Instrument)
+                self.q.ReqSubscribeMarketData()(data.Instrument)
 
     def q_Tick(self, q: CtpQuote, tick: Tick):
         """"""
         # print(tick)
-        self.fix_tick(tick)
+        # self.fix_tick(tick)
+        actionday = self.TradingDay
+        if tick.UpdateTime[0:2] > '20':
+            actionday = self.Actionday
+        elif tick.UpdateTime[0:2] < '04':
+            actionday = self.Actionday1
+
         for stra in self.stra_instances:
             for data in stra.Datas:
                 if data.Instrument == tick.Instrument:
+                    ut = tick.UpdateTime[0:6] + '00'
+                    ut = actionday[0:4] + '-' + actionday[4:6] + '-' + actionday[6:] + ' ' + ut
+                    tick.UpdateTime = ut
                     data.on_tick(tick)
                     # print(tick)
+
+    def get_actionday(self):
+        if not self.cfg.engine_postgres:
+            self.cfg.log.error('postgres 数据库未连接!')
+            return
+
+        conn = self.cfg.engine_postgres.raw_connection()
+        cursor = conn.cursor()
+        cursor.execute('select _id from future_config.trade_date where trading = 1')
+        self.trading_days = [c[0] for c in cursor.fetchall()]
+        # 接口未登录,不计算Actionday
+        if self.TradingDay == '':
+            return
+        self.Actionday = self.TradingDay if self.trading_days.index(self.TradingDay) == 0 else self.trading_days[self.trading_days.index(self.TradingDay) - 1]
+        self.Actionday1 = (datetime.strptime(self.Actionday, '%Y%m%d') + timedelta(days=1)).strftime('%Y%m%d')
 
     def CTPRun(self):
         """"""
