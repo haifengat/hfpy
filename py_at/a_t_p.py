@@ -22,8 +22,8 @@ from .order import OrderItem
 from .structs import BarType
 from .structs import ReqPackage
 from .strategy import Strategy
-from .Statistics import Statistics
 from .show_candle import show
+from .report_stra import Report
 from .config import Config
 
 from py_ctp.trade import CtpTrade
@@ -260,11 +260,6 @@ class ATP(object):
             else:
                 listBar = [Bar(b['_id'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest']) for b in bars]
 
-            # if not os.path.exists('data/'):
-            #     os.makedirs('data/')
-            # f = open(path, 'wb')
-            # pkl.dump(listBar, f)
-
             stra.OnOrder = self.on_order
             for bar in listBar:
                 for data in stra.Datas:
@@ -272,6 +267,7 @@ class ATP(object):
                         data.__new_min_bar__(bar)  # 调Data的onbar
             # 生成策略的测试报告
             # stra = Statistics(stra)
+            Report(stra)
             bar_dict = [{'DateTime': b.D, 'Open': b.O, 'Close': b.C, 'Low': b.L, 'High': b.H} for b in data.Bars]
             show(bar_dict)
             stra.EnableOrder = True

@@ -240,7 +240,7 @@ class Data(object):
     def __new_min_bar__(self, bar2):
         """有新min_bar添加"""
         bar = copy.copy(bar2)
-        bar_time = time.strptime(bar.D, "%Y%m%d %H:%M:%S")
+        bar_time = time.strptime(bar.D, "%Y-%m-%d %H:%M:%S")
         year = bar_time.tm_year
         mon = bar_time.tm_mon
         day = bar_time.tm_mday
