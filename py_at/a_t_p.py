@@ -274,7 +274,7 @@ class ATP(object):
 
         self.cfg.log.war("test history is end.")
 
-    def OnFrontConnected(self):
+    def OnFrontConnected(self, t: CtpTrade):
         """"""
         self.cfg.log.war("t:connected by client")
         self.t.ReqUserLogin(self.cfg.investor, self.cfg.pwd, self.cfg.broker)
@@ -286,49 +286,49 @@ class ATP(object):
         time.sleep(60)
         self.t.ReqConnect(self.cfg.front_trade)
 
-    def OnRspUserLogin(self, info=InfoField()):
+    def OnRspUserLogin(self, t: CtpTrade, info=InfoField()):
         """"""
 
         self.cfg.log.info('{0}:{1}'.format(info.ErrorID, info.ErrorMsg))
         if info.ErrorID == 7:
             threading.Thread(target=self.relogin).start()
         if info.ErrorID == 0:
-            self.TradingDay = self.t.TradingDay
-            if not self.q.IsLogin:
-                self.q.OnFrontConnected = self.q_OnFrontConnected
-                self.q.OnRspUserLogin = self.q_OnRspUserLogin
-                self.q.OnRtnTick = self.q_Tick
+            self.TradingDay = self.t.tradingday
+            if not self.q.logined:
+                self.q.OnConnected = self.q_OnFrontConnected
+                self.q.OnUserLogin = self.q_OnRspUserLogin
+                self.q.OnTick = self.q_Tick
                 self.q.ReqConnect(self.cfg.front_quote)
 
-    def OnOrder(self, order=OrderField):
+    def OnOrder(self, t: CtpTrade, order: OrderField):
         """"""
         self.cfg.log.info(order)
 
-    def OnCancel(self, order=OrderField):
+    def OnCancel(self, t: CtpTrade, order: OrderField):
         """"""
         self.cfg.log.info(order)
 
-    def OnTrade(self, trade=TradeField):
+    def OnTrade(self, t: CtpTrade, trade: TradeField):
         """"""
         self.cfg.log.info(trade)
 
-    def OnRtnErrOrder(self, order=OrderField, info=InfoField):
+    def OnRtnErrOrder(self, t: CtpTrade, order: OrderField, info: InfoField):
         """"""
         self.cfg.log.info(order)
 
-    def q_OnFrontConnected(self):
+    def q_OnFrontConnected(self, q: CtpQuote):
         """"""
         self.cfg.log.info("q:connected by client")
         self.q.ReqUserLogin(self.cfg.broker, self.cfg.investor, self.cfg.pwd)
 
-    def q_OnRspUserLogin(self, info=InfoField):
+    def q_OnRspUserLogin(self, q: CtpQuote, info: InfoField):
         """"""
         self.cfg.log.info(info)
         for stra in self.stra_instances:
             for data in stra.Datas:
                 self.q.ReqSubscribeMarketData(data.Instrument)
 
-    def q_Tick(self, tick=Tick):
+    def q_Tick(self, q: CtpQuote, tick: Tick):
         """"""
         # print(tick)
         self.fix_tick(tick)
@@ -349,12 +349,13 @@ class ATP(object):
             self.cfg.log.war('{} loging by ctp'.format(self.cfg.investor))
         if self.cfg.pwd == '':
             self.cfg.pwd = getpass.getpass()
-        self.t.OnFrontConnected = self.OnFrontConnected
-        self.t.OnRspUserLogin = self.OnRspUserLogin
-        self.t.OnRtnOrder = self.OnOrder
-        self.t.OnRtnTrade = self.OnTrade
-        self.t.OnRtnCancel = self.OnCancel
-        self.t.OnRtnErrOrder = self.OnRtnErrOrder
+        self.t.OnConnected = self.OnFrontConnected
+        self.t.OnUserLogin = self.OnRspUserLogin
+        self.t.OnOrder = self.OnOrder
+        self.t.OnTrade = self.OnTrade
+        self.t.OnCancel = self.OnCancel
+        self.t.OnErrOrder = self.OnRtnErrOrder
+        self.t.OnInstrumentStatus = lambda x, y, z: str(z)  # print(z)  不再打印交易状态
 
         self.t.ReqConnect(self.cfg.front_trade)
         while not self.q.logined:
