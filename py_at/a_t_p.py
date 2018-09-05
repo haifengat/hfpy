@@ -174,12 +174,12 @@ class ATP(object):
             conn = self.cfg.engine_postgres.raw_connection()
             cursor = conn.cursor()
             if req.Type == BarType.Min:
-                sql = 'select "DateTime", \'{0}\' as "Instrument", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min."{0}" where "Tradingday" between \'{1}\' and \'{2}\''.format(req.Instrument, req.Begin, req.End)
+                sql = 'select "DateTime", \'{0}\' as "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min."{0}" where "Tradingday" between \'{1}\' and \'{2}\''.format(req.Instrument, req.Begin, req.End)
             if req.Type == BarType.Real:
-                sql = 'select "DateTime", "Instrument", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min.future_real where "Instrument" = \'{}\''.format(req.Instrument)
+                sql = 'select "DateTime", "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min.future_real where "Instrument" = \'{}\''.format(req.Instrument)
             cursor.execute(sql)
             data = cursor.fetchall()
-            keys = ["DateTime", "Instrument", "High", "Low", "Open", "Close", "Volume", "OpenInterest"]
+            keys = ["DateTime", "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest"]
             parsed_data = []
             for row in data:
                 parsed_data.append(dict(zip(keys, row)))
@@ -259,9 +259,9 @@ class ATP(object):
             listBar = []
             bars = self.read_bars_from_zmq(stra)
             if self.cfg.engine_postgres:
-                listBar = [Bar(b['DateTime'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest']) for b in bars]
+                listBar = [Bar(b['DateTime'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest'], b['Tradingday']) for b in bars]
             else:
-                listBar = [Bar(b['_id'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest']) for b in bars]
+                listBar = [Bar(b['_id'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest'], b['Tradingday']) for b in bars]
 
             stra.OnOrder = self.on_order
             for bar in listBar:
@@ -301,7 +301,8 @@ class ATP(object):
             if not self.q.logined:
                 self.q.OnConnected = self.q_OnFrontConnected
                 self.q.OnUserLogin = self.q_OnRspUserLogin
-                self.q.OnTick = self.q_Tick
+                # self.q.OnTick = self.q_Tick
+                self.q.OnTick = lambda o, f: threading.Thread(target=self.q_Tick, args=(o, f)).start()
                 self.q.ReqConnect(self.cfg.front_quote)
 
     def OnOrder(self, t: CtpTrade, order: OrderField):
@@ -348,7 +349,7 @@ class ATP(object):
                     ut = tick.UpdateTime[0:6] + '00'
                     ut = actionday[0:4] + '-' + actionday[4:6] + '-' + actionday[6:] + ' ' + ut
                     tick.UpdateTime = ut
-                    data.on_tick(tick)
+                    data.on_tick(tick, self.TradingDay)
                     # print(tick)
 
     def get_actionday(self):

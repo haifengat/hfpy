@@ -200,19 +200,18 @@ class Data(object):
         '''当前K线序号(0开始)'''
         return max(len(self.Bars) - 1, 0)
 
-    def on_tick(self, tick: Tick):
+    def on_tick(self, tick: Tick, tradingday: str):
         '''分笔数据处理'''
         # 避免相同tick重复调用
         if self.Tick.UpdateTime == tick.UpdateTime and self.Tick.Volume == tick.Volume:
             return
-        self.Tick = tick
+        self.Tick = copy.copy(tick)
         # 取此tick对应的分钟时间
         # bar_time = time.strptime(time.strftime("%Y-%m-%d %H:%M", tick.UpdateTime), "%Y-%m-%d %H:%M")
         bar_time = tick.UpdateTime[:-2] + '00'  # time.strftime("%Y%m%d %H:%M:00", time.strptime(tick.UpdateTime, "%Y%m%d %H:%M:%S"))
         if len(self.Bars) == 0 or self.Bars[-1].D != bar_time:  # 新数据
             # bar_time, ins, h, l, o, c, v, i, a)
-            bar = Bar(bar_time, tick.Instrument, tick.LastPrice, tick.LastPrice, tick.LastPrice,
-                      tick.LastPrice, tick.Volume, tick.OpenInterest)
+            bar = Bar(bar_time, tick.Instrument, tick.LastPrice, tick.LastPrice, tick.LastPrice, tick.LastPrice, tick.Volume, tick.OpenInterest, tradingday)
             if len(self.Bars) > 0:
                 if self.Bars[-1]._pre_volume == 0:  # 实时行情首K即为新的分钟
                     bar.V = 0
