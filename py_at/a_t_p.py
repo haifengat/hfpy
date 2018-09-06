@@ -147,8 +147,7 @@ class ATP(object):
 
                 module = __import__(module_name)  # import module
 
-                c = getattr(getattr(module, class_name),
-                            class_name)  # 双层调用才是class,单层是为module
+                c = getattr(getattr(module, class_name), class_name)  # 双层调用才是class,单层是为module
 
                 if not issubclass(c, Strategy):  # 类c是Data的子类
                     continue

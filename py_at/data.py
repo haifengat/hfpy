@@ -366,15 +366,15 @@ class Data(object):
         diroff = '{0}-{1}'.format(order.Direction.name, order.Offset.name)
         for case in switch(diroff):
             if case('Buy-Open'):
-                order.PositionLong += order.Volume
-                order.AvgEntryPriceLong = (
-                    self._lastOrder.PositionLong * self._lastOrder.
-                    AvgEntryPriceLong + order.Volume * order.Price) / (
-                        self._lastOrder.PositionLong + order.Volume)
                 if self._lastOrder.PositionLong == 0:
                     order.IndexEntryLong = len(self.Bars) - 1
                     order.EntryDateLong = self.D[-1]  # str '20160630 21:25:00'
                     order.EntryPriceLong = order.Price
+                    order.PositionLong = order.Volume
+                    order.AvgEntryPriceLong = order.Price
+                else:
+                    order.PositionLong += order.Volume
+                    order.AvgEntryPriceLong = (self._lastOrder.PositionLong * self._lastOrder.AvgEntryPriceLong + order.Volume * order.Price) / (self._lastOrder.PositionLong + order.Volume)
                 order.IndexLastEntryLong = len(self.Bars) - 1
                 order.LastEntryPriceLong = order.Price
                 order.LastEntryDateLong = self.D[-1]
@@ -391,29 +391,27 @@ class Data(object):
                 order.IndexExitShort = len(self.Bars) - 1
                 order.ExitDateShort = self.D[-1]
                 order.ExitPriceShort = order.Price
-                if order.PositionShort == 0:
-                    order.AvgEntryPriceShort = 0
+                # if order.PositionShort == 0:
+                # order.AvgEntryPriceShort = 0  # 20180906注销方便后期计算盈利
                 break
 
             if case('Sell-Open'):
-                order.PositionShort += order.Volume
-                order.AvgEntryPriceShort = (
-                    self._lastOrder.PositionShort * self._lastOrder.
-                    AvgEntryPriceShort + order.Volume * order.Price) / (
-                        self._lastOrder.PositionShort + order.Volume)
                 if self._lastOrder.PositionShort == 0:
                     order.IndexEntryShort = len(self.Bars) - 1
-                    order.EntryDateShort = self.D[
-                        -1]  # time or double or str ???
+                    order.EntryDateShort = self.D[-1]  # time or double or str ???
                     order.EntryPriceShort = order.Price
+                    order.AvgEntryPriceShort = order.Price
+                    order.PositionShort = order.Volume
+                else:
+                    order.PositionShort += order.Volume
+                    order.AvgEntryPriceShort = (self._lastOrder.PositionShort * self._lastOrder.AvgEntryPriceShort + order.Volume * order.Price) / (self._lastOrder.PositionShort + order.Volume)
                 order.IndexLastEntryShort = len(self.Bars) - 1
                 order.LastEntryPriceShort = order.Price
                 order.LastEntryDateShort = self.D[-1]
                 break
 
             if case('Sell-Close'):
-                c_lots = min(self._lastOrder.PositionLong,
-                             order.Volume)  # 能够平掉的数量
+                c_lots = min(self._lastOrder.PositionLong, order.Volume)  # 能够平掉的数量
                 if c_lots <= 0:  # 无仓可平
                     print('平仓量>持仓量')
                     break
@@ -422,8 +420,8 @@ class Data(object):
                 order.IndexExitLong = len(self.Bars) - 1
                 order.ExitDateLong = self.D[-1]
                 order.ExitPriceLong = order.Price
-                if order.PositionLong == 0:
-                    order.AvgEntryPriceLong = 0
+                # if order.PositionLong == 0:
+                # order.AvgEntryPriceLong = 0  # 20180906注销方便后期计算盈利
                 break
 
         self._lastOrder = order
