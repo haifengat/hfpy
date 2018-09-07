@@ -24,44 +24,54 @@ class Report(object):
         self.zui_da_hui_che_bi_lv = .0  # 最大回撤比率
         self.zui_da_hui_che_qu_jian = .0  # 最大回撤区间
         # self.er_、_an_jiao_yi_bi_shu_ji_suan = .0 # 二、按交易笔数计算
-        self.jing_li_run = .0  # 净利润
         self.jiao_yi_ci_shu = .0  # 交易次数
         self.ying_li_ci_shu = .0  # 盈利次数
         self.kui_sun_ci_shu = .0  # 亏损次数
-        self.chi_ping_ci_shu = .0  # 持平次数
+
         self.zong_ying_li = .0  # 总盈利
         self.zong_kui_sun = .0  # 总亏损
         self.ying_li_yin_zi = .0  # 盈利因子
-        self.sheng_lv = .0  # 胜率
+
         self.ping_jun_ying_li = .0  # 平均盈利
         self.ping_jun_kui_sun = .0  # 平均亏损
         self.ping_jun_ying_kui_bi = .0  # 平均盈亏比
+
+        self.jing_li_run = .0  # 净利润
         self.zui_da_ying_li = .0  # 最大盈利
         self.zui_da_kui_sun = .0  # 最大亏损
+
+        self.sheng_lv = .0  # 胜率
         self.zui_da_ying_li_zhan_bi = .0  # 最大盈利占比
         self.zui_da_kui_sun_zhan_bi = .0  # 最大亏损占比
-        self.zui_da_lian_xu_ying_li_ci_shu = .0  # 最大连续盈利次数
-        self.zui_da_lian_xu_kui_sun_ci_shu = .0  # 最大连续亏损次数
-        self.zui_da_lian_xu_ying_li_jin_e = .0  # 最大连续盈利金额
-        self.zui_da_lian_xu_kui_sun_jin_e = .0  # 最大连续亏损金额
+
         # self.san_、_an_ri_ji_suan = .0 # 三、按日计算
         self.zong_jiao_yi_tian_shu = .0  # 总交易天数
         self.ying_li_tian_shu = .0  # 盈利天数
         self.kui_sun_tian_shu = .0  # 亏损天数
-        self.chi_ping_tian_shu = .0  # 持平天数
-        self.ping_jun_ri_shou_yi = .0  # 平均日收益
+
         self.ping_jun_mei_tian_kui_sun = .0  # 平均每天亏损
         self.ping_jun_mei_tian_ying_li = .0  # 平均每天盈利
         self.ri_jun_ying_kui_bi_bi_lv = .0  # 日均盈亏比比率
+
+        self.zui_da_lian_xu_ying_li_ci_shu = .0  # 最大连续盈利次数
+        self.zui_da_lian_xu_kui_sun_ci_shu = .0  # 最大连续亏损次数
         self.zui_da_lian_xu_ying_li_tian_shu = .0  # 最大连续盈利天数
+
+        self.zui_da_lian_xu_ying_li_jin_e = .0  # 最大连续盈利金额
+        self.zui_da_lian_xu_kui_sun_jin_e = .0  # 最大连续亏损金额
         self.zui_da_lian_xu_kui_sun_tian_shu = .0  # 最大连续亏损天数
-        self.zui_da_jing_zhi_bu_chuang_xin_gao_tian_shu = .0  # 最大净值不创新高天数
-        self.zui_da_jing_zhi_bu_chuang_xin_gao_qu_jian = .0  # 最大净值不创新高区间
+
         self.zong_shou_yi_lv = .0  # 总收益率
+        self.ping_jun_ri_shou_yi = .0  # 平均日收益
         self.nian_hua_shou_yi_lv = .0  # 年化收益率
+
         self.bo_dong_lv = .0  # 波动率
         self.xia_pu_bi_lv = .0  # 夏普比率
         self.MAR_bi_lv = .0  # MAR比率
+
+        self.zui_da_jing_zhi_bu_chuang_xin_gao_tian_shu = .0  # 最大净值不创新高天数
+        self.zui_da_jing_zhi_bu_chuang_xin_gao_qu_jian = .0  # 最大净值不创新高区间
+
         # self.wu_、_an_yue_ji_suan = .0 # 五、按月计算
         self.zong_jiao_yi_yue_shu = .0  # 总交易月数
         self.ying_li_yue_shu = .0  # 盈利月数
@@ -69,8 +79,8 @@ class Report(object):
         self.chi_ping_yue_shu = .0  # 持平月数
         self.zui_da_lian_xu_ying_li_yue_shu = .0  # 最大连续盈利月数
         self.zui_da_lian_xu_kui_sun_yue_shu = .0  # 最大连续亏损月数
-        self.ping_jun_mei_yue_kui_sun = .0  # 平均每月亏损
         self.ping_jun_mei_yue_ying_li = .0  # 平均每月盈利
+        self.ping_jun_mei_yue_kui_sun = .0  # 平均每月亏损
 
         self.index_description = {'chu_shi_zi_jin': '初始资金',
                                   'zui_da_hui_che_bi_lv': '最大回撤比率',
@@ -144,6 +154,8 @@ class Report(object):
                                   'ping_jun_mei_nian_ying_li': '平均每年盈利'}
 
         data: Data = stra.Datas[0]
+        if len(data.Orders) == 0:
+            return
         j = ''
         bar: Bar = None
         for bar in data.Bars:
@@ -185,10 +197,10 @@ class Report(object):
         df_data = df_data.fillna(method='ffill')
         df_data = df_data.fillna(value=0)
         self.df_data = df_data
-        self.get_report_by_day()
+        self.get_report()
         self.show()
 
-    def get_report_by_day(self):
+    def get_report(self):
         """按日统计"""
 
         # self.san_、_an_ri_ji_suan = .0 # 三、按日计算
@@ -215,8 +227,6 @@ class Report(object):
         self.ying_li_ci_shu = len(self.df_data[self.df_data['CloseProfit'] > 0])
         # self.kui_sun_ci_shu = .0  # 亏损次数
         self.kui_sun_ci_shu = len(self.df_data[self.df_data['CloseProfit'] < 0])
-        # self.chi_ping_ci_shu = .0  # 持平次数
-        self.chi_ping_ci_shu = self.jiao_yi_ci_shu - self.ying_li_ci_shu - self.kui_sun_ci_shu
         # self.zong_ying_li = .0  # 总盈利
         self.zong_ying_li = self.df_data[self.df_data['CloseProfit'] > 0]['CloseProfit'].sum()
         # self.zong_kui_sun = .0  # 总亏损
@@ -245,8 +255,8 @@ class Report(object):
         self.df_data['CloseLoss_cnt'] = (self.df_data['CloseProfit'] < 0).astype(int)
         self.df_data['CloseLoss_times'] = self.df_data.groupby((self.df_data['CloseLoss_cnt'] != self.df_data['CloseLoss_cnt'].shift(1)).cumsum()).cumcount() + 1
         self.zui_da_lian_xu_kui_sun_ci_shu = self.df_data['CloseLoss_times'].max()
-
         # self.ying_li_yin_zi = .0  # 盈利因子
+        self.ying_li_yin_zi = self.zong_ying_li / self.zong_kui_sun
         # self.zui_da_lian_xu_ying_li_jin_e = .0  # 最大连续盈利金额
         # self.zui_da_lian_xu_kui_sun_jin_e = .0  # 最大连续亏损金额
 
@@ -266,9 +276,6 @@ class Report(object):
 
         # self.kui_sun_tian_shu = .0  # 亏损天数
         self.kui_sun_tian_shu = len([p for p in df_day['Profit'] if p < 0])
-
-        # self.chi_ping_tian_shu = .0  # 持平天数
-        self.chi_ping_tian_shu = self.zong_jiao_yi_tian_shu - self.ying_li_tian_shu - self.kui_sun_tian_shu
 
         # self.ping_jun_ri_shou_yi = .0  # 平均日收益
         self.ping_jun_ri_shou_yi = df_day['Profit'] / self.zong_jiao_yi_tian_shu
@@ -299,9 +306,9 @@ class Report(object):
     def show(self):
         idx = 0
         for k, v in vars(self).items():
-            if type(v) is int:
-                print('{0:{2}<12}:{1:>13.3f}|'.format(self.index_description[k], v, chr(12288)), end='\t')
-            elif type(v) is float:
+            if str(type(v)).find('int') > 0:
+                print('{0:{2}<12}:{1:>9d}.   |'.format(self.index_description[k], v, chr(12288)), end='\t')
+            elif str(type(v)).find('float') > 0:
                 print('{0:{2}<12}:{1:>13.3f}|'.format(self.index_description[k], v, chr(12288)), end='\t')
             else:
                 continue
