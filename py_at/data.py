@@ -172,12 +172,12 @@ class Data(object):
 
     @property
     def IndexLastEntryLong(self):
-        '''最后平仓到当前K线数量-多'''
+        '''最后开仓到当前K线的数量-多'''
         return self._lastOrder.IndexLastEntryLong
 
     @property
     def IndexLastEntryShort(self):
-        '''最后平仓到当前K线数量-空'''
+        '''最后开仓到当前K线的数量-空'''
         return self._lastOrder.IndexLastEntryShort
 
     @property

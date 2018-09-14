@@ -12,6 +12,7 @@ from .order import OrderItem
 import json
 import pandas as pd
 from pandas import DataFrame, Grouper
+from pyecharts import Kline, Bar, Line
 
 
 class Report(object):
@@ -197,6 +198,7 @@ class Report(object):
         df_data = df_data.fillna(method='ffill')
         df_data = df_data.fillna(value=0)
         self.df_data = df_data
+        self.stra = stra
         self.get_report()
         self.show()
 
@@ -221,7 +223,6 @@ class Report(object):
         self.jing_li_run = df_day['CloseProfit'].sum()
 
         # self.jiao_yi_ci_shu = .0  # 交易次数::当前持仓比下一持仓大,则表示有平仓,即视为一次交易
-        # self.jiao_yi_ci_shu = (self.df_data['post_net'] > self.df_data['post_net'].shift(1)).cumsum().max()
         self.jiao_yi_ci_shu = len(self.df_data[self.df_data['CloseProfit'] != 0])
         # self.ying_li_ci_shu = .0  # 盈利次数
         self.ying_li_ci_shu = len(self.df_data[self.df_data['CloseProfit'] > 0])
@@ -257,14 +258,18 @@ class Report(object):
         self.zui_da_lian_xu_kui_sun_ci_shu = self.df_data['CloseLoss_times'].max()
         # self.ying_li_yin_zi = .0  # 盈利因子
         self.ying_li_yin_zi = self.zong_ying_li / self.zong_kui_sun
-        # self.zui_da_lian_xu_ying_li_jin_e = .0  # 最大连续盈利金额
-        # self.zui_da_lian_xu_kui_sun_jin_e = .0  # 最大连续亏损金额
+        # # self.zui_da_lian_xu_ying_li_jin_e = .0  # 最大连续盈利金额
+        # self.df_data['CloseProfit_money'] = self.df_data.groupby((self.df_data['CloseProfit_cnt'] != self.df_data['CloseProfit_cnt'].shift(1)).cumsum()).cumsum()
+        # self.zui_da_lian_xu_ying_li_jin_e = self.df_data['CloseProfit_money'].max()
+        # # self.zui_da_lian_xu_kui_sun_jin_e = .0  # 最大连续亏损金额
+        # self.df_data['CloseLoss_money'] = self.df_data.groupby((self.df_data['CloseLoss_cnt'] != self.df_data['CloseLoss_cnt'].shift(1)).cumsum()).cumsum()
+        # self.zui_da_lian_xu_kui_sun_jin_e = self.df_data['CloseLoss_money'].max()
 
         # =============================== 日统计 =====================
-        # self.ri_jun_ying_kui_bi_bi_lv = .0  # 日均盈亏比比率
         # self.zui_da_jing_zhi_bu_chuang_xin_gao_tian_shu = .0  # 最大净值不创新高天数
         # self.zui_da_jing_zhi_bu_chuang_xin_gao_qu_jian = .0  # 最大净值不创新高区间
         # self.bo_dong_lv = .0  # 波动率
+        self.bo_dong_lv = self.df_data['Profit'].std()  # mean收益率
         # self.xia_pu_bi_lv = .0  # 夏普比率
         # self.MAR_bi_lv = .0  # MAR比率
 
@@ -285,6 +290,9 @@ class Report(object):
 
         # self.ping_jun_mei_tian_ying_li = .0  # 平均每天盈利
         self.ping_jun_mei_tian_ying_li = sum([p for p in df_day['Profit'] if p > 0]) / self.zong_jiao_yi_tian_shu
+
+        # self.ri_jun_ying_kui_bi_bi_lv = .0  # 日均盈亏比比率
+        self.ri_jun_ying_kui_bi_bi_lv = self.ping_jun_mei_tian_ying_li / self.ping_jun_mei_tian_kui_sun
 
         # self.zui_da_lian_xu_ying_li_tian_shu = .0  # 最大连续盈利天数
         df_day['Profit_cnt'] = (df_day['Profit'] > 0).astype(int)
@@ -315,3 +323,12 @@ class Report(object):
             idx += 1
             if idx % 3 == 0:
                 print('')
+        self.show_chart()
+
+    def show_chart(self):
+        """显示图表"""
+        title = '{}{}{}'.format(self.stra.Instrument, self.stra.Interval, self.stra.IntervalType)
+        candles = [[b.O, b.C, b.L, b.H] for b in self.stra.Datas[0].Bars]
+        kline = Kline(title)
+        kline.add(title, self.df_data.index, candles)
+        kline.render()

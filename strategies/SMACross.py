@@ -16,9 +16,9 @@ class SMACross(Strategy):
 
     def __init__(self, jsonfile):
         super().__init__(jsonfile)
-        self.p_ma1 = self.Params['MA1'] = 10
-        self.p_ma2 = self.Params['MA2'] = 60
-        self.p_lots = self.Params['Lots'] = 1
+        self.p_ma1 = self.Params['MA1']
+        self.p_ma2 = self.Params['MA2']
+        self.p_lots = self.Params['Lots']
 
     def OnBarUpdate(self, data=Data, bar=Bar):
         if len(self.C) < self.p_ma2:

@@ -63,12 +63,12 @@ class ATP(object):
                                        if order.Direction == DirectType.Buy
                                        else DirectType.Buy)
                 # 无效,没提示...pf = PositionField()
-                pf = self.t.DicPositionField.get(key)
+                pf = self.t.positions.get(key)
                 if not pf or pf.Position <= 0:
                     self.cfg.log.error('没有对应的持仓')
                 else:
                     volClose = min(pf.Position, order.Volume)  # 可平量
-                    instField = self.t.DicInstrument[order.Instrument]
+                    instField = self.t.instruments[order.Instrument]
                     if instField.ExchangeID == 'SHFE':
                         tdClose = min(volClose, pf.TdPosition)
                         if tdClose > 0:
@@ -90,7 +90,7 @@ class ATP(object):
     def get_orders(self, stra):
         """获取策略相关的委托列表"""
         rtn = []
-        for (k, v) in self.t.DicOrderField.items():
+        for (k, v) in self.t.orders.items():
             if v.Custom // 1000 == stra.ID:
                 rtn.append(v)
         return rtn
@@ -158,7 +158,7 @@ class ATP(object):
                     with open(
                             file_name, encoding='utf-8') as stra_cfg_json_file:
                         cfg = json.load(stra_cfg_json_file)
-                        for json_cfg in cfg['instance']:
+                        for json_cfg in cfg:
                             if json_cfg['ID'] not in self.cfg.stra_path[path][filename]:
                                 continue
                             obj = c(json_cfg)
@@ -283,7 +283,7 @@ class ATP(object):
 
     def relogin(self):
         """"""
-        self.t.Release()
+        self.t.ReqUserLogout()
         self.cfg.log.info('sleep 60 seconds to wait try connect next time')
         time.sleep(60)
         self.t.ReqConnect(self.cfg.front_trade)
@@ -345,8 +345,8 @@ class ATP(object):
         for stra in self.stra_instances:
             for data in stra.Datas:
                 if data.Instrument == tick.Instrument:
-                    ut = tick.UpdateTime[0:6] + '00'
-                    ut = actionday[0:4] + '-' + actionday[4:6] + '-' + actionday[6:] + ' ' + ut
+                    # ut = tick.UpdateTime[0:6] + '00'
+                    ut = actionday[0:4] + '-' + actionday[4:6] + '-' + actionday[6:] + ' ' + tick.UpdateTime
                     tick.UpdateTime = ut
                     data.on_tick(tick, self.TradingDay)
                     # print(tick)
