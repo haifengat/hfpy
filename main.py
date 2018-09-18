@@ -32,7 +32,6 @@ if __name__ == '__main__':
         stra._req_cancel_all = p.cancel_all
 
         for data in stra.Datas:
-            data.SingleOrderOneBar = False
             if p.q and p.q.logined:
                 p.q.ReqSubscribeMarketData(data.Instrument)
     input()

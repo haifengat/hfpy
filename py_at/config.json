@@ -1,8 +1,8 @@
 {
     "ctp_config": {
         "comment_": "为空时不登录",
-        "ctp_front": "",
-        "investor": "",
+        "ctp_front": "ebf",
+        "investor": "111",
         "password": "",
         "ctp_dll_path": "../ctp_dll",
         "fronts": {
@@ -25,10 +25,15 @@
         "user": "postgres",
         "pwd": "kingisgod."
     },
+    "stra_onoff": {
+        "real_order_enable": false,
+        "single_order_one_bar": true
+    },
     "stra_path": {
         "strategies": {
             "SMACross": [
-                119
+                119,
+                120
             ]
         }
     }

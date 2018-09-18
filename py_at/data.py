@@ -427,19 +427,19 @@ class Data(object):
         self._lastOrder = order
         self.stra_onorder(self, order)
 
-    def Buy(self, price=0.0, volume=1, remark=''):
+    def Buy(self, price: float, volume: int, remark: str=''):
         """买开"""
         self.__order__(DirectType.Buy, OffsetType.Open, price, volume, remark)
 
-    def Sell(self, price, volume, remark=''):
+    def Sell(self, price, volume, remark: str=''):
         """买平"""
         self.__order__(DirectType.Sell, OffsetType.Close, price, volume,
                        remark)
 
-    def SellShort(self, price, volume, remark=''):
+    def SellShort(self, price, volume, remark: str=''):
         """卖开"""
         self.__order__(DirectType.Sell, OffsetType.Open, price, volume, remark)
 
-    def BuyToCover(self, price, volume, remark=''):
+    def BuyToCover(self, price, volume, remark: str=''):
         """买平"""
         self.__order__(DirectType.Buy, OffsetType.Close, price, volume, remark)

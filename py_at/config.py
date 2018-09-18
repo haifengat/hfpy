@@ -40,3 +40,11 @@ class Config(object):
                 self.investor = cfg_ctp['investor']
             if 'password' in cfg_ctp and cfg_ctp['password'] != '':
                 self.pwd = cfg_ctp['password']
+
+        self.single_order_one_bar = False
+        self.real_order_enable = False
+        if 'stra_onoff' in cfg:
+            if 'single_order_one_bar' in cfg['stra_onoff']:
+                self.single_order_one_bar = cfg['stra_onoff']['single_order_one_bar']
+            if 'real_order_enable' in cfg['stra_onoff']:
+                self.real_order_enable = cfg['stra_onoff']['real_order_enable']

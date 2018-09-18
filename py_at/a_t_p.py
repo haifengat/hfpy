@@ -39,6 +39,7 @@ class ATP(object):
         self.TradingDay = ''
         self.ActionDay = ''
         self.ActionDay1 = ''
+        self.tick_time = ''
         self.cfg = Config()
         self.stra_instances = []
 
@@ -46,13 +47,13 @@ class ATP(object):
         self.q = CtpQuote(dllpath)
         self.t = CtpTrade(dllpath)
 
-    def on_order(self, stra=Strategy(''), data=Data(), order=OrderItem()):
+    def on_order(self, stra: Strategy, data: Data, order: OrderItem):
         """此处调用ctp接口即可实现实际下单"""
         # print('stra order')
 
-        # self.log.write('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n'.format(len(p.Orders), stra.Bars[0].D, _order.Direction, _order.Offset, _order.Price, _order.Volume, _order.Remark))
+        self.cfg.log.war('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n'.format(len(stra.Orders), stra.D[-1], order.Direction, order.Offset, order.Price, order.Volume, order.Remark))
 
-        if stra.EnableOrder:
+        if self.cfg.real_order_enable:
             # print(order)
             order_id = stra.ID * 1000 + len(stra.GetOrders()) + 1
 
@@ -112,14 +113,7 @@ class ATP(object):
                     rtn.append(order)
         return rtn
 
-    def req_order(self,
-                  instrument='',
-                  dire=DirectType.Buy,
-                  offset=OffsetType.Open,
-                  price=0.0,
-                  volume=0,
-                  type=OrderType.Limit,
-                  stra=None):
+    def req_order(self, instrument: str, dire: DirectType, offset: OffsetType, price: float, volume: int, type: OrderType=OrderType.Limit, stra: Strategy=None):
         """发送委托"""
         order_id = stra.ID * 1000 + len(stra.GetOrders()) + 1
         self.t.ReqOrderInsert(instrument, dire, offset, price, volume, type,
@@ -154,14 +148,15 @@ class ATP(object):
                 # 与策略文件同名的json作为配置文件处理
                 file_name = os.path.join(os.getcwd(), path, '{0}.json'.format(class_name))
                 if os.path.exists(file_name):
-                    with open(
-                            file_name, encoding='utf-8') as stra_cfg_json_file:
+                    with open(file_name, encoding='utf-8') as stra_cfg_json_file:
                         cfg = json.load(stra_cfg_json_file)
                         for json_cfg in cfg:
                             if json_cfg['ID'] not in self.cfg.stra_path[path][filename]:
                                 continue
                             obj = c(json_cfg)
                             self.cfg.log.info("# obj:{0}".format(obj))
+                            for data in obj.Datas:
+                                data.SingleOrderOneBar = self.cfg.single_order_one_bar
                             self.stra_instances.append(obj)
                 else:
                     self.cfg.log.error("缺少对应的json文件{0}".format(file_name))
@@ -243,7 +238,7 @@ class ATP(object):
 
     def read_data_test(self):
         """取历史和实时K线数据,并执行策略回测"""
-        stra = Strategy('')  # 只为后面的提示信息创建
+        stra: Strategy = None  # 只为后面的提示信息创建
         for stra in self.stra_instances:
             stra.EnableOrder = False
             # path = 'data/{0}_{1}_{2}.pkl'.format(stra.ID, stra.BeginDate,
@@ -287,7 +282,7 @@ class ATP(object):
         time.sleep(60)
         self.t.ReqConnect(self.cfg.front_trade)
 
-    def OnRspUserLogin(self, t: CtpTrade, info=InfoField()):
+    def OnRspUserLogin(self, t: CtpTrade, info: InfoField):
         """"""
 
         self.cfg.log.info('{0}:{1}'.format(info.ErrorID, info.ErrorMsg))
@@ -302,6 +297,17 @@ class ATP(object):
                 # self.q.OnTick = self.q_Tick
                 self.q.OnTick = lambda o, f: threading.Thread(target=self.q_Tick, args=(o, f)).start()
                 self.q.ReqConnect(self.cfg.front_quote)
+                threading.Thread(target=self.showmsg).start()
+
+    def showmsg(self):
+        while self.t.logined:
+            if self.tick_time != '':
+                msg = ''
+                stra: Strategy = None
+                for stra in self.stra_instances:
+                    msg += '{}[L={}; S={}]{}||'.format(type(stra).__name__, stra.PositionLong, stra.PositionShort, stra.Params)
+                print(self.tick_time + '||' + msg, end='\r')
+            time.sleep(1)
 
     def OnOrder(self, t: CtpTrade, order: OrderField):
         """"""
@@ -329,7 +335,7 @@ class ATP(object):
         self.cfg.log.info(info)
         for stra in self.stra_instances:
             for data in stra.Datas:
-                self.q.ReqSubscribeMarketData()(data.Instrument)
+                self.q.ReqSubscribeMarketData(data.Instrument)
 
     def q_Tick(self, q: CtpQuote, tick: Tick):
         """"""
@@ -347,7 +353,7 @@ class ATP(object):
             for data in stra.Datas:
                 if data.Instrument == tick.Instrument:
                     data.on_tick(tick, self.TradingDay)
-        print(tick.UpdateTime, end='\r')
+        self.tick_time = ut
 
     def get_actionday(self):
         if not self.cfg.engine_postgres:

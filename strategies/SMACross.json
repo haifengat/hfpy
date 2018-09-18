@@ -2,7 +2,7 @@
     {
         "comment": "ID用于区分不同策略实例的委托",
         "ID": 119,
-        "BeginDate": 20180501,
+        "BeginDate": 20180901,
         "comment_": "可通过增加Data实现多合约多周期引用",
         "Datas": [
             {
@@ -19,16 +19,16 @@
     },
     {
         "ID": 120,
-        "BeginDate": 20171110,
+        "BeginDate": 20180901,
         "Datas": [
             {
-                "Instrument": "rb1805",
+                "Instrument": "rb1901",
                 "IntervalType": "Minute",
-                "Interval": 5,
-                "Lots": 1
+                "Interval": 5
             }
         ],
         "Params": {
+            "Lots": 1,
             "MA1": 5,
             "MA2": 60
         }

@@ -23,10 +23,6 @@ class Strategy(object):
         self.ID = 0
         '''数据序列'''
         self.Datas = []
-        '''允许委托下单'''
-        self.EnableOrder = True
-        '''每bar只执行一次交易'''
-        self.SingleOrderOneBar = True
         '''起始测试时间
         格式:yyyyMMdd[%Y%m%d]
         默认:20170101'''
@@ -37,16 +33,6 @@ class Strategy(object):
         self.EndDate = time.strftime("%Y%m%d", time.localtime())  # 默认值取当日期
         '''参数'''
         self.Params = {}
-        '''允许委托下单'''
-        self.EnableOrder = True
-
-        self.closeProfit = 0
-        self.floatProfit = 0
-        self.equity = 0
-        self.signal = []
-        self.listEquity = []
-
-        self.InitFund = 10000
 
         if json_cfg == '':
             return
@@ -256,44 +242,33 @@ class Strategy(object):
         '''当前K线序号(0开始)'''
         return self.Datas[0].CurrentBar
 
-    def Buy(self, price=0.0, volume=1, remark=''):
+    def Buy(self, price: float, volume: int, remark: str = ''):
         """买开"""
-        if not self.EnableOrder:
-            self.signal = [1, price, volume]
         self.Datas[0].Buy(price, volume, remark)
 
     def Sell(self, price, volume, remark):
         """买平"""
-        if not self.EnableOrder:
-            self.signal = [-1, price, volume]
-            self.closeProfit += (price - self.AvgEntryPriceLong) * volume
         self.Datas[0].Sell(price, volume, remark)
 
     def SellShort(self, price, volume, remark):
         """卖开"""
-        if not self.EnableOrder:
-            self.signal = [-1, price, volume]
         self.Datas[0].SellShort(price, volume, remark)
 
     def BuyToCover(self, price, volume, remark):
         """买平"""
-        if not self.EnableOrder:
-            self.signal = [1, price, volume]
-            self.closeProfit += (self.AvgEntryPriceShort - price) * volume
         self.Datas[0].BuyToCover(price, volume, remark)
 
-    def OnBarUpdate(self, data=Data, bar=Bar):
+    def OnBarUpdate(self, data: Data, bar: Bar):
         """行情触发
         历史行情:每分钟触发一次
         实时行情:每分钟触发一次"""
         pass
 
     # 外层接口调用
-    def _data_order(self, stra, data=Data(), order=OrderItem()):
+    def _data_order(self, stra, data: Data, order: OrderItem):
         """继承类中实现此函数,有策略信号产生时调用"""
         pass
 
-    # stra._get_orders = t.getorders
     def GetOrders(self):
         """获取策略相关委托,返回[]"""
         return self._get_orders(self)
@@ -318,20 +293,14 @@ class Strategy(object):
         """获取未成交委托"""
         return []
 
-    def ReqOrder(self,
-                 instrument='',
-                 dire=DirectType.Buy,
-                 offset=OffsetType.Open,
-                 price=0.0,
-                 volume=1,
-                 type=OrderType.Limit):
+    def ReqOrder(self, instrument: str, dire: DirectType, offset: OffsetType, price: float, volume: int, type: OrderType=OrderType.Limit):
         """发送委托"""
         self._req_order(instrument, dire, offset, price, volume, type, self)
 
     def _req_order(self, instrument, dire, offset, price, volume, type, stra):
         pass
 
-    def ReqCancel(self, orderid=''):
+    def ReqCancel(self, orderid: str):
         """发送撤单"""
         pass
 
@@ -343,48 +312,32 @@ class Strategy(object):
         """撤销所有委托"""
         pass
 
-    def __BarUpdate(self, data=Data, bar=Bar):
+    def __BarUpdate(self, data: Data, bar: Bar):
         """调用策略的逻辑部分"""
         # self.OnBarUpdate(data, bar)
         if data.Interval == self.Interval and data.IntervalType == self.IntervalType:
-            if not self.EnableOrder:
-                self.signal = [0, .0, .0]
-                self.OnBarUpdate(data, bar)
-                # 计算浮动盈亏
-                floatprofit = 0
-                if self.PositionLong > 0:
-                    floatprofit = floatprofit + (
-                        bar.C - self.AvgEntryPriceLong) * self.PositionLong
-                if self.PositionShort > 0:
-                    floatprofit = floatprofit + (
-                        self.AvgEntryPriceShort - bar.C) * self.PositionShort
-                equity = floatprofit + self.closeProfit + self.InitFund
-                self.listEquity.append([
-                    bar.D, equity, bar.O, bar.H, bar.L, bar.C, bar.V, bar.I
-                ] + self.signal)
-            else:
-                self.OnBarUpdate(data, bar)
+            self.OnBarUpdate(data, bar)
 
-    def __OnOrder(self, data=Data(), order=OrderItem()):
+    def __OnOrder(self, data: Data, order: OrderItem):
         """调用外部接口的reqorder"""
         self._data_order(self, data, order)
 
-    def OnOrder(self, order=OrderField()):
+    def OnOrder(self, order: OrderField()):
         """委托响应"""
         pass
 
-    def OnTrade(self, trade=TradeField()):
+    def OnTrade(self, trade: TradeField()):
         """成交响应"""
         pass
 
-    def OnCancel(self, order=OrderField()):
+    def OnCancel(self, order: OrderField):
         """撤单响应"""
         pass
 
-    def OnErrOrder(self, order=OrderField(), info=InfoField()):
+    def OnErrOrder(self, order: OrderField, info: InfoField):
         """委托错误"""
         pass
 
-    def OnErrCancel(self, order=OrderField(), info=InfoField()):
+    def OnErrCancel(self, order: OrderField, info: InfoField):
         """撤单错误"""
         pass
