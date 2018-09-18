@@ -13,7 +13,6 @@ import threading
 import time  # from time import sleep, strftime  # 可能前面的import模块对time有影响,故放在最后
 from datetime import datetime, timedelta
 import getpass
-
 import zmq  # netMQ
 import gzip  # 解压
 
@@ -342,14 +341,13 @@ class ATP(object):
         elif tick.UpdateTime[0:2] < '04':
             actionday = self.Actionday1
 
+        ut = actionday[0:4] + '-' + actionday[4:6] + '-' + actionday[6:] + ' ' + tick.UpdateTime
+        tick.UpdateTime = ut
         for stra in self.stra_instances:
             for data in stra.Datas:
                 if data.Instrument == tick.Instrument:
-                    # ut = tick.UpdateTime[0:6] + '00'
-                    ut = actionday[0:4] + '-' + actionday[4:6] + '-' + actionday[6:] + ' ' + tick.UpdateTime
-                    tick.UpdateTime = ut
                     data.on_tick(tick, self.TradingDay)
-                    # print(tick)
+        print(tick.UpdateTime, end='\r')
 
     def get_actionday(self):
         if not self.cfg.engine_postgres:

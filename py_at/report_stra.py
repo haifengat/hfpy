@@ -292,7 +292,7 @@ class Report(object):
         self.ping_jun_mei_tian_ying_li = sum([p for p in df_day['Profit'] if p > 0]) / self.zong_jiao_yi_tian_shu
 
         # self.ri_jun_ying_kui_bi_bi_lv = .0  # 日均盈亏比比率
-        self.ri_jun_ying_kui_bi_bi_lv = self.ping_jun_mei_tian_ying_li / self.ping_jun_mei_tian_kui_sun
+        self.ri_jun_ying_kui_bi_bi_lv = 0 if self.ping_jun_mei_tian_kui_sun == 0 else self.ping_jun_mei_tian_ying_li / self.ping_jun_mei_tian_kui_sun
 
         # self.zui_da_lian_xu_ying_li_tian_shu = .0  # 最大连续盈利天数
         df_day['Profit_cnt'] = (df_day['Profit'] > 0).astype(int)
