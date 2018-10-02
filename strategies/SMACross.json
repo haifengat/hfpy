@@ -6,7 +6,7 @@
         "comment_": "可通过增加Data实现多合约多周期引用",
         "Datas": [
             {
-                "Instrument": "rb1901",
+                "Instrument": "j1901",
                 "IntervalType": "Minute",
                 "Interval": 5
             }

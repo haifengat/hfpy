@@ -273,7 +273,8 @@ class ATP(object):
     def OnFrontConnected(self, t: CtpTrade):
         """"""
         self.cfg.log.war("t:connected by client")
-        self.t.ReqUserLogin(self.cfg.investor, self.cfg.pwd, self.cfg.broker)
+        if self.t.ReqUserLogin:
+            self.t.ReqUserLogin(self.cfg.investor, self.cfg.pwd, self.cfg.broker)
 
     def relogin(self):
         """"""
@@ -382,6 +383,7 @@ class ATP(object):
         if self.cfg.pwd == '':
             self.cfg.pwd = getpass.getpass()
         self.t.OnConnected = self.OnFrontConnected
+        self.t.OnDisConnected = lambda o, x: print('disconnected: {}'.format(x))
         self.t.OnUserLogin = self.OnRspUserLogin
         self.t.OnOrder = self.OnOrder
         self.t.OnTrade = self.OnTrade

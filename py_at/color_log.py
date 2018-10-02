@@ -18,7 +18,7 @@ class Logger:
             os.mkdir('logs')
         self.logger = logging.Logger(__name__)  # logging.getLogger('log')
 
-        fmt_sh = colorlog.ColoredFormatter('%(log_color)s%(asctime)s%(levelname)-7s[%(module)s:%(lineno)04d]%(message)s', '%H:%M:%S')
+        fmt_sh = colorlog.ColoredFormatter('%(log_color)s%(asctime)s[%(levelname)-7s][%(module)s:%(lineno)04d]%(message)s', '%H:%M:%S')
         # 设置CMD日志
         sh = logging.StreamHandler()
         sh.setFormatter(fmt_sh)
@@ -33,7 +33,7 @@ class Logger:
         # fh.extMatch = re.compile(r"^\d{4}-\d{2}-\d{2}.log$")
         # fh.suffix = "%Y-%m-%d_%H-%M.log"
         # fh.extMatch = re.compile(r"^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}.log$")
-        fmt = logging.Formatter('%(asctime)s%(levelname)-7s[%(module)s:%(lineno)04d]%(message)s', '%Y-%m-%d %H:%M:%S')
+        fmt = colorlog.ColoredFormatter('%(log_color)s%(asctime)s[%(levelname)-7s][%(module)s:%(lineno)04d]%(message)s', '%Y-%m-%d %H:%M:%S')
         fh.setFormatter(fmt)
         fh.setLevel(Flevel)
 

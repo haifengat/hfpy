@@ -79,3 +79,9 @@ class ReqPackage:
         '''结束时间'''
         self.End = ''
         '''结束时间'''
+
+    def __setitem__(self, k, v):
+        self.k = v
+
+    def __dict__(self):
+        return {'Type': int(self.Type), 'Instrument': self.Instrument, 'Begin': self.Begin, 'End': self.End}
