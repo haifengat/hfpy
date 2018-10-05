@@ -9,6 +9,7 @@
 import sys
 import os
 import json
+import yaml
 import threading
 import time  # from time import sleep, strftime  # 可能前面的import模块对time有影响,故放在最后
 from datetime import datetime, timedelta
@@ -146,14 +147,18 @@ class ATP(object):
                     continue
 
                 # 与策略文件同名的json作为配置文件处理
-                file_name = os.path.join(os.getcwd(), path, '{0}.json'.format(class_name))
+                # file_name = os.path.join(os.getcwd(), path, '{0}.json'.format(class_name))
+                # if os.path.exists(file_name):
+                #     with open(file_name, encoding='utf-8') as stra_cfg_json_file:
+                #         cfg = json.load(stra_cfg_json_file)
+                file_name = os.path.join(os.getcwd(), path, '{0}.yml'.format(class_name))
                 if os.path.exists(file_name):
                     with open(file_name, encoding='utf-8') as stra_cfg_json_file:
-                        cfg = json.load(stra_cfg_json_file)
-                        for json_cfg in cfg:
-                            if json_cfg['ID'] not in self.cfg.stra_path[path][filename]:
+                        params = yaml.load(stra_cfg_json_file)
+                        for param in params:
+                            if param['ID'] not in self.cfg.stra_path[path][filename]:
                                 continue
-                            obj = c(json_cfg)
+                            obj = c(param)
                             self.cfg.log.info("# obj:{0}".format(obj))
                             for data in obj.Datas:
                                 data.SingleOrderOneBar = self.cfg.single_order_one_bar
@@ -184,7 +189,7 @@ class ATP(object):
         context = zmq.Context()
         socket = context.socket(zmq.REQ)  # REQ模式,即REQ-RSP  CS结构
         # socket.connect('tcp://localhost:8888')	# 连接本地测试
-        socket.connect('tcp://58.247.171.146:5055')  # 实际netMQ数据服务器地址
+        socket.connect(self.cfg.cfg_zmq)  # 实际netMQ数据服务器地址
 
         p = req.__dict__
         req['Type'] = req.Type.value

@@ -1,0 +1,13 @@
+---
+-
+    ID: 100
+    BeginDate: 20171110
+    Datas:
+    - 
+        Instrument: rb1805
+        IntervalType: Minute
+        Interval: 5
+    Params:
+        Fast: 10
+        Slow: 20
+        lots: 1

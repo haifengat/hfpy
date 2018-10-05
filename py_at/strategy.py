@@ -17,7 +17,7 @@ from py_ctp.structs import OrderField, TradeField, InfoField
 class Strategy(object):
     '''策略类 '''
 
-    def __init__(self, json_cfg):
+    def __init__(self, dict_cfg):
         '''初始化'''
         '''策略标识'''
         self.ID = 0
@@ -32,17 +32,17 @@ class Strategy(object):
         默认:当前时间'''
         self.EndDate = time.strftime("%Y%m%d", time.localtime())  # 默认值取当日期
         '''参数'''
-        self.Params = {}
+        self.Params = []
 
-        if json_cfg == '':
+        if dict_cfg == '':
             return
         else:
-            self.ID = json_cfg['ID']
-            self.Params = json_cfg['Params']
-            self.BeginDate = json_cfg['BeginDate']
-            if 'EndDate' in json_cfg:
-                self.EndDate = json_cfg['EndDate']
-            for data in json_cfg['Datas']:
+            self.ID = dict_cfg['ID']
+            self.Params = dict_cfg['Params']
+            self.BeginDate = dict_cfg['BeginDate']
+            if 'EndDate' in dict_cfg:
+                self.EndDate = dict_cfg['EndDate']
+            for data in dict_cfg['Datas']:
                 newdata = Data(self.__BarUpdate, self.__OnOrder)
                 newdata.Instrument = data['Instrument']
                 newdata.Interval = data['Interval']

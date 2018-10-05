@@ -4,7 +4,7 @@ __title__ = '项目配置信息'
 __author__ = 'HaiFeng'
 __mtime__ = '20180820'
 
-import json
+import yaml
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
@@ -16,15 +16,16 @@ class Config(object):
 
     def __init__(self):
         self.log = Logger()
-        cfg_file = os.path.join(os.getcwd(), 'py_at', 'config.json')
-        cfg = json.load(open(cfg_file, 'r', encoding='utf-8'))
+        cfg_file = os.path.join(os.getcwd(), 'py_at', 'config.yml')
+        cfg = yaml.load(open(cfg_file, 'r', encoding='utf-8'))
         self.ctp_dll_path = cfg['ctp_config']['ctp_dll_path']
         self.stra_path = cfg['stra_path']
-
+        self.cfg_zmq = ''
+        if 'zmq_config' in cfg:
+            self.cfg_zmq = cfg['zmq_config']
         self.engine_postgres: Engine = None
         if 'postgres_config' in cfg:
-            cfg_pg = cfg['postgres_config']
-            self.engine_postgres = create_engine('postgresql://{}:{}@{}:{}/{}'.format(cfg_pg['user'], cfg_pg['pwd'], cfg_pg['host'], cfg_pg['port'], cfg_pg['db']))
+            self.engine_postgres = create_engine(cfg['postgres_config'])
         self.front_trade = ''
         self.front_quote = ''
         self.broker = ''
