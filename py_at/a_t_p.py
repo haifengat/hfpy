@@ -191,7 +191,7 @@ class ATP(object):
         # socket.connect('tcp://localhost:8888')	# 连接本地测试
         socket.connect(self.cfg.cfg_zmq)  # 实际netMQ数据服务器地址
 
-        p = req.__dict__
+        p = req.__dict__()
         req['Type'] = req.Type.value
         socket.send_json(p)  # 直接发送__dict__转换的{}即可,不需要再转换成str
 

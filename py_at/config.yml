@@ -17,9 +17,9 @@ ctp_config:
             quote: tcp://192.168.52.4:41213
             broker: '6000'
 # 数据源(配置其一即可) - pg配置
-postgres_config: postgresql://postgres:kingisgod.@192.168.52.219:5432/future
+# postgres_config: postgresql://postgres:kingisgod.@192.168.52.219:5432/future
 # 数据源(配置其一即可) - zmq配置
-zmq_config: tcp://192.168.52.219:5055
+zmq_config: tcp://broadcast.eicp.net:55881
 # 开关
 stra_onoff:
     # 是否发送委托
