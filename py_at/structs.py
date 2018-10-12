@@ -68,7 +68,7 @@ class ReqPackage:
     def __init__(self):
         """Constructor"""
         '''请求类型'''
-        self.Type = BarType.Min
+        self.Type: BarType = BarType.Min
         '''请求类型'''
         '''合约'''
         self.Instrument = ''

@@ -33,7 +33,8 @@ class Config(object):
         self.pwd = ''
         cfg_ctp = cfg['ctp_config']
         if cfg_ctp['ctp_front'] != '':
-            cfg_ctp_front = cfg_ctp['fronts'][cfg_ctp['ctp_front']]
+            self.front_name = cfg_ctp['ctp_front']
+            cfg_ctp_front = cfg_ctp['fronts'][self.front_name]
             self.front_trade = cfg_ctp_front['trade']
             self.front_quote = cfg_ctp_front['quote']
             self.broker = cfg_ctp_front['broker']

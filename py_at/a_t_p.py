@@ -166,24 +166,7 @@ class ATP(object):
                 else:
                     self.cfg.log.error("缺少对应的json文件{0}".format(file_name))
 
-    def read_data_pg(self, req: ReqPackage)->[]:
-        """从postgres中读取数据"""
-        if self.cfg.engine_postgres:
-            conn = self.cfg.engine_postgres.raw_connection()
-            cursor = conn.cursor()
-            if req.Type == BarType.Min:
-                sql = 'select "DateTime", \'{0}\' as "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min."{0}" where "Tradingday" between \'{1}\' and \'{2}\''.format(req.Instrument, req.Begin, req.End)
-            if req.Type == BarType.Real:
-                sql = 'select "DateTime", "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min.future_real where "Instrument" = \'{}\''.format(req.Instrument)
-            cursor.execute(sql)
-            data = cursor.fetchall()
-            keys = ["DateTime", "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest"]
-            parsed_data = []
-            for row in data:
-                parsed_data.append(dict(zip(keys, row)))
-            return parsed_data
-
-    def read_data_zmq(self, req: ReqPackage) -> []:
+    def get_data_zmq(self, req: ReqPackage) -> []:
         ''''''
         # pip install pyzmq即可安装
         context = zmq.Context()
@@ -219,9 +202,9 @@ class ATP(object):
             # __dict__返回diction格式,即{key,value}格式
 
             if self.cfg.engine_postgres:
-                bars = bars + self.read_data_pg(req)
+                bars = bars + self.read_bars_pg(req)
             else:
-                for bar in self.read_data_zmq(req):
+                for bar in self.get_data_zmq(req):
                     bar['Instrument'] = data.Instrument
                     bars.append(bar)
 
@@ -229,9 +212,9 @@ class ATP(object):
                 # 实时K线数据
                 req.Type = BarType.Real
                 if self.cfg.engine_postgres:
-                    bars = bars + self.read_data_pg(req)
+                    bars = bars + self.read_bars_pg(req)
                 else:
-                    for bar in self.read_data_zmq(req):
+                    for bar in self.get_data_zmq(req):
                         bar['Instrument'] = data.Instrument
                         bars.append(bar)
 
@@ -240,6 +223,23 @@ class ATP(object):
         else:
             bars.sort(key=lambda bar: bar['_id'])  # 按时间升序
         return bars
+
+    def read_bars_pg(self, req: ReqPackage)->[]:
+        """从postgres中读取数据"""
+        if self.cfg.engine_postgres:
+            conn = self.cfg.engine_postgres.raw_connection()
+            cursor = conn.cursor()
+            if req.Type == BarType.Min:
+                sql = 'select "DateTime", \'{0}\' as "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min."{0}" where "Tradingday" between \'{1}\' and \'{2}\''.format(req.Instrument, req.Begin, req.End)
+            if req.Type == BarType.Real:
+                sql = 'select "DateTime", "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min.future_real where "Instrument" = \'{}\''.format(req.Instrument)
+            cursor.execute(sql)
+            data = cursor.fetchall()
+            keys = ["DateTime", "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest"]
+            parsed_data = []
+            for row in data:
+                parsed_data.append(dict(zip(keys, row)))
+            return parsed_data
 
     def read_data_test(self):
         """取历史和实时K线数据,并执行策略回测"""
@@ -362,17 +362,20 @@ class ATP(object):
         self.tick_time = ut
 
     def get_actionday(self):
-        if not self.cfg.engine_postgres:
-            self.cfg.log.error('postgres 数据库未连接!')
-            return
-
-        conn = self.cfg.engine_postgres.raw_connection()
-        cursor = conn.cursor()
-        cursor.execute('select _id from future_config.trade_date where trading = 1')
-        self.trading_days = [c[0] for c in cursor.fetchall()]
         # 接口未登录,不计算Actionday
         if self.TradingDay == '':
             return
+
+        if self.cfg.engine_postgres:
+            conn = self.cfg.engine_postgres.raw_connection()
+            cursor = conn.cursor()
+            cursor.execute('select _id from future_config.trade_date where trading = 1')
+            self.trading_days = [c[0] for c in cursor.fetchall()]
+        else:
+            req = ReqPackage()
+            req.Type = BarType.TradeDate
+            self.trading_days = self.get_data_zmq(req)
+
         self.Actionday = self.TradingDay if self.trading_days.index(self.TradingDay) == 0 else self.trading_days[self.trading_days.index(self.TradingDay) - 1]
         self.Actionday1 = (datetime.strptime(self.Actionday, '%Y%m%d') + timedelta(days=1)).strftime('%Y%m%d')
 
@@ -382,7 +385,7 @@ class ATP(object):
             self.cfg.log.war('交易接口未配置')
             return
         if self.cfg.investor == '':
-            self.cfg.investor = input('invesorid:')
+            self.cfg.investor = input('invesorid on {}:'.format(self.cfg.front_name))
         else:
             self.cfg.log.war('{} loging by ctp'.format(self.cfg.investor))
         if self.cfg.pwd == '':
