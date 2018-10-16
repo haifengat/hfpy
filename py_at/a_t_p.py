@@ -189,41 +189,6 @@ class ATP(object):
         bs = json.loads(gzipper)  # json解析
         return bs
 
-    def read_bars_from_zmq(self, _stra: Strategy)->[]:
-        """netMQ"""
-        bars = []
-        for data in _stra.Datas:
-            # 请求数据格式
-            req = ReqPackage()
-            req.Type = BarType.Min
-            req.Instrument = _stra.Instrument
-            req.Begin = _stra.BeginDate
-            req.End = _stra.EndDate
-            # __dict__返回diction格式,即{key,value}格式
-
-            if self.cfg.engine_postgres:
-                bars = bars + self.read_bars_pg(req)
-            else:
-                for bar in self.get_data_zmq(req):
-                    bar['Instrument'] = data.Instrument
-                    bars.append(bar)
-
-            if _stra.EndDate == time.strftime("%Y%m%d", time.localtime()):
-                # 实时K线数据
-                req.Type = BarType.Real
-                if self.cfg.engine_postgres:
-                    bars = bars + self.read_bars_pg(req)
-                else:
-                    for bar in self.get_data_zmq(req):
-                        bar['Instrument'] = data.Instrument
-                        bars.append(bar)
-
-        if self.cfg.engine_postgres:
-            bars.sort(key=lambda bar: bar['DateTime'])  # 按时间升序
-        else:
-            bars.sort(key=lambda bar: bar['_id'])  # 按时间升序
-        return bars
-
     def read_bars_pg(self, req: ReqPackage)->[]:
         """从postgres中读取数据"""
         if self.cfg.engine_postgres:
@@ -241,37 +206,103 @@ class ATP(object):
                 parsed_data.append(dict(zip(keys, row)))
             return parsed_data
 
+    def read_bars(self, stra: Strategy)->[]:
+        """netMQ"""
+        bars = []
+        for data in stra.Datas:
+            # 请求数据格式
+            req = ReqPackage()
+            req.Type = BarType.Min
+            req.Instrument = stra.Instrument
+            req.Begin = stra.BeginDate
+            req.End = stra.EndDate
+            # __dict__返回diction格式,即{key,value}格式
+
+            if self.cfg.engine_postgres:
+                bars = bars + self.read_bars_pg(req)
+            else:
+                for bar in self.get_data_zmq(req):
+                    bar['Instrument'] = data.Instrument
+                    bar['DateTime'] = bar.pop('_id')
+                    bars.append(bar)
+
+            if stra.EndDate == time.strftime("%Y%m%d", time.localtime()):
+                # 实时K线数据
+                req.Type = BarType.Real
+                if self.cfg.engine_postgres:
+                    bars = bars + self.read_bars_pg(req)
+                else:
+                    for bar in self.get_data_zmq(req):
+                        bar['Instrument'] = data.Instrument
+                        bar['DateTime'] = bar.pop('_id')
+                        bars.append(bar)
+
+        bars.sort(key=lambda bar: bar['DateTime'])  # 按时间升序
+        return bars
+
+    def read_ticks(self, stra: Strategy, tradingday: str)->[]:
+        """读取tick数据
+        返回 list[Tick]"""
+        ticks: list = []
+        if self.cfg.engine_postgres is not None:
+            conn = self.cfg.engine_postgres.raw_connection()
+            cursor = conn.cursor()
+            sql = "select count(1) from pg_tables where schemaname='future_tick' and tablename='{}'".format(tradingday)
+            try:
+                cursor.execute(sql)
+                if cursor.fetchone()[0] == 0:
+                    return []
+                for data in stra.Datas:
+                    sql = 'select "Actionday", "AskPrice", "AskVolume", "BidPrice", "BidVolume", "Instrument", "LastPrice", "OpenInterest", "UpdateMillisec", "UpdateTime", "Volume" from future_tick."{}" where "Instrument" = \'{}\''.format(tradingday, data.Instrument)
+                    cursor.execute(sql)
+                    rows = cursor.fetchall()
+                    for d in rows:
+                        tick = Tick()
+                        tick.Instrument = data.Instrument
+                        tick.AskPrice = d[1]
+                        tick.AskVolume = d[2]
+                        tick.BidPrice = d[3]
+                        tick.BidVolume = d[4]
+                        tick.LastPrice = d[6]
+                        tick.OpenInterest = d[7]
+                        tick.UpdateMillisec = d[8]
+                        tick.UpdateTime = d[0][0:4] + '-' + d[0][4:6] + '-' + d[0][6:] + ' ' + d[9]
+                        tick.Volume = d[10]
+                        ticks.append(tick)
+            finally:
+                conn.close()
+        ticks.sort(key=lambda t: t.UpdateTime)
+        return ticks
+
     def read_data_test(self):
         """取历史和实时K线数据,并执行策略回测"""
         stra: Strategy = None  # 只为后面的提示信息创建
         for stra in self.stra_instances:
-            stra.EnableOrder = False
-            # path = 'data/{0}_{1}_{2}.pkl'.format(stra.ID, stra.BeginDate,
-            #                                      stra.Datas[0].Instrument)
-            # if os.path.exists(path):
-            #     print('策略 {0} 正在从本地加载历史数据'.format(stra.ID))
-            #     f = open(path, 'rb')
-            #     listBar = pkl.load(f)
-            # else:
-            self.cfg.log.info('策略 {0} 正在从网络加载历史数据'.format(stra.ID))
-            listBar = []
-            bars = self.read_bars_from_zmq(stra)
-            if self.cfg.engine_postgres:
-                listBar = [Bar(b['DateTime'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest'], b['Tradingday']) for b in bars]
+            self.cfg.log.info('策略 {0} 正在加载历史数据'.format(stra.ID))
+            if stra.TickTest:
+                tradingday = stra.BeginDate
+                tick: Tick = None
+                while tradingday < time.strftime('%Y%m%d', time.localtime()):
+                    for tick in self.read_ticks(stra, tradingday):
+                        for data in stra.Datas:
+                            if data.Instrument == tick.Instrument:
+                                data.on_tick(tick, tradingday)
+                    tradingday = datetime.strftime(datetime.strptime(tradingday, '%Y%m%d') + timedelta(days=1), '%Y%m%d')
             else:
-                listBar = [Bar(b['_id'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest'], b['Tradingday']) for b in bars]
+                listBar = []
+                bars = self.read_bars(stra)
+                listBar = [Bar(b['DateTime'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest'], b['Tradingday']) for b in bars]
 
-            stra.OnOrder = self.on_order
-            for bar in listBar:
-                for data in stra.Datas:
-                    if data.Instrument == bar.Instrument:
-                        data.__new_min_bar__(bar)  # 调Data的onbar
+                stra.OnOrder = self.on_order
+                for bar in listBar:
+                    for data in stra.Datas:
+                        if data.Instrument == bar.Instrument:
+                            data.__new_min_bar__(bar)  # 调Data的onbar
             # 生成策略的测试报告
             # stra = Statistics(stra)
             Report(stra)
             bar_dict = [{'DateTime': b.D, 'Open': b.O, 'Close': b.C, 'Low': b.L, 'High': b.H} for b in data.Bars]
             show(bar_dict)
-            stra.EnableOrder = True
 
         self.cfg.log.war("test history is end.")
 

@@ -3,6 +3,7 @@
 - 
     ID: 119
     BeginDate: 20180901
+    TickTest: true
     # 可通过增加Data实现多合约多周期引用
     Datas:
     -

@@ -23,9 +23,9 @@ class Strategy(object):
         self.ID = 0
         '''数据序列'''
         self.Datas = []
-        '''起始测试时间
+        """起始测试时间
         格式:yyyyMMdd[%Y%m%d]
-        默认:20170101'''
+        默认:20170101"""
         self.BeginDate = '20170101'
         '''结束测试时间
         格式:yyyyMMdd[%Y%m%d]
@@ -33,13 +33,17 @@ class Strategy(object):
         self.EndDate = time.strftime("%Y%m%d", time.localtime())  # 默认值取当日期
         '''参数'''
         self.Params = []
+        '''分笔测试'''
+        self.TickTest = False
 
         if dict_cfg == '':
             return
         else:
             self.ID = dict_cfg['ID']
             self.Params = dict_cfg['Params']
-            self.BeginDate = dict_cfg['BeginDate']
+            self.BeginDate = str(dict_cfg['BeginDate'])
+            if 'TickTest' in dict_cfg:
+                self.TickTest = dict_cfg['TickTest']
             if 'EndDate' in dict_cfg:
                 self.EndDate = dict_cfg['EndDate']
             for data in dict_cfg['Datas']:
