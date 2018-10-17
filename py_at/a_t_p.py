@@ -301,8 +301,8 @@ class ATP(object):
             # 生成策略的测试报告
             # stra = Statistics(stra)
             Report(stra)
-            bar_dict = [{'DateTime': b.D, 'Open': b.O, 'Close': b.C, 'Low': b.L, 'High': b.H} for b in data.Bars]
-            show(bar_dict)
+            # bar_dict = [{'DateTime': b.D, 'Open': b.O, 'Close': b.C, 'Low': b.L, 'High': b.H} for b in data.Bars]
+            # show(bar_dict)
 
         self.cfg.log.war("test history is end.")
 

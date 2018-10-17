@@ -12,7 +12,11 @@ from .order import OrderItem
 import json
 import pandas as pd
 from pandas import DataFrame, Grouper
-from pyecharts import Kline, Bar, Line
+from pyecharts import Kline, Bar, Line, Overlap, Grid, Page, EffectScatter
+# 后加的部分
+from pyecharts.engine import create_default_environment
+import webbrowser
+from py_ctp.enums import DirectType, OffsetType
 
 
 class Report(object):
@@ -327,8 +331,86 @@ class Report(object):
 
     def show_chart(self):
         """显示图表"""
-        title = '{}{}{}'.format(self.stra.Instrument, self.stra.Interval, self.stra.IntervalType)
+        # title = '{}{}{}'.format(self.stra.Instrument, self.stra.Interval, self.stra.IntervalType)
+        # candles = [[b.O, b.C, b.L, b.H] for b in self.stra.Datas[0].Bars]
+        # kline = Kline(title)
+        # kline.add(title, self.df_data.index, candles)
+        # kline.render()
+
+        title = '{}{}{}{}{}'.format(self.stra.Instrument, ', ', self.stra.Interval, ' ', self.stra.IntervalType)
+        candlesDate = [b.D for b in self.stra.Datas[0].Bars]
         candles = [[b.O, b.C, b.L, b.H] for b in self.stra.Datas[0].Bars]
-        kline = Kline(title)
-        kline.add(title, self.df_data.index, candles)
-        kline.render()
+
+        # print(candlesDate)
+        # print(orderDate)
+        kline = Kline(title, title_pos='center', title_top='top')
+        # kline.add(title, candlesDate, candles, mark_point=['max'], is_datazoom_show=True, legend_orient="vertical", legend_pos="12%", legend_top="12%",)
+
+        # 做多的标记点
+        longlist = []
+        longmarklist = []
+        longlinelist = []
+        shortlist = []
+        shortmarklist = []
+        shortlinelist = []
+        longOrderOpen = []
+        shortOrderOpen = []
+        # 向k线中加标记
+        for ori in self.stra.Datas[0].Orders:
+            if ori.Direction == DirectType.Buy:
+                longlist.append([ori.DateTime, ori.Price])
+                temp = {"coord": [ori.DateTime, ori.Price], "name": str(ori.Price)}
+                longmarklist.append(temp)
+                if ori.Offset == OffsetType.Open:
+                    longOrderOpen = [ori.DateTime, ori.Price]
+                elif ori.Offset == OffsetType.Close:
+                    shortOrderClose = [ori.DateTime, ori.Price]
+                    shortOrder = [shortOrderOpen, shortOrderClose]
+                    temp = {"coord": shortOrder, "name": ori.Remark}
+                    shortlinelist.append(temp)
+                    # 平空后，画空头连接线
+                    kline.add(title, candlesDate, candles, mark_line_coords=shortOrder, mark_line_symbolsize=20,)
+
+            if ori.Direction == DirectType.Sell:
+                shortlist.append([ori.DateTime, ori.Price])
+                temp = {"coord": [ori.DateTime, ori.Price], "name": ori.Remark}
+                shortmarklist.append(temp)
+                if ori.Offset == OffsetType.Open:
+                    shortOrderOpen = [ori.DateTime, ori.Price]
+                elif ori.Offset == OffsetType.Close:
+                    longOrderClose = [ori.DateTime, ori.Price]
+                    longOrder = [longOrderOpen, longOrderClose]
+                    temp = {"coord": longOrder, "name": ori.Remark}
+                    longlinelist.append(temp)
+                    # 平多后 画多头连接线
+                    kline.add(title, candlesDate, candles, mark_line_coords=longOrder, mark_line_symbolsize=20,)
+
+        kline.add(title, candlesDate, candles, mark_point=longmarklist, mark_point_symbol='arrow', mark_point_backcolor='#ff4500', mark_point_symbolsize=20,
+                  is_datazoom_show=True, legend_orient="vertical", legend_pos="12%", legend_top="12%",)  # mark_line=longlinelist, mark_line_symbolsize=20,)
+        kline.add(title, candlesDate, candles, mark_point=shortmarklist, mark_point_symbol='pin', mark_point_backcolor='#00FF00', mark_point_symbolsize=20,
+                  is_datazoom_show=True, legend_orient="vertical", legend_pos="12%", legend_top="12%", mark_label_color='#AB82FF')  # mark_line=longlinelist, mark_line_symbolsize=20,)
+
+        overlap = Overlap(width=1200, height=600)
+        overlap.add(kline)
+
+        g = self.df_data.groupby('TD', axis=0, sort=True)  # Grouper(freq='1B', axis=0, sort=True))
+        df_day: DataFrame = DataFrame()
+        df_day['D'] = g.indices
+        df_day['Profit'] = g['Profit'].sum()
+        df_day['CloseProfit'] = g['CloseProfit'].sum()
+        lei_ji_shou_yi = df_day['CloseProfit'].cumsum()
+
+        xaxis = [str(x) for x in lei_ji_shou_yi.index]
+
+        line2 = Line('权益曲线', width=1200, height=600, title_pos='center', title_top='top')
+        line2.add('日权益曲线', xaxis, lei_ji_shou_yi.values, legend_orient="vertical", legend_pos="12%", legend_top="12%", is_fill=True,
+                  lable_color="#000", area_color="#000", area_opacity=0.3, is_smooth=False, symbol=None)
+
+        # 用page 把每张图粘在一起
+        page = Page(page_title=title)
+        page.add(overlap)
+        page.add(line2)
+        page.render()
+
+        # 使用webbrowser
+        webbrowser.open("render.html")
