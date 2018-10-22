@@ -57,12 +57,11 @@ class ATP(object):
         if self.cfg.real_order_enable:
             # print(order)
             order_id = stra.ID * 1000 + len(stra.GetOrders()) + 1
+            # 价格修正
+            order.Price = order.Price // self.t.instruments[order.Instrument].PriceTick * self.t.instruments[order.Instrument].PriceTick
 
-            # 平今与平昨;逻辑从C# 抄过来;没提示...不知道为啥,只能盲码了.
             if order.Offset != OffsetType.Open:
-                key = '{0}_{1}'.format(order.Instrument, DirectType.Sell
-                                       if order.Direction == DirectType.Buy
-                                       else DirectType.Buy)
+                key = '{0}_{1}'.format(order.Instrument, DirectType.Sell if order.Direction == DirectType.Buy else DirectType.Buy)
                 # 无效,没提示...pf = PositionField()
                 pf = self.t.positions.get(key)
                 if not pf or pf.Position <= 0:
@@ -73,20 +72,12 @@ class ATP(object):
                     if instField.ExchangeID == 'SHFE':
                         tdClose = min(volClose, pf.TdPosition)
                         if tdClose > 0:
-                            self.t.ReqOrderInsert(
-                                order.Instrument, order.Direction,
-                                OffsetType.CloseToday, order.Price, tdClose,
-                                OrderType.Limit, order_id)
+                            self.t.ReqOrderInsert(order.Instrument, order.Direction, OffsetType.CloseToday, order.Price, tdClose, OrderType.Limit, order_id)
                             volClose -= tdClose
                     if volClose > 0:
-                        self.t.ReqOrderInsert(
-                            order.Instrument, order.Direction,
-                            OffsetType.Close, order.Price, volClose,
-                            OrderType.Limit, order_id)
+                        self.t.ReqOrderInsert(order.Instrument, order.Direction, OffsetType.Close, order.Price, volClose, OrderType.Limit, order_id)
             else:
-                self.t.ReqOrderInsert(order.Instrument, order.Direction,
-                                      OffsetType.Open, order.Price,
-                                      order.Volume, OrderType.Limit, order_id)
+                self.t.ReqOrderInsert(order.Instrument, order.Direction, OffsetType.Open, order.Price, order.Volume, OrderType.Limit, order_id)
 
     def get_orders(self, stra):
         """获取策略相关的委托列表"""
@@ -114,11 +105,12 @@ class ATP(object):
                     rtn.append(order)
         return rtn
 
-    def req_order(self, instrument: str, dire: DirectType, offset: OffsetType, price: float, volume: int, type: OrderType=OrderType.Limit, stra: Strategy=None):
+    def req_order(self, instrument: str, dire: DirectType, offset: OffsetType, price: float, volume: int, type: OrderType=OrderType.Limit, stra: Strategy=''):
         """发送委托"""
         order_id = stra.ID * 1000 + len(stra.GetOrders()) + 1
-        self.t.ReqOrderInsert(instrument, dire, offset, price, volume, type,
-                              order_id)
+        # 价格修正
+        price = price // self.t.instruments[instrument].PriceTick * self.t.instruments[instrument].PriceTick
+        self.t.ReqOrderInsert(instrument, dire, offset, price, volume, type, order_id)
 
     def cancel_all(self, stra):
         """撤销所有委托"""
@@ -253,7 +245,8 @@ class ATP(object):
                 if cursor.fetchone()[0] == 0:
                     return []
                 for data in stra.Datas:
-                    sql = 'select "Actionday", "AskPrice", "AskVolume", "BidPrice", "BidVolume", "Instrument", "LastPrice", "OpenInterest", "UpdateMillisec", "UpdateTime", "Volume" from future_tick."{}" where "Instrument" = \'{}\''.format(tradingday, data.Instrument)
+                    sql = 'select "Actionday", "AskPrice", "AskVolume", "BidPrice", "BidVolume", "Instrument", "LastPrice", "OpenInterest", "UpdateMillisec", "UpdateTime", "Volume" from future_tick."{}" where "Instrument" = \'{}\''.format(
+                        tradingday, data.Instrument)
                     cursor.execute(sql)
                     rows = cursor.fetchall()
                     for d in rows:
