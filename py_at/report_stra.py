@@ -9,13 +9,13 @@ from .strategy import Strategy
 from .data import Data
 from .bar import Bar
 from .order import OrderItem
-import json
 import pandas as pd
 from pandas import DataFrame, Grouper
 from pyecharts import Kline, Bar, Line, Overlap, Grid, Page, EffectScatter
 # 后加的部分
 from pyecharts.engine import create_default_environment
 import webbrowser
+import json
 from py_ctp.enums import DirectType, OffsetType
 
 
@@ -316,82 +316,41 @@ class Report(object):
         self.nian_hua_shou_yi_lv = self.df_data['Profit'].sum() / len(g_year) / self.chu_shi_zi_jin
 
     def show(self):
+        report = open('./template.html', 'r', encoding='utf-8').read()
+        items_per_row = 3
+        table = '<tr>'
+        for i in range(items_per_row):
+            table += '<td>项目</td><td>值</td>'
+        table += '</tr><tr>'
         idx = 0
         for k, v in vars(self).items():
             if str(type(v)).find('int') > 0:
+                table += '<td>{}</td><td>{}</td>'.format(self.index_description[k], v)
                 print('{0:{2}<12}:{1:>9d}.   |'.format(self.index_description[k], v, chr(12288)), end='\t')
             elif str(type(v)).find('float') > 0:
+                table += '<td>{}</td><td>{}</td>'.format(self.index_description[k], v)
                 print('{0:{2}<12}:{1:>13.3f}|'.format(self.index_description[k], v, chr(12288)), end='\t')
             else:
                 continue
             idx += 1
-            if idx % 3 == 0:
+            if idx % items_per_row == 0:
+                table += '</tr><tr>'
                 print('')
-        self.show_chart()
+        table += '</tr>'
 
-    def show_chart(self):
-        """显示图表"""
-        # title = '{}{}{}'.format(self.stra.Instrument, self.stra.Interval, self.stra.IntervalType)
-        # candles = [[b.O, b.C, b.L, b.H] for b in self.stra.Datas[0].Bars]
-        # kline = Kline(title)
-        # kline.add(title, self.df_data.index, candles)
-        # kline.render()
+        report = report.replace('$report_table$', table)
 
-        title = '{}{}{}{}{}'.format(self.stra.Instrument, ', ', self.stra.Interval, ' ', self.stra.IntervalType)
-        candlesDate = [b.D for b in self.stra.Datas[0].Bars]
-        candles = [[b.O, b.C, b.L, b.H] for b in self.stra.Datas[0].Bars]
+        bars_json = []
+        for bar in self.stra.Bars:
+            bars_json.append([bar.D, bar.O, bar.C, bar.L, bar.H])
+        report = report.replace('$bars$', str(bars_json))
 
-        # print(candlesDate)
-        # print(orderDate)
-        kline = Kline(title, title_pos='center', title_top='top')
-        # kline.add(title, candlesDate, candles, mark_point=['max'], is_datazoom_show=True, legend_orient="vertical", legend_pos="12%", legend_top="12%",)
-
-        # 做多的标记点
-        longlist = []
-        longmarklist = []
-        longlinelist = []
-        shortlist = []
-        shortmarklist = []
-        shortlinelist = []
-        longOrderOpen = []
-        shortOrderOpen = []
-        # 向k线中加标记
-        for ori in self.stra.Datas[0].Orders:
-            if ori.Direction == DirectType.Buy:
-                longlist.append([ori.DateTime, ori.Price])
-                temp = {"coord": [ori.DateTime, ori.Price], "name": str(ori.Price)}
-                longmarklist.append(temp)
-                if ori.Offset == OffsetType.Open:
-                    longOrderOpen = [ori.DateTime, ori.Price]
-                elif ori.Offset == OffsetType.Close:
-                    shortOrderClose = [ori.DateTime, ori.Price]
-                    shortOrder = [shortOrderOpen, shortOrderClose]
-                    temp = {"coord": shortOrder, "name": ori.Remark}
-                    shortlinelist.append(temp)
-                    # 平空后，画空头连接线
-                    kline.add(title, candlesDate, candles, mark_line_coords=shortOrder, mark_line_symbolsize=20,)
-
-            if ori.Direction == DirectType.Sell:
-                shortlist.append([ori.DateTime, ori.Price])
-                temp = {"coord": [ori.DateTime, ori.Price], "name": ori.Remark}
-                shortmarklist.append(temp)
-                if ori.Offset == OffsetType.Open:
-                    shortOrderOpen = [ori.DateTime, ori.Price]
-                elif ori.Offset == OffsetType.Close:
-                    longOrderClose = [ori.DateTime, ori.Price]
-                    longOrder = [longOrderOpen, longOrderClose]
-                    temp = {"coord": longOrder, "name": ori.Remark}
-                    longlinelist.append(temp)
-                    # 平多后 画多头连接线
-                    kline.add(title, candlesDate, candles, mark_line_coords=longOrder, mark_line_symbolsize=20,)
-
-        kline.add(title, candlesDate, candles, mark_point=longmarklist, mark_point_symbol='arrow', mark_point_backcolor='#ff4500', mark_point_symbolsize=20,
-                  is_datazoom_show=True, legend_orient="vertical", legend_pos="12%", legend_top="12%",)  # mark_line=longlinelist, mark_line_symbolsize=20,)
-        kline.add(title, candlesDate, candles, mark_point=shortmarklist, mark_point_symbol='pin', mark_point_backcolor='#00FF00', mark_point_symbolsize=20,
-                  is_datazoom_show=True, legend_orient="vertical", legend_pos="12%", legend_top="12%", mark_label_color='#AB82FF')  # mark_line=longlinelist, mark_line_symbolsize=20,)
-
-        overlap = Overlap(width=1200, height=600)
-        overlap.add(kline)
+        orders_json = []
+        for ord in self.stra.Orders:
+            # 遇到diction=Diction.Buy转换后:diction:<Diction.Buy:1> 后面报错
+            # orders_str.append(ord.__dict__)
+            orders_json.append([ord.DateTime, (0 if ord.Direction == DirectType.Buy else 1), (0 if ord.Offset == OffsetType.Open else 1), ord.Price, ord.Volume])
+        report = report.replace('$orders$', json.dumps(orders_json))
 
         g = self.df_data.groupby('TD', axis=0, sort=True)  # Grouper(freq='1B', axis=0, sort=True))
         df_day: DataFrame = DataFrame()
@@ -399,18 +358,10 @@ class Report(object):
         df_day['Profit'] = g['Profit'].sum()
         df_day['CloseProfit'] = g['CloseProfit'].sum()
         lei_ji_shou_yi = df_day['CloseProfit'].cumsum()
+        quanyi = lei_ji_shou_yi.to_dict().items()
+        quanyi = [[k, v] for k, v in quanyi]
+        report = report.replace('$quanyi$', str(quanyi))
 
-        xaxis = [str(x) for x in lei_ji_shou_yi.index]
-
-        line2 = Line('权益曲线', width=1200, height=600, title_pos='center', title_top='top')
-        line2.add('日权益曲线', xaxis, lei_ji_shou_yi.values, legend_orient="vertical", legend_pos="12%", legend_top="12%", is_fill=True,
-                  lable_color="#000", area_color="#000", area_opacity=0.3, is_smooth=False, symbol=None)
-
-        # 用page 把每张图粘在一起
-        page = Page(page_title=title)
-        page.add(overlap)
-        page.add(line2)
-        page.render()
-
-        # 使用webbrowser
-        webbrowser.open("render.html")
+        with open('r.html', 'w', encoding='utf-8') as w:
+            w.write(report)
+        webbrowser.open("r.html")

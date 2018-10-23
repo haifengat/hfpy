@@ -147,7 +147,7 @@ class ATP(object):
                 if os.path.exists(file_name):
                     with open(file_name, encoding='utf-8') as stra_cfg_json_file:
                         params = yaml.load(stra_cfg_json_file)
-                        for param in params:
+                        for param in [p for p in params if p is not None]:  # 去除None的配置
                             if param['ID'] not in self.cfg.stra_path[path][filename]:
                                 continue
                             obj = c(param)
