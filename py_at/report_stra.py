@@ -11,9 +11,6 @@ from .bar import Bar
 from .order import OrderItem
 import pandas as pd
 from pandas import DataFrame, Grouper
-from pyecharts import Kline, Bar, Line, Overlap, Grid, Page, EffectScatter
-# 后加的部分
-from pyecharts.engine import create_default_environment
 import webbrowser
 import json
 from py_ctp.enums import DirectType, OffsetType
@@ -326,16 +323,16 @@ class Report(object):
         for k, v in vars(self).items():
             if str(type(v)).find('int') > 0:
                 table += '<td>{}</td><td>{}</td>'.format(self.index_description[k], v)
-                print('{0:{2}<12}:{1:>9d}.   |'.format(self.index_description[k], v, chr(12288)), end='\t')
+                # print('{0:{2}<12}:{1:>9d}.   |'.format(self.index_description[k], v, chr(12288)), end='\t')
             elif str(type(v)).find('float') > 0:
                 table += '<td>{}</td><td>{}</td>'.format(self.index_description[k], v)
-                print('{0:{2}<12}:{1:>13.3f}|'.format(self.index_description[k], v, chr(12288)), end='\t')
+                # print('{0:{2}<12}:{1:>13.3f}|'.format(self.index_description[k], v, chr(12288)), end='\t')
             else:
                 continue
             idx += 1
             if idx % items_per_row == 0:
                 table += '</tr><tr>'
-                print('')
+                # print('')
         table += '</tr>'
 
         report = report.replace('$report_table$', table)

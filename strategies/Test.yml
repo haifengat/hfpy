@@ -1,12 +1,12 @@
 ---
 -
     ID: 100
-    BeginDate: 20171110
+    BeginDate: 20181010
     Datas:
     - 
-        Instrument: rb1805
+        Instrument: rb1901
         IntervalType: Minute
-        Interval: 5
+        Interval: 1
     Params:
         Fast: 10
         Slow: 20

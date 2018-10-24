@@ -23,7 +23,6 @@ from .order import OrderItem
 from .structs import BarType
 from .structs import ReqPackage
 from .strategy import Strategy
-from .show_candle import show
 from .report_stra import Report
 from .config import Config
 
@@ -105,7 +104,7 @@ class ATP(object):
                     rtn.append(order)
         return rtn
 
-    def req_order(self, instrument: str, dire: DirectType, offset: OffsetType, price: float, volume: int, type: OrderType=OrderType.Limit, stra: Strategy=''):
+    def req_order(self, instrument: str, dire: DirectType, offset: OffsetType, price: float, volume: int, type: OrderType = OrderType.Limit, stra: Strategy = ''):
         """发送委托"""
         order_id = stra.ID * 1000 + len(stra.GetOrders()) + 1
         # 价格修正
@@ -150,8 +149,9 @@ class ATP(object):
                         for param in [p for p in params if p is not None]:  # 去除None的配置
                             if param['ID'] not in self.cfg.stra_path[path][filename]:
                                 continue
-                            obj = c(param)
+                            obj: Strategy = c(param)
                             self.cfg.log.info("# obj:{0}".format(obj))
+
                             for data in obj.Datas:
                                 data.SingleOrderOneBar = self.cfg.single_order_one_bar
                             self.stra_instances.append(obj)
@@ -286,18 +286,28 @@ class ATP(object):
                 bars = self.read_bars(stra)
                 listBar = [Bar(b['DateTime'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest'], b['Tradingday']) for b in bars]
 
-                stra.OnOrder = self.on_order
                 for bar in listBar:
                     for data in stra.Datas:
                         if data.Instrument == bar.Instrument:
                             data.__new_min_bar__(bar)  # 调Data的onbar
             # 生成策略的测试报告
-            # stra = Statistics(stra)
             Report(stra)
-            # bar_dict = [{'DateTime': b.D, 'Open': b.O, 'Close': b.C, 'Low': b.L, 'High': b.H} for b in data.Bars]
-            # show(bar_dict)
-
         self.cfg.log.war("test history is end.")
+
+    def link_fun(self):
+        '''策略函数与ATP关联'''
+        for stra in self.stra_instances:
+            stra._data_order = self.on_order
+            stra._get_orders = self.get_orders
+            stra._get_lastorder = self.get_lastorder
+            stra._get_notfill_orders = self.get_notfill_orders
+            stra._req_order = self.req_order
+            stra.ReqCancel = self.t.ReqOrderAction
+            stra._req_cancel_all = self.cancel_all
+
+            for data in stra.Datas:
+                if self.q is not None and self.q.logined:
+                    self.q.ReqSubscribeMarketData(data.Instrument)
 
     def OnFrontConnected(self, t: CtpTrade):
         """"""
@@ -339,21 +349,64 @@ class ATP(object):
                 print(self.tick_time + '||' + msg, end='\r')
             time.sleep(1)
 
+    def get_stra(self, order: OrderField)->Strategy:
+        lst = [stra for stra in self.stra_instances if stra.ID == order.Custom // 1000]
+        if len(lst) > 0:
+            return lst[0]
+        return None
+
     def OnOrder(self, t: CtpTrade, order: OrderField):
         """"""
         self.cfg.log.info(order)
+        if self.cfg.chasing:
+            threading.Thread(target=self.resend, args=(order,)).start()
+        stra = self.get_stra(order)
+        if stra is not None:
+            stra.OnOrder(order)
+
+    def resend(self, order: OrderField):
+        time.sleep(self.cfg.chasing['wait_seconds'])
+        self.t.ReqOrderAction(order.OrderID)
 
     def OnCancel(self, t: CtpTrade, order: OrderField):
         """"""
-        self.cfg.log.info(order)
+        # self.cfg.log.info(order)
+
+        stra = self.get_stra(order)
+        if stra is None:
+            return
+        if order.VolumeLeft > 0:
+            custom = order.Custom
+            custom = custom + 100
+            times = custom % 1000 // 100
+            if times <= self.cfg.chasing['resend_times']:
+                if order.Direction == DirectType.Buy:
+                    price = self.q.inst_tick[order.InstrumentID].AskPrice + self.cfg.chasing['offset_ticks'] * self.t.instruments[order.InstrumentID].PriceTick
+                else:
+                    price = self.q.inst_tick[order.InstrumentID].BidPrice - self.cfg.chasing['offset_ticks'] * self.t.instruments[order.InstrumentID].PriceTick
+            else:
+                if order.Direction == DirectType.Buy:
+                    price = self.q.inst_tick[order.InstrumentID].UpperLimitPrice
+                else:
+                    price = self.q.inst_tick[order.InstrumentID].LowerLimitPrice
+
+            self.t.ReqOrderInsert(order.InstrumentID, order.Direction, order.Offset, price, order.VolumeLeft, OrderType.Limit, pCustom=custom)
+
+        stra.OnCancel(order)
 
     def OnTrade(self, t: CtpTrade, trade: TradeField):
         """"""
         self.cfg.log.info(trade)
+        stra = self.get_stra(self.t.orders[trade.OrderID])
+        if stra is not None:
+            stra.OnTrade(trade)
 
     def OnRtnErrOrder(self, t: CtpTrade, order: OrderField, info: InfoField):
         """"""
         self.cfg.log.info(order)
+        stra = self.get_stra(order)
+        if stra is not None:
+            stra.OnErrOrder(order, info)
 
     def q_OnFrontConnected(self, q: CtpQuote):
         """"""

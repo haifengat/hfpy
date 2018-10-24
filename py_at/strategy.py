@@ -268,34 +268,29 @@ class Strategy(object):
         实时行情:每分钟触发一次"""
         pass
 
-    # 外层接口调用
-    def _data_order(self, stra, data: Data, order: OrderItem):
-        """继承类中实现此函数,有策略信号产生时调用"""
-        pass
-
-    def GetOrders(self):
+    def GetOrders(self)->[]:
         """获取策略相关委托,返回[]"""
         return self._get_orders(self)
 
-    def _get_orders(self, stra):
+    def _get_orders(self, stra)->[]:
         """获取策略相关委托,返回[]"""
-        return []
+        pass
 
-    def GetLastOrder(self):
+    def GetLastOrder(self)->OrderField:
         """获取最后一个委托"""
         return self._get_lastorder(self)
 
-    def _get_lastorder(self, stra):
+    def _get_lastorder(self, stra)->OrderField:
         """获取最后一个委托"""
-        return OrderField()
+        pass
 
-    def GetNotFillOrders(self):
+    def GetNotFillOrders(self)->[]:
         """获取未成交委托"""
         return self._get_notfill_orders(self)
 
-    def _get_notfill_orders(self, stra):
+    def _get_notfill_orders(self, stra)->[]:
         """获取未成交委托"""
-        return []
+        pass
 
     def ReqOrder(self, instrument: str, dire: DirectType, offset: OffsetType, price: float, volume: int, type: OrderType=OrderType.Limit):
         """发送委托"""
@@ -325,6 +320,11 @@ class Strategy(object):
     def __OnOrder(self, data: Data, order: OrderItem):
         """调用外部接口的reqorder"""
         self._data_order(self, data, order)
+
+    # 外层接口调用
+    def _data_order(self, stra, data: Data, order: OrderItem):
+        """继承类中实现此函数,有策略信号产生时调用"""
+        pass
 
     def OnOrder(self, order: OrderField()):
         """委托响应"""
