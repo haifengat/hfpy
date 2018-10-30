@@ -32,7 +32,8 @@ class Test(Strategy):
             else:
                 self.ordered = True
                 # self.ReqOrder(self.Instrument, DirectType.Buy, OffsetType.Open, self.Tick.AskPrice, 1)
-                self.ReqOrder(self.Tick.Instrument, DirectType.Buy, OffsetType.Open, self.Tick.BidPrice, 1)
+                # self.ReqOrder(self.Tick.Instrument, DirectType.Buy, OffsetType.Open, self.Tick.BidPrice, 1)
+                self.Sell(self.Tick.BidPrice, 1, 'close long')
 
                 print('1 last order == ', self.GetLastOrder())
                 print('1 order id == ', self.oid)

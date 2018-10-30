@@ -60,7 +60,7 @@ class ATP(object):
             order.Price = order.Price // self.t.instruments[order.Instrument].PriceTick * self.t.instruments[order.Instrument].PriceTick
 
             if order.Offset != OffsetType.Open:
-                key = '{0}_{1}'.format(order.Instrument, DirectType.Sell if order.Direction == DirectType.Buy else DirectType.Buy)
+                key = '{0}_{1}'.format(order.Instrument, 'Sell' if order.Direction == DirectType.Buy else 'Buy')
                 # 无效,没提示...pf = PositionField()
                 pf = self.t.positions.get(key)
                 if not pf or pf.Position <= 0:
