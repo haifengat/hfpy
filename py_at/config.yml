@@ -1,7 +1,7 @@
 ---
 ctp_config:
     # 为空时不登录
-    ctp_front: ''
+    ctp_front: 'sim_now'
     investor: '008107'
     password: '1'
     # ctp接口文件所在路径
@@ -36,6 +36,6 @@ stra_path:
     # 路径
     strategies:
         # 策略文件名
-        SMACross:
+        Test:
         # 策略配置参数ID
-        - 119
+        - 100

@@ -121,8 +121,7 @@ class ATP(object):
         """通过文件名取到对应的继承Data的类并实例"""
         for path in self.cfg.stra_path:
             for filename in self.cfg.stra_path[path]:
-                f = os.path.join(sys.path[0], '../{0}/{1}.py'.format(
-                    path, filename))
+                f = os.path.join(sys.path[0], '../{0}/{1}.py'.format(path, filename))
                 # 只处理对应的 py文件
                 if os.path.isdir(f) or os.path.splitext(f)[0] == '__init__':
                     continue
@@ -149,12 +148,13 @@ class ATP(object):
                         for param in [p for p in params if p is not None]:  # 去除None的配置
                             if param['ID'] not in self.cfg.stra_path[path][filename]:
                                 continue
-                            obj: Strategy = c(param)
-                            self.cfg.log.info("# obj:{0}".format(obj))
+                            stra: Strategy = c(param)
+                            stra.ID = param['ID']
+                            self.cfg.log.info("# strategy:{0}".format(stra))
 
-                            for data in obj.Datas:
+                            for data in stra.Datas:
                                 data.SingleOrderOneBar = self.cfg.single_order_one_bar
-                            self.stra_instances.append(obj)
+                            self.stra_instances.append(stra)
                 else:
                     self.cfg.log.error("缺少对应的json文件{0}".format(file_name))
 
@@ -357,56 +357,81 @@ class ATP(object):
 
     def OnOrder(self, t: CtpTrade, order: OrderField):
         """"""
+        if not order.IsLocal:
+            return
+
         self.cfg.log.info(order)
-        if self.cfg.chasing:
-            threading.Thread(target=self.resend, args=(order,)).start()
-        stra = self.get_stra(order)
-        if stra is not None:
-            stra.OnOrder(order)
-
-    def resend(self, order: OrderField):
-        time.sleep(self.cfg.chasing['wait_seconds'])
-        self.t.ReqOrderAction(order.OrderID)
-
-    def OnCancel(self, t: CtpTrade, order: OrderField):
-        """"""
-        # self.cfg.log.info(order)
+        if order.VolumeLeft == 0:
+            return
 
         stra = self.get_stra(order)
         if stra is None:
             return
-        if order.VolumeLeft > 0:
-            custom = order.Custom
-            custom = custom + 100
-            times = custom % 1000 // 100
-            if times <= self.cfg.chasing['resend_times']:
-                if order.Direction == DirectType.Buy:
-                    price = self.q.inst_tick[order.InstrumentID].AskPrice + self.cfg.chasing['offset_ticks'] * self.t.instruments[order.InstrumentID].PriceTick
-                else:
-                    price = self.q.inst_tick[order.InstrumentID].BidPrice - self.cfg.chasing['offset_ticks'] * self.t.instruments[order.InstrumentID].PriceTick
-            else:
-                if order.Direction == DirectType.Buy:
-                    price = self.q.inst_tick[order.InstrumentID].UpperLimitPrice
-                else:
-                    price = self.q.inst_tick[order.InstrumentID].LowerLimitPrice
 
-            self.t.ReqOrderInsert(order.InstrumentID, order.Direction, order.Offset, price, order.VolumeLeft, OrderType.Limit, pCustom=custom)
+        if self.cfg.chasing:
+            threading.Thread(target=self.resend, args=(order,)).start()
+        stra.OnOrder(order)
+
+    def resend(self, order: OrderField):
+        time.sleep(self.cfg.chasing['wait_seconds'])
+        if order.VolumeLeft > 0:
+            self.t.ReqOrderAction(order.OrderID)
+
+    def OnCancel(self, t: CtpTrade, order: OrderField):
+        """"""
+        # self.cfg.log.info(order)
+        if not order.IsLocal:
+            return
+
+        if order.VolumeLeft == 0:
+            return
+
+        stra = self.get_stra(order)
+        if stra is None:
+            return
+
+        custom = order.Custom
+        custom = custom + 100
+        times = custom % 1000 // 100
+        if times <= self.cfg.chasing['resend_times']:
+            if order.Direction == DirectType.Buy:
+                price = self.q.inst_tick[order.InstrumentID].AskPrice + self.cfg.chasing['offset_ticks'] * self.t.instruments[order.InstrumentID].PriceTick
+            else:
+                price = self.q.inst_tick[order.InstrumentID].BidPrice - self.cfg.chasing['offset_ticks'] * self.t.instruments[order.InstrumentID].PriceTick
+        else:
+            if order.Direction == DirectType.Buy:
+                price = self.q.inst_tick[order.InstrumentID].UpperLimitPrice
+            else:
+                price = self.q.inst_tick[order.InstrumentID].LowerLimitPrice
+
+        self.t.ReqOrderInsert(order.InstrumentID, order.Direction, order.Offset, price, order.VolumeLeft, OrderType.Limit, pCustom=custom)
 
         stra.OnCancel(order)
 
     def OnTrade(self, t: CtpTrade, trade: TradeField):
         """"""
+        order = self.t.orders[trade.OrderID]
+        if not order.IsLocal:
+            return
+
         self.cfg.log.info(trade)
-        stra = self.get_stra(self.t.orders[trade.OrderID])
-        if stra is not None:
-            stra.OnTrade(trade)
+        stra = self.get_stra(order)
+        if stra is None:
+            return
+
+        stra.OnTrade(trade)
 
     def OnRtnErrOrder(self, t: CtpTrade, order: OrderField, info: InfoField):
         """"""
+        if not order.IsLocal:
+            return
+
         self.cfg.log.info(order)
         stra = self.get_stra(order)
-        if stra is not None:
-            stra.OnErrOrder(order, info)
+        if stra is None:
+            return
+
+        stra.OnErrOrder(order, info)
 
     def q_OnFrontConnected(self, q: CtpQuote):
         """"""
