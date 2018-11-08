@@ -6,29 +6,90 @@
     <title>交易策略绩效报告</title>
     <!-- 引入 echarts.js -->
     <script src="echarts.min.js"></script>
+    <script src="http://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 </head>
 
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="table" style="width: 100%;"><br />
+    <div id="reportTable" style="width: 100%;"><br />
         <h3>绩效报告</h3>
-        <table style="width: 100%;height:400px;" border="1" , align="center">
-            $report_table$
-        </table>
+        <template>
+            <el-table :data="reportData" style="width: 100%; margin-left: 200px" stripe="true">
+                <el-table-column prop="item_1" label="项目" width="200">
+                </el-table-column>
+                <el-table-column prop="value_1" label="值" width="200">
+                </el-table-column>
+                <el-table-column label="" width="30"></el-table-column>
+                <el-table-column prop="item_2" label="项目" width="200">
+                </el-table-column>
+                <el-table-column prop="value_2" label="值" width="200">
+                </el-table-column>
+                <el-table-column label="" width="30"></el-table-column>
+                <el-table-column prop="item_3" label="项目" width="200">
+                </el-table-column>
+                <el-table-column prop="value_3" label="值" width="200">
+                </el-table-column>
+            </el-table>
+        </template>
     </div>
-    <div id="main" align="center" style="width: 100%;height:600px;"></div><br />
-    <h3>收益曲线</h3>
-    <div id="sub" align="center" style="width: 100%;height:600px;"></div><br />
+    <div id="main" align="center" style="width: 90%;height:700px;"></div><br />
+    <div id="sub" align="center" style="width: 90%;height:700px;"></div><br />
+    <div id="sub2" align="center" style="width: 90%;height:700px;"></div><br />
+    <div id="sub3" align="center" style="width: 90%;height:700px;"></div><br />
+    <div id="sub4" align="center" style="width: 90%;height:700px;"></div><br />
+    <div id="orderTable">
+        <h3>下单记录</h3>
+        <template>
+            <el-table :data="orderData" style="width: 100%;margin-left: 200px" stripe="true" :summary-method="getSummaries"
+                show-summary>
+                <el-table-column type="index" :index="indexMethod" label='序号'>
+                </el-table-column>
+                <el-table-column label="开" width="50">
+                </el-table-column>
+                <el-table-column prop="datetime_o" label="下单时间" width="180">
+                </el-table-column>
+                <el-table-column prop="direction_o" label="买卖方向" width="100">
+                </el-table-column>
+                <el-table-column prop="offset_o" label="开平方向" width="100">
+                </el-table-column>
+                <el-table-column prop="price_o" label="价格" width="100">
+                </el-table-column>
+                <el-table-column prop="volume_o" label="手数" width="100">
+                </el-table-column>
+                <el-table-column label="平" width="50">
+                </el-table-column>
+                <el-table-column prop="datetime_c" label="下单时间" width="180">
+                </el-table-column>
+                <el-table-column prop="direction_c" label="买卖方向" width="100">
+                </el-table-column>
+                <el-table-column prop="offset_c" label="开平方向" width="100">
+                </el-table-column>
+                <el-table-column prop="price_c" label="价格" width="100">
+                </el-table-column>
+                <el-table-column prop="volume_c" label="手数" width="100">
+                </el-table-column>
+                <el-table-column prop="profit" label="盈亏点数" width="100">
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
 
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
 
         // 指定图表的配置项和数据
-        var upColor = '#ec0000';
-        var upBorderColor = '#8A0000';
-        var downColor = '#00da3c';
-        var downBorderColor = '#008F28';
+        var upColor = '#0000FF';
+        var upBorderColor = '#0000FF';
+        var downColor = '#FF0000';
+        var downBorderColor = '#FF0000';
+
+        var reportTable = $report_table$;
+        console.log(reportTable);
+
 
 
         // 数据意义：开盘(open)，收盘(close)，最低(lowest)，最高(highest)
@@ -36,7 +97,6 @@
 
         //数据意义：日期，方向（0为买，1为卖），开平（0为开，1为平），价格,手数
         var data1 = $orders$
-
 
         function splitData(rawData) {
             var categoryData = [];
@@ -66,10 +126,19 @@
 
 
         var pointers = []
-
+        var orderData = []
         //构造点
         for (var i = 0; i < data1.length; i++) {
+            console.log(data1[i])
+            // orderData.push({
+            //     datetime: data1[i][0],
+            //     direction: data1[i][1],
+            //     offset: data1[i][2],
+            //     price: data1[i][3],
+            //     volume: data1[i][4]
+            // })
             if (data1[i][1] == 0) {
+
                 pointers.push({
                     name: 'XX标点',
                     direction: data1[i][1],
@@ -80,8 +149,10 @@
                     dtime: data1[i][0],
                     itemStyle: {
                         normal: { color: 'red' }
-                    }
+                    },
+                    symbolRotate: 0
                 })
+
             }
             else {
                 pointers.push({
@@ -93,9 +164,12 @@
                     value: data1[i][4],
                     dtime: data1[i][0],
                     itemStyle: {
-                        normal: { color: 'rgb(41,150,85)' }
-                    }
+                        normal: { color: 'green' }
+                    },
+                    symbolRotate: 180
+
                 })
+
             }
         }
 
@@ -109,7 +183,7 @@
         var closevolume = 0
         for (var i = 0; i < pointers.length; i++) {
             if (pointers[i]['offset'] == 0) {
-                position.push({ 'direction': pointers[i]['direction'], 'dtime': pointers[i]['dtime'], 'volume': pointers[i]['value'], 'price': pointers[i]['price'] })
+                position.push({ 'direction': pointers[i]['direction'], 'dtime': pointers[i]['dtime'], 'volume': pointers[i]['value'], 'price': pointers[i]['price'], 'offset': pointers[i]['offset'] })
             }
             else {
                 closevolume = pointers[i]['value']
@@ -121,30 +195,29 @@
                                 [
                                     {
                                         lineStyle: {
-                                            normal: {
-                                                color: pos['price'] < pointers[i]['Price'] ? 'red' : 'green',
-                                                width: 1,
-                                                type: 'dashed'
-                                            }
+                                            color: pos['price'] < pointers[i]['price'] ? 'red' : 'green'
                                         },
-                                        itemStyle: {
-                                            normal: {
-                                                borderWidth: 3,
-                                                borderColor: 'yellow',
-                                                color: 'red'
-                                            }
-                                        },
-                                        symbol: 'triangle',
-                                        symbolSize: 8,
                                         coord: [pos['dtime'], pos['price']],
                                     },
                                     {
-                                        symbol: 'triangle',
-                                        symbolSize: 8,
                                         coord: [pointers[i]['dtime'], pointers[i]['price']],
                                     }
-                                ],
+                                ]
                             )
+                            orderData.push({
+
+                                datetime_o: pos['dtime'],
+                                direction_o: pos['direction'],
+                                offset_o: pos['offset'],
+                                price_o: pos['price'],
+                                volume_o: pos['volume'],
+                                datetime_c: pointers[i]['dtime'],
+                                direction_c: pointers[i]['direction'],
+                                offset_c: pointers[i]['offset'],
+                                price_c: pointers[i]['price'],
+                                volume_c: pointers[i]['value'],
+                                profit: (pointers[i]['price'] - pos['price']) * pointers[i]['value'] * (pos['direction'] == 0 ? 1 : -1)
+                            })
                             position.shift()
                             break
                         }
@@ -154,31 +227,28 @@
                                 [
                                     {
                                         lineStyle: {
-                                            normal: {
-                                                color: pos['price'] > pointers[i]['Price'] ? 'red' : 'green',
-                                                width: 1,
-                                                type: 'dashed'
-                                            }
+                                            color: pos['price'] > pointers[i]['price'] ? 'red' : 'green'
                                         },
-                                        itemStyle: {
-                                            normal: {
-                                                borderWidth: 3,
-                                                borderColor: 'yellow',
-                                                color: 'blue'
-                                            }
-                                        },
-                                        symbol: 'triangle',
-                                        symbolSize: 8,
                                         coord: [pos['dtime'], pos['price']],
-
                                     },
                                     {
-                                        symbol: 'triangle',
-                                        symbolSize: 8,
                                         coord: [pointers[i]['dtime'], pointers[i]['price']],
                                     }
-                                ],
+                                ]
                             )
+                            orderData.push({
+                                datetime_o: pos['dtime'],
+                                direction_o: pos['direction'],
+                                offset_o: pos['offset'],
+                                price_o: pos['price'],
+                                volume_o: pos['volume'],
+                                datetime_c: pointers[i]['dtime'],
+                                direction_c: pointers[i]['direction'],
+                                offset_c: pointers[i]['offset'],
+                                price_c: pointers[i]['price'],
+                                volume_c: pointers[i]['value'],
+                                profit: (pointers[i]['price'] - pos['price']) * pointers[i]['value'] * (pos['direction'] == 0 ? 1 : -1)
+                            });
                             break
                         }
                         else {
@@ -186,65 +256,60 @@
                                 [
                                     {
                                         lineStyle: {
-                                            normal: {
-                                                color: pos['price'] > pointers[i]['Price'] ? 'red' : 'green',
-                                                width: 1,
-                                                type: 'dashed'
-                                            }
+                                            color: pos['price'] > pointers[i]['price'] ? 'red' : 'green',
                                         },
-                                        itemStyle: {
-                                            normal: {
-                                                borderWidth: 3,
-                                                borderColor: 'yellow',
-                                                color: 'blue'
-                                            }
-                                        },
-                                        symbol: 'triangle',
-                                        symbolSize: 8,
                                         coord: [pos['dtime'], pos['price']],
-
                                     },
                                     {
-                                        symbol: 'triangle',
-                                        symbolSize: 8,
                                         coord: [pointers[i]['dtime'], pointers[i]['price']],
                                     }
-                                ],
-                            )
+                                ]
+                            );
+                            orderData.push({
+                                datetime_o: pos['dtime'],
+                                direction_o: pos['direction'],
+                                offset_o: pos['offset'],
+                                price_o: pos['price'],
+                                volume_o: pos['volume'],
+                                datetime_c: pointers[i]['dtime'],
+                                direction_c: pointers[i]['direction'],
+                                offset_c: pointers[i]['offset'],
+                                price_c: pointers[i]['price'],
+                                volume_c: pointers[i]['value'],
+                                profit: (pointers[i]['price'] - pos['price']) * pointers[i]['value'] * (pos['direction'] == 0 ? 1 : -1)
+                            });
                             position.shift()
                         }
                     }
                     else {
                         if (pos['volume'] == closevolume) {
+                            console.log(pos, pointers[i]);
                             marklines.push(
                                 [
                                     {
                                         lineStyle: {
-                                            normal: {
-                                                color: pos['price'] > pointers[i]['Price'] ? 'red' : 'green',
-                                                width: 1,
-                                                type: 'dashed'
-                                            }
+                                            color: pos['price'] > pointers[i]['price'] ? 'red' : 'green',
                                         },
-                                        itemStyle: {
-                                            normal: {
-                                                borderWidth: 3,
-                                                borderColor: 'yellow',
-                                                color: 'blue'
-                                            }
-                                        },
-                                        symbol: 'triangle',
-                                        symbolSize: 8,
                                         coord: [pos['dtime'], pos['price']],
-
                                     },
                                     {
-                                        symbol: 'triangle',
-                                        symbolSize: 8,
                                         coord: [pointers[i]['dtime'], pointers[i]['price']],
                                     }
-                                ],
-                            )
+                                ]
+                            );
+                            orderData.push({
+                                datetime_o: pos['dtime'],
+                                direction_o: pos['direction'],
+                                offset_o: pos['offset'],
+                                price_o: pos['price'],
+                                volume_o: pos['volume'],
+                                datetime_c: pointers[i]['dtime'],
+                                direction_c: pointers[i]['direction'],
+                                offset_c: pointers[i]['offset'],
+                                price_c: pointers[i]['price'],
+                                volume_c: pointers[i]['value'],
+                                profit: (pointers[i]['price'] - pos['price']) * pointers[i]['value'] * (pos['direction'] == 0 ? 1 : -1)
+                            });
                             position.shift()
                             break
                         }
@@ -254,31 +319,28 @@
                                 [
                                     {
                                         lineStyle: {
-                                            normal: {
-                                                color: pos['price'] > pointers[i]['Price'] ? 'red' : 'green',
-                                                width: 1,
-                                                type: 'dashed'
-                                            }
+                                            color: pos['price'] > pointers[i]['price'] ? 'red' : 'green',
                                         },
-                                        itemStyle: {
-                                            normal: {
-                                                borderWidth: 3,
-                                                borderColor: 'yellow',
-                                                color: 'blue'
-                                            }
-                                        },
-                                        symbol: 'triangle',
-                                        symbolSize: 8,
                                         coord: [pos['dtime'], pos['price']],
-
                                     },
                                     {
-                                        symbol: 'triangle',
-                                        symbolSize: 8,
                                         coord: [pointers[i]['dtime'], pointers[i]['price']],
                                     }
-                                ],
-                            )
+                                ]
+                            );
+                            orderData.push({
+                                datetime_o: pos['dtime'],
+                                direction_o: pos['direction'],
+                                offset_o: pos['offset'],
+                                price_o: pos['price'],
+                                volume_o: pos['volume'],
+                                datetime_c: pointers[i]['dtime'],
+                                direction_c: pointers[i]['direction'],
+                                offset_c: pointers[i]['offset'],
+                                price_c: pointers[i]['price'],
+                                volume_c: pointers[i]['value'],
+                                profit: (pointers[i]['price'] - pos['price']) * pointers[i]['value'] * (pos['direction'] == 0 ? 1 : -1)
+                            });
                             break
                         }
                         else {
@@ -286,33 +348,28 @@
                                 [
                                     {
                                         lineStyle: {
-                                            normal: {
-                                                color: pos['price'] > pointers[i]['Price'] ? 'red' : 'green',
-                                                width: 1,
-                                                type: 'dashed'
-                                            }
+                                            color: pos['price'] > pointers[i]['price'] ? 'red' : 'green',
                                         },
-                                        itemStyle: {
-                                            normal: {
-                                                borderWidth: 3,
-                                                borderColor: 'yellow',
-                                                color: 'blue'
-                                            }
-                                        },
-                                        symbol: 'triangle',
-                                        symbolSize: 8,
                                         coord: [pos['dtime'], pos['price']],
-
                                     },
                                     {
-                                        symbol: 'triangle',
-                                        symbolSize: 8,
                                         coord: [pointers[i]['dtime'], pointers[i]['price']],
-
-
                                     }
-                                ],
-                            )
+                                ]
+                            );
+                            orderData.push({
+                                datetime_o: pos['dtime'],
+                                direction_o: pos['direction'],
+                                offset_o: pos['offset'],
+                                price_o: pos['price'],
+                                volume_o: pos['volume'],
+                                datetime_c: pointers[i]['dtime'],
+                                direction_c: pointers[i]['direction'],
+                                offset_c: pointers[i]['offset'],
+                                price_c: pointers[i]['price'],
+                                volume_c: pointers[i]['value'],
+                                profit: (pointers[i]['price'] - pos['price']) * pointers[i]['value'] * (pos['direction'] == 0 ? 1 : -1)
+                            });
                             position.shift()
                         }
                     }
@@ -322,7 +379,9 @@
 
         option =
             {
+
                 title: {
+                    left: 'center',
                     text: '信号图',
                     left: 0
                 },
@@ -330,11 +389,13 @@
                     trigger: 'axis',
                     axisPointer: {
                         type: 'cross'
+                    },
+                    position: function (pt) {
+                        return [pt[0], '10%'];
                     }
+
                 },
-                //legend: {
-                //    data: ['日K']
-                //},
+
                 grid: {
                     left: '10%',
                     right: '10%',
@@ -398,37 +459,84 @@
                                     formatter: function (param) {
                                         return param.name + '<br>' + (param.data.coord || '');
                                     }
-                                }
-                            },
-                            markLine: {
-                                symbol: ['circle', 'circle'],
+                                },
+                                symbol: 'arrow',
+                                symbolSize: [10, 20]
 
-                                symbolSize: 10,
+                            },
+
+                            markLine: {
+                                symbol: ['arrow', 'arrow'],
+                                symbolSize: 2,
                                 data: marklines,
                             }
                         },
-                        /*
-                        {
-                            {
-                                name: 'MA5',
-                                type: 'line',
-                                data: indexs,
-                                smooth: true,
-                                lineStyle: {
-                                normal: {opacity: 0.5}
-                                }
-                            }
-                        }*/
                     ]
             };
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
+        // 生成下单数据
+        var Main = {
+            data() {
+                return {
+                    orderData: orderData,
+                    reportData: reportTable
+                }
+            },
+            methods: {
+                indexMethod(index) {
+                    return index + 1;
+                },
+                getSummaries(param) {
+                    const { columns, data } = param;
+                    const sums = [];
+                    columns.forEach((column, index) => {
+                        if (index === 0) {
+                            sums[index] = '总计';
+                            return;
+                        } else if (index === 13 | index === 6 | index === 12) {
+                            const values = data.map(item => Number(item[column.property]));
+                            sums[index] = values.reduce((prev, curr) => {
+                                const value = Number(curr);
+                                if (!isNaN(value)) {
+                                    return prev + curr;
+                                } else {
+                                    return prev;
+                                }
+                            }, 0);
+                        } else {
+                            sums[index] = ''
+                        }
+                    });
+
+                    return sums;
+                }
+            }
+        }
+
+        var Ctor = Vue.extend(Main);
+        new Ctor().$mount('#reportTable');
+        new Ctor().$mount('#orderTable');
+
+        // 生成下单数据
 
         var dayEquity = splitData2($quanyi$)
         var myChart2 = echarts.init(document.getElementById('sub'));
-
+        var d1 = dayEquity.categoryData
+        var d2 = dayEquity.values
         option2 = {
+
+            tooltip: {
+                trigger: 'axis',
+                position: function (pt) {
+                    return [pt[0], '10%'];
+                }
+            },
+            title: {
+                left: 'center',
+                text: '逐日收益曲线',
+            },
             xAxis: {
                 type: 'category',
                 data: dayEquity.categoryData
@@ -446,11 +554,197 @@
             series: [{
                 data: dayEquity.values,
                 type: 'line',
-                smooth: true
+                smooth: false,
+                itemStyle: {
+                    color: 'rgb(255, 70, 131)'
+                },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 70, 131)'
+                    }])
+                },
+
             }]
         };
 
         myChart2.setOption(option2);
+
+        // ************************************
+
+        var leijishouyi = splitData2($leijishouyi$)
+        var myChart3 = echarts.init(document.getElementById('sub2'));
+
+        option3 = {
+
+            tooltip: {
+                trigger: 'axis',
+                position: function (pt) {
+                    return [pt[0], '10%'];
+                }
+            },
+            title: {
+                left: 'center',
+                text: '逐笔收益曲线',
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: leijishouyi.categoryData
+
+            },
+            yAxis: {
+                type: 'value',
+                boundaryGap: [0, '100%'],
+
+                max: function (value) {
+                    return value.max + 20
+                },
+                min: function (value) {
+                    return value.min - 20
+                }
+
+            },
+
+            series: [{
+                data: leijishouyi.values,
+                type: 'line',
+                smooth: false,
+                itemStyle: {
+                    color: 'rgb(255, 70, 131)'
+                },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 70, 131)'
+                    }])
+                },
+
+            }]
+        };
+        myChart3.setOption(option3);
+
+        // ************************************
+
+        var longleijishouyi = splitData2($longleijishouyi$)
+        var myChart4 = echarts.init(document.getElementById('sub3'));
+
+        option4 = {
+
+            tooltip: {
+                trigger: 'axis',
+                position: function (pt) {
+                    return [pt[0], '10%'];
+                }
+            },
+            title: {
+                left: 'center',
+                text: '做多逐笔收益曲线',
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: longleijishouyi.categoryData
+
+            },
+            yAxis: {
+                type: 'value',
+                boundaryGap: [0, '100%'],
+
+                max: function (value) {
+                    return value.max + 20
+                },
+                min: function (value) {
+                    return value.min - 20
+                }
+
+            },
+
+            series: [{
+                data: longleijishouyi.values,
+                type: 'line',
+                smooth: false,
+                itemStyle: {
+                    color: 'rgb(255, 70, 131)'
+                },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 70, 131)'
+                    }])
+                },
+
+            }]
+        };
+        myChart4.setOption(option4);
+
+        // ************************************
+
+        var shortleijishouyi = splitData2($shortleijishouyi$)
+        var myChart5 = echarts.init(document.getElementById('sub4'));
+
+        option5 = {
+
+            tooltip: {
+                trigger: 'axis',
+                position: function (pt) {
+                    return [pt[0], '10%'];
+                }
+            },
+            title: {
+                left: 'center',
+                text: '做空逐笔收益曲线',
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: shortleijishouyi.categoryData
+
+            },
+            yAxis: {
+                type: 'value',
+                boundaryGap: [0, '100%'],
+
+                max: function (value) {
+                    return value.max + 20
+                },
+                min: function (value) {
+                    return value.min - 20
+                }
+
+            },
+
+            series: [{
+                data: shortleijishouyi.values,
+                type: 'line',
+                smooth: false,
+                itemStyle: {
+                    color: 'rgb(255, 70, 131)'
+                },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 70, 131)'
+                    }])
+                },
+
+            }]
+        };
+        myChart5.setOption(option5);
+
+
     </script>
 </body>
 

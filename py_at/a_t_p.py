@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-  Author:  HaiFeng --<galaxy>
+  Author:  HaiFeng
   Purpose: main function
   Created: 2016/5/31
 """

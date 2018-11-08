@@ -292,7 +292,7 @@ class Strategy(object):
         """获取未成交委托"""
         pass
 
-    def ReqOrder(self, instrument: str, dire: DirectType, offset: OffsetType, price: float, volume: int, type: OrderType=OrderType.Limit):
+    def ReqOrder(self, instrument: str, dire: DirectType, offset: OffsetType, price: float, volume: int, type: OrderType = OrderType.Limit):
         """发送委托"""
         self._req_order(instrument, dire, offset, price, volume, type, self)
 

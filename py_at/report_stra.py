@@ -14,6 +14,7 @@ from pandas import DataFrame, Grouper
 import webbrowser
 import json
 from py_ctp.enums import DirectType, OffsetType
+import numpy as np
 
 
 class Report(object):
@@ -201,7 +202,7 @@ class Report(object):
         self.df_data = df_data
         self.stra = stra
         self.get_report()
-        self.show()
+        self.show(stra)
 
     def get_report(self):
         """按日统计"""
@@ -312,30 +313,53 @@ class Report(object):
         g_year = self.df_data.groupby(Grouper(freq='12M', axis=0, sort=True))
         self.nian_hua_shou_yi_lv = self.df_data['Profit'].sum() / len(g_year) / self.chu_shi_zi_jin
 
-    def show(self):
+    def show(self, stra: Strategy):
         report = open('./template.html', 'r', encoding='utf-8').read()
-        items_per_row = 3
-        table = '<tr>'
-        for i in range(items_per_row):
-            table += '<td>项目</td><td>值</td>'
-        table += '</tr><tr>'
-        idx = 0
+        tempData = []
+        reportData = []
         for k, v in vars(self).items():
-            if str(type(v)).find('int') > 0:
-                table += '<td>{}</td><td>{}</td>'.format(self.index_description[k], v)
-                # print('{0:{2}<12}:{1:>9d}.   |'.format(self.index_description[k], v, chr(12288)), end='\t')
-            elif str(type(v)).find('float') > 0:
-                table += '<td>{}</td><td>{}</td>'.format(self.index_description[k], v)
-                # print('{0:{2}<12}:{1:>13.3f}|'.format(self.index_description[k], v, chr(12288)), end='\t')
-            else:
-                continue
-            idx += 1
-            if idx % items_per_row == 0:
-                table += '</tr><tr>'
-                # print('')
-        table += '</tr>'
+            if(type(v) == float or type(v) == int):
+                tempData.append({
+                    'item': self.index_description[k],
+                    'value': v
+                })
 
-        report = report.replace('$report_table$', table)
+        if len(tempData) % 3 != 0:
+            rownum = int(len(tempData) / 3)
+        else:
+            rownum = int(len(tempData) / 3) + 1
+        for i in range(rownum):
+            reportData.append({
+                'item_1': tempData[i]['item'],
+                'value_1': tempData[i]['value'],
+                'item_2': tempData[rownum * 1 + i]['item'],
+                'value_2': tempData[rownum * 1 + i]['value'],
+                'item_3': tempData[rownum * 2 + i]['item'],
+                'value_3': tempData[rownum * 2 + i]['value']
+            })
+
+        # items_per_row = 3
+        # table = '<tr>'
+        # for i in range(items_per_row):
+        #     table += '<td>项目</td><td>值</td>'
+        # table += '</tr><tr>'
+        # idx = 0
+        # for k, v in vars(self).items():
+        #     print(self.index_description[k], v)
+        #     if str(type(v)).find('int') > 0:
+        #         table += '<td>{}</td><td>{}</td>'.format(self.index_description[k], v)
+        #         # print('{0:{2}<12}:{1:>9d}.   |'.format(self.index_description[k], v, chr(12288)), end='\t')
+        #     elif str(type(v)).find('float') > 0:
+        #         table += '<td>{}</td><td>{}</td>'.format(self.index_description[k], v)
+        #         # print('{0:{2}<12}:{1:>13.3f}|'.format(self.index_description[k], v, chr(12288)), end='\t')
+        #     else:
+        #         continue
+        #     idx += 1
+        #     if idx % items_per_row == 0:
+        #         table += '</tr><tr>'
+        #         # print('')
+        # table += '</tr>'
+        report = report.replace('$report_table$', str(json.dumps(reportData)))
 
         bars_json = []
         for bar in self.stra.Bars:
@@ -358,6 +382,48 @@ class Report(object):
         quanyi = lei_ji_shou_yi.to_dict().items()
         quanyi = [[k, v] for k, v in quanyi]
         report = report.replace('$quanyi$', str(quanyi))
+
+        # 计算单笔收益
+        longwinnlist = []
+        shortwinnlist = []
+        winnlist = []
+        longinprice = 0
+        shortinprice = 0
+        for o in stra.Datas[0].Orders:
+            if o.Offset == OffsetType.Open and o.Direction == DirectType.Buy:
+                longinprice = o.Price
+            elif o.Offset == OffsetType.Open and o.Direction == DirectType.Sell:
+                shortinprice = o.Price
+            elif o.Offset == OffsetType.Close and o.Direction == DirectType.Sell:
+                winn = o.Price - longinprice
+                longwinnlist.append(winn)
+                winnlist.append(winn)
+            elif o.Offset == OffsetType.Close and o.Direction == DirectType.Buy:
+                winn = shortinprice - o.Price
+                shortwinnlist.append(winn)
+                winnlist.append(winn)
+
+        # 计算累计收益率 做多和做空的
+
+        winnsumlist = np.array(winnlist, dtype=float).cumsum()
+        longwinnsumlist = np.array(longwinnlist, dtype=float).cumsum()
+        shortwinnsumlist = np.array(shortwinnlist, dtype=float).cumsum()
+
+        leijishouyi = []
+        longleijishouyi = []
+        shortleijishouyi = []
+        for x in range(len(winnsumlist)):
+            leijishouyi.append([x, winnsumlist[x]])
+
+        for x in range(len(longwinnsumlist)):
+            longleijishouyi.append([x, longwinnsumlist[x]])
+
+        for x in range(len(shortwinnsumlist)):
+            shortleijishouyi.append([x, shortwinnsumlist[x]])
+
+        report = report.replace('$leijishouyi$', str(leijishouyi))
+        report = report.replace('$longleijishouyi$', str(longleijishouyi))
+        report = report.replace('$shortleijishouyi$', str(shortleijishouyi))
 
         with open('r.html', 'w', encoding='utf-8') as w:
             w.write(report)

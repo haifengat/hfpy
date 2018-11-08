@@ -21,7 +21,7 @@ class Test(Strategy):
         self.ordered = False
         self.closed = False
         self.oid = 0
-
+    
     def OnBarUpdate(self, data=Data, bar=Bar):
         if self.Tick.Instrument == '':
             return
