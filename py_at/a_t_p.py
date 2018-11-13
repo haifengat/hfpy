@@ -43,9 +43,8 @@ class ATP(object):
         self.cfg = Config()
         self.stra_instances = []
 
-        dllpath = os.path.join(os.getcwd(), self.cfg.ctp_dll_path)
-        self.q = CtpQuote(dllpath)
-        self.t = CtpTrade(dllpath)
+        self.q = CtpQuote()
+        self.t = CtpTrade()
 
     def on_order(self, stra: Strategy, data: Data, order: OrderItem):
         """此处调用ctp接口即可实现实际下单"""
