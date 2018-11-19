@@ -4,10 +4,10 @@ __title__ = '策略报告'
 __author__ = 'HaiFeng'
 __mtime__ = '20180831'
 
-
 from .strategy import Strategy
 from .data import Data
 from .bar import Bar
+import os
 from .order import OrderItem
 import pandas as pd
 from pandas import DataFrame, Grouper
@@ -314,11 +314,11 @@ class Report(object):
         self.nian_hua_shou_yi_lv = self.df_data['Profit'].sum() / len(g_year) / self.chu_shi_zi_jin
 
     def show(self, stra: Strategy):
-        report = open('./template.html', 'r', encoding='utf-8').read()
+        report = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'template.html'), 'r', encoding='utf-8').read()
         tempData = []
         reportData = []
         for k, v in vars(self).items():
-            if(type(v) == float or type(v) == int):
+            if (type(v) == float or type(v) == int):
                 tempData.append({
                     'item': self.index_description[k],
                     'value': v

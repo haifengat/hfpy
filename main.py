@@ -5,6 +5,7 @@ __author__ = 'HaiFeng'
 __mtime__ = '20180822'
 
 from py_at.a_t_p import ATP
+import sys
 
 if __name__ == '__main__':
     p = ATP()
@@ -13,4 +14,6 @@ if __name__ == '__main__':
     p.read_data_test()
     p.link_fun()
 
-    input()
+    while input() != 'q':
+        continue
+    sys.exit(0)

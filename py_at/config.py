@@ -16,13 +16,11 @@ class Config(object):
 
     def __init__(self):
         self.log = Logger()
-        cfg_file = os.path.join(os.getcwd(), 'py_at', 'config.yml')
+        cfg_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.yml')
         cfg = yaml.load(open(cfg_file, 'r', encoding='utf-8'))
 
         # 追单设置
         self.chasing = cfg['ctp_config']['chasing']
-
-        self.ctp_dll_path = cfg['ctp_config']['ctp_dll_path']
 
         self.stra_path = cfg['stra_path']
         self.cfg_zmq = ''

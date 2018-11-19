@@ -11,7 +11,7 @@ import os
 import json
 import yaml
 import threading
-import time  # from time import sleep, strftime  # 可能前面的import模块对time有影响,故放在最后
+import time  # 可能前面的import模块对time有影响,故放在最后
 from datetime import datetime, timedelta
 import getpass
 import zmq  # netMQ
@@ -28,7 +28,7 @@ from .config import Config
 
 from py_ctp.trade import CtpTrade
 from py_ctp.quote import CtpQuote
-from py_ctp.enums import DirectType, OffsetType, OrderType, OrderStatus
+from py_ctp.enums import DirectType, OffsetType, OrderType, OrderStatus, InstrumentStatus
 from py_ctp.structs import InfoField, OrderField, TradeField, Tick
 
 
@@ -37,9 +37,21 @@ class ATP(object):
 
     def __init__(self):
         self.TradingDay = ''
-        self.ActionDay = ''
-        self.ActionDay1 = ''
+        self.Actionday = ''
+        self.Actionday1 = ''
+
         self.tick_time = ''
+        '''最后tick的交易时间:yyyy-MM-dd HH:mm:ss'''
+
+        self.trading_days: list = []
+        '''交易日序列'''
+
+        self.trade_time: dict = {}
+        '''品种交易时间'''
+
+        self.received_instrument: list = []
+        '''已接收tick的合约'''
+
         self.cfg = Config()
         self.stra_instances = []
 
@@ -119,33 +131,29 @@ class ATP(object):
         """加载../strategy目录下的策略"""
         """通过文件名取到对应的继承Data的类并实例"""
         for path in self.cfg.stra_path:
-            for filename in self.cfg.stra_path[path]:
-                f = os.path.join(sys.path[0], '../{0}/{1}.py'.format(path, filename))
+            stra_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', path)
+            for stra_name in self.cfg.stra_path[path]:
+                f = os.path.join(stra_path, '{}.py'.format(stra_name))
                 # 只处理对应的 py文件
                 if os.path.isdir(f) or os.path.splitext(f)[0] == '__init__':
                     continue
                 # 以目录结构作为 namespace
-                module_name = "{0}.{1}".format(path, filename)
-                class_name = filename
+                module_name = "{0}.{1}".format(path, stra_name)
 
                 module = __import__(module_name)  # import module
 
-                c = getattr(getattr(module, class_name), class_name)  # 双层调用才是class,单层是为module
+                c = getattr(getattr(module, stra_name), stra_name)  # 双层调用才是class,单层是为module
 
                 if not issubclass(c, Strategy):  # 类c是Data的子类
                     continue
 
-                # 与策略文件同名的json作为配置文件处理
-                # file_name = os.path.join(os.getcwd(), path, '{0}.json'.format(class_name))
-                # if os.path.exists(file_name):
-                #     with open(file_name, encoding='utf-8') as stra_cfg_json_file:
-                #         cfg = json.load(stra_cfg_json_file)
-                file_name = os.path.join(os.getcwd(), path, '{0}.yml'.format(class_name))
-                if os.path.exists(file_name):
-                    with open(file_name, encoding='utf-8') as stra_cfg_json_file:
+                # 与策略文件同名的 yaml 作为配置文件处理
+                cfg_name = os.path.join(stra_path, '{0}.yml'.format(stra_name))
+                if os.path.exists(cfg_name):
+                    with open(cfg_name, encoding='utf-8') as stra_cfg_json_file:
                         params = yaml.load(stra_cfg_json_file)
                         for param in [p for p in params if p is not None]:  # 去除None的配置
-                            if param['ID'] not in self.cfg.stra_path[path][filename]:
+                            if param['ID'] not in self.cfg.stra_path[path][stra_name]:
                                 continue
                             stra: Strategy = c(param)
                             stra.ID = param['ID']
@@ -155,7 +163,7 @@ class ATP(object):
                                 data.SingleOrderOneBar = self.cfg.single_order_one_bar
                             self.stra_instances.append(stra)
                 else:
-                    self.cfg.log.error("缺少对应的json文件{0}".format(file_name))
+                    self.cfg.log.error("缺少对应的json文件{0}".format(cfg_name))
 
     def get_data_zmq(self, req: ReqPackage) -> []:
         ''''''
@@ -180,7 +188,7 @@ class ATP(object):
         bs = json.loads(gzipper)  # json解析
         return bs
 
-    def read_bars_pg(self, req: ReqPackage)->[]:
+    def read_bars_pg(self, req: ReqPackage) -> []:
         """从postgres中读取数据"""
         if self.cfg.engine_postgres:
             conn = self.cfg.engine_postgres.raw_connection()
@@ -197,7 +205,7 @@ class ATP(object):
                 parsed_data.append(dict(zip(keys, row)))
             return parsed_data
 
-    def read_bars(self, stra: Strategy)->[]:
+    def read_bars(self, stra: Strategy) -> []:
         """netMQ"""
         bars = []
         for data in stra.Datas:
@@ -231,7 +239,7 @@ class ATP(object):
         bars.sort(key=lambda bar: bar['DateTime'])  # 按时间升序
         return bars
 
-    def read_ticks(self, stra: Strategy, tradingday: str)->[]:
+    def read_ticks(self, stra: Strategy, tradingday: str) -> []:
         """读取tick数据
         返回 list[Tick]"""
         ticks: list = []
@@ -330,6 +338,8 @@ class ATP(object):
         if info.ErrorID == 0:
             self.TradingDay = self.t.tradingday
             self.get_actionday()  # 取得交易日后才能取actionday
+            self.received_instrument.clear()  # 记录收到的tick的合约
+            self.get_trading_time()  # 取品种交易时间信息
             if not self.q.logined:
                 self.q.OnConnected = self.q_OnFrontConnected
                 self.q.OnUserLogin = self.q_OnRspUserLogin
@@ -348,7 +358,7 @@ class ATP(object):
                 print(self.tick_time + '||' + msg, end='\r')
             time.sleep(1)
 
-    def get_stra(self, order: OrderField)->Strategy:
+    def get_stra(self, order: OrderField) -> Strategy:
         lst = [stra for stra in self.stra_instances if stra.ID == order.Custom // 1000]
         if len(lst) > 0:
             return lst[0]
@@ -446,8 +456,33 @@ class ATP(object):
 
     def q_Tick(self, q: CtpQuote, tick: Tick):
         """"""
-        # print(tick)
-        # self.fix_tick(tick)
+        # 对tick时间进行修正处理
+        ut = tick.UpdateTime[0:6] + '00'
+        mins_dict = self.trade_time[tick.Instrument]
+        # 由下面的 updatetime[-2:0] != '00' 处理
+        if ut not in mins_dict['Mins']:
+            # 开盘/收盘
+            if ut in mins_dict['Opens']:
+                ut = (datetime.strptime(ut, '%H:%M:%S') + timedelta(minutes=1)).strftime('%H:%M:%S')
+            elif ut in mins_dict['Ends']:
+                # 重新登录会收到上一节的最后tick
+                tick_dt = datetime.strptime('{} {}'.format(datetime.now().strftime('%Y%m%d'), tick.UpdateTime), '%Y%m%d %H:%M:%S')
+                now_dt = datetime.now()
+                diff_snd = 0
+                if tick_dt > now_dt:
+                    diff_snd = (tick_dt - now_dt).seconds
+                else:
+                    diff_snd = (now_dt - tick_dt).seconds
+                if diff_snd > 30:
+                    return
+                ut = (datetime.strptime(ut, '%H:%M:%S') + timedelta(minutes=-1)).strftime('%H:%M:%S')
+            else:
+                return
+        # 首tick不处理(新开盘时会收到之前的旧数据)
+        if tick.Instrument not in self.received_instrument:
+            self.received_instrument.append(tick.Instrument)
+            return
+
         actionday = self.TradingDay
         if tick.UpdateTime[0:2] > '20':
             actionday = self.Actionday
@@ -462,11 +497,48 @@ class ATP(object):
                     data.on_tick(tick, self.TradingDay)
         self.tick_time = ut
 
-    def get_actionday(self):
-        # 接口未登录,不计算Actionday
-        if self.TradingDay == '':
-            return
+    def get_trading_time(self):
+        self.trade_time.clear()
+        times = []
+        if self.cfg.engine_postgres:
+            conn = self.cfg.engine_postgres.raw_connection()
+            cursor = conn.cursor()
+            cursor.execute('select "GroupId", "WorkingTimes" from (select "GroupId", "OpenDate",  "WorkingTimes", row_number() over(partition by "GroupId" order by "OpenDate" desc) as row_no from future_config.tradingtime) a where row_no=1')
+            g = cursor.fetchall()
+            times = [{t[0]: json.loads(t[1])} for t in g]
+        else:
+            req = ReqPackage()
+            req.Type = BarType.Time
+            times = self.get_data_zmq(req)
+        # 按时间排序, 确保最后实施的时间段作为依据.
+        # 根据时间段设置,生成 opens; ends; mins盘中时间
+        for group in times:
+            g_id = group['GroupId']  # list(group.keys())[0]
+            section = group['WorkingTimes']  # list(group.values())[0]
+            opens = []
+            ends = []
+            mins = []
+            for s in section:
+                opens.append((datetime.strptime(s['Begin'], '%H:%M:%S') + timedelta(minutes=-1)).strftime('%H:%M:00'))
+                ends.append(s['End'])
+                t_begin = datetime.strptime('20180101' + s['Begin'], '%Y%m%d%H:%M:%S')
+                s_end = datetime.strptime('20180101' + s['End'], '%Y%m%d%H:%M:%S')
+                if t_begin > s_end:  # 夜盘
+                    s_end += timedelta(days=1)
+                while t_begin < s_end:
+                    mins.append(t_begin.strftime('%H:%M:00'))
+                    t_begin = t_begin + timedelta(minutes=1)
+            self.trade_time[g_id] = {'Opens': opens, 'Ends': ends, 'Mins': mins}
+        # 品种交易时间==>合约交易时间
+        for inst, info in self.t.instruments.items():
+            proc = info.ProductID
+            if proc in self.trade_time:
+                self.trade_time[inst] = self.trade_time[proc]
+            else:
+                self.trade_time[inst] = self.trade_time['default']
 
+    def get_actionday(self):
+        # 取交易日历
         if self.cfg.engine_postgres:
             conn = self.cfg.engine_postgres.raw_connection()
             cursor = conn.cursor()
@@ -477,6 +549,9 @@ class ATP(object):
             req.Type = BarType.TradeDate
             self.trading_days = self.get_data_zmq(req)
 
+        # 接口未登录,不计算Actionday
+        if self.TradingDay == '':
+            return
         self.Actionday = self.TradingDay if self.trading_days.index(self.TradingDay) == 0 else self.trading_days[self.trading_days.index(self.TradingDay) - 1]
         self.Actionday1 = (datetime.strptime(self.Actionday, '%Y%m%d') + timedelta(days=1)).strftime('%Y%m%d')
 
@@ -491,6 +566,12 @@ class ATP(object):
             self.cfg.log.war('{} loging by ctp'.format(self.cfg.investor))
         if self.cfg.pwd == '':
             self.cfg.pwd = getpass.getpass()
+        threading.Thread(target=self._run_seven).start()
+        while not self.q.logined:
+            time.sleep(1)
+
+    def start_api(self):
+        '''启动接口'''
         self.t.OnConnected = self.OnFrontConnected
         self.t.OnDisConnected = lambda o, x: print('disconnected: {}'.format(x))
         self.t.OnUserLogin = self.OnRspUserLogin
@@ -501,5 +582,66 @@ class ATP(object):
         self.t.OnInstrumentStatus = lambda x, y, z: str(z)  # print(z)  不再打印交易状态
 
         self.t.ReqConnect(self.cfg.front_trade)
-        while not self.q.logined:
-            time.sleep(1)
+
+    def _run_seven(self):
+        '''7*24'''
+        print_time = ''
+        while True:
+            day = datetime.now().strftime('%Y%m%d')
+            left_days = list(filter(lambda x: x > day, self.trading_days))
+            if len(left_days) == 0:
+                self.get_actionday()
+                left_days = list(filter(lambda x: x > day, self.trading_days))
+            next_trading_day = left_days[0]
+            has_hight = (datetime.strptime(next_trading_day, '%Y%m%d') - datetime.strptime(day, '%Y%m%d')).days in [1, 3]
+
+            now_time = datetime.now().strftime('%H%M%S')
+            if not self.t.logined:
+                # 当前非交易日
+                if day not in self.trading_days:
+                    # 昨天有夜盘:今天凌晨有数据
+                    if now_time <= '020000' and (datetime.today() + timedelta.days(-1)).strftime('%Y%m%d') in self.trading_days:
+                        time.sleep(1)
+                    else:
+                        self.cfg.log.info('{} is not tradingday.'.format(day))
+                        self.cfg.log.info('continue after {}'.format(next_trading_day + ' 08:30:00'))
+                        time.sleep((datetime.strptime(next_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+                elif now_time <= '083000':
+                    self.cfg.log.info('continue after {}'.format(day + ' 08:30:00'))
+                    time.sleep((datetime.strptime(day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+                elif now_time >= '153000':
+                    if has_hight:
+                        if datetime.now().strftime('%H%M%S') < '203000':
+                            self.cfg.log.info('continue after {}'.format(day + ' 20:30:00'))
+                            time.sleep((datetime.strptime(day + '20:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+                    else:
+                        self.cfg.log.info('continue after {}'.format(next_trading_day + ' 08:30:00'))
+                        time.sleep((datetime.strptime(next_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+                # 启动接口
+                self.start_api()
+                time.sleep(10)
+            # 已收盘
+            elif sum([1 if x != InstrumentStatus.Closed else 0 for x in self.t.instrument_status.values()]) == 0:
+                self.t.ReqUserLogout()
+                self.q.ReqUserLogout()
+                if has_hight:
+                    self.cfg.log.info('continue after {}'.format(day + ' 20:30:00'))
+                    time.sleep((datetime.strptime(day + '20:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+                else:
+                    self.cfg.log.info('continue after {}'.format(next_trading_day + ' 08:30:00'))
+                    time.sleep((datetime.strptime(next_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+
+            # 夜盘全部非交易
+            elif now_time < '030000' and sum([1 if x == InstrumentStatus.Continous else 0 for x in self.t.instrument_status.values()]) == 0:
+                cur_trading_day = self.t.tradingday
+                self.t.ReqUserLogout()
+                self.q.ReqUserLogout()
+                # cur_trading_day = self.trading_days[self.trading_days.index(next_trading_day) - 1] 周末时取值不对
+                self.cfg.log.info('continue after {}'.format(cur_trading_day + ' 08:30:00'))
+                time.sleep((datetime.strptime(cur_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+            else:
+                # 没有行情时不会显示
+                # if print_time != self.tick_time:
+                #     print_time = self.tick_time
+                #     self.cfg.log.info('tick time:{} [diff]{}s'.format(print_time, (datetime.strptime(print_time, '%Y-%m-%d %H:%M:%S') - datetime.now()).total_seconds()))
+                time.sleep(60)

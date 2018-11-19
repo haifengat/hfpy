@@ -4,8 +4,6 @@ ctp_config:
     ctp_front: 'sim_now'
     investor: '008107'
     password: '1'
-    # ctp接口文件所在路径
-    ctp_dll_path: ../ctp_dll
     # 追单设置
     chasing:
         wait_seconds: 3
