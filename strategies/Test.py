@@ -6,11 +6,9 @@ __author__ = 'HaiFeng'
 __mtime__ = '2017/11/16'
 """
 
-from py_at.strategy import Strategy
-from py_at.data import Data
-from py_at.bar import Bar
-from py_ctp.enums import DirectType, OffsetType
-from py_ctp.structs import OrderField, TradeField, InfoField, Tick
+from hfpy.strategy import Strategy
+from hfpy.data import Data
+from hfpy.bar import Bar
 
 
 class Test(Strategy):

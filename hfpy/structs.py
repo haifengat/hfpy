@@ -6,7 +6,6 @@ __author__ = 'HaiFeng'
 __mtime__ = '2016/9/21'
 """
 
-
 from enum import Enum
 
 

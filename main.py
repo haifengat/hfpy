@@ -4,10 +4,9 @@ __title__ = '主程序'
 __author__ = 'HaiFeng'
 __mtime__ = '20180822'
 
-from py_at.hf import HFPY
-import sys
+from hfpy.atp import ATP
 
 if __name__ == '__main__':
-    HFPY().Run()
+    ATP().Run()
     while input().lower() != 'q':
         continue

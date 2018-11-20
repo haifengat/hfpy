@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
-  Author:  HaiFeng
-  Purpose: main function
-  Created: 2016/5/31
-"""
+# @Time    : 2016/05/31 9:16
+# @Author  : HaiFeng
+# @Email   : 24918700@qq.com
+# @File    : atp.py
+# @Software: PyCharm
 
-import sys
 import os
 import json
 import yaml
@@ -32,7 +31,7 @@ from py_ctp.enums import DirectType, OffsetType, OrderType, OrderStatus, Instrum
 from py_ctp.structs import InfoField, OrderField, TradeField, Tick
 
 
-class HFPY(object):
+class ATP(object):
     """"""
 
     def __init__(self):
@@ -131,14 +130,13 @@ class HFPY(object):
         """加载../strategy目录下的策略"""
         """通过文件名取到对应的继承Data的类并实例"""
         for path in self.cfg.stra_path:
-            stra_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', path)
             for stra_name in self.cfg.stra_path[path]:
-                f = os.path.join(stra_path, '{}.py'.format(stra_name))
+                f = os.path.join(path, '{}.py'.format(stra_name))
                 # 只处理对应的 py文件
                 if os.path.isdir(f) or os.path.splitext(f)[0] == '__init__':
                     continue
                 # 以目录结构作为 namespace
-                module_name = "{0}.{1}".format(path, stra_name)
+                module_name = "{0}.{1}".format(os.path.split(os.path.dirname(f))[1], stra_name)
 
                 module = __import__(module_name)  # import module
 
@@ -148,7 +146,7 @@ class HFPY(object):
                     continue
 
                 # 与策略文件同名的 yaml 作为配置文件处理
-                cfg_name = os.path.join(stra_path, '{0}.yml'.format(stra_name))
+                cfg_name = os.path.join(path, '{0}.yml'.format(stra_name))
                 if os.path.exists(cfg_name):
                     with open(cfg_name, encoding='utf-8') as stra_cfg_json_file:
                         params = yaml.load(stra_cfg_json_file)

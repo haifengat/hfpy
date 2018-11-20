@@ -268,27 +268,27 @@ class Strategy(object):
         实时行情:每分钟触发一次"""
         pass
 
-    def GetOrders(self)->[]:
+    def GetOrders(self) -> []:
         """获取策略相关委托,返回[]"""
         return self._get_orders(self)
 
-    def _get_orders(self, stra)->[]:
+    def _get_orders(self, stra) -> []:
         """获取策略相关委托,返回[]"""
         pass
 
-    def GetLastOrder(self)->OrderField:
+    def GetLastOrder(self) -> OrderField:
         """获取最后一个委托"""
         return self._get_lastorder(self)
 
-    def _get_lastorder(self, stra)->OrderField:
+    def _get_lastorder(self, stra) -> OrderField:
         """获取最后一个委托"""
         pass
 
-    def GetNotFillOrders(self)->[]:
+    def GetNotFillOrders(self) -> []:
         """获取未成交委托"""
         return self._get_notfill_orders(self)
 
-    def _get_notfill_orders(self, stra)->[]:
+    def _get_notfill_orders(self, stra) -> []:
         """获取未成交委托"""
         pass
 

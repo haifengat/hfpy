@@ -6,10 +6,10 @@ __mtime__ = '20180820'
 
 import yaml
 import os
-from sqlalchemy import create_engine
-from sqlalchemy.engine import Engine
+# from sqlalchemy import create_engine
+# from sqlalchemy.engine import Engine
 import shutil
-from color_log import Logger
+from color_log.logger import Logger
 
 
 class Config(object):
@@ -30,9 +30,9 @@ class Config(object):
         self.cfg_zmq = ''
         if 'zmq_config' in cfg:
             self.cfg_zmq = cfg['zmq_config']
-        self.engine_postgres: Engine = None
-        if 'postgres_config' in cfg:
-            self.engine_postgres = create_engine(cfg['postgres_config'])
+        self.engine_postgres = None
+        # if 'postgres_config' in cfg:
+        #     self.engine_postgres = create_engine(cfg['postgres_config'])
 
         self.front_trade = ''
         self.front_quote = ''

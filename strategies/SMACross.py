@@ -6,9 +6,9 @@ __author__ = 'HaiFeng'
 __mtime__ = '2016/8/16'
 """
 import talib
-from py_at.data import Data
-from py_at.bar import Bar
-from py_at.strategy import Strategy
+from hfpy.data import Data
+from hfpy.bar import Bar
+from hfpy.strategy import Strategy
 import numpy as np
 
 

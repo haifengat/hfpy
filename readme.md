@@ -63,7 +63,7 @@
   - 2018.10.01配置由json改为yaml
   - [json 转 yaml](https://www.json2yaml.com/)
 - 项目配置 config.yml
-  - 当前工作目录下无此文件时会复制原始配置到此目录下
+  - 当前工作目录下无此文件时, 首次运行会复制原始配置到此目录下
   - <del>ctp_dll_path 指定接口dll路径</del>
   - stra_path 策略路径[],可多个
     - 按此配置读取相应策略,按ID加载对应的参数
@@ -86,3 +86,255 @@
     - strategies/Test.py
         - 接口调用示例
 
+### 示例
+
+#### main.py
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+__title__ = '主程序'
+__author__ = 'HaiFeng'
+__mtime__ = '20180822'
+
+from hfpy.atp import ATP
+
+if __name__ == '__main__':
+    ATP().Run()
+    while input().lower() != 'q':
+        continue
+```
+
+#### config.yml
+```yaml
+---
+ctp_config:
+    # 为空时不登录
+    ctp_front: 'sim_now'
+    investor: '008107'
+    password: '1'
+    # 追单设置
+    chasing:
+        wait_seconds: 3
+        offset_ticks: -2
+        resend_times: 3
+    # ctp前置配置
+    fronts:
+        sim_now:
+            trade: tcp://180.168.146.187:10000
+            quote: tcp://180.168.146.187:10010
+            broker: '9999'
+        ebf:
+            trade: tcp://192.168.52.4:41205
+            quote: tcp://192.168.52.4:41213
+            broker: '6000'
+# 数据源 - zmq配置
+zmq_config: tcp://broadcast.eicp.net:55881
+# 开关
+stra_onoff:
+    # 是否发送委托
+    real_order_enable: true
+    # 一根K线只发送一次指令
+    single_order_one_bar: true
+# 策略路径配置
+stra_path:
+    # 路径
+    strategies:
+        # 策略文件名
+        SMACross:
+        # 策略配置参数ID
+        - 119
+
+```
+
+#### SMACross.py
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+__title__ = ''
+__author__ = 'HaiFeng'
+__mtime__ = '2016/8/16'
+
+- talib 安装
+  - windows [http://user.qzone.qq.com/24918700/blog/1486954718](http://user.qzone.qq.com/24918700/blog/1486954718)
+  - linux [http://user.qzone.qq.com/24918700/blog/1483279805](http://user.qzone.qq.com/24918700/blog/1483279805)
+"""
+import talib
+from hfpy.data import Data
+from hfpy.bar import Bar
+from hfpy.strategy import Strategy
+import numpy as np
+
+
+class SMACross(Strategy):
+
+    def __init__(self, jsonfile):
+        super().__init__(jsonfile)
+        self.p_ma1 = self.Params['MA1']
+        self.p_ma2 = self.Params['MA2']
+        self.p_lots = self.Params['Lots']
+
+    def OnBarUpdate(self, data=Data, bar=Bar):
+        if len(self.C) < self.p_ma2:
+            return
+
+        # print('{0}-{1}'.format(self.D[-1], self.C[-1]))
+        ma1 = talib.SMA(np.array(self.C, dtype=float), self.p_ma1)
+        ma2 = talib.SMA(np.array(self.C, dtype=float), self.p_ma2)
+
+        self.IndexDict['ma5'] = ma1
+        self.IndexDict['ma10'] = ma2
+
+        if self.PositionLong == 0:
+            if ma1[-1] >= ma2[-1] and ma1[-2] < ma2[-2]:
+                if self.PositionShort > 0:
+                    self.BuyToCover(self.O[-1], self.p_lots, '买平')
+                self.Buy(self.O[-1], self.p_lots, '买开')
+        elif self.PositionShort == 0:
+            if ma1[-1] <= ma2[-1] and ma1[-2] > ma2[-2]:
+                if self.PositionLong > 0:
+                    self.Sell(self.O[-1], self.p_lots, '卖平')
+                self.SellShort(self.O[-1], self.p_lots, '卖开')
+
+```
+
+#### SMACross.yml
+
+```yaml
+---
+# ID用于区分不同策略实例的委托
+- 
+    ID: 119
+    BeginDate: 20180901
+    TickTest: false
+    # 可通过增加Data实现多合约多周期引用
+    Datas:
+    -
+        Instrument: j1901
+        IntervalType: Minute
+        Interval: 5
+    Params:
+        Lots: 1
+        MA1: 10
+        MA2: 20
+- 
+    ID: 120
+    BeginDate: 20180901
+    Datas:
+    - 
+        Instrument: rb1901
+        IntervalType: Minute
+        Interval: 5
+    Params:
+        Lots: 1
+        MA1: 5
+        MA2: 60
+```
+
+#### Test.py
+```python
+# !/usr/bin/python
+# -*- coding: utf-8 -*-
+"""
+__title__ = ''
+__author__ = 'HaiFeng'
+__mtime__ = '2017/11/16'
+"""
+
+from hfpy.strategy import Strategy
+from hfpy.data import Data
+from hfpy.bar import Bar
+
+
+class Test(Strategy):
+    ''''''
+
+    def __init__(self, jsonfile=''):
+        super().__init__(jsonfile)
+        self.ordered = False
+        self.closed = False
+        self.oid = 0
+    
+    def OnBarUpdate(self, data=Data, bar=Bar):
+        if self.Tick.Instrument == '':
+            return
+        # print(self.Datas[0].Tick.UpdateTime[-2:])
+        if self.Tick.UpdateTime[-2:] == '00' or self.Tick.UpdateTime[-2:] == '30':
+            if self.ordered:
+                self.ordered = False
+            else:
+                self.ordered = True
+                # self.ReqOrder(self.Instrument, DirectType.Buy, OffsetType.Open, self.Tick.AskPrice, 1)
+                # self.ReqOrder(self.Tick.Instrument, DirectType.Buy, OffsetType.Open, self.Tick.BidPrice, 1)
+                self.Sell(self.Tick.BidPrice, 1, 'close long')
+
+                print('1 last order == ', self.GetLastOrder())
+                print('1 order id == ', self.oid)
+        '''
+        if self.Tick.UpdateTime[-2:] == '05' or self.Tick.UpdateTime[-2:] == '35':
+            if self.closed:
+                self.closed = False
+            else:
+                self.closed = True
+                self.Sell(self.O[0], 1, '')
+                print(self.PositionLong)
+                print('all:{0},last:{1},notfill:{2}'.format(len(self.GetOrders()), self.GetLastOrder(), len(self.GetNotFillOrders())))
+        '''
+
+    # def OnOrder(self, order=OrderField()):
+    #     """委托响应"""
+    #     print('委托反应')
+    #     self.oid = self.GetLastOrder().OrderID
+
+    #     print('last order == ', self.GetLastOrder())
+    #     print('order id == ', self.oid)
+    #     print('cancel orderid == ', order.OrderID)
+    #     self.ReqCancel(self.oid)
+
+    #     #print('strategy order')
+    #     # print(order)
+
+    # def OnTrade(self, trade=TradeField()):
+    #     """成交响应"""
+    #     print('成交反应')
+    #     print('strategy trade')
+    #     print(trade)
+
+    # def OnCancel(self, order):
+    #     """撤单响应"""
+    #     print('扯淡反应')
+    #     print('所撤单资料 ：', order)
+
+    #     #print('strategy cancel')
+    #     # print(order)
+
+    # def OnErrOrder(self, order=OrderField(), info=InfoField()):
+    #     """委托错误"""
+    #     print('委托错误')
+    #     print('strategy err order')
+    #     print(order)
+
+    # def OnErrCancel(self, order=OrderField(), info=InfoField()):
+    #     """撤单错误"""
+    #     print('撤单错误')
+    #     print('strategy err cancel')
+    #     print(order)
+
+```
+
+#### Test.yml
+```yaml
+---
+-
+    ID: 100
+    BeginDate: 20181010
+    Datas:
+    - 
+        Instrument: rb1901
+        IntervalType: Minute
+        Interval: 1
+    Params:
+        Fast: 10
+        Slow: 20
+        lots: 1
+```
