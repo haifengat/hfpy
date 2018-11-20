@@ -22,7 +22,9 @@ ctp_config:
 # 数据源 - zmq配置
 zmq_config: tcp://broadcast.eicp.net:55881
 # 开关
-stra_onoff:
+onoff:
+    # 是否7*24
+    running_as_server: false
     # 是否发送委托
     real_order_enable: true
     # 一根K线只发送一次指令

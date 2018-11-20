@@ -52,9 +52,19 @@ class Config(object):
                 self.pwd = cfg_ctp['password']
 
         self.single_order_one_bar = False
+        '''是否每根K线只发一次指令'''
+
         self.real_order_enable = False
-        if 'stra_onoff' in cfg:
-            if 'single_order_one_bar' in cfg['stra_onoff']:
-                self.single_order_one_bar = cfg['stra_onoff']['single_order_one_bar']
-            if 'real_order_enable' in cfg['stra_onoff']:
-                self.real_order_enable = cfg['stra_onoff']['real_order_enable']
+        '''是否实际对接口发单'''
+
+        self.running_as_server = False
+        '''是否作为服务7*24运行'''
+
+        if 'onoff' in cfg:
+            cfg_of = cfg['onoff']
+            if 'running_as_server' in cfg_of:
+                self.running_as_server = cfg_of['running_as_server']
+            if 'single_order_one_bar' in cfg_of:
+                self.single_order_one_bar = cfg_of['single_order_one_bar']
+            if 'real_order_enable' in cfg_of:
+                self.real_order_enable = cfg_of['real_order_enable']

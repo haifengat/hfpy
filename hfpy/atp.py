@@ -316,21 +316,20 @@ class ATP(object):
 
     def OnFrontConnected(self, t: CtpTrade):
         """"""
-        self.cfg.log.war("t:connected by client")
+        self.cfg.log.war("[trade] connected by client")
         if self.t.ReqUserLogin:
             self.t.ReqUserLogin(self.cfg.investor, self.cfg.pwd, self.cfg.broker)
 
     def relogin(self):
         """"""
         self.t.ReqUserLogout()
-        self.cfg.log.info('sleep 60 seconds to wait try connect next time')
+        self.cfg.log.info('[trade] sleep 60 seconds to wait try connect next time')
         time.sleep(60)
         self.t.ReqConnect(self.cfg.front_trade)
 
     def OnRspUserLogin(self, t: CtpTrade, info: InfoField):
         """"""
-
-        self.cfg.log.info('{0}:{1}'.format(info.ErrorID, info.ErrorMsg))
+        self.cfg.log.info('[trade] {}'.format(info))
         if info.ErrorID == 7:
             threading.Thread(target=self.relogin).start()
         if info.ErrorID == 0:
@@ -442,12 +441,12 @@ class ATP(object):
 
     def q_OnFrontConnected(self, q: CtpQuote):
         """"""
-        self.cfg.log.info("q:connected by client")
+        self.cfg.log.info("[quote] connected by client")
         self.q.ReqUserLogin(self.cfg.broker, self.cfg.investor, self.cfg.pwd)
 
     def q_OnRspUserLogin(self, q: CtpQuote, info: InfoField):
         """"""
-        self.cfg.log.info(info)
+        self.cfg.log.info('[quote] {}'.format(info))
         for stra in self.stra_instances:
             for data in stra.Datas:
                 self.q.ReqSubscribeMarketData(data.Instrument)
@@ -556,20 +555,24 @@ class ATP(object):
     def Run(self):
         """"""
         if self.cfg.front_trade == '' or self.cfg.front_quote == '':
-            self.cfg.log.war('交易接口未配置')
-            return
-        if self.cfg.investor == '':
-            self.cfg.investor = input('invesorid on {}:'.format(self.cfg.front_name))
+            self.cfg.log.war('**** 交易接口未配置 ****')
         else:
-            self.cfg.log.war('{} loging by ctp'.format(self.cfg.investor))
-        if self.cfg.pwd == '':
-            self.cfg.pwd = getpass.getpass()
-        # self.start_api()
-        threading.Thread(target=self._run_seven, daemon=True).start()
-        while not self.q.logined:
-            time.sleep(1)
-
+            self.cfg.log.war('启动接口...')
+            if self.cfg.investor == '':
+                self.cfg.investor = input('invesorid on {}:'.format(self.cfg.front_name))
+            else:
+                self.cfg.log.war('{} loging by ctp'.format(self.cfg.investor))
+            if self.cfg.pwd == '':
+                self.cfg.pwd = getpass.getpass()
+            if self.cfg.running_as_server:
+                threading.Thread(target=self._run_seven, daemon=True).start()
+            else:
+                self.start_api()
+            while not self.q.logined:
+                time.sleep(1)
+        self.cfg.log.info('加载策略...')
         self.load_strategy()
+        self.cfg.log.info('历史数据回测...')
         self.read_data_test()
         self.link_fun()
 
