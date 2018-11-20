@@ -8,7 +8,8 @@ import yaml
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
-from .color_log import Logger
+import shutil
+from color_log import Logger
 
 
 class Config(object):
@@ -16,7 +17,10 @@ class Config(object):
 
     def __init__(self):
         self.log = Logger()
-        cfg_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.yml')
+        origin_cfg_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.yml')
+        cfg_file = os.path.join(os.getcwd(), 'config.yml')
+        if not os.path.exists(cfg_file):
+            shutil.copy(origin_cfg_file, cfg_file)
         cfg = yaml.load(open(cfg_file, 'r', encoding='utf-8'))
 
         # 追单设置

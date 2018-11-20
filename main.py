@@ -4,16 +4,10 @@ __title__ = '主程序'
 __author__ = 'HaiFeng'
 __mtime__ = '20180822'
 
-from py_at.a_t_p import ATP
+from py_at.hf import HFPY
 import sys
 
 if __name__ == '__main__':
-    p = ATP()
-    p.CTPRun()
-    p.load_strategy()
-    p.read_data_test()
-    p.link_fun()
-
-    while input() != 'q':
+    HFPY().Run()
+    while input().lower() != 'q':
         continue
-    sys.exit(0)

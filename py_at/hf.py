@@ -32,7 +32,7 @@ from py_ctp.enums import DirectType, OffsetType, OrderType, OrderStatus, Instrum
 from py_ctp.structs import InfoField, OrderField, TradeField, Tick
 
 
-class ATP(object):
+class HFPY(object):
     """"""
 
     def __init__(self):
@@ -555,7 +555,7 @@ class ATP(object):
         self.Actionday = self.TradingDay if self.trading_days.index(self.TradingDay) == 0 else self.trading_days[self.trading_days.index(self.TradingDay) - 1]
         self.Actionday1 = (datetime.strptime(self.Actionday, '%Y%m%d') + timedelta(days=1)).strftime('%Y%m%d')
 
-    def CTPRun(self):
+    def Run(self):
         """"""
         if self.cfg.front_trade == '' or self.cfg.front_quote == '':
             self.cfg.log.war('交易接口未配置')
@@ -566,9 +566,14 @@ class ATP(object):
             self.cfg.log.war('{} loging by ctp'.format(self.cfg.investor))
         if self.cfg.pwd == '':
             self.cfg.pwd = getpass.getpass()
-        threading.Thread(target=self._run_seven).start()
+        # self.start_api()
+        threading.Thread(target=self._run_seven, daemon=True).start()
         while not self.q.logined:
             time.sleep(1)
+
+        self.load_strategy()
+        self.read_data_test()
+        self.link_fun()
 
     def start_api(self):
         '''启动接口'''

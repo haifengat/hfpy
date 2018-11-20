@@ -11,7 +11,6 @@ import copy
 from .structs import IntervalType
 from .order import OrderItem
 from .bar import Bar
-from .switch import switch
 from py_ctp.enums import DirectType, OffsetType
 from py_ctp.structs import InstrumentField, Tick
 
@@ -245,35 +244,28 @@ class Data(object):
         day = bar_time.tm_mday
         hour = bar_time.tm_hour
         mins = bar_time.tm_min
-        for case in switch(self.IntervalType):
-            if case(IntervalType.Minute):
-                mins = bar_time.tm_min // self.Interval * self.Interval
-                break
-            if case(IntervalType.Hour):
-                hour = hour // self.Interval
-                mins = 0
-                break
-            if case(IntervalType.Day):
-                hour = 0
-                mins = 0
-                break
-            if case(IntervalType.Month):
-                hour = 0
-                mins = 0
-                day = 1
-                break
-            if case(IntervalType.Year):
-                hour = 0
-                mins = 0
-                day = 1
-                mon = 1
-                break
-            if case(IntervalType.Week):
-                hour = 0
-                mins = 0
-                # 用周号替换日期
-                day = time.strftime('%W', bar_time)
-                break
+        if self.IntervalType == IntervalType.Minute:
+            mins = bar_time.tm_min // self.Interval * self.Interval
+        elif self.IntervalType == IntervalType.Hour:
+            hour = hour // self.Interval
+            mins = 0
+        elif self.IntervalType == IntervalType.Day:
+            hour = 0
+            mins = 0
+        elif self.IntervalType == IntervalType.Month:
+            hour = 0
+            mins = 0
+            day = 1
+        elif self.IntervalType == IntervalType.Year:
+            hour = 0
+            mins = 0
+            day = 1
+            mon = 1
+        elif self.IntervalType == IntervalType.Week:
+            hour = 0
+            mins = 0
+            # 用周号替换日期
+            day = time.strftime('%W', bar_time)
 
         # time -> str
         bar_time = '{0}{1:02d}{2:02d} {3:02d}:{4:02d}:00'.format(
@@ -364,28 +356,22 @@ class Data(object):
         order.LastEntryPriceShort = self._lastOrder.LastEntryPriceShort
 
         diroff = '{0}-{1}'.format(order.Direction.name, order.Offset.name)
-        for case in switch(diroff):
-            if case('Buy-Open'):
-                if self._lastOrder.PositionLong == 0:
-                    order.IndexEntryLong = len(self.Bars) - 1
-                    order.EntryDateLong = self.D[-1]  # str '20160630 21:25:00'
-                    order.EntryPriceLong = order.Price
-                    order.PositionLong = order.Volume
-                    order.AvgEntryPriceLong = order.Price
-                else:
-                    order.PositionLong += order.Volume
-                    order.AvgEntryPriceLong = (self._lastOrder.PositionLong * self._lastOrder.AvgEntryPriceLong + order.Volume * order.Price) / (self._lastOrder.PositionLong + order.Volume)
-                order.IndexLastEntryLong = len(self.Bars) - 1
-                order.LastEntryPriceLong = order.Price
-                order.LastEntryDateLong = self.D[-1]
-                break
-
-            if case('Buy-Close'):
-                c_lots = min(self._lastOrder.PositionShort,
-                             order.Volume)  # 能够平掉的数量
-                if c_lots <= 0:  # 无仓可平
-                    print('平仓量>持仓量')
-                    break
+        if diroff == 'Buy-Open':
+            if self._lastOrder.PositionLong == 0:
+                order.IndexEntryLong = len(self.Bars) - 1
+                order.EntryDateLong = self.D[-1]  # str '20160630 21:25:00'
+                order.EntryPriceLong = order.Price
+                order.PositionLong = order.Volume
+                order.AvgEntryPriceLong = order.Price
+            else:
+                order.PositionLong += order.Volume
+                order.AvgEntryPriceLong = (self._lastOrder.PositionLong * self._lastOrder.AvgEntryPriceLong + order.Volume * order.Price) / (self._lastOrder.PositionLong + order.Volume)
+            order.IndexLastEntryLong = len(self.Bars) - 1
+            order.LastEntryPriceLong = order.Price
+            order.LastEntryDateLong = self.D[-1]
+        elif diroff == 'Buy-Close':
+            c_lots = min(self._lastOrder.PositionShort, order.Volume)  # 能够平掉的数量
+            if c_lots > 0:  # 避免无仓可平
                 order.PositionShort -= c_lots
 
                 order.IndexExitShort = len(self.Bars) - 1
@@ -393,28 +379,22 @@ class Data(object):
                 order.ExitPriceShort = order.Price
                 # if order.PositionShort == 0:
                 # order.AvgEntryPriceShort = 0  # 20180906注销方便后期计算盈利
-                break
-
-            if case('Sell-Open'):
-                if self._lastOrder.PositionShort == 0:
-                    order.IndexEntryShort = len(self.Bars) - 1
-                    order.EntryDateShort = self.D[-1]  # time or double or str ???
-                    order.EntryPriceShort = order.Price
-                    order.AvgEntryPriceShort = order.Price
-                    order.PositionShort = order.Volume
-                else:
-                    order.PositionShort += order.Volume
-                    order.AvgEntryPriceShort = (self._lastOrder.PositionShort * self._lastOrder.AvgEntryPriceShort + order.Volume * order.Price) / (self._lastOrder.PositionShort + order.Volume)
-                order.IndexLastEntryShort = len(self.Bars) - 1
-                order.LastEntryPriceShort = order.Price
-                order.LastEntryDateShort = self.D[-1]
-                break
-
-            if case('Sell-Close'):
-                c_lots = min(self._lastOrder.PositionLong, order.Volume)  # 能够平掉的数量
-                if c_lots <= 0:  # 无仓可平
-                    print('平仓量>持仓量')
-                    break
+        elif diroff == 'Sell-Open':
+            if self._lastOrder.PositionShort == 0:
+                order.IndexEntryShort = len(self.Bars) - 1
+                order.EntryDateShort = self.D[-1]  # time or double or str ???
+                order.EntryPriceShort = order.Price
+                order.AvgEntryPriceShort = order.Price
+                order.PositionShort = order.Volume
+            else:
+                order.PositionShort += order.Volume
+                order.AvgEntryPriceShort = (self._lastOrder.PositionShort * self._lastOrder.AvgEntryPriceShort + order.Volume * order.Price) / (self._lastOrder.PositionShort + order.Volume)
+            order.IndexLastEntryShort = len(self.Bars) - 1
+            order.LastEntryPriceShort = order.Price
+            order.LastEntryDateShort = self.D[-1]
+        elif diroff == 'Sell-Close':
+            c_lots = min(self._lastOrder.PositionLong, order.Volume)  # 能够平掉的数量
+            if c_lots > 0:  # 避免无仓可平
                 order.PositionLong -= c_lots
 
                 order.IndexExitLong = len(self.Bars) - 1
@@ -422,24 +402,23 @@ class Data(object):
                 order.ExitPriceLong = order.Price
                 # if order.PositionLong == 0:
                 # order.AvgEntryPriceLong = 0  # 20180906注销方便后期计算盈利
-                break
 
         self._lastOrder = order
         self.stra_onorder(self, order)
 
-    def Buy(self, price: float, volume: int, remark: str=''):
+    def Buy(self, price: float, volume: int, remark: str = ''):
         """买开"""
         self.__order__(DirectType.Buy, OffsetType.Open, price, volume, remark)
 
-    def Sell(self, price, volume, remark: str=''):
+    def Sell(self, price, volume, remark: str = ''):
         """买平"""
         self.__order__(DirectType.Sell, OffsetType.Close, price, volume,
                        remark)
 
-    def SellShort(self, price, volume, remark: str=''):
+    def SellShort(self, price, volume, remark: str = ''):
         """卖开"""
         self.__order__(DirectType.Sell, OffsetType.Open, price, volume, remark)
 
-    def BuyToCover(self, price, volume, remark: str=''):
+    def BuyToCover(self, price, volume, remark: str = ''):
         """买平"""
         self.__order__(DirectType.Buy, OffsetType.Close, price, volume, remark)
