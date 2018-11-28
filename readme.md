@@ -31,18 +31,22 @@
 - anaconda
     - 下载安装 [https://www.anaconda.com/download](https://www.anaconda.com/download)
 
-- talib
+### talib 指标库
   - windows [http://user.qzone.qq.com/24918700/blog/1486954718](http://user.qzone.qq.com/24918700/blog/1486954718)
   - linux [http://user.qzone.qq.com/24918700/blog/1483279805](http://user.qzone.qq.com/24918700/blog/1483279805)
 
-### ctp 接口
-- `pip install py_ctp`
-- <del>下载 [https://gitee.com/haifengat/hf_ctp_py_proxy/releases](https://gitee.com/haifengat/hf_ctp_py_proxy/releases)</del>
-- <del>解压后,复制py_ctp到python目录下Lib/site_packages/</del>
-- <del>复制dll到at上级目录,并改名为ctp_dll</del>
+### hfpy 安装
+`pip install hfpy`
 
+### 使用
 
-## 开发环境
+- 新建目录
+- 创建main.py并复制粘贴下面示例中main的内容
+- 创建strategies子目录
+- 在strategies目录下,创建SMACross.py和SMACross.yml文件【注意大小写】,并复制粘贴示例中对应的代码.
+- 执行 python main.py 
+
+## 开发工具
 
 - vscode
   - windows [https://code.visualstudio.com/Download](https://code.visualstudio.com/Download)
@@ -50,14 +54,8 @@
 - pycharm
     - http://www.jetbrains.com/pycharm/download/index.html
  
-## 发布
 
-```bash
-国内 https://gitee.com/haifengat/at_py
-国际 https://github.com/haifengat/hf_at_py
-```
-
-## 运行
+## 配置说明
 
 - json转yaml
   - 2018.10.01配置由json改为yaml
