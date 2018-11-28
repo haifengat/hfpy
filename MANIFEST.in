@@ -1,0 +1,7 @@
+include *.in
+include *.ini
+include README.md
+include *.txt
+
+global-exclude strategies
+global-exclude __pycache__ *.py[cod]
