@@ -27,12 +27,12 @@ def read_requirements(filename):
 long_description = read_file('README.md')
 long_description_content_type = "text/markdown",  # 指定包文档格式为markdown
 
-os.system('pipreqs . --encoding=utf8 --force')  # 生成 requirements.txt
+# talib无需加入 os.system('pipreqs . --encoding=utf8 --force')  # 生成 requirements.txt
 
 setup(
     name='hfpy',  # 包名
     python_requires='>=3.4.0',  # python环境
-    version='0.1.1.1',  # 包的版本
+    version='0.1.2',  # 包的版本
     description="Hai Feng Python Future Trading Platform",  # 包简介，显示在PyPI上
     long_description=long_description,  # 读取的Readme文档内容
     long_description_content_type=long_description_content_type,  # 指定包文档格式为markdown

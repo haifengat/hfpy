@@ -349,7 +349,8 @@ class ATP(object):
                 # self.q.OnTick = self.q_Tick
                 self.q.OnTick = lambda o, f: threading.Thread(target=self.q_Tick, args=(o, f)).start()
                 self.q.ReqConnect(self.cfg.front_quote)
-                threading.Thread(target=self.showmsg).start()
+                if self.cfg.show_tick_time:
+                    threading.Thread(target=self.showmsg).start()
 
     def showmsg(self):
         while self.t.logined:

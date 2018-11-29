@@ -60,6 +60,9 @@ class Config(object):
         self.running_as_server = False
         '''是否作为服务7*24运行'''
 
+        self.show_tick_time = False
+        '''是否打印行情时间'''
+
         if 'onoff' in cfg:
             cfg_of = cfg['onoff']
             if 'running_as_server' in cfg_of:
@@ -68,3 +71,5 @@ class Config(object):
                 self.single_order_one_bar = cfg_of['single_order_one_bar']
             if 'real_order_enable' in cfg_of:
                 self.real_order_enable = cfg_of['real_order_enable']
+            if 'show_tick_time' in cfg_of:
+                self.show_tick_time = cfg_of['show_tick_time']

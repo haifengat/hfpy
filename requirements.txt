@@ -1,0 +1,7 @@
+pandas==0.23.4
+setuptools==40.2.0
+color_log==1.0.7
+numpy==1.15.1
+py_ctp==1.1.5.3
+PyYAML==3.13
+pyzmq==17.1.2

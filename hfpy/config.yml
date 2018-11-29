@@ -29,6 +29,8 @@ onoff:
     real_order_enable: true
     # 一根K线只发送一次指令
     single_order_one_bar: true
+    # 是否打印行情时间
+    show_tick_time: false
 # 策略路径配置
 stra_path:
     # 路径
