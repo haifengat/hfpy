@@ -2,6 +2,7 @@ include *.in
 include *.ini
 include README.md
 include *.txt
-
+exclude *.yml
+recursive-include hfpy *.*
 global-exclude strategies
 global-exclude __pycache__ *.py[cod]

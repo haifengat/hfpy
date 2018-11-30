@@ -24,7 +24,7 @@ zmq_config: tcp://broadcast.eicp.net:55881
 # 开关
 onoff:
     # 是否7*24
-    running_as_server: false
+    running_as_server: true
     # 是否发送委托
     real_order_enable: true
     # 一根K线只发送一次指令
