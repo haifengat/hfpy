@@ -29,7 +29,7 @@
 ### python >3.6
 
 - anaconda
-    - 下载安装 [https://www.anaconda.com/download](https://www.anaconda.com/download)
+    - 安装说明 [https://user.qzone.qq.com/24918700/blog/1483274137](https://user.qzone.qq.com/24918700/blog/1483274137)
 
 ### talib 指标库
   - windows [http://user.qzone.qq.com/24918700/blog/1486954718](http://user.qzone.qq.com/24918700/blog/1486954718)

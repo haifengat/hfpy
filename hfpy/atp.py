@@ -42,9 +42,6 @@ class ATP(object):
         self.Actionday1 = ''
         '''隔夜自然日'''
 
-        self.sleep_seconds: int = 0
-        '''需要睡眠的秒数后,再启动接口.'''
-
         self.tick_time = ''
         '''最后tick的交易时间:yyyy-MM-dd HH:mm:ss'''
 
@@ -335,9 +332,6 @@ class ATP(object):
 
     def OnRspUserLogin(self, t: CtpTrade, info: InfoField):
         """"""
-        self.cfg.log.info('[trade] {}'.format(info))
-        if info.ErrorID == 7:
-            threading.Thread(target=self.relogin).start()
         if info.ErrorID == 0:
             self.TradingDay = self.t.tradingday
             self.get_actionday()  # 取得交易日后才能取actionday
@@ -346,11 +340,17 @@ class ATP(object):
             if not self.q.logined:
                 self.q.OnConnected = self.q_OnFrontConnected
                 self.q.OnUserLogin = self.q_OnRspUserLogin
+                self.q.OnDisConnected = lambda o, x: self.cfg.log.war(f'[QUOTE]disconnected: {x}')
                 # self.q.OnTick = self.q_Tick
                 self.q.OnTick = lambda o, f: threading.Thread(target=self.q_Tick, args=(o, f)).start()
                 self.q.ReqConnect(self.cfg.front_quote)
                 if self.cfg.show_tick_time:
                     threading.Thread(target=self.showmsg).start()
+            self.cfg.log.info('[trade] {}'.format(info))
+        else:
+            self.cfg.log.error('[trade] {}'.format(info))
+            if info.ErrorID == 7:
+                threading.Thread(target=self.relogin).start()
 
     def showmsg(self):
         while self.t.logined:
@@ -459,7 +459,14 @@ class ATP(object):
 
         :return:
         """
-        pass
+        # 夜盘结算or市场收盘自动退出
+        if (datetime.now().strftime('%H%M%S') < '030000' and sum([1 if x == InstrumentStatus.Continous else 0 for x in self.t.instrument_status.values()]) == 0) or (sum([1 if x != InstrumentStatus.Closed else 0 for x in self.t.instrument_status.values()]) == 0):
+            threading.Thread(target=self.close_api).start()
+
+    def close_api(self):
+        time.sleep(1)
+        self.q.ReqUserLogout()
+        self.t.ReqUserLogout()
 
     def q_OnFrontConnected(self, q: CtpQuote):
         """"""
@@ -579,7 +586,6 @@ class ATP(object):
         if self.cfg.front_trade == '' or self.cfg.front_quote == '':
             self.cfg.log.war('**** 交易接口未配置 ****')
         else:
-            self.cfg.log.war('启动接口...')
             if self.cfg.investor == '':
                 self.cfg.investor = input('invesorid on {}:'.format(self.cfg.front_name))
             else:
@@ -603,13 +609,14 @@ class ATP(object):
     def start_api(self):
         '''启动接口'''
         self.t.OnConnected = self.OnFrontConnected
-        self.t.OnDisConnected = lambda o, x: print('disconnected: {}'.format(x))
+        self.t.OnDisConnected = lambda o, x: self.cfg.log.war(f'[TRADE]disconnected: {x}')
         self.t.OnUserLogin = self.OnRspUserLogin
         self.t.OnOrder = self.OnOrder
         self.t.OnTrade = self.OnTrade
         self.t.OnCancel = self.OnCancel
         self.t.OnErrOrder = self.OnRtnErrOrder
         self.t.OnInstrumentStatus = self.OnInstrumentStatus
+        self.t
 
         self.t.ReqConnect(self.cfg.front_trade)
 
@@ -628,6 +635,7 @@ class ATP(object):
             now_time = datetime.now().strftime('%H%M%S')
             if not self.t.logined:
                 # 当前非交易日
+                sleep_seconds = 0
                 if day not in self.trading_days:
                     # 昨天有夜盘:今天凌晨有数据
                     if now_time <= '020000' and (datetime.today() + timedelta.days(-1)).strftime('%Y%m%d') in self.trading_days:
@@ -635,41 +643,41 @@ class ATP(object):
                     else:
                         self.cfg.log.info('{} is not tradingday.'.format(day))
                         self.cfg.log.info('continue after {}'.format(next_trading_day + ' 08:30:00'))
-                        self.sleep_seconds = (int)((datetime.strptime(next_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+                        sleep_seconds = (int)((datetime.strptime(next_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
                 elif now_time <= '083000':
                     self.cfg.log.info('continue after {}'.format(day + ' 08:30:00'))
-                    self.sleep_seconds = (int)((datetime.strptime(day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
-                elif now_time >= '153000':
+                    sleep_seconds = (int)((datetime.strptime(day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+                elif now_time >= '150000':
                     if has_hight:
                         if datetime.now().strftime('%H%M%S') < '203000':
                             self.cfg.log.info('continue after {}'.format(day + ' 20:30:00'))
-                            self.sleep_seconds = (int)((datetime.strptime(day + '20:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+                            sleep_seconds = (int)((datetime.strptime(day + '20:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
                     else:
                         self.cfg.log.info('continue after {}'.format(next_trading_day + ' 08:30:00'))
-                        self.sleep_seconds = (int)((datetime.strptime(next_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
-                if self.sleep_seconds > 0:
-                    time.sleep(self.sleep_seconds)
-                    self.sleep_seconds = 0
+                        sleep_seconds = (int)((datetime.strptime(next_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+                if sleep_seconds > 0:
+                    time.sleep(sleep_seconds)
+                    sleep_seconds = 0
                 # 启动接口
                 self.start_api()
                 time.sleep(10)
                 # 已收盘
-            elif sum([1 if x != InstrumentStatus.Closed else 0 for x in self.t.instrument_status.values()]) == 0:
-                self.t.ReqUserLogout()
-                self.q.ReqUserLogout()
-                if has_hight:
-                    self.cfg.log.info('continue after {}'.format(day + ' 20:30:00'))
-                    time.sleep((datetime.strptime(day + '20:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
-                else:
-                    self.cfg.log.info('continue after {}'.format(next_trading_day + ' 08:30:00'))
-                    time.sleep((datetime.strptime(next_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
-            # 夜盘全部非交易
-            elif now_time < '030000' and sum([1 if x == InstrumentStatus.Continous else 0 for x in self.t.instrument_status.values()]) == 0:
-                cur_trading_day = self.t.tradingday
-                self.t.ReqUserLogout()
-                self.q.ReqUserLogout()
-                # cur_trading_day = self.trading_days[self.trading_days.index(next_trading_day) - 1] 周末时取值不对
-                self.cfg.log.info('continue after {}'.format(cur_trading_day + ' 08:30:00'))
-                time.sleep((datetime.strptime(cur_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+            # elif sum([1 if x != InstrumentStatus.Closed else 0 for x in self.t.instrument_status.values()]) == 0:
+            #     self.t.ReqUserLogout()
+            #     self.q.ReqUserLogout()
+            #     if has_hight:
+            #         self.cfg.log.info('continue after {}'.format(day + ' 20:30:00'))
+            #         time.sleep((datetime.strptime(day + '20:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+            #     else:
+            #         self.cfg.log.info('continue after {}'.format(next_trading_day + ' 08:30:00'))
+            #         time.sleep((datetime.strptime(next_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
+            # # 夜盘全部非交易
+            # elif now_time < '030000' and sum([1 if x == InstrumentStatus.Continous else 0 for x in self.t.instrument_status.values()]) == 0:
+            #     cur_trading_day = self.t.tradingday
+            #     self.t.ReqUserLogout()
+            #     self.q.ReqUserLogout()
+            #     # cur_trading_day = self.trading_days[self.trading_days.index(next_trading_day) - 1] 周末时取值不对
+            #     self.cfg.log.info('continue after {}'.format(cur_trading_day + ' 08:30:00'))
+            #     time.sleep((datetime.strptime(cur_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
             else:
                 time.sleep(1)

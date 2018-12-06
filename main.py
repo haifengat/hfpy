@@ -7,6 +7,8 @@ __mtime__ = '20180822'
 from hfpy.atp import ATP
 
 if __name__ == '__main__':
-    ATP().Run()
+    atp = ATP()
+    atp.Run()
     while input().lower() != 'q':
         continue
+    atp.close_api()
