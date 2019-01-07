@@ -7,7 +7,7 @@
     # 可通过增加Data实现多合约多周期引用
     Datas:
     -
-        Instrument: j1901
+        Instrument: j1905
         IntervalType: Minute
         Interval: 5
     Params:
@@ -19,7 +19,7 @@
     BeginDate: 20180901
     Datas:
     - 
-        Instrument: rb1901
+        Instrument: rb1905
         IntervalType: Minute
         Interval: 5
     Params:

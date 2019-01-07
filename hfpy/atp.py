@@ -28,7 +28,7 @@ from .config import Config
 from py_ctp.trade import CtpTrade
 from py_ctp.quote import CtpQuote
 from py_ctp.enums import DirectType, OffsetType, OrderType, OrderStatus, InstrumentStatus
-from py_ctp.structs import InfoField, OrderField, TradeField, Tick
+from py_ctp.structs import InfoField, OrderField, TradeField, Tick, InstrumentField
 
 
 class ATP(object):
@@ -50,6 +50,9 @@ class ATP(object):
 
         self.trade_time: dict = {}
         '''品种交易时间'''
+
+        self.instrument_info = {}
+        '''合约信息'''
 
         self.received_instrument: list = []
         '''已接收tick的合约'''
@@ -161,6 +164,7 @@ class ATP(object):
                             self.cfg.log.info("# strategy:{0}".format(stra))
 
                             for data in stra.Datas:
+                                data.InstrumentInfo = self.instrument_info[data.Instrument]
                                 data.SingleOrderOneBar = self.cfg.single_order_one_bar
                             self.stra_instances.append(stra)
                 else:
@@ -575,11 +579,34 @@ class ATP(object):
             req.Type = BarType.TradeDate
             self.trading_days = self.get_data_zmq(req)
 
+            req.Type = BarType.Product
+            products = self.get_data_zmq(req)
+            proc_dict ={}
+            for p in products:
+                proc_dict[p['_id']] = p
+
+            req.Type = BarType.InstrumentInfo
+            insts = self.get_data_zmq(req)
+
+            for inst_proc in insts:
+                proc = proc_dict[inst_proc['ProductID']]
+                f = InstrumentField()
+                f.ExchangeID = proc['ExchangeID']
+                f.InstrumentID = inst_proc['_id']
+                f.PriceTick = proc['PriceTick']
+                f.ProductID = inst_proc['ProductID']
+                f.ProductType = proc['ProductType']
+                f.VolumeMultiple = proc['VolumeTuple']
+                if 'MAXLIMITORDERVOLUME' in proc:
+                    f.MaxOrderVolume = proc['MAXLIMITORDERVOLUME']
+                self.instrument_info[inst_proc['_id']] = f
+
         # 接口未登录,不计算Actionday
         if self.TradingDay == '':
             return
         self.Actionday = self.TradingDay if self.trading_days.index(self.TradingDay) == 0 else self.trading_days[self.trading_days.index(self.TradingDay) - 1]
         self.Actionday1 = (datetime.strptime(self.Actionday, '%Y%m%d') + timedelta(days=1)).strftime('%Y%m%d')
+
 
     def Run(self):
         """"""
@@ -616,7 +643,6 @@ class ATP(object):
         self.t.OnCancel = self.OnCancel
         self.t.OnErrOrder = self.OnRtnErrOrder
         self.t.OnInstrumentStatus = self.OnInstrumentStatus
-        self.t
 
         self.t.ReqConnect(self.cfg.front_trade)
 
