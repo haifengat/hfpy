@@ -5,7 +5,7 @@ __title__ = ''
 __author__ = 'HaiFeng'
 __mtime__ = '2016/8/16'
 """
-import talib
+import talib._ta_lib as talib
 from hfpy.data import Data
 from hfpy.bar import Bar
 from hfpy.strategy import Strategy
