@@ -612,6 +612,7 @@ class ATP(object):
         """"""
         if self.cfg.front_trade == '' or self.cfg.front_quote == '':
             self.cfg.log.war('**** 交易接口未配置 ****')
+            self.get_actionday()
         else:
             if self.cfg.investor == '':
                 self.cfg.investor = input('invesorid on {}:'.format(self.cfg.front_name))
