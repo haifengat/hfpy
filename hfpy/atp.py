@@ -135,6 +135,8 @@ class ATP(object):
     def load_strategy(self):
         """加载../strategy目录下的策略"""
         """通过文件名取到对应的继承Data的类并实例"""
+        if not self.cfg.stra_path:
+            return
         for path in self.cfg.stra_path:
             for stra_name in self.cfg.stra_path[path]:
                 f = os.path.join(path, '{}.py'.format(stra_name))

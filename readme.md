@@ -107,8 +107,8 @@ if __name__ == '__main__':
 ---
 ctp_config:
     # 为空时不登录
-    ctp_front: 'sim_now'
-    investor: '008107'
+    ctp_front: ''
+    investor: '008105'
     password: '1'
     # 追单设置
     chasing:
@@ -128,11 +128,15 @@ ctp_config:
 # 数据源 - zmq配置
 zmq_config: tcp://broadcast.eicp.net:55881
 # 开关
-stra_onoff:
+onoff:
+    # 是否7*24
+    running_as_server: true
     # 是否发送委托
-    real_order_enable: true
+    real_order_enable: false
     # 一根K线只发送一次指令
     single_order_one_bar: true
+    # 是否打印行情时间
+    show_tick_time: true
 # 策略路径配置
 stra_path:
     # 路径
@@ -141,7 +145,6 @@ stra_path:
         SMACross:
         # 策略配置参数ID
         - 119
-
 ```
 
 #### SMACross.py
