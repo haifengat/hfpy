@@ -471,8 +471,10 @@ class ATP(object):
 
     def close_api(self):
         time.sleep(1)
-        self.q.ReqUserLogout()
-        self.t.ReqUserLogout()
+        if self.t and self.t.logined:
+            self.t.ReqUserLogout()
+        if self.q and self.q.logined:
+            self.q.ReqUserLogout()
 
     def q_OnFrontConnected(self, q: CtpQuote):
         """"""
@@ -495,7 +497,7 @@ class ATP(object):
         if ut not in mins_dict['Mins']:
             # 开盘/收盘
             if ut in mins_dict['Opens']:
-                ut = (datetime.strptime(ut, '%H:%M:%S') + timedelta(minutes=1)).strftime('%H:%M:%S')
+                tick.UpdateTime = (datetime.strptime(ut, '%H:%M:%S') + timedelta(minutes=1)).strftime('%H:%M:%S')
             elif ut in mins_dict['Ends']:
                 # 重新登录会收到上一节的最后tick
                 tick_dt = datetime.strptime('{} {}'.format(datetime.now().strftime('%Y%m%d'), tick.UpdateTime), '%Y%m%d %H:%M:%S')
@@ -507,7 +509,7 @@ class ATP(object):
                     diff_snd = (now_dt - tick_dt).seconds
                 if diff_snd > 30:
                     return
-                ut = (datetime.strptime(ut, '%H:%M:%S') + timedelta(minutes=-1)).strftime('%H:%M:%S')
+                tick.UpdateTime = (datetime.strptime(ut, '%H:%M:%S') + timedelta(seconds=-1)).strftime('%H:%M:%S')
             else:
                 return
         # 首tick不处理(新开盘时会收到之前的旧数据)
@@ -583,7 +585,7 @@ class ATP(object):
 
             req.Type = BarType.Product
             products = self.get_data_zmq(req)
-            proc_dict ={}
+            proc_dict = {}
             for p in products:
                 proc_dict[p['_id']] = p
 
@@ -608,7 +610,6 @@ class ATP(object):
             return
         self.Actionday = self.TradingDay if self.trading_days.index(self.TradingDay) == 0 else self.trading_days[self.trading_days.index(self.TradingDay) - 1]
         self.Actionday1 = (datetime.strptime(self.Actionday, '%Y%m%d') + timedelta(days=1)).strftime('%Y%m%d')
-
 
     def Run(self):
         """"""

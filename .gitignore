@@ -53,3 +53,5 @@ strategies*/
 /r.html
 .vscode*/
 /config.yml
+dist/
+hfpy.*/

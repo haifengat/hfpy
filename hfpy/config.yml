@@ -1,7 +1,7 @@
 ---
 ctp_config:
     # 为空时不登录
-    ctp_front: 'sim_now'
+    ctp_front: ''
     investor: '008107'
     password: '1'
     # 追单设置
