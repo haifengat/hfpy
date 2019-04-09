@@ -112,8 +112,11 @@ ctp_config:
     password: '1'
     # 追单设置
     chasing:
+        # n秒后不成交则撤单重发[0-不追单]
         wait_seconds: 3
-        offset_ticks: -2
+        # 超价重发n个pricetick
+        offset_ticks: 2
+        # 重发次数,n次重发后仍未成交则[板价发单]
         resend_times: 3
     # ctp前置配置
     fronts:

@@ -392,9 +392,11 @@ class ATP(object):
         stra.OnOrder(order)
 
     def resend(self, order: OrderField):
-        time.sleep(self.cfg.chasing['wait_seconds'])
-        if order.VolumeLeft > 0:
-            self.t.ReqOrderAction(order.OrderID)
+        wait = self.cfg.chasing['wait_seconds']
+        if wait > 0:
+            time.sleep(wait)
+            if order.VolumeLeft > 0:
+                self.t.ReqOrderAction(order.OrderID)
 
     def OnCancel(self, t: CtpTrade, order: OrderField):
         """"""
