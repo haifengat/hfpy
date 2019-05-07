@@ -32,11 +32,11 @@ long_description_content_type = "text/markdown",  # 指定包文档格式为mark
 setup(
     name='hfpy',  # 包名
     python_requires='>=3.4.0',  # python环境
-    version='0.1.5.6',  # 包的版本
-    description="Hai Feng Python Future Trading Platform",  # 包简介，显示在PyPI上
+    version='0.1.6',  # 包的版本
+    description="Hai Feng Python Future Trading Platform",  # 包简介，显示在PyPI�
     long_description=long_description,  # 读取的Readme文档内容
     long_description_content_type=long_description_content_type,  # 指定包文档格式为markdown
-    author="HaiFeng",  # 作者相关信息
+    author="HaiFeng",  # 作者相关信�
     author_email='haifengat@vip.qq.com',
     url='https://github.com/haifengat/hf_at_py',
     # 指定包信息，还可以用find_packages()函数

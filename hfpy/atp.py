@@ -305,7 +305,8 @@ class ATP(object):
                         if data.Instrument == bar.Instrument:
                             data.__new_min_bar__(bar)  # 调Data的onbar
             # 生成策略的测试报告
-            Report(stra)
+            if len(stra.Orders) > 0:
+                Report(stra)
         self.cfg.log.war("test history is end.")
 
     def link_fun(self):
@@ -327,7 +328,7 @@ class ATP(object):
         """"""
         self.cfg.log.war("[trade] connected by client")
         if self.t.ReqUserLogin:
-            self.t.ReqUserLogin(self.cfg.investor, self.cfg.pwd, self.cfg.broker)
+            self.t.ReqUserLogin(self.cfg.investor, self.cfg.password, self.cfg.broker, self.cfg.product_info, self.cfg.app_id, self.cfg.auth_code)
 
     def relogin(self):
         """"""
@@ -481,7 +482,7 @@ class ATP(object):
     def q_OnFrontConnected(self, q: CtpQuote):
         """"""
         self.cfg.log.info("[quote] connected by client")
-        self.q.ReqUserLogin(self.cfg.broker, self.cfg.investor, self.cfg.pwd)
+        self.q.ReqUserLogin(self.cfg.broker, self.cfg.investor, self.cfg.password)
 
     def q_OnRspUserLogin(self, q: CtpQuote, info: InfoField):
         """"""
@@ -623,8 +624,8 @@ class ATP(object):
                 self.cfg.investor = input('invesorid on {}:'.format(self.cfg.front_name))
             else:
                 self.cfg.log.war('{} loging by ctp'.format(self.cfg.investor))
-            if self.cfg.pwd == '':
-                self.cfg.pwd = getpass.getpass()
+            if self.cfg.password == '':
+                self.cfg.password = getpass.getpass()
             if self.cfg.running_as_server:
                 self.cfg.log.war('7*24 as server ....')
                 threading.Thread(target=self._run_seven, daemon=True).start()

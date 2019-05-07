@@ -38,7 +38,11 @@ class Config(object):
         self.front_quote = ''
         self.broker = ''
         self.investor = ''
-        self.pwd = ''
+        self.password = ''
+        self.product_info = ''
+        self.app_id = ''
+        self.auth_code = ''
+
         cfg_ctp = cfg['ctp_config']
         if cfg_ctp['ctp_front'] != '':
             self.front_name = cfg_ctp['ctp_front']
@@ -46,10 +50,11 @@ class Config(object):
             self.front_trade = cfg_ctp_front['trade']
             self.front_quote = cfg_ctp_front['quote']
             self.broker = cfg_ctp_front['broker']
-            if 'investor' in cfg_ctp and cfg_ctp['investor'] != '':
-                self.investor = cfg_ctp['investor']
-            if 'password' in cfg_ctp and cfg_ctp['password'] != '':
-                self.pwd = cfg_ctp['password']
+            for v in ['investor', 'password', 'product_info', 'app_id', 'auth_code']:
+                if v in cfg_ctp and cfg_ctp[v] != '':
+                    vars(self)[v] = cfg_ctp[v]
+            # if 'password' in cfg_ctp and cfg_ctp['password'] != '':
+            #     self.pwd = cfg_ctp['password']
 
         self.single_order_one_bar = False
         '''是否每根K线只发一次指令'''
