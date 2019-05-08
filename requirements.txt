@@ -1,5 +1,5 @@
 color_log>=1.0.7
-py_ctp>=2.0.1
+py_ctp>=2.2.0
 pandas>=0.23.4
 setuptools>=40.2.0
 numpy>=1.15.1
