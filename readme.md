@@ -110,6 +110,9 @@ ctp_config:
     ctp_front: ''
     investor: '008105'
     password: '1'
+    product_info: ''
+    app_id: ''
+    auth_code: ''
     # 追单设置
     chasing:
         # n秒后不成交则撤单重发[0-不追单]
