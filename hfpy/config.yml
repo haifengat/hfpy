@@ -14,21 +14,21 @@ ctp_config:
         wait_seconds: 3
         offset_ticks: -2
         resend_times: 3
-    # ctp前置配置: 请改用期货公司对�.3.15(SE)的前�
+    # ctp前置配置: 请改用期货公司对的(SE)的前置
     fronts:
         sim_now:
-            trade: tcp://180.168.146.187:13030
-            quote: tcp://180.168.146.187:14040
+            trade: tcp://180.168.146.187:10010
+            quote: tcp://180.168.146.187:10011
             broker: '9999'
-# 数据�- zmq配置
+# 数据- zmq配置
 zmq_config: tcp://broadcast.eicp.net:55881
-# 开�
+# 开关
 onoff:
     # 是否7*24
     running_as_server: true
-    # 是否发送委�
+    # 是否发送委托
     real_order_enable: true
-    # 一根K线只发送一次指�
+    # 一根K线只发送一次指令
     single_order_one_bar: true
     # 是否打印行情时间
     show_tick_time: false
@@ -36,7 +36,7 @@ onoff:
 stra_path:
     # 路径
     strategies:
-        # 策略文件�
+        # 策略文件
         SMACross:
         # 策略配置参数ID
         - 119

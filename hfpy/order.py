@@ -108,5 +108,4 @@ class OrderItem(object):
 
     def __str__(self):
         """"""
-        return '{self.Instrument}, {self.DateTime}, {self.Direction}, {self.Offset}, {self.Price}, {self.Volume}, {self.Remark}'.format(
-            self=self)
+        return '{self.Instrument}, {self.DateTime}, {self.Direction}, {self.Offset}, {self.Price}, {self.Volume}, {self.Remark}'.format(self=self)

@@ -67,7 +67,7 @@ class ATP(object):
         """此处调用ctp接口即可实现实际下单"""
         # print('stra order')
 
-        self.cfg.log.war('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n'.format(len(stra.Orders), stra.D[-1], order.Direction, order.Offset, order.Price, order.Volume, order.Remark))
+        self.cfg.log.war(f'{len(stra.Orders)}\t{stra.D[-1]}\t{order.Direction}\t{order.Offset}\t{order.Price}\t{order.Volume}\t{order.Remark}\n')
 
         if self.cfg.real_order_enable:
             # print(order)
@@ -76,7 +76,7 @@ class ATP(object):
             order.Price = order.Price // self.t.instruments[order.Instrument].PriceTick * self.t.instruments[order.Instrument].PriceTick
 
             if order.Offset != OffsetType.Open:
-                key = '{0}_{1}'.format(order.Instrument, 'Sell' if order.Direction == DirectType.Buy else 'Buy')
+                key = f"{order.Instrument}_{'Sell' if order.Direction == DirectType.Buy else 'Buy'}"
                 # 无效,没提示...pf = PositionField()
                 pf = self.t.positions.get(key)
                 if not pf or pf.Position <= 0:
@@ -139,12 +139,12 @@ class ATP(object):
             return
         for path in self.cfg.stra_path:
             for stra_name in self.cfg.stra_path[path]:
-                f = os.path.join(path, '{}.py'.format(stra_name))
+                f = os.path.join(path, f'{stra_name}.py')
                 # 只处理对应的 py文件
                 if os.path.isdir(f) or os.path.splitext(f)[0] == '__init__':
                     continue
                 # 以目录结构作为 namespace
-                module_name = "{0}.{1}".format(os.path.split(os.path.dirname(f))[1], stra_name)
+                module_name = f'{os.path.split(os.path.dirname(f))[1]}.{stra_name}'
 
                 module = __import__(module_name)  # import module
 
@@ -154,7 +154,7 @@ class ATP(object):
                     continue
 
                 # 与策略文件同名的 yaml 作为配置文件处理
-                cfg_name = os.path.join(path, '{0}.yml'.format(stra_name))
+                cfg_name = os.path.join(path, f'{stra_name}.yml')
                 if os.path.exists(cfg_name):
                     with open(cfg_name, encoding='utf-8') as stra_cfg_json_file:
                         params = yaml.load(stra_cfg_json_file)
@@ -163,14 +163,14 @@ class ATP(object):
                                 continue
                             stra: Strategy = c(param)
                             stra.ID = param['ID']
-                            self.cfg.log.info("# strategy:{0}".format(stra))
+                            self.cfg.log.info(f"# strategy:{stra}")
 
                             for data in stra.Datas:
                                 data.InstrumentInfo = self.instrument_info[data.Instrument]
                                 data.SingleOrderOneBar = self.cfg.single_order_one_bar
                             self.stra_instances.append(stra)
                 else:
-                    self.cfg.log.error("缺少对应的json文件{0}".format(cfg_name))
+                    self.cfg.log.error(f"缺少对应的json文件{cfg_name}")
 
     def get_data_zmq(self, req: ReqPackage) -> []:
         ''''''
@@ -201,9 +201,9 @@ class ATP(object):
             conn = self.cfg.engine_postgres.raw_connection()
             cursor = conn.cursor()
             if req.Type == BarType.Min:
-                sql = 'select "DateTime", \'{0}\' as "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min."{0}" where "Tradingday" between \'{1}\' and \'{2}\''.format(req.Instrument, req.Begin, req.End)
+                sql = f'select "DateTime", \'{req.Instrument}\' as "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min."{req.Instrument}" where "Tradingday" between \'{req.Begin}\' and \'{req.End}\''
             if req.Type == BarType.Real:
-                sql = 'select "DateTime", "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min.future_real where "Instrument" = \'{}\''.format(req.Instrument)
+                sql = f'select DateTime, "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest" from future_min.future_real where "Instrument" = \'{req.Instrument}\''
             cursor.execute(sql)
             data = cursor.fetchall()
             keys = ["DateTime", "Instrument", "Tradingday", "High", "Low", "Open", "Close", "Volume", "OpenInterest"]
@@ -253,14 +253,13 @@ class ATP(object):
         if self.cfg.engine_postgres is not None:
             conn = self.cfg.engine_postgres.raw_connection()
             cursor = conn.cursor()
-            sql = "select count(1) from pg_tables where schemaname='future_tick' and tablename='{}'".format(tradingday)
+            sql = f"select count(1) from pg_tables where schemaname='future_tick' and tablename='{tradingday}'"
             try:
                 cursor.execute(sql)
                 if cursor.fetchone()[0] == 0:
                     return []
                 for data in stra.Datas:
-                    sql = 'select "Actionday", "AskPrice", "AskVolume", "BidPrice", "BidVolume", "Instrument", "LastPrice", "OpenInterest", "UpdateMillisec", "UpdateTime", "Volume" from future_tick."{}" where "Instrument" = \'{}\''.format(
-                        tradingday, data.Instrument)
+                    sql = f'select "Actionday", "AskPrice", "AskVolume", "BidPrice", "BidVolume", "Instrument", "LastPrice", "OpenInterest", "UpdateMillisec", "UpdateTime", "Volume" from future_tick."{tradingday}" where "Instrument" = \'{data.Instrument}\''
                     cursor.execute(sql)
                     rows = cursor.fetchall()
                     for d in rows:
@@ -285,7 +284,7 @@ class ATP(object):
         """取历史和实时K线数据,并执行策略回测"""
         stra: Strategy = None  # 只为后面的提示信息创建
         for stra in self.stra_instances:
-            self.cfg.log.info('策略 {0} 正在加载历史数据'.format(stra.ID))
+            self.cfg.log.info(f'策略 {stra.ID} 正在加载历史数据')
             if stra.TickTest:
                 tradingday = stra.BeginDate
                 tick: Tick = None
@@ -353,9 +352,9 @@ class ATP(object):
                 self.q.ReqConnect(self.cfg.front_quote)
                 if self.cfg.show_tick_time:
                     threading.Thread(target=self.showmsg).start()
-            self.cfg.log.info('[trade] {}'.format(info))
+            self.cfg.log.info(f'[trade] {info}')
         else:
-            self.cfg.log.error('[trade] {}'.format(info))
+            self.cfg.log.error(f'[trade] {info}')
             if info.ErrorID == 7:
                 threading.Thread(target=self.relogin).start()
 
@@ -365,7 +364,7 @@ class ATP(object):
                 msg = ''
                 stra: Strategy = None
                 for stra in self.stra_instances:
-                    msg += '{}[L={}; S={}]{}||'.format(type(stra).__name__, stra.PositionLong, stra.PositionShort, stra.Params)
+                    msg += f'{type(stra).__name__}[L={stra.PositionLong}; S={stra.PositionShort}]{stra.Params}||'
                 print(self.tick_time + '||' + msg, end='\r')
             time.sleep(1)
 
@@ -412,19 +411,20 @@ class ATP(object):
         if stra is None:
             return
 
-        custom = order.Custom
-        custom = custom + 100
-        times = custom % 1000 // 100
-        if times <= self.cfg.chasing['resend_times']:
-            if order.Direction == DirectType.Buy:
-                price = self.q.inst_tick[order.InstrumentID].AskPrice + self.cfg.chasing['offset_ticks'] * self.t.instruments[order.InstrumentID].PriceTick
+        if self.cfg.chasing['resend_times'] > 0:  # 追单
+            custom = order.Custom
+            custom = custom + 100
+            times = custom % 1000 // 100
+            if times <= self.cfg.chasing['resend_times']:
+                if order.Direction == DirectType.Buy:
+                    price = self.q.inst_tick[order.InstrumentID].AskPrice + self.cfg.chasing['offset_ticks'] * self.t.instruments[order.InstrumentID].PriceTick
+                else:
+                    price = self.q.inst_tick[order.InstrumentID].BidPrice - self.cfg.chasing['offset_ticks'] * self.t.instruments[order.InstrumentID].PriceTick
             else:
-                price = self.q.inst_tick[order.InstrumentID].BidPrice - self.cfg.chasing['offset_ticks'] * self.t.instruments[order.InstrumentID].PriceTick
-        else:
-            if order.Direction == DirectType.Buy:
-                price = self.q.inst_tick[order.InstrumentID].UpperLimitPrice
-            else:
-                price = self.q.inst_tick[order.InstrumentID].LowerLimitPrice
+                if order.Direction == DirectType.Buy:
+                    price = self.q.inst_tick[order.InstrumentID].UpperLimitPrice
+                else:
+                    price = self.q.inst_tick[order.InstrumentID].LowerLimitPrice
 
         self.t.ReqOrderInsert(order.InstrumentID, order.Direction, order.Offset, price, order.VolumeLeft, OrderType.Limit, pCustom=custom)
 
@@ -486,7 +486,7 @@ class ATP(object):
 
     def q_OnRspUserLogin(self, q: CtpQuote, info: InfoField):
         """"""
-        self.cfg.log.info('[quote] {}'.format(info))
+        self.cfg.log.info(f'[quote] {info}')
         for stra in self.stra_instances:
             for data in stra.Datas:
                 self.q.ReqSubscribeMarketData(data.Instrument)
@@ -503,7 +503,7 @@ class ATP(object):
                 tick.UpdateTime = (datetime.strptime(ut, '%H:%M:%S') + timedelta(minutes=1)).strftime('%H:%M:%S')
             elif ut in mins_dict['Ends']:
                 # 重新登录会收到上一节的最后tick
-                tick_dt = datetime.strptime('{} {}'.format(datetime.now().strftime('%Y%m%d'), tick.UpdateTime), '%Y%m%d %H:%M:%S')
+                tick_dt = datetime.strptime(f"{datetime.now().strftime('%Y%m%d')} {tick.UpdateTime}", '%Y%m%d %H:%M:%S')
                 now_dt = datetime.now()
                 diff_snd = 0
                 if tick_dt > now_dt:
@@ -579,7 +579,7 @@ class ATP(object):
         if self.cfg.engine_postgres:
             conn = self.cfg.engine_postgres.raw_connection()
             cursor = conn.cursor()
-            cursor.execute('select _id from future_config.trade_date where trading = 1')
+            cursor.execute('select "_id" from future_config.trade_date where trading = 1')
             self.trading_days = [c[0] for c in cursor.fetchall()]
         else:
             req = ReqPackage()
@@ -621,9 +621,9 @@ class ATP(object):
             self.get_actionday()
         else:
             if self.cfg.investor == '':
-                self.cfg.investor = input('invesorid on {}:'.format(self.cfg.front_name))
+                self.cfg.investor = input(f'invesorid on {self.cfg.front_name}:')
             else:
-                self.cfg.log.war('{} loging by ctp'.format(self.cfg.investor))
+                self.cfg.log.war(f'{self.cfg.investor} loging by ctp')
             if self.cfg.password == '':
                 self.cfg.password = getpass.getpass()
             if self.cfg.running_as_server:
@@ -674,19 +674,19 @@ class ATP(object):
                     if now_time <= '020000' and (datetime.today() + timedelta.days(-1)).strftime('%Y%m%d') in self.trading_days:
                         time.sleep(1)
                     else:
-                        self.cfg.log.info('{} is not tradingday.'.format(day))
-                        self.cfg.log.info('continue after {}'.format(next_trading_day + ' 08:30:00'))
+                        self.cfg.log.info(f'{day} is not tradingday.')
+                        self.cfg.log.info(f"continue after {next_trading_day + ' 08:30:00'}")
                         sleep_seconds = (int)((datetime.strptime(next_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
                 elif now_time <= '083000':
-                    self.cfg.log.info('continue after {}'.format(day + ' 08:30:00'))
+                    self.cfg.log.info(f"continue after {day + ' 08:30:00'}")
                     sleep_seconds = (int)((datetime.strptime(day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
                 elif now_time >= '150000':
                     if has_hight:
                         if datetime.now().strftime('%H%M%S') < '203000':
-                            self.cfg.log.info('continue after {}'.format(day + ' 20:30:00'))
+                            self.cfg.log.info(f"continue after {day + ' 20:30:00'}")
                             sleep_seconds = (int)((datetime.strptime(day + '20:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
                     else:
-                        self.cfg.log.info('continue after {}'.format(next_trading_day + ' 08:30:00'))
+                        self.cfg.log.info(f"continue after {next_trading_day + ' 08:30:00'}")
                         sleep_seconds = (int)((datetime.strptime(next_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
                 if sleep_seconds > 0:
                     time.sleep(sleep_seconds)
@@ -694,23 +694,5 @@ class ATP(object):
                 # 启动接口
                 self.start_api()
                 time.sleep(10)
-                # 已收盘
-            # elif sum([1 if x != InstrumentStatus.Closed else 0 for x in self.t.instrument_status.values()]) == 0:
-            #     self.t.ReqUserLogout()
-            #     self.q.ReqUserLogout()
-            #     if has_hight:
-            #         self.cfg.log.info('continue after {}'.format(day + ' 20:30:00'))
-            #         time.sleep((datetime.strptime(day + '20:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
-            #     else:
-            #         self.cfg.log.info('continue after {}'.format(next_trading_day + ' 08:30:00'))
-            #         time.sleep((datetime.strptime(next_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
-            # # 夜盘全部非交易
-            # elif now_time < '030000' and sum([1 if x == InstrumentStatus.Continous else 0 for x in self.t.instrument_status.values()]) == 0:
-            #     cur_trading_day = self.t.tradingday
-            #     self.t.ReqUserLogout()
-            #     self.q.ReqUserLogout()
-            #     # cur_trading_day = self.trading_days[self.trading_days.index(next_trading_day) - 1] 周末时取值不对
-            #     self.cfg.log.info('continue after {}'.format(cur_trading_day + ' 08:30:00'))
-            #     time.sleep((datetime.strptime(cur_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
             else:
                 time.sleep(1)

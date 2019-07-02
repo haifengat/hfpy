@@ -268,8 +268,7 @@ class Data(object):
             day = time.strftime('%W', bar_time)
 
         # time -> str
-        bar_time = '{0}{1:02d}{2:02d} {3:02d}:{4:02d}:00'.format(
-            year, mon, day, hour, mins)
+        bar_time = f'{year}{mon:02d}{day:02d} {hour:02d}:{mins:02d}:00'
         if len(self.Bars) == 0 or self.Bars[-1].D != bar_time:
             bar.D = bar_time
             self.Bars.append(bar)
@@ -355,7 +354,7 @@ class Data(object):
         order.LastEntryPriceLong = self._lastOrder.LastEntryPriceLong
         order.LastEntryPriceShort = self._lastOrder.LastEntryPriceShort
 
-        diroff = '{0}-{1}'.format(order.Direction.name, order.Offset.name)
+        diroff = f'{order.Direction.name}-{order.Offset.name}'
         if diroff == 'Buy-Open':
             if self._lastOrder.PositionLong == 0:
                 order.IndexEntryLong = len(self.Bars) - 1
