@@ -30,9 +30,6 @@ class Config(object):
         self.cfg_zmq = ''
         if 'zmq_config' in cfg:
             self.cfg_zmq = cfg['zmq_config']
-        self.engine_postgres = None
-        # if 'postgres_config' in cfg:
-        #     self.engine_postgres = create_engine(cfg['postgres_config'])
 
         self.front_trade = ''
         self.front_quote = ''

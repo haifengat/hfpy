@@ -168,16 +168,16 @@ class Report(object):
         j = ''
         bar: Bar = None
         for bar in data.Bars:
-            js = f'"D":"{bar.D}",'
-            js += f'"TD":{bar.Tradingday},'
-            js += f'"O":{bar.O},'
-            js += f'"H":{bar.H},'
-            js += f'"L":{bar.L},'
-            js += f'"C":{bar.C},'
-            js += f'"V":{bar.V},'
-            js += f'"I":{bar.I}'
-            j += f'{{{js}}},'
-        j = f'[{j[:-1]}]'
+            js = '"D":"{}",'.format(bar.D)
+            js += '"TD":{},'.format(bar.Tradingday)
+            js += '"O":{},'.format(bar.O)
+            js += '"H":{},'.format(bar.H)
+            js += '"L":{},'.format(bar.L)
+            js += '"C":{},'.format(bar.C)
+            js += '"V":{},'.format(bar.V)
+            js += '"I":{}'.format(bar.I)
+            j += '{{{}}},'.format(js)
+        j = '[{}]'.format(j[:-1])
         df_data: DataFrame = pd.read_json(j)
         df_data['D'] = pd.to_datetime(df_data['D'], format='%Y%m%d %H:%M:%S')
         df_data = df_data.set_index('D', drop=True)
@@ -186,15 +186,18 @@ class Report(object):
         j = ''
         o: OrderItem = None
         for o in data.Orders:
-            js = f'"D":"{o.DateTime}",'
-            js += f'"AvgEntryPriceLong":{o.AvgEntryPriceLong},'
-            js += f'"AvgEntryPriceShort":{o.AvgEntryPriceShort},'
-            js += f'"PositionLong":{o.PositionLong},'
-            js += f'"PositionShort":{o.PositionShort},'
+            js = '"D":"{}",'.format(o.DateTime)
+            # js += '"OP":"{}",'.format(o.Direction.name[0] + ('K' if o.Offset.name[0] == 'O' else 'P'))
+            # js += '"Price":{},'.format(o.Price)
+            # js += '"Volume":{}'.format(o.Volume)
+            js += '"AvgEntryPriceLong":{},'.format(o.AvgEntryPriceLong)
+            js += '"AvgEntryPriceShort":{},'.format(o.AvgEntryPriceShort)
+            js += '"PositionLong":{},'.format(o.PositionLong)
+            js += '"PositionShort":{},'.format(o.PositionShort)
             # AvgEntryPriceLong 无仓时为0
-            js += '"CloseProfit":{},'.format(((o.Price - o.AvgEntryPriceLong if o.Direction.name[0] + o.Offset.name[0] == 'SC' else o.AvgEntryPriceShort - o.Price if o.Direction.name[0] + o.Offset.name[0] == 'BC' else 0) * o.Volume))
-            j += f'{{{js}}},'
-        j = f'[{j[:-1]}]'
+            js += '"CloseProfit":{},'.format((o.Price - o.AvgEntryPriceLong if o.Direction.name[0] + o.Offset.name[0] == 'SC' else o.AvgEntryPriceShort - o.Price if o.Direction.name[0] + o.Offset.name[0] == 'BC' else 0) * o.Volume)
+            j += '{{{}}},'.format(js)
+        j = '[{}]'.format(j[:-1])
         df_order: DataFrame = pd.read_json(j)
         df_order['D'] = pd.to_datetime(df_order['D'], format='%Y%m%d %H:%M:%S')
         df_order = df_order.set_index('D', drop=True)
@@ -421,7 +424,7 @@ class Report(object):
         # self.zui_da_jing_zhi_bu_chuang_xin_gao_tian_shu = .0  # 最大净值不创新高天数
         # self.zui_da_jing_zhi_bu_chuang_xin_gao_qu_jian = .0  # 最大净值不创新高区间
         # self.bo_dong_lv = .0  # 波动率
-        self.bo_dong_lv = round((self.df_data['Profit'] / 1000).std(), 2)  # mean收益率
+        self.bo_dong_lv = round((self.df_data['Profit']/1000).std(), 2)  # mean收益率
 
         # self.zong_jiao_yi_tian_shu = .0  # 总交易天数
         self.zong_jiao_yi_tian_shu = len(df_day['Profit'])
@@ -494,7 +497,7 @@ class Report(object):
         self.zong_shou_yi_lv = round(self.df_data['Profit'][-1] / self.chu_shi_zi_jin, 2)
 
         # self.xia_pu_bi_lv = .0  # 夏普比率
-        self.xia_pu_bi_lv = round((self.zong_shou_yi_lv - 0.04) / self.bo_dong_lv, 4)
+        self.xia_pu_bi_lv = round((self.zong_shou_yi_lv - 0.04)/self.bo_dong_lv, 4)
 
         # self.MAR_bi_lv = .0  # MAR比率
         self.MAR_bi_lv = round(self.zong_shou_yi_lv / self.zui_da_hui_che_bi_lv, 4)
@@ -537,6 +540,28 @@ class Report(object):
                 'item_3': tempData[rownum * 2 + i]['item'],
                 'value_3': tempData[rownum * 2 + i]['value']
             })
+
+        # items_per_row = 3
+        # table = '<tr>'
+        # for i in range(items_per_row):
+        #     table += '<td>项目</td><td>值</td>'
+        # table += '</tr><tr>'
+        # idx = 0
+        # for k, v in vars(self).items():
+        #     print(self.index_description[k], v)
+        #     if str(type(v)).find('int') > 0:
+        #         table += '<td>{}</td><td>{}</td>'.format(self.index_description[k], v)
+        #         # print('{0:{2}<12}:{1:>9d}.   |'.format(self.index_description[k], v, chr(12288)), end='\t')
+        #     elif str(type(v)).find('float') > 0:
+        #         table += '<td>{}</td><td>{}</td>'.format(self.index_description[k], v)
+        #         # print('{0:{2}<12}:{1:>13.3f}|'.format(self.index_description[k], v, chr(12288)), end='\t')
+        #     else:
+        #         continue
+        #     idx += 1
+        #     if idx % items_per_row == 0:
+        #         table += '</tr><tr>'
+        #         # print('')
+        # table += '</tr>'
         report = report.replace('$report_table$', str(json.dumps(reportData)))
 
         bars_json = []

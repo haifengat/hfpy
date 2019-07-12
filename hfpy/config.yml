@@ -1,26 +1,29 @@
 ---
 ctp_config:
     # 为空时不登录
-    ctp_front: ''
     ctp_front: 'sim_now'
-    investor: ''
-    password: ''
+    investor: '008105'
+    password: '1'
     product_info: ''
-    app_id: ''
-    auth_code: ''
+    app_id: 'simnow_client_test'
+    auth_code: '0000000000000000'
 
     # 追单设置
     chasing:
         wait_seconds: 3
         offset_ticks: -2
         resend_times: 3
-    # ctp前置配置: 请改用期货公司对的(SE)的前置
+    # ctp前置配置: 请改用期货公司对应6.3.15(SE)的前置
     fronts:
         sim_now:
-            trade: tcp://180.168.146.187:10010
-            quote: tcp://180.168.146.187:10011
+            trade: tcp://180.168.146.187:10101
+            quote: tcp://180.168.146.187:10111
             broker: '9999'
-# 数据- zmq配置
+        ebf:
+            trade: tcp://180.166.65.114:31205
+            quote: tcp://180.166.65.114:31213
+            broker: '8060'
+# 数据源 - zmq配置
 zmq_config: tcp://broadcast.eicp.net:55881
 # 开关
 onoff:
@@ -36,7 +39,9 @@ onoff:
 stra_path:
     # 路径
     strategies:
-        # 策略文件
+        # 策略文件名
         SMACross:
         # 策略配置参数ID
         - 119
+
+
