@@ -195,7 +195,6 @@ class ATP(object):
         bs = json.loads(gzipper)  # json解析
         return bs
 
-
     def read_bars(self, stra: Strategy) -> []:
         """netMQ"""
         bars = []
@@ -424,7 +423,7 @@ class ATP(object):
     def q_OnFrontConnected(self, q: CtpQuote):
         """"""
         self.cfg.log.info("[quote] connected by client")
-        self.q.ReqUserLogin(self.cfg.broker, self.cfg.investor, self.cfg.password)
+        self.q.ReqUserLogin(self.cfg.investor, self.cfg.password, self.cfg.broker)
 
     def q_OnRspUserLogin(self, q: CtpQuote, info: InfoField):
         """"""
