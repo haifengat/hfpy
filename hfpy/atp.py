@@ -202,7 +202,7 @@ class ATP(object):
             # 请求数据格式
             req = ReqPackage()
             req.Type = BarType.Min
-            req.Instrument = stra.Instrument
+            req.Instrument = data.Instrument
             req.Begin = stra.BeginDate
             req.End = stra.EndDate
             # __dict__返回diction格式,即{key,value}格式
