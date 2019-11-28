@@ -2,12 +2,16 @@
 # ID用于区分不同策略实例的委托
 - 
     ID: 119
-    BeginDate: 20180901
+    BeginDate: 20191101
     TickTest: false
     # 可通过增加Data实现多合约多周期引用
     Datas:
     -
-        Instrument: rb1910
+        Instrument: p2001
+        IntervalType: Minute
+        Interval: 5
+    -
+        Instrument: rb2001
         IntervalType: Minute
         Interval: 5
     Params:

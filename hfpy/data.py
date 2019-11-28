@@ -207,31 +207,31 @@ class Data(object):
         self.Tick = copy.copy(tick)
         # 取此tick对应的分钟时间
         # bar_time = time.strptime(time.strftime("%Y-%m-%d %H:%M", tick.UpdateTime), "%Y-%m-%d %H:%M")
-        bar_time = tick.UpdateTime[:-2] + '00'  # time.strftime("%Y%m%d %H:%M:00", time.strptime(tick.UpdateTime, "%Y%m%d %H:%M:%S"))
+        bar_time = self.Tick.UpdateTime[:-2] + '00'  # time.strftime("%Y%m%d %H:%M:00", time.strptime(tick.UpdateTime, "%Y%m%d %H:%M:%S"))
         if len(self.Bars) == 0 or self.Bars[-1].D != bar_time:  # 新数据
             # bar_time, ins, h, l, o, c, v, i, a)
-            bar = Bar(bar_time, tick.Instrument, tick.LastPrice, tick.LastPrice, tick.LastPrice, tick.LastPrice, tick.Volume, tick.OpenInterest, tradingday)
+            bar = Bar(bar_time, self.Tick.Instrument, self.Tick.LastPrice, self.Tick.LastPrice, self.Tick.LastPrice, self.Tick.LastPrice, self.Tick.Volume, self.Tick.OpenInterest, tradingday)
             if len(self.Bars) > 0:
                 if self.Bars[-1]._pre_volume == 0:  # 实时行情首K即为新的分钟
                     bar.V = 0
                 else:
-                    bar.V = tick.Volume - self.Bars[-1]._pre_volume - self.Bars[-1].V
-            bar._pre_volume = tick.Volume
+                    bar.V = self.Tick.Volume - self.Bars[-1]._pre_volume - self.Bars[-1].V
+            bar._pre_volume = self.Tick.Volume
 
             self.__new_min_bar__(bar)  # 新K线数据插入
         else:
             bar = self.Bars[-1]
-            bar.H = max(bar.H, tick.LastPrice)
-            bar.L = min(bar.L, tick.LastPrice)
-            bar.C = tick.LastPrice
+            bar.H = max(bar.H, self.Tick.LastPrice)
+            bar.L = min(bar.L, self.Tick.LastPrice)
+            bar.C = self.Tick.LastPrice
             # 当时从服务器取到的数据,与ctp实时数据处于同一分钟,需做衔接处理.
             if bar._pre_volume == 0:
-                bar._pre_volume = tick.Volume - bar.V  # 此tick产生的成交量忽略
+                bar._pre_volume = self.Tick.Volume - bar.V  # 此tick产生的成交量忽略
             else:
-                bar.V = tick.Volume - bar._pre_volume
+                bar.V = self.Tick.Volume - bar._pre_volume
             # bar._pre_volume = tick.Volume
-            bar.I = tick.OpenInterest
-            bar.A = tick.AveragePrice
+            bar.I = self.Tick.OpenInterest
+            bar.A = self.Tick.AveragePrice
 
             self.__update_bar__(bar)
 

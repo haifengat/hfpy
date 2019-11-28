@@ -23,6 +23,8 @@ class SMACross(Strategy):
     def OnBarUpdate(self, data=Data, bar=Bar):
         if len(self.C) < self.p_ma2:
             return
+        if len(data.Instrument) > 0:
+            print(f'{data.Tick.Instrument},{data.Tick.Volume}')
 
         # print('{0}-{1}'.format(self.D[-1], self.C[-1]))
         ma1 = talib.SMA(np.array(self.C, dtype=float), self.p_ma1)

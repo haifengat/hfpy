@@ -157,7 +157,7 @@ class ATP(object):
                 cfg_name = os.path.join(path, '{0}.yml'.format(stra_name))
                 if os.path.exists(cfg_name):
                     with open(cfg_name, encoding='utf-8') as stra_cfg_json_file:
-                        params = yaml.load(stra_cfg_json_file)
+                        params = yaml.load(stra_cfg_json_file, Loader=yaml.FullLoader)
                         for param in [p for p in params if p is not None]:  # 去除None的配置
                             if param['ID'] not in self.cfg.stra_path[path][stra_name]:
                                 continue
@@ -466,7 +466,6 @@ class ATP(object):
             actionday = self.Actionday
         elif tick.UpdateTime[0:2] < '04':
             actionday = self.Actionday1
-
         ut = actionday[0:4] + '-' + actionday[4:6] + '-' + actionday[6:] + ' ' + tick.UpdateTime
         tick.UpdateTime = ut
         for stra in self.stra_instances:

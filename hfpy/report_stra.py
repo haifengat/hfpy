@@ -181,7 +181,7 @@ class Report(object):
         df_data: DataFrame = pd.read_json(j)
         df_data['D'] = pd.to_datetime(df_data['D'], format='%Y%m%d %H:%M:%S')
         df_data = df_data.set_index('D', drop=True)
-        df_data = df_data.ix[:, ['O', 'H', 'L', 'C', 'V', 'I', 'TD']]
+        df_data = df_data[['O', 'H', 'L', 'C', 'V', 'I', 'TD']]
         # print(df_data)
         j = ''
         o: OrderItem = None
@@ -424,7 +424,7 @@ class Report(object):
         # self.zui_da_jing_zhi_bu_chuang_xin_gao_tian_shu = .0  # 最大净值不创新高天数
         # self.zui_da_jing_zhi_bu_chuang_xin_gao_qu_jian = .0  # 最大净值不创新高区间
         # self.bo_dong_lv = .0  # 波动率
-        self.bo_dong_lv = round((self.df_data['Profit']/1000).std(), 2)  # mean收益率
+        self.bo_dong_lv = round((self.df_data['Profit'] / 1000).std(), 2)  # mean收益率
 
         # self.zong_jiao_yi_tian_shu = .0  # 总交易天数
         self.zong_jiao_yi_tian_shu = len(df_day['Profit'])
@@ -497,7 +497,7 @@ class Report(object):
         self.zong_shou_yi_lv = round(self.df_data['Profit'][-1] / self.chu_shi_zi_jin, 2)
 
         # self.xia_pu_bi_lv = .0  # 夏普比率
-        self.xia_pu_bi_lv = round((self.zong_shou_yi_lv - 0.04)/self.bo_dong_lv, 4)
+        self.xia_pu_bi_lv = round((self.zong_shou_yi_lv - 0.04) / self.bo_dong_lv, 4)
 
         # self.MAR_bi_lv = .0  # MAR比率
         self.MAR_bi_lv = round(self.zong_shou_yi_lv / self.zui_da_hui_che_bi_lv, 4)
