@@ -214,6 +214,7 @@ class ATP(object):
 
             if stra.EndDate == time.strftime("%Y%m%d", time.localtime()):
                 # 实时K线数据
+                req.Type = BarType.Real
                 for bar in self.get_data_zmq(req):
                     bar['Instrument'] = data.Instrument
                     bar['DateTime'] = bar.pop('_id')
