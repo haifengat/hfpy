@@ -5,12 +5,12 @@ __title__ = ''
 __author__ = 'HaiFeng'
 __mtime__ = '2016/8/16'
 """
-import talib._ta_lib as talib
+# import talib._ta_lib as talib
 from hfpy.data import Data
 from hfpy.bar import Bar
 from hfpy.strategy import Strategy
 import numpy as np
-
+import tulipy as ti
 
 class SMACross(Strategy):
 
@@ -28,8 +28,8 @@ class SMACross(Strategy):
         #     print(f'{data.Tick.Instrument},{data.Tick.Volume}')
 
         # print('{0}-{1}'.format(self.D[-1], self.C[-1]))
-        ma1 = talib.SMA(np.array(self.C, dtype=float), self.p_ma1)
-        ma2 = talib.SMA(np.array(self.C, dtype=float), self.p_ma2)
+        ma1 = ti.sma(np.array(self.C, dtype=float), self.p_ma1)
+        ma2 = ti.sma(np.array(self.C, dtype=float), self.p_ma2)
 
         self.IndexDict['ma5'] = ma1
         self.IndexDict['ma10'] = ma2

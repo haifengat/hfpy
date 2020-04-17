@@ -24,7 +24,7 @@ def read_requirements(filename):
             if not line.startswith('#')]
 
 
-long_description = read_file('README.md')
+long_description = read_file('readme.md')
 long_description_content_type = 'text/markdown'  # 指定包文档格式为markdown
 
 # talib无需加入 os.system('pipreqs . --encoding=utf8 --force')  # 生成 requirements.txt

@@ -26,17 +26,14 @@
 
 ## 运行环境
 
-### python >3.6
-
-- anaconda
-    - 安装说明 [https://user.qzone.qq.com/24918700/blog/1483274137](https://user.qzone.qq.com/24918700/blog/1483274137)
-
-### talib 指标库
-  - windows [http://user.qzone.qq.com/24918700/blog/1486954718](http://user.qzone.qq.com/24918700/blog/1486954718)
-  - linux [http://user.qzone.qq.com/24918700/blog/1483279805](http://user.qzone.qq.com/24918700/blog/1483279805)
+### tulipy 指标库
+  [https://tulipindicators.org/](https://tulipindicators.org/)
 
 ### hfpy 安装
 `pip install hfpy`
+
+### docker
+`docker pull haifengat/hfpy`
 
 ### 使用
 - 安装python组件 `pip install -r requirements.txt`
@@ -45,6 +42,7 @@
 - 创建strategies子目录
 - 在strategies目录下,创建SMACross.py和SMACross.yml文件【注意大小写】,并复制粘贴示例中对应的代码.
 - 执行 python main.py 
+
 
 ## 开发工具
 

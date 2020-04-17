@@ -4,3 +4,6 @@ setuptools>=40.2.0
 PyYAML>=3.13
 pyzmq
 pyhamcrest
+Cython
+tulipy
+numpy
