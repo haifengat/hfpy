@@ -31,8 +31,8 @@ long_description_content_type = 'text/markdown'  # 指定包文档格式为markd
 
 setup(
     name='hfpy',  # 包名
-    python_requires='>=3.4.0',  # python环境
-    version='0.1.6.8',  # 包的版本
+    python_requires='>=3.6.0',  # python环境
+    version='0.1.7',  # 包的版本
     description="Hai Feng Future Trading Platform with SE",  # 包简介，显示在PyPI
     long_description=long_description,  # 读取的Readme文档内容
     long_description_content_type=long_description_content_type,  # 指定包文档格式为markdown

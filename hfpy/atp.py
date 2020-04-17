@@ -22,7 +22,7 @@ from .order import OrderItem
 from .structs import BarType
 from .structs import ReqPackage
 from .strategy import Strategy
-from .report_stra import Report
+# from .report_stra import Report
 from .config import Config
 
 from py_ctp.trade import CtpTrade
@@ -247,8 +247,8 @@ class ATP(object):
                         if data.Instrument == bar.Instrument:
                             data.__new_min_bar__(bar)  # 调Data的onbar
             # 生成策略的测试报告
-            if len(stra.Orders) > 0:
-                Report(stra)
+            # if len(stra.Orders) > 0:
+            #     Report(stra)
         self.cfg.log.war("test history is end.")
 
     def link_fun(self):

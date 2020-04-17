@@ -39,7 +39,7 @@
 `pip install hfpy`
 
 ### 使用
-
+- 安装python组件 `pip install -r requirements.txt`
 - 新建目录
 - 创建main.py并复制粘贴下面示例中main的内容
 - 创建strategies子目录
