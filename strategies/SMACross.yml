@@ -11,7 +11,7 @@
         IntervalType: Minute
         Interval: 5
     -
-        Instrument: rb2001
+        Instrument: rb2009
         IntervalType: Minute
         Interval: 5
     Params:

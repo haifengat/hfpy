@@ -23,7 +23,7 @@ class SMACross(Strategy):
     def OnBarUpdate(self, data=Data, bar=Bar):
         if len(self.C) < self.p_ma2:
             return
-        print(data.D[-1])
+        print(f'macross: {data.D[-1]}')
         # if len(data.Instrument) > 0:
         #     print(f'{data.Tick.Instrument},{data.Tick.Volume}')
 
@@ -34,6 +34,8 @@ class SMACross(Strategy):
         self.IndexDict['ma5'] = ma1
         self.IndexDict['ma10'] = ma2
 
+        if len(ma2) < 2 or len(ma1) < 2:
+            return
         if self.PositionLong == 0:
             if ma1[-1] >= ma2[-1] and ma1[-2] < ma2[-2]:
                 if self.PositionShort > 0:

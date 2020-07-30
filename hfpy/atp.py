@@ -157,7 +157,7 @@ class ATP(object):
                 cfg_name = os.path.join(path, '{0}.yml'.format(stra_name))
                 if os.path.exists(cfg_name):
                     with open(cfg_name, encoding='utf-8') as stra_cfg_json_file:
-                        params = yaml.load(stra_cfg_json_file, Loader=yaml.FullLoader)
+                        params = yaml.load(stra_cfg_json_file)
                         for param in [p for p in params if p is not None]:  # 去除None的配置
                             if param['ID'] not in self.cfg.stra_path[path][stra_name]:
                                 continue
@@ -192,6 +192,8 @@ class ATP(object):
         gzipper = gzip.decompress(bs).decode()  # decode转换为string
 
         # json解析:与dumps对应,将str转换为{}
+        if len(gzipper) == 0:
+            return {}
         bs = json.loads(gzipper)  # json解析
         return bs
 
@@ -582,7 +584,6 @@ class ATP(object):
 
     def _run_seven(self):
         '''7*24'''
-        print_time = ''
         while True:
             day = datetime.now().strftime('%Y%m%d')
             left_days = list(filter(lambda x: x > day, self.trading_days))
@@ -640,4 +641,4 @@ class ATP(object):
             #     self.cfg.log.info('continue after {}'.format(cur_trading_day + ' 08:30:00'))
             #     time.sleep((datetime.strptime(cur_trading_day + '08:31:00', '%Y%m%d%H:%M:%S') - datetime.now()).total_seconds())
             else:
-                time.sleep(1)
+                time.sleep(60 * 10)
