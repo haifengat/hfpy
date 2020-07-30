@@ -1,7 +1,7 @@
-color_log>=1.0.7
-py_ctp>=2.2.0
-setuptools>=40.2.0
-PyYAML>=3.13
+color_log
+py_ctp
+setuptools
+PyYAML
 pyzmq
 pyhamcrest
 Cython

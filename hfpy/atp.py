@@ -172,7 +172,7 @@ class ATP(object):
                 else:
                     self.cfg.log.error("缺少对应的json文件{0}".format(cfg_name))
 
-    def get_data_zmq(self, req: ReqPackage) -> []:
+    def get_data_zmq(self, req: ReqPackage) -> dict:
         ''''''
         # pip install pyzmq即可安装
         context = zmq.Context()
@@ -484,7 +484,7 @@ class ATP(object):
         # 根据时间段设置,生成 opens; ends; mins盘中时间
         for group in times:
             g_id = group['GroupId']  # list(group.keys())[0]
-            section = group['WorkingTimes']  # list(group.values())[0]
+            section = json.loads(group['WorkingTimes'])  # list(group.values())[0]
             opens = []
             ends = []
             mins = []

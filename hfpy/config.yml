@@ -2,7 +2,7 @@
 ctp_config:
     # 为空时不登录
     ctp_front: 'sim_now'
-    investor: '008105'
+    investor: '008107'
     password: '1'
     product_info: ''
     app_id: 'simnow_client_test'
@@ -24,7 +24,7 @@ ctp_config:
             quote: tcp://180.166.65.114:31213
             broker: '8060'
 # 数据源 - zmq配置
-zmq_config: tcp://broadcast.eicp.net:55881
+zmq_config: tcp://127.0.0.1:5055
 # 开关
 onoff:
     # 是否7*24

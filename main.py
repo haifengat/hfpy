@@ -14,10 +14,10 @@ if __name__ == '__main__':
     # import sys
     # req = ReqPackage()
     # # req.Type = BarType.Real
-    # req.Instrument = 'rb_000'
+    # req.Instrument = 'rb2005'
     # req.Type = BarType.Min
     # req.Begin = '20190301'
-    # req.End = '20190701'
+    # req.End = '20200701'
     # atp.get_data_zmq(req)
     # sys.exit()
 
