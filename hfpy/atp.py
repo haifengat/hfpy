@@ -170,7 +170,7 @@ class ATP(object):
                                 data.SingleOrderOneBar = self.cfg.single_order_one_bar
                             self.stra_instances.append(stra)
                 else:
-                    self.cfg.log.error("缺少对应的json文件{0}".format(cfg_name))
+                    self.cfg.log.error("缺少对应的 yaml 配置文件{0}".format(cfg_name))
 
     def get_data_zmq(self, req: ReqPackage) -> dict:
         ''''''
@@ -179,7 +179,7 @@ class ATP(object):
         socket = context.socket(zmq.REQ)  # REQ模式,即REQ-RSP  CS结构
         # socket.connect('tcp://localhost:8888')	# 连接本地测试
         socket.connect(self.cfg.cfg_zmq)  # 实际netMQ数据服务器地址
-
+        
         p = req.__dict__()
         req['Type'] = req.Type.value
         socket.send_json(p)  # 直接发送__dict__转换的{}即可,不需要再转换成str
@@ -197,7 +197,7 @@ class ATP(object):
         bs = json.loads(gzipper)  # json解析
         return bs
 
-    def read_bars(self, stra: Strategy) -> []:
+    def read_bars(self, stra: Strategy) -> list:
         """netMQ"""
         bars = []
         for data in stra.Datas:

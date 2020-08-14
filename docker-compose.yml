@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+    hfpy:
+        image: haifengat/hfpy
+        container_name: hfpy
+        restart: always
+        ports: 
+            - 2222:22
+        volumes: 
+            # 个人策略文件夹
+            - ./mystra:/home/strategies
+        

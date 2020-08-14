@@ -5,5 +5,4 @@ PyYAML
 pyzmq
 pyhamcrest
 Cython
-tulipy
 numpy

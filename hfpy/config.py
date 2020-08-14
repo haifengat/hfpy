@@ -21,7 +21,7 @@ class Config(object):
         cfg_file = os.path.join(os.getcwd(), 'config.yml')
         if not os.path.exists(cfg_file):
             shutil.copy(origin_cfg_file, cfg_file)
-        cfg = yaml.load(open(cfg_file, 'r', encoding='utf-8'))
+        cfg = yaml.load(open(cfg_file, 'r', encoding='utf-8').read(), yaml.FullLoader)
 
         # 追单设置
         self.chasing = cfg['ctp_config']['chasing']
@@ -30,6 +30,7 @@ class Config(object):
         self.cfg_zmq = ''
         if 'zmq_config' in cfg:
             self.cfg_zmq = cfg['zmq_config']
+            self.log.info(f'zmq server: {self.cfg_zmq}')
 
         self.front_trade = ''
         self.front_quote = ''
