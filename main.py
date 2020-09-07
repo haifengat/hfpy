@@ -5,6 +5,7 @@ __author__ = 'HaiFeng'
 __mtime__ = '20180822'
 
 from hfpy.atp import ATP
+from time import sleep
 
 if __name__ == '__main__':
     atp = ATP()
@@ -22,6 +23,6 @@ if __name__ == '__main__':
     # sys.exit()
 
     atp.Run()
-    while input().lower() != 'q':
-        continue
-    atp.close_api()
+    while True:
+        sleep(60*10)
+    # atp.close_api()

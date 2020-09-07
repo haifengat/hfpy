@@ -34,6 +34,20 @@
 
 ### docker
 `docker pull haifengat/hfpy`
+```yaml
+version: "3.7"
+
+services:
+    hfpy:
+        image: haifengat/hfpy
+        container_name: hfpy
+        restart: always
+        ports: 
+            - 2222:22
+        volumes: 
+            # 个人策略文件夹
+            - ./mystra:/home/strategies
+```
 
 ### 使用
 - 安装python组件 `pip install -r requirements.txt`

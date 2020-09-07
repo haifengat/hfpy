@@ -5,9 +5,9 @@ services:
         image: haifengat/hfpy
         container_name: hfpy
         restart: always
-        ports: 
-            - 2222:22
         volumes: 
             # 个人策略文件夹
-            - ./mystra:/home/strategies
+            - ./strategies:/home/strategies
+            # 配置文件
+            - ./config_real.yml:/home/config.yml:ro
         
