@@ -7,11 +7,11 @@
     # 可通过增加Data实现多合约多周期引用
     Datas:
     -
-        Instrument: p2001
+        Instrument: p2010
         IntervalType: Minute
         Interval: 5
     -
-        Instrument: rb2009
+        Instrument: rb2010
         IntervalType: Minute
         Interval: 5
     Params:
@@ -23,7 +23,7 @@
     BeginDate: 20180901
     Datas:
     - 
-        Instrument: rb1910
+        Instrument: rb2010
         IntervalType: Minute
         Interval: 5
     Params:

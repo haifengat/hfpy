@@ -5,9 +5,11 @@ services:
         image: haifengat/hfpy
         container_name: hfpy
         restart: always
+        environment:
+            # config.yml所在目录，不配置则取main.py所在路径
+            # 此配置优先于volumes中的配置
+            config_path: .
         volumes: 
             # 个人策略文件夹
             - ./strategies:/home/strategies
-            # 配置文件
-            - ./config_real.yml:/home/config.yml:ro
         

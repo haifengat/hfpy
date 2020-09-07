@@ -43,10 +43,13 @@ services:
         container_name: hfpy
         restart: always
         ports: 
-            - 2222:22
+            - "2222:22"
+        environment:
+            # config.yml所在目录
+            config_path: /home/
         volumes: 
             # 个人策略文件夹
-            - ./mystra:/home/strategies
+            - ./strategies:/home/strategies
 ```
 
 ### 使用

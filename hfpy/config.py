@@ -17,10 +17,11 @@ class Config(object):
 
     def __init__(self):
         self.log = Logger()
-        origin_cfg_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.yml')
-        cfg_file = os.path.join(os.getcwd(), 'config.yml')
-        if not os.path.exists(cfg_file):
-            shutil.copy(origin_cfg_file, cfg_file)
+        # 配置文件顺序：环境变量，工作目录
+        config_path = os.getcwd()
+        if 'config_path' in os.environ:
+            config_path = os.environ['config_path']    
+        cfg_file = os.path.join(config_path, 'config.yml')
         cfg = yaml.load(open(cfg_file, 'r', encoding='utf-8').read(), yaml.FullLoader)
 
         # 追单设置

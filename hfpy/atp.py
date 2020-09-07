@@ -588,6 +588,7 @@ class ATP(object):
             day = datetime.now().strftime('%Y%m%d')
             left_days = list(filter(lambda x: x > day, self.trading_days))
             if len(left_days) == 0:
+                self.cfg.log.info('读取交易日历...')
                 self.get_actionday()
                 left_days = list(filter(lambda x: x > day, self.trading_days))
             next_trading_day = left_days[0]

@@ -52,7 +52,6 @@ report*/
 strategies*/
 /r.html
 .vscode*/
-/config.yml
+hfpy.egg-info/
 dist/
-hfpy.*/
 config_real.yml
