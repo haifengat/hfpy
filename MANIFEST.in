@@ -1,6 +1,6 @@
 include *.in
 include *.ini
-include README.md
+include readme.md
 include *.txt
 exclude *.yml
 recursive-include hfpy *.*

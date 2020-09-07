@@ -22,6 +22,57 @@ class Config(object):
         if 'config_path' in os.environ:
             config_path = os.environ['config_path']    
         cfg_file = os.path.join(config_path, 'config.yml')
+        if not os.path.exists(cfg_file):
+            with open(cfg_file, 'w') as f:
+                f.write("""---
+ctp_config:
+    # 为空时不登录
+    ctp_front: 'sim_now'
+    investor: '008107'
+    password: '1'
+    product_info: ''
+    app_id: 'simnow_client_test'
+    auth_code: '0000000000000000'
+
+    # 追单设置
+    chasing:
+        wait_seconds: 3
+        offset_ticks: -2
+        resend_times: 3
+    # ctp前置配置: 请改用期货公司对应6.3.15(SE)的前置
+    fronts:
+        sim_now:
+            trade: tcp://180.168.146.187:10101
+            quote: tcp://180.168.146.187:10111
+            broker: '9999'
+        ebf:
+            trade: tcp://180.166.65.114:31205
+            quote: tcp://180.166.65.114:31213
+            broker: '8060'
+# 数据源 - zmq配置
+zmq_config: tcp://service.haifengat.com:15555
+# zmq_config: tcp://172.19.129.98:15555
+# 开关
+onoff:
+    # 是否7*24
+    running_as_server: true
+    # 是否发送委托
+    real_order_enable: true
+    # 一根K线只发送一次指令
+    single_order_one_bar: true
+    # 是否打印行情时间
+    show_tick_time: false
+# 策略路径配置
+stra_path:
+    # 路径
+    strategies:
+        # 策略文件名
+        SMACross:
+        # 策略配置参数ID
+        - 119
+
+
+""")
         cfg = yaml.load(open(cfg_file, 'r', encoding='utf-8').read(), yaml.FullLoader)
 
         # 追单设置
