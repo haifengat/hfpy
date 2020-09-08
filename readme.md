@@ -29,11 +29,9 @@
 ### tulipy 指标库
   [https://tulipindicators.org/](https://tulipindicators.org/)
 
-### hfpy 安装
-`pip install hfpy`
 
-### docker
-`docker pull haifengat/hfpy`
+## docker运行
+### docker-compose.yml
 ```yaml
 version: "3.7"
 
@@ -42,15 +40,26 @@ services:
         image: haifengat/hfpy
         container_name: hfpy
         restart: always
-        ports: 
-            - "2222:22"
         environment:
             # config.yml所在目录
-            config_path: /home/
+            config_path: /home/config/
         volumes: 
             # 个人策略文件夹
             - ./strategies:/home/strategies
+            # hfpy配置文件
+            - ./config.yml:/home/config/config.yml
 ```
+### 运行
+```bash
+docker-compose up -d
+```
+### 配置docker-compose.yml中对应的config.yml
+* 修改zmq_config，配置对应的数据源
+* 修改stra_path，配置自己的策略
+
+## 本地部署
+### hfpy 安装
+`pip install hfpy`
 
 ### 使用
 - 安装python组件 `pip install -r requirements.txt`
@@ -60,27 +69,17 @@ services:
 - 在strategies目录下,创建SMACross.py和SMACross.yml文件【注意大小写】,并复制粘贴示例中对应的代码.
 - 执行 python main.py 
 
+### 测试报告
+因报告使用了pandas所以被注释掉了，如需要则可以自行安装pandas并注释掉atp.py的5行和252行。
 
-## 开发工具
-
-- vscode
-  - windows [https://code.visualstudio.com/Download](https://code.visualstudio.com/Download)
-  - linux   [http://user.qzone.qq.com/24918700/blog/1506828997](http://user.qzone.qq.com/24918700/blog/1506828997)
-- pycharm
-    - http://www.jetbrains.com/pycharm/download/index.html
- 
-
-## 配置说明
-
+### 配置说明
 - json转yaml
   - 2018.10.01配置由json改为yaml
   - [json 转 yaml](https://www.json2yaml.com/)
 - 项目配置 config.yml
-  - 当前工作目录下无此文件时, 首次运行会复制原始配置到此目录下
-  - <del>ctp_dll_path 指定接口dll路径</del>
+  - 当前工作目录下无此文件时, 会产生默认配
   - stra_path 策略路径[],可多个
     - 按此配置读取相应策略,按ID加载对应的参数
-    - 原配置文件中的enable全部放弃(20180227)
 - 策略配置
   - 与策略文件名同名的.yml文件
   - 配置参数组
@@ -88,10 +87,10 @@ services:
   - TickTest: true
     - 分笔数据回测,需处理数据源及格式
 - 执行
-  - 配置 config.yml 中的信息
+  - 配置 config.yml 中的登录信息，数据源
   - python main.py
 
-## 策略编写
+### 策略编写
 
 - 策略文件名与文件内的类名要一致(区分大小写)
 - 示例
@@ -110,18 +109,19 @@ __author__ = 'HaiFeng'
 __mtime__ = '20180822'
 
 from hfpy.atp import ATP
+from time import sleep
 
 if __name__ == '__main__':
     ATP().Run()
-    while input().lower() != 'q':
-        continue
+    while True:
+        sleep(60*10)
 ```
 
 #### config.yml
 ```yaml
 ---
 ctp_config:
-    # 为空时不登录
+    # 为空时不登录接口
     ctp_front: ''
     investor: '008105'
     password: '1'
@@ -147,7 +147,7 @@ ctp_config:
             quote: tcp://192.168.52.4:41213
             broker: '6000'
 # 数据源 - zmq配置
-zmq_config: tcp://broadcast.eicp.net:55881
+zmq_config: tcp://broadcast.eicp.net:15555
 # 开关
 onoff:
     # 是否7*24
@@ -233,11 +233,11 @@ class SMACross(Strategy):
     # 可通过增加Data实现多合约多周期引用
     Datas:
     -
-        Instrument: p2001
+        Instrument: p2105
         IntervalType: Minute
         Interval: 5
     -
-        Instrument: rb2009
+        Instrument: rb2105
         IntervalType: Minute
         Interval: 5
     Params:
@@ -249,7 +249,7 @@ class SMACross(Strategy):
     BeginDate: 20180901
     Datas:
     - 
-        Instrument: rb1910
+        Instrument: rb2105
         IntervalType: Minute
         Interval: 5
     Params:
