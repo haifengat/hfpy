@@ -45,12 +45,8 @@ ctp_config:
             trade: tcp://180.168.146.187:10101
             quote: tcp://180.168.146.187:10111
             broker: '9999'
-        ebf:
-            trade: tcp://180.166.65.114:31205
-            quote: tcp://180.166.65.114:31213
-            broker: '8060'
 # 数据源 - zmq配置 替换为宿主ip
-zmq_config: tcp://172.19.129.98:15555
+zmq_config: tcp://service.haifengat.com:15555
 # 开关
 onoff:
     # 是否7*24

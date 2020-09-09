@@ -122,12 +122,12 @@ if __name__ == '__main__':
 ---
 ctp_config:
     # 为空时不登录接口
-    ctp_front: ''
-    investor: '008105'
+    ctp_front: 'sim_now'
+    investor: '008107'
     password: '1'
     product_info: ''
-    app_id: ''
-    auth_code: ''
+    app_id: 'simnow_client_test'
+    auth_code: '0000000000000000'
     # 追单设置
     chasing:
         # n秒后不成交则撤单重发[0-不追单]
@@ -142,12 +142,8 @@ ctp_config:
             trade: tcp://180.168.146.187:10000
             quote: tcp://180.168.146.187:10010
             broker: '9999'
-        ebf:
-            trade: tcp://192.168.52.4:41205
-            quote: tcp://192.168.52.4:41213
-            broker: '6000'
 # 数据源 - zmq配置
-zmq_config: tcp://broadcast.eicp.net:15555
+zmq_config: tcp://私有化部署数据服务:15555
 # 开关
 onoff:
     # 是否7*24
