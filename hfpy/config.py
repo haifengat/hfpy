@@ -46,7 +46,7 @@ ctp_config:
             quote: tcp://180.168.146.187:10111
             broker: '9999'
 # 数据源 - zmq配置 替换为宿主ip
-zmq_config: tcp://service.haifengat.com:15555
+zmq_config: tcp://数据服务IP:15555
 # 开关
 onoff:
     # 是否7*24

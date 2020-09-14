@@ -590,6 +590,7 @@ class ATP(object):
             if len(left_days) == 0:
                 self.cfg.log.info('读取交易日历...')
                 self.get_actionday()
+                self.cfg.log.info('读取交易日历完成')
                 left_days = list(filter(lambda x: x > day, self.trading_days))
             next_trading_day = left_days[0]
             has_hight = (datetime.strptime(next_trading_day, '%Y%m%d') - datetime.strptime(day, '%Y%m%d')).days in [1, 3]
