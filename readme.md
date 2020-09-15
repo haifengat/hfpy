@@ -28,7 +28,8 @@
 
 ### tulipy 指标库
   [https://tulipindicators.org/](https://tulipindicators.org/)
-
+### talab 指标库
+  [https://www.ta-lib.org/function.html](https://www.ta-lib.org/function.html)
 
 ## docker运行
 ### docker-compose.yml
@@ -53,7 +54,8 @@ services:
 ```bash
 docker-compose up -d
 ```
-### 配置docker-compose.yml中对应的config.yml
+### 配置docker-compose.yml
+* 修改config.yml
 * 修改zmq_config，配置对应的数据源
 * 修改stra_path，配置自己的策略
 

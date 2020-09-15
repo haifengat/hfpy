@@ -14,3 +14,4 @@ services:
             # hfpy配置文件
             - ./config.yml:/home/config/config.yml
         
+# docker pull haifengat/hfpy && docker tag haifengat/hfpy haifengat/hfpy:`date '+%m%d'` && docker push haifengat/hfpy:`date '+%m%d'`
