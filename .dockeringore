@@ -1,0 +1,5 @@
+.git/
+.vs*/
+dist/
+__py*/
+log*/

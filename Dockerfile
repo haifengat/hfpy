@@ -1,16 +1,37 @@
-FROM haifengat/centos:8.2
+FROM python:3.6-alpine
 
-COPY requirements.txt /home/
-RUN pip install --no-cache-dir -r /home/requirements.txt
-# 先安装numpy再安装tulipy,否则报错
-RUN yum install -y make gcc gcc-c++ python3-devel
-RUN pip --no-cache-dir install tulipy
-ADD ta-lib-0.4.0-src.tar.gz /
-RUN cd /ta-lib && ./configure --prefix=/usr && make && make install && pip install TA-Lib && cd .. && rm -rf ta-lib
+WORKDIR /
 ENV LD_LIBRARY_PATH /usr/lib:\$LD_LIBRARY_PATH
-COPY hfpy /home/hfpy
-COPY *.yml /home/
-COPY strategies/SMA* /home/strategies/
-COPY main.py /home/
-WORKDIR /home/
-ENTRYPOINT [ "python", "/home/main.py" ]
+# 换源-阿里
+# RUN mkdir -p ~/.pip/ \
+# && echo '[global]\
+# timeout = 6000\
+# index-url = https://mirrors.aliyun.com/pypi/simple/\
+# trusted-host = mirrors.aliyun.com'\
+# > ~/.pip/pip.conf
+
+ADD ta-lib-0.4.0-src.tar.gz .
+# 安装环境依赖
+RUN apk update; \
+    apk add musl-dev wget git build-base; \
+# Numpy
+    pip install cython; \
+    ln -s /usr/include/locale.h /usr/include/xlocale.h; \
+    pip install numpy; \
+# TA-Lib 
+    cd ta-lib/; \
+    ./configure --prefix=/usr; \
+    make && make install; \
+    pip install TA-Lib talib;\
+    cd .. && rm -rf ta-lib;
+
+RUN apk del musl-dev wget git build-base
+
+WORKDIR /hfpy
+COPY . .
+COPY hfpy ./hfpy
+COPY strategies ./strategies
+
+RUN pip install --no-cache-dir -r ./requirements.txt
+
+ENTRYPOINT [ "python", "main.py" ]

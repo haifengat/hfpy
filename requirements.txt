@@ -1,8 +1,6 @@
 color_log
 py_ctp
-setuptools
+tulipy
 PyYAML
 pyzmq
-pyhamcrest
-Cython
-numpy
+pandas
