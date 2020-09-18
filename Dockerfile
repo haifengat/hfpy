@@ -23,8 +23,8 @@ RUN set -ex; \
  pip install pyzmq${PYZMQ_VERSION}; \
  apt-get install -y --no-install-recommends libtool; \
  apt-get install -y --no-install-recommends autoconf automake ca-certificates make; \
- wget https://github.com/zeromq/libzmq/releases/download/v${ZEROMQ_VERSION}/zeromq-${ZEROMQ_VERSION}.tar.gz; \
- cd /tmp && tar -xzf zeromq-${ZEROMQ_VERSION}.tar.gz; \
+ cd /tmp && wget https://github.com/zeromq/libzmq/releases/download/v${ZEROMQ_VERSION}/zeromq-${ZEROMQ_VERSION}.tar.gz; \
+ tar -xzf zeromq-${ZEROMQ_VERSION}.tar.gz; \
  cd zeromq-${ZEROMQ_VERSION}; \
  ./autogen.sh && ./configure && make && make install; \
  rm -rf /tmp/zeromq-${ZEROMQ_VERSION}* && rm -rf /tmp/*;
