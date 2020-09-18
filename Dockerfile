@@ -1,37 +1,49 @@
-FROM python:3.6-alpine
+FROM python:3.6.12-slim
+
+ENV PYZMQ_VERSION="==16.0.2"
+ENV ZEROMQ_VERSION="4.2.2"
+
+# 换源到ali
+# RUN echo "deb http://mirrors.aliyun.com/debian/ buster main non-free contrib" > /etc/apt/sources.list; \
+# echo "deb-src http://mirrors.aliyun.com/debian/ buster main non-free contrib" >> /etc/apt/sources.list; \
+# echo "deb http://mirrors.aliyun.com/debian-security buster/updates main" >> /etc/apt/sources.list; \
+# echo "deb-src http://mirrors.aliyun.com/debian-security buster/updates main" >> /etc/apt/sources.list; \
+# echo "deb http://mirrors.aliyun.com/debian/ buster-updates main non-free contrib" >> /etc/apt/sources.list; \
+# echo "deb-src http://mirrors.aliyun.com/debian/ buster-updates main non-free contrib" >> /etc/apt/sources.list; \
+# echo "deb http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib" >> /etc/apt/sources.list; \
+# echo "deb-src http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib" >> /etc/apt/sources.list;
+# 本地包
+#COPY zeromq-4.2.2.tar.gz /tmp
+
+RUN set -ex; \
+ apt-get update; \
+ apt-get install -y --no-install-recommends wget; \
+ # zmq
+ wget "https://bootstrap.pypa.io/get-pip.py" -O /dev/stdout | python; \
+ pip install pyzmq${PYZMQ_VERSION}; \
+ apt-get install -y --no-install-recommends libtool; \
+ apt-get install -y --no-install-recommends autoconf automake ca-certificates make; \
+ wget https://github.com/zeromq/libzmq/releases/download/v${ZEROMQ_VERSION}/zeromq-${ZEROMQ_VERSION}.tar.gz; \
+ cd /tmp && tar -xzf zeromq-${ZEROMQ_VERSION}.tar.gz; \
+ cd zeromq-${ZEROMQ_VERSION}; \
+ ./autogen.sh && ./configure && make && make install; \
+ rm -rf /tmp/zeromq-${ZEROMQ_VERSION}* && rm -rf /tmp/*;
 
 WORKDIR /
-ENV LD_LIBRARY_PATH /usr/lib:\$LD_LIBRARY_PATH
-# 换源-阿里
-# RUN mkdir -p ~/.pip/ \
-# && echo '[global]\
-# timeout = 6000\
-# index-url = https://mirrors.aliyun.com/pypi/simple/\
-# trusted-host = mirrors.aliyun.com'\
-# > ~/.pip/pip.conf
-
+# ta-lib
 ADD ta-lib-0.4.0-src.tar.gz .
-# 安装环境依赖
-RUN apk update; \
-    apk add musl-dev wget git build-base; \
-# Numpy
-    pip install cython; \
-    ln -s /usr/include/locale.h /usr/include/xlocale.h; \
-    pip install numpy; \
-# TA-Lib 
-    cd ta-lib/; \
-    ./configure --prefix=/usr; \
-    make && make install; \
-    pip install TA-Lib talib;\
-    cd .. && rm -rf ta-lib;
-
-RUN apk del musl-dev wget git build-base
+RUN cd ta-lib/; \
+ ./configure --prefix=/usr; \
+ make && make install; \
+# numpy 要先安装
+ pip install --no-cache-dir numpy; \
+ pip install ta-lib; \
+ pip install pyyaml color_log py_ctp;
 
 WORKDIR /hfpy
-COPY . .
-COPY hfpy ./hfpy
-COPY strategies ./strategies
-
-RUN pip install --no-cache-dir -r ./requirements.txt
+COPY hfpy ./hfpy/
+COPY strategies/SMA* ./strategies/
+COPY strategies/Test* ./strategies/
+COPY main.py .
 
 ENTRYPOINT [ "python", "main.py" ]

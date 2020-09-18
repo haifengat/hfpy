@@ -26,8 +26,6 @@
 
 ## 运行环境
 
-### tulipy 指标库
-  [https://tulipindicators.org/](https://tulipindicators.org/)
 ### talab 指标库
   [https://www.ta-lib.org/function.html](https://www.ta-lib.org/function.html)
 
@@ -71,15 +69,12 @@ docker-compose up -d
 - 在strategies目录下,创建SMACross.py和SMACross.yml文件【注意大小写】,并复制粘贴示例中对应的代码.
 - 执行 python main.py 
 
-### 测试报告
+## 测试报告
 因报告使用了pandas所以被注释掉了，如需要则可以自行安装pandas并注释掉atp.py的5行和252行。
 
-### 配置说明
-- json转yaml
-  - 2018.10.01配置由json改为yaml
-  - [json 转 yaml](https://www.json2yaml.com/)
+## 配置说明
 - 项目配置 config.yml
-  - 当前工作目录下无此文件时, 会产生默认配
+  - 当前工作目录下无此文件时, 会产生默认配置
   - stra_path 策略路径[],可多个
     - 按此配置读取相应策略,按ID加载对应的参数
 - 策略配置
@@ -173,15 +168,14 @@ stra_path:
 """
 __title__ = ''
 __author__ = 'HaiFeng'
-__mtime__ = '2020/07/30'
+__mtime__ = '2016/8/16'
 """
-
 # import talib._ta_lib as talib
 from hfpy.data import Data
 from hfpy.bar import Bar
 from hfpy.strategy import Strategy
 import numpy as np
-import tulipy as ti
+import talib as ta
 
 class SMACross(Strategy):
 
@@ -194,13 +188,12 @@ class SMACross(Strategy):
     def OnBarUpdate(self, data=Data, bar=Bar):
         if len(self.C) < self.p_ma2:
             return
-        print(f'macross: {data.D[-1]}')
         # if len(data.Instrument) > 0:
         #     print(f'{data.Tick.Instrument},{data.Tick.Volume}')
 
         # print('{0}-{1}'.format(self.D[-1], self.C[-1]))
-        ma1 = ti.sma(np.array(self.C, dtype=float), self.p_ma1)
-        ma2 = ti.sma(np.array(self.C, dtype=float), self.p_ma2)
+        ma1 = ta.SMA(np.array(self.C, dtype=float), self.p_ma1)
+        ma2 = ta.SMA(np.array(self.C, dtype=float), self.p_ma2)
 
         self.IndexDict['ma5'] = ma1
         self.IndexDict['ma10'] = ma2

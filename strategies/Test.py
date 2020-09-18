@@ -67,7 +67,7 @@ class Test(Strategy):
 
     # def OnCancel(self, order):
     #     """撤单响应"""
-    #     print('扯淡反应')
+    #     print('撤单反应')
     #     print('所撤单资料 ：', order)
 
     #     #print('strategy cancel')

@@ -1,6 +1,8 @@
-color_log
-py_ctp
-tulipy
+pyhamcrest
+Cython
+setuptools
 PyYAML
 pyzmq
-pandas
+color_log
+py_ctp
+
