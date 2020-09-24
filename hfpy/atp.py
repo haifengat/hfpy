@@ -486,7 +486,7 @@ class ATP(object):
         # 根据时间段设置,生成 opens; ends; mins盘中时间
         for group in times:
             g_id = group['GroupId']  # list(group.keys())[0]
-            section = json.loads(group['WorkingTimes'])  # list(group.values())[0]
+            section = group['WorkingTimes']  # list(group.values())[0]
             opens = []
             ends = []
             mins = []
