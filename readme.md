@@ -56,6 +56,38 @@ docker-compose up -d
 * 修改config.yml
 * 修改zmq_config，配置对应的数据源
 * 修改stra_path，配置自己的策略
+* pg_config
+    向指定数据库写入策略信号
+
+## 策略信号入库
+```python
+# 修改 strategy.py 顶部增加
+from sqlalchemy import create_engine
+from sqlalchemy.engine import Engine
+import os, time
+
+# 在策略的 __init__(self) 中增加
+        ########### 信号入库 ########################
+        if 'pg_config' in os.environ: # 环境变量作为开关
+            pg_config = os.environ['pg_config']
+            self.pg:Engine = create_engine(pg_config)        
+            print(f'connecting pg: {pg_config}')
+            # 清除策略信号
+            self.pg.execute(f"DELETE FROM public.strategy_sign WHERE strategy_id='{self.ID}'")
+
+# 修改 __OnOrder
+    def __OnOrder(self, data: Data, order: OrderItem):
+        """调用外部接口的reqorder"""
+        # 同时接口发单可不注释 
+        # self._data_order(self, data, order)
+        if 'pg_config' in os.environ: # 环境变量作为开关
+            color = 'red' if order.Direction == DirectType.Buy else 'green'
+            sign = f'{{"color": {color}, "price": {order.Price}}}'
+            sql = f"""INSERT INTO public.strategy_sign
+    (tradingday, order_time, instrument, "period", strategy_id, sign, remark, insert_time)
+    VALUES('{time.strftime('%Y%m%d', time.localtime())}', '{self.D[-1]}', '{self.Instrument}', {self.Interval}, '{self.ID}', '{sign}', '', now())"""
+            self.pg.execute(sql)
+```
 
 ## 本地部署
 ### hfpy 安装

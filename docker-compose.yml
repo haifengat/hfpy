@@ -2,16 +2,17 @@ version: "3.7"
 
 services:
     hfpy:
-        image: haifengat/hfpy
+        image: hfpy_pg:1015
         container_name: hfpy
         restart: always
         environment:
-            # config.yml所在目录
-            config_path: /home/config/
+            # 策略信号入库使用
+            - "pg_config: "
         volumes: 
             # 个人策略文件夹
-            - ./strategies:/home/strategies
+            - ./strategies:/hfpy/strategies
             # hfpy配置文件
-            - ./config.yml:/home/config/config.yml
+            - ./config.yml:/hfpy/config.yml
         
 # docker pull haifengat/hfpy && docker tag haifengat/hfpy haifengat/hfpy:`date '+%m%d'` && docker push haifengat/hfpy:`date '+%m%d'`
+

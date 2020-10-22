@@ -17,7 +17,8 @@ ENV ZEROMQ_VERSION="4.2.2"
 
 RUN set -ex; \
  apt-get update; \
- apt-get install -y --no-install-recommends wget; \
+ # openssh-client 支持 ssh scp
+ apt-get install -y --no-install-recommends wget openssh-client; \
  # zmq
  wget "https://bootstrap.pypa.io/get-pip.py" -O /dev/stdout | python; \
  pip install pyzmq${PYZMQ_VERSION}; \
@@ -38,7 +39,9 @@ RUN cd ta-lib/; \
 # numpy 要先安装
  pip install --no-cache-dir numpy; \
  pip install ta-lib; \
- pip install pyyaml color_log py_ctp;
+ pip install pyyaml color_log py_ctp; \
+# 支持将order写入pg
+ pip install psycopg2-binary sqlalchemy;
 
 WORKDIR /hfpy
 COPY hfpy ./hfpy/

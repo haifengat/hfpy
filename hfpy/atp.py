@@ -311,7 +311,7 @@ class ATP(object):
                 for stra in self.stra_instances:
                     msg += '{}[L={}; S={}]{}||'.format(type(stra).__name__, stra.PositionLong, stra.PositionShort, stra.Params)
                 print(self.tick_time + '||' + msg, end='\r')
-            time.sleep(1)
+            time.sleep(60)
 
     def get_stra(self, order: OrderField) -> Strategy:
         lst = [stra for stra in self.stra_instances if stra.ID == order.Custom // 1000]

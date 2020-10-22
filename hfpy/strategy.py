@@ -14,6 +14,10 @@ from py_ctp.enums import DirectType, OffsetType, OrderType
 from py_ctp.structs import OrderField, TradeField, InfoField
 
 
+from sqlalchemy import create_engine
+from sqlalchemy.engine import Engine
+import os, time
+
 class Strategy(object):
     '''策略类 '''
 
@@ -52,6 +56,14 @@ class Strategy(object):
                 newdata.Interval = data['Interval']
                 newdata.IntervalType = IntervalType[data['IntervalType']]
                 self.Datas.append(newdata)
+
+        ########### 信号入库 ########################
+        if 'pg_config' in os.environ:
+            pg_config = os.environ['pg_config']
+            self.pg:Engine = create_engine(pg_config)        
+            print(f'connecting pg: {pg_config}')
+            # 清除策略信号
+            self.pg.execute(f"DELETE FROM public.strategy_sign WHERE strategy_id='{self.ID}'")
 
     @property
     def Bars(self):
@@ -319,7 +331,16 @@ class Strategy(object):
 
     def __OnOrder(self, data: Data, order: OrderItem):
         """调用外部接口的reqorder"""
+        # 同时接口发单可不注释 
         self._data_order(self, data, order)
+        # 可通过环境配置作为开关
+        if 'pg_config' in os.environ:
+            color = 'red' if order.Direction == DirectType.Buy else 'green'
+            sign = f'{{"color": {color}, "price": {order.Price}}}'
+            sql = f"""INSERT INTO public.strategy_sign
+    (tradingday, order_time, instrument, "period", strategy_id, sign, remark, insert_time)
+    VALUES('{time.strftime('%Y%m%d', time.localtime())}', '{self.D[-1]}', '{self.Instrument}', {self.Interval}, '{self.ID}', '{sign}', '', now())"""
+            self.pg.execute(sql)
 
     # 外层接口调用
     def _data_order(self, stra, data: Data, order: OrderItem):

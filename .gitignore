@@ -43,3 +43,7 @@ config.yml
 Pik*
 hfpy/atp_pg.py
 zeromq-4.2.2.tar.gz
+indic*/
+*.html
+*.tgz
+*.pyc
