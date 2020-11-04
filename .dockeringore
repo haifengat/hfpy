@@ -3,3 +3,5 @@
 dist/
 __py*/
 log*/
+hfpy.*/
+*.tgz

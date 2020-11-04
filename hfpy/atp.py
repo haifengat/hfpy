@@ -287,7 +287,7 @@ class ATP(object):
             self.TradingDay = self.t.tradingday
             self.get_actionday()  # 取得交易日后才能取actionday
             self.received_instrument.clear()  # 记录收到的tick的合约
-            self.get_trading_time()  # 取品种交易时间信息
+            self.get_trading_time()  # 取品种交易时间信息 # 取值过程中t.instruments有变化报错(升级py_ctp到2.3.3解决)
             if not self.q.logined:
                 self.q.OnConnected = self.q_OnFrontConnected
                 self.q.OnUserLogin = self.q_OnRspUserLogin

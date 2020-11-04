@@ -280,11 +280,11 @@ class Strategy(object):
         实时行情:每分钟触发一次"""
         pass
 
-    def GetOrders(self) -> []:
+    def GetOrders(self) -> list:
         """获取策略相关委托,返回[]"""
         return self._get_orders(self)
 
-    def _get_orders(self, stra) -> []:
+    def _get_orders(self, stra) -> list:
         """获取策略相关委托,返回[]"""
         pass
 
@@ -296,11 +296,11 @@ class Strategy(object):
         """获取最后一个委托"""
         pass
 
-    def GetNotFillOrders(self) -> []:
+    def GetNotFillOrders(self) -> list:
         """获取未成交委托"""
         return self._get_notfill_orders(self)
 
-    def _get_notfill_orders(self, stra) -> []:
+    def _get_notfill_orders(self, stra) -> list:
         """获取未成交委托"""
         pass
 
@@ -334,12 +334,13 @@ class Strategy(object):
         # 同时接口发单可不注释 
         self._data_order(self, data, order)
         # 可通过环境配置作为开关
+        color = 'red' if order.Direction == DirectType.Buy else 'green'
+        sign = f'{{"color": "{color}", "price": "{order.Price:.4f}"}}'
+        sql = f"""INSERT INTO public.strategy_sign
+(tradingday, order_time, instrument, "period", strategy_id, sign, remark, insert_time)
+VALUES('{time.strftime('%Y%m%d', time.localtime())}', '{self.D[-1]}', '{self.Instrument}', {self.Interval}, '{self.ID}', '{sign}', '', now())"""
+        print(sql)
         if 'pg_config' in os.environ:
-            color = 'red' if order.Direction == DirectType.Buy else 'green'
-            sign = f'{{"color": {color}, "price": {order.Price}}}'
-            sql = f"""INSERT INTO public.strategy_sign
-    (tradingday, order_time, instrument, "period", strategy_id, sign, remark, insert_time)
-    VALUES('{time.strftime('%Y%m%d', time.localtime())}', '{self.D[-1]}', '{self.Instrument}', {self.Interval}, '{self.ID}', '{sign}', '', now())"""
             self.pg.execute(sql)
 
     # 外层接口调用

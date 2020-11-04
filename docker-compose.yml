@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
     hfpy:
-        image: hfpy_pg:1015
+        image: hfpy:104
         container_name: hfpy
         restart: always
         environment:
