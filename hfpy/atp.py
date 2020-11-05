@@ -30,6 +30,8 @@ from py_ctp.quote import CtpQuote
 from py_ctp.enums import DirectType, OffsetType, OrderType, OrderStatus, InstrumentStatus
 from py_ctp.structs import InfoField, OrderField, TradeField, Tick, InstrumentField
 
+from sqlalchemy.engine import Engine, create_engine
+
 
 class ATP(object):
     """"""
@@ -563,6 +565,46 @@ class ATP(object):
                 self.start_api()
             while not self.q.logined:
                 time.sleep(1)
+
+        ########### 信号入库 ########################
+        if 'pg_config' in os.environ:
+            pg_config = os.environ['pg_config']
+            self.pg:Engine = create_engine(pg_config)        
+            print(f'connecting pg: {pg_config}')
+            # 清除策略信号
+            res = self.pg.execute("select count(1) from pg_catalog.pg_tables where schemaname='public' and tablename = 'strategy_sign'")
+            if res.fetchone()[0] ==  0:
+                self.pg.execute(f"""
+CREATE TABLE public.strategy_sign (
+	tradingday varchar(8) NOT NULL, -- 交易日
+	order_time varchar(20) NOT NULL, -- 信号时间:yyyy-MM-dd HH:mm:ss
+	instrument varchar(32) NOT NULL, -- 合约
+	"period" int4 NOT NULL, -- 周期(单位-分钟)
+	strategy_id varchar(32) NOT NULL, -- 策略标识
+	sign varchar(512) NOT NULL, -- 信号内容:json
+	remark varchar(512) NULL, -- 备注
+	insert_time timestamp NULL DEFAULT now(), -- 入库时间
+	id serial NOT NULL, -- 自增序列
+	CONSTRAINT newtable_pk PRIMARY KEY (order_time, instrument, period, strategy_id)
+);
+CREATE INDEX newtable_instrument_idx ON public.strategy_sign USING btree (instrument, period);
+CREATE INDEX newtable_strategy_id_idx ON public.strategy_sign USING btree (strategy_id);
+CREATE INDEX newtable_tradingday_idx ON public.strategy_sign USING btree (tradingday);
+COMMENT ON TABLE public.strategy_sign IS '策略信号';
+
+-- Column comments
+
+COMMENT ON COLUMN public.strategy_sign.tradingday IS '交易日';
+COMMENT ON COLUMN public.strategy_sign.order_time IS '信号时间:yyyy-MM-dd HH:mm:ss';
+COMMENT ON COLUMN public.strategy_sign.instrument IS '合约';
+COMMENT ON COLUMN public.strategy_sign."period" IS '周期(单位-分钟)';
+COMMENT ON COLUMN public.strategy_sign.strategy_id IS '策略标识';
+COMMENT ON COLUMN public.strategy_sign.sign IS '信号内容:json';
+COMMENT ON COLUMN public.strategy_sign.remark IS '备注';
+COMMENT ON COLUMN public.strategy_sign.insert_time IS '入库时间';
+COMMENT ON COLUMN public.strategy_sign.id IS '自增序列';
+""")
+
         self.cfg.log.info('加载策略...')
         self.load_strategy()
         self.cfg.log.info('历史数据回测...')

@@ -39,7 +39,9 @@ RUN cd ta-lib/; \
 # numpy 要先安装
  pip install --no-cache-dir numpy; \
  pip install ta-lib; \
- pip install pyyaml color_log py_ctp; \
+ pip install pyyaml color_log \
+# 复制官方 .so /usr/lib/py_ctp
+ pip install --no-binary :all: py-ctp; \
 # 支持将order写入pg
  pip install psycopg2-binary sqlalchemy;
 

@@ -13,10 +13,9 @@ from .order import OrderItem
 from py_ctp.enums import DirectType, OffsetType, OrderType
 from py_ctp.structs import OrderField, TradeField, InfoField
 
-
-from sqlalchemy import create_engine
-from sqlalchemy.engine import Engine
+from sqlalchemy.engine import Engine, create_engine
 import os, time
+
 
 class Strategy(object):
     '''策略类 '''
@@ -56,12 +55,11 @@ class Strategy(object):
                 newdata.Interval = data['Interval']
                 newdata.IntervalType = IntervalType[data['IntervalType']]
                 self.Datas.append(newdata)
-
-        ########### 信号入库 ########################
+        # 策略信号入库
+        self.pg = None
         if 'pg_config' in os.environ:
             pg_config = os.environ['pg_config']
-            self.pg:Engine = create_engine(pg_config)        
-            print(f'connecting pg: {pg_config}')
+            self.pg:Engine = create_engine(pg_config)  
             # 清除策略信号
             self.pg.execute(f"DELETE FROM public.strategy_sign WHERE strategy_id='{self.ID}'")
 
@@ -340,7 +338,7 @@ class Strategy(object):
 (tradingday, order_time, instrument, "period", strategy_id, sign, remark, insert_time)
 VALUES('{time.strftime('%Y%m%d', time.localtime())}', '{self.D[-1]}', '{self.Instrument}', {self.Interval}, '{self.ID}', '{sign}', '', now())"""
         print(sql)
-        if 'pg_config' in os.environ:
+        if self.pg is not None:
             self.pg.execute(sql)
 
     # 外层接口调用

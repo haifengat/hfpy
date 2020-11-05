@@ -2,17 +2,30 @@ version: "3.7"
 
 services:
     hfpy:
-        image: hfpy:104
+        image: hfpy:1105
         container_name: hfpy
         restart: always
         environment:
+            - config_path=/home/config
             # 策略信号入库使用
-            - "pg_config: "
+            - pg_config=postgresql://postgres:12345@hfpy_pg:5432/postgres
         volumes: 
             # 个人策略文件夹
             - ./strategies:/hfpy/strategies
-            # hfpy配置文件
-            - ./config.yml:/hfpy/config.yml
+            # hfpy配置
+            - ./config:/home/config
+        depends_on:
+            - hfpy_pg
+   hfpy_pg:
+        image: postgres:12-alpine
+        container_name: hf_pg
+        restart: always
+        environment:
+            - TZ=Asia/Shanghai
+            - POSTGRES_PASSWORD=12345
+        ports:
+            - "25432:5432"
+        volumes:
+            - ./pg_data:/var/lib/postgresql/data
         
 # docker pull haifengat/hfpy && docker tag haifengat/hfpy haifengat/hfpy:`date '+%m%d'` && docker push haifengat/hfpy:`date '+%m%d'`
-
