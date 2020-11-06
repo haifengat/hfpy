@@ -287,15 +287,14 @@ class ATP(object):
         """"""
         if info.ErrorID == 0:
             self.TradingDay = self.t.tradingday
-            self.get_actionday()  # 取得交易日后才能取actionday
             self.received_instrument.clear()  # 记录收到的tick的合约
             self.get_trading_time()  # 取品种交易时间信息 # 取值过程中t.instruments有变化报错(升级py_ctp到2.3.3解决)
             if not self.q.logined:
                 self.q.OnConnected = self.q_OnFrontConnected
                 self.q.OnUserLogin = self.q_OnRspUserLogin
                 self.q.OnDisConnected = lambda o, x: self.cfg.log.war(f'[QUOTE]disconnected: {x}')
-                # self.q.OnTick = self.q_Tick
                 self.q.OnTick = lambda o, f: threading.Thread(target=self.q_Tick, args=(o, f)).start()
+                # self.q.OnTick = self.q_Tick
                 self.q.ReqConnect(self.cfg.front_quote)
                 if self.cfg.show_tick_time:
                     threading.Thread(target=self.showmsg).start()
@@ -312,7 +311,7 @@ class ATP(object):
                 stra: Strategy = None
                 for stra in self.stra_instances:
                     msg += '{}[L={}; S={}]{}||'.format(type(stra).__name__, stra.PositionLong, stra.PositionShort, stra.Params)
-                print(self.tick_time + '||' + msg, end='\r')
+                self.cfg.log.info(self.tick_time + '||' + msg)
             time.sleep(60)
 
     def get_stra(self, order: OrderField) -> Strategy:
@@ -547,25 +546,6 @@ class ATP(object):
 
     def Run(self):
         """"""
-        if self.cfg.front_trade == '' or self.cfg.front_quote == '':
-            self.cfg.log.war('**** 交易接口未配置 ****')
-            self.get_actionday()
-        else:
-            if self.cfg.investor == '':
-                self.cfg.investor = input('invesorid on {}:'.format(self.cfg.front_name))
-            else:
-                self.cfg.log.war('{} loging by ctp'.format(self.cfg.investor))
-            if self.cfg.password == '':
-                self.cfg.password = getpass.getpass()
-            if self.cfg.running_as_server:
-                self.cfg.log.war('7*24 as server ....')
-                threading.Thread(target=self._run_seven, daemon=True).start()
-            else:
-                self.cfg.log.war('run once only')
-                self.start_api()
-            while not self.q.logined:
-                time.sleep(1)
-
         ########### 信号入库 ########################
         if 'pg_config' in os.environ:
             pg_config = os.environ['pg_config']
@@ -605,10 +585,31 @@ COMMENT ON COLUMN public.strategy_sign.insert_time IS '入库时间';
 COMMENT ON COLUMN public.strategy_sign.id IS '自增序列';
 """)
 
+        self.cfg.log.info('读取交易日历&合约信息...')
+        self.get_actionday()
         self.cfg.log.info('加载策略...')
         self.load_strategy()
         self.cfg.log.info('历史数据回测...')
         self.read_data_test()
+        
+        if self.cfg.front_trade == '' or self.cfg.front_quote == '':
+            self.cfg.log.war('**** 交易接口未配置 ****')
+        else:
+            if self.cfg.investor == '':
+                self.cfg.investor = input('invesorid on {}:'.format(self.cfg.front_name))
+            else:
+                self.cfg.log.war('{} loging by ctp'.format(self.cfg.investor))
+            if self.cfg.password == '':
+                self.cfg.password = getpass.getpass()
+            if self.cfg.running_as_server:
+                self.cfg.log.war('7*24 as server ....')
+                threading.Thread(target=self._run_seven, daemon=True).start()
+            else:
+                self.cfg.log.war('run once only')
+                self.start_api()
+            while not self.q.logined:
+                time.sleep(1)
+        # 接口登录后
         self.link_fun()
 
     def start_api(self):
@@ -621,7 +622,8 @@ COMMENT ON COLUMN public.strategy_sign.id IS '自增序列';
         self.t.OnCancel = self.OnCancel
         self.t.OnErrOrder = self.OnRtnErrOrder
         self.t.OnInstrumentStatus = self.OnInstrumentStatus
-
+        
+        print(self.t.GetVersion())
         self.t.ReqConnect(self.cfg.front_trade)
 
     def _run_seven(self):
@@ -630,9 +632,6 @@ COMMENT ON COLUMN public.strategy_sign.id IS '自增序列';
             day = datetime.now().strftime('%Y%m%d')
             left_days = list(filter(lambda x: x > day, self.trading_days))
             if len(left_days) == 0:
-                self.cfg.log.info('读取交易日历...')
-                self.get_actionday()
-                self.cfg.log.info('读取交易日历完成')
                 left_days = list(filter(lambda x: x > day, self.trading_days))
             next_trading_day = left_days[0]
             has_hight = (datetime.strptime(next_trading_day, '%Y%m%d') - datetime.strptime(day, '%Y%m%d')).days in [1, 3]
