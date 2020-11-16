@@ -73,7 +73,14 @@ docker-compose up -d
 * 修改zmq_config，配置对应的数据源
 * 修改stra_path，配置自己的策略
 * pg_config
-    向指定数据库写入策略信号
+    * postgresql://postgres:123456@hf_pg:5432/postgres?sslmode=disable
+    * 分钟数据库
+    * 策略信号数据库
+* redis_addr
+    * ip:port
+    * 实时分钟数据库
+* app
+    * 信号入库为color模式
 
 ## 策略信号入库
 ```python

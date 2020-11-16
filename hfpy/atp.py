@@ -8,6 +8,7 @@
 
 import os
 import json
+import redis
 import yaml
 import threading
 import time  # 可能前面的import模块对time有影响,故放在最后
@@ -30,7 +31,8 @@ from py_ctp.quote import CtpQuote
 from py_ctp.enums import DirectType, OffsetType, OrderType, OrderStatus, InstrumentStatus
 from py_ctp.structs import InfoField, OrderField, TradeField, Tick, InstrumentField
 
-from sqlalchemy.engine import Engine, create_engine
+from sqlalchemy.engine import Engine, create_engine, ResultProxy
+from redis import Redis
 
 
 class ATP(object):
@@ -62,6 +64,12 @@ class ATP(object):
         self.cfg = Config()
         self.stra_instances = []
 
+        self.pg = None
+        '''历史库'''
+
+        self.rds:Redis = None
+        '''实时库'''
+
         self.q = CtpQuote()
         self.t = CtpTrade()
 
@@ -70,8 +78,29 @@ class ATP(object):
         # print('stra order')
 
         self.cfg.log.war('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n'.format(len(stra.Orders), stra.D[-1], order.Direction, order.Offset, order.Price, order.Volume, order.Remark))
+        
+        # 可通过环境配置作为开关
+        if self.pg is not None:
+            # 为app提供
+            if 'app' in os.environ:
+                color = 'red' if order.Direction == DirectType.Buy else 'green'
+                sign = f'{{"color": "{color}", "price": "{order.Price:.4f}"}}'
+                sql = f"""INSERT INTO public.strategy_sign
+        (tradingday, order_time, instrument, "period", strategy_id, sign, remark, insert_time)
+        VALUES('{data.Bars[-1].Tradingday}', '{stra.D[-1]}', '{data.Instrument}', {data.Interval}, '{stra.ID}', '{sign}', '', now())"""
+            else:
+                js = json.dumps({
+                    'Direction': str(order.Direction).split('.')[1],
+                    'Offset': str(order.Offset).split('.')[1],
+                    'Price': round(order.Price, 4),
+                    'Volume': order.Volume
+                })
+                sql = f"""INSERT INTO public.strategy_sign
+                (tradingday, order_time, instrument, "period", strategy_id, sign, remark, insert_time)
+                VALUES('{data.Bars[-1].Tradingday}', '{stra.D[-1]}', '{data.Instrument}', {data.Interval}, '{stra.ID}', '{js}', '', now())"""
+            self.pg.execute(sql)
 
-        if self.cfg.real_order_enable:
+        if self.t is not None and self.t.logined and self.cfg.real_order_enable:
             # print(order)
             order_id = stra.ID * 1000 + len(stra.GetOrders()) + 1
             # 价格修正
@@ -170,6 +199,8 @@ class ATP(object):
                             for data in stra.Datas:
                                 data.InstrumentInfo = self.instrument_info[data.Instrument]
                                 data.SingleOrderOneBar = self.cfg.single_order_one_bar
+                            # 由atp处理策略指令
+                            stra._data_order = self.on_order
                             self.stra_instances.append(stra)
                 else:
                     self.cfg.log.error("缺少对应的 yaml 配置文件{0}".format(cfg_name))
@@ -202,29 +233,62 @@ class ATP(object):
     def read_bars(self, stra: Strategy) -> list:
         """netMQ"""
         bars = []
-        for data in stra.Datas:
-            # 请求数据格式
-            req = ReqPackage()
-            req.Type = BarType.Min
-            req.Instrument = data.Instrument
-            req.Begin = stra.BeginDate
-            req.End = stra.EndDate
-            # __dict__返回diction格式,即{key,value}格式
+        # 本地化pg读取
+        if self.pg is not None:
+            res:ResultProxy = self.pg.execute(f"""SELECT to_char("DateTime", 'YYYY-MM-DD HH24:MI:SS') AS datetime, "Instrument", "Open", "High", "Low","Close","Volume", "OpenInterest", "TradingDay"
+FROM future.future_min
+WHERE "TradingDay" BETWEEN '{stra.BeginDate}' AND '{stra.EndDate}'
+AND "Instrument" IN ('{"','".join([d.Instrument for d in stra.Datas])}')
+ORDER BY "DateTime"
+""")
+            row = res.fetchone()
+            while row is not None:
+                bars.append( {
+                    'DateTime':row[0],
+                    'Instrument':row[1], 
+                    'Open':row[2],
+                    'High':row[3], 
+                    'Low':row[4], 
+                    'Close':row[5], 
+                    'Volume':row[6], 
+                    'OpenInterest':row[7], 
+                    'Tradingday':row[8]
+                })
+                row = res.fetchone()
+            # 取以实时数据
+            if self.rds is not None:
+                for inst in [d.Instrument for d in stra.Datas]:
+                    json_mins = self.rds.lrange(inst, 0, -1)
+                    for min in json_mins:
+                        bar = json.loads(min)
+                        bar['Instrument'] = inst
+                        bar['DateTime'] = bar.pop('_id')
+                        bar['Tradingday'] = bar.pop('TradingDay')
+                        bars.append(bar)
+        else:
+            for data in stra.Datas:
+                # 请求数据格式
+                req = ReqPackage()
+                req.Type = BarType.Min
+                req.Instrument = data.Instrument
+                req.Begin = stra.BeginDate
+                req.End = stra.EndDate
+                # __dict__返回diction格式,即{key,value}格式
 
-            for bar in self.get_data_zmq(req):
-                bar['Instrument'] = data.Instrument
-                bar['DateTime'] = bar.pop('_id')
-                bars.append(bar)
-
-            if stra.EndDate == time.strftime("%Y%m%d", time.localtime()):
-                # 实时K线数据
-                req.Type = BarType.Real
                 for bar in self.get_data_zmq(req):
                     bar['Instrument'] = data.Instrument
                     bar['DateTime'] = bar.pop('_id')
                     bars.append(bar)
 
-        bars.sort(key=lambda bar: bar['DateTime'])  # 按时间升序
+                if stra.EndDate == time.strftime("%Y%m%d", time.localtime()):
+                    # 实时K线数据
+                    req.Type = BarType.Real
+                    for bar in self.get_data_zmq(req):
+                        bar['Instrument'] = data.Instrument
+                        bar['DateTime'] = bar.pop('_id')
+                        bars.append(bar)
+
+            bars.sort(key=lambda bar: bar['DateTime'])  # 按时间升序
         return bars
 
     def read_data_test(self):
@@ -232,7 +296,7 @@ class ATP(object):
         stra: Strategy = None  # 只为后面的提示信息创建
         for stra in self.stra_instances:
             self.cfg.log.info('策略 {0} 正在加载历史数据'.format(stra.ID))
-            if stra.TickTest:
+            if stra.TickTest: # tick测试
                 tradingday = stra.BeginDate
                 tick: Tick = None
                 while tradingday < time.strftime('%Y%m%d', time.localtime()):
@@ -258,7 +322,6 @@ class ATP(object):
     def link_fun(self):
         '''策略函数与ATP关联'''
         for stra in self.stra_instances:
-            stra._data_order = self.on_order
             stra._get_orders = self.get_orders
             stra._get_lastorder = self.get_lastorder
             stra._get_notfill_orders = self.get_notfill_orders
@@ -584,7 +647,12 @@ COMMENT ON COLUMN public.strategy_sign.remark IS '备注';
 COMMENT ON COLUMN public.strategy_sign.insert_time IS '入库时间';
 COMMENT ON COLUMN public.strategy_sign.id IS '自增序列';
 """)
-
+        if 'redis_addr' in os.environ:
+            redis_addr = os.environ['redis_addr']
+            redis_addr, rds_port =  redis_addr.split(':')
+            self.cfg.log.info(f'connecting redis: {redis_addr}:{rds_port}')
+            pool = redis.ConnectionPool(host=redis_addr, port=rds_port, db=0, decode_responses=True)
+            self.rds = redis.StrictRedis(connection_pool=pool)
         self.cfg.log.info('读取交易日历&合约信息...')
         self.get_actionday()
         self.cfg.log.info('加载策略...')
