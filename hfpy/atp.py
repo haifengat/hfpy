@@ -32,7 +32,6 @@ from py_ctp.enums import DirectType, OffsetType, OrderType, OrderStatus, Instrum
 from py_ctp.structs import InfoField, OrderField, TradeField, Tick
 
 from sqlalchemy.engine import Engine, create_engine, ResultProxy
-from redis import Redis
 
 
 class ATP(object):
@@ -61,12 +60,6 @@ class ATP(object):
         self.cfg = Config()
         self.stra_instances = []
 
-        self.pg = None
-        '''历史库'''
-
-        self.rds:Redis = None
-        '''实时库'''
-
         self.q = CtpQuote()
         self.t = CtpTrade()
 
@@ -77,7 +70,7 @@ class ATP(object):
         # self.cfg.log.war('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n'.format(len(stra.Orders), stra.D[-1], order.Direction, order.Offset, order.Price, order.Volume, order.Remark))
         
         # 可通过环境配置作为开关
-        if self.pg is not None:
+        if self.cfg.pg_order is not None:
             # 为app提供
             if 'app' in os.environ:
                 color = 'red' if order.Direction == DirectType.Buy else 'green'
@@ -95,9 +88,9 @@ class ATP(object):
                 sql = f"""INSERT INTO public.strategy_sign
                 (tradingday, order_time, instrument, "period", strategy_id, sign, remark, insert_time)
                 VALUES('{data.Bars[-1].Tradingday}', '{stra.D[-1]}', '{data.Instrument}', {data.Interval}, '{stra.ID}', '{js}', '', now())"""
-            self.pg.execute(sql)
-        if self.rds is not None:
-            self.rds.publish('ctp', json.dumps({
+            self.cfg.pg_order.execute(sql)
+        if self.cfg.rds is not None:
+            self.cfg.rds.publish('ctp', json.dumps({
                 'Instrument': order.Instrument,
                 'Direction': str(order.Direction).split('.')[1],
                 'Offset': str(order.Offset).split('.')[1],
@@ -238,31 +231,32 @@ class ATP(object):
         """netMQ"""
         bars = []
         # 本地化pg读取
-        if self.pg is not None:
-            res:ResultProxy = self.pg.execute(f"""SELECT to_char("DateTime", 'YYYY-MM-DD HH24:MI:SS') AS datetime, "Instrument", "Open", "High", "Low","Close","Volume", "OpenInterest", "TradingDay"
-FROM future.future_min
-WHERE "TradingDay" BETWEEN '{stra.BeginDate}' AND '{stra.EndDate}'
-AND "Instrument" IN ('{"','".join([d.Instrument for d in stra.Datas])}')
-ORDER BY "DateTime"
-""")
-            row = res.fetchone()
-            while row is not None:
-                bars.append( {
-                    'DateTime':row[0],
-                    'Instrument':row[1], 
-                    'Open':row[2],
-                    'High':row[3], 
-                    'Low':row[4], 
-                    'Close':row[5], 
-                    'Volume':row[6], 
-                    'OpenInterest':row[7], 
-                    'Tradingday':row[8]
-                })
+        if len(self.cfg.cfg_zmq) == 0:
+            if self.cfg.pg_min is not None:
+                res:ResultProxy = self.cfg.pg_min.execute(f"""SELECT to_char("DateTime", 'YYYY-MM-DD HH24:MI:SS') AS datetime, "Instrument", "Open", "High", "Low","Close","Volume", "OpenInterest", "TradingDay"
+    FROM future.future_min
+    WHERE "TradingDay" BETWEEN '{stra.BeginDate}' AND '{stra.EndDate}'
+    AND "Instrument" IN ('{"','".join([d.Instrument for d in stra.Datas])}')
+    ORDER BY "DateTime"
+    """)
                 row = res.fetchone()
+                while row is not None:
+                    bars.append( {
+                        'DateTime':row[0],
+                        'Instrument':row[1], 
+                        'Open':row[2],
+                        'High':row[3], 
+                        'Low':row[4], 
+                        'Close':row[5], 
+                        'Volume':row[6], 
+                        'OpenInterest':row[7], 
+                        'Tradingday':row[8]
+                    })
+                    row = res.fetchone()
             # 取以实时数据
-            if self.rds is not None:
+            if self.cfg.rds is not None:
                 for inst in [d.Instrument for d in stra.Datas]:
-                    json_mins = self.rds.lrange(inst, 0, -1)
+                    json_mins = self.cfg.rds.lrange(inst, 0, -1)
                     for min in json_mins:
                         bar = json.loads(min)
                         bar['Instrument'] = inst
@@ -573,12 +567,6 @@ ORDER BY "DateTime"
         req.Type = BarType.TradeDate
         self.trading_days = self.get_data_zmq(req)
 
-        req.Type = BarType.Product
-        products = self.get_data_zmq(req)
-        proc_dict = {}
-        for p in products:
-            proc_dict[p['_id']] = p
-
         # 接口未登录,不计算Actionday
         if self.TradingDay == '':
             return
@@ -588,14 +576,11 @@ ORDER BY "DateTime"
     def Run(self):
         """"""
         ########### 信号入库 ########################
-        if 'pg_config' in os.environ:
-            pg_config = os.environ['pg_config']
-            self.pg:Engine = create_engine(pg_config)        
-            print(f'connecting pg: {pg_config}')
+        if self.cfg.pg_order is not None:
             # 清除策略信号
-            res = self.pg.execute("select count(1) from pg_catalog.pg_tables where schemaname='public' and tablename = 'strategy_sign'")
+            res = self.cfg.pg_order.execute("select count(1) from pg_catalog.pg_tables where schemaname='public' and tablename = 'strategy_sign'")
             if res.fetchone()[0] ==  0:
-                self.pg.execute(f"""
+                self.cfg.pg_order.execute(f"""
 CREATE TABLE public.strategy_sign (
 	tradingday varchar(8) NOT NULL, -- 交易日
 	order_time varchar(20) NOT NULL, -- 信号时间:yyyy-MM-dd HH:mm:ss
@@ -625,12 +610,6 @@ COMMENT ON COLUMN public.strategy_sign.remark IS '备注';
 COMMENT ON COLUMN public.strategy_sign.insert_time IS '入库时间';
 COMMENT ON COLUMN public.strategy_sign.id IS '自增序列';
 """)
-        if 'redis_addr' in os.environ:
-            redis_addr = os.environ['redis_addr']
-            redis_addr, rds_port =  redis_addr.split(':')
-            self.cfg.log.info(f'connecting redis: {redis_addr}:{rds_port}')
-            pool = redis.ConnectionPool(host=redis_addr, port=rds_port, db=0, decode_responses=True)
-            self.rds = redis.StrictRedis(connection_pool=pool)
         self.cfg.log.info('读取交易日历&合约信息...')
         self.get_actionday()
         self.cfg.log.info('加载策略...')
@@ -638,8 +617,8 @@ COMMENT ON COLUMN public.strategy_sign.id IS '自增序列';
         self.cfg.log.info('历史数据回测...')
         self.read_data_test()
         # 订阅行情
-        if self.rds is not None:
-            ps = self.rds.pubsub()
+        if self.cfg.rds is not None:
+            ps = self.cfg.rds.pubsub()
             ps.psubscribe([inst for inst in [d.Instrument for d in [stra.Datas for stra in self.stra_instances]]])
             for tick in ps.listen():
                 if tick['type'] == 'message':

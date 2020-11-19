@@ -75,10 +75,13 @@ docker-compose up -d
 * pg_config
     * postgresql://postgres:123456@hf_pg:5432/postgres?sslmode=disable
     * 分钟数据库
+* pg_order
+    * postgresql://postgres:123456@pg_order:5432/postgres?sslmode=disable
     * 策略信号数据库
 * redis_addr
     * ip:port
     * 实时分钟数据库
+    * 实时order [publish:ctp]
 * app
     * 信号入库为color模式
 

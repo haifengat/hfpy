@@ -42,7 +42,7 @@ RUN cd ta-lib/; \
  pip install pyyaml color_log; \
  pip install py-ctp==6.3.15.1106; \
 # 支持将order写入pg
- pip install psycopg2-binary sqlalchemy;
+ pip install psycopg2-binary redis sqlalchemy;
 
 WORKDIR /hfpy
 COPY hfpy ./hfpy/
