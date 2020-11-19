@@ -31,9 +31,6 @@ class Data(object):
         '''合约'''
         self.Instrument = ''
         '''合约'''
-        '''合约信息'''
-        self.InstrumentInfo = InstrumentField()
-        '''合约信息'''
         '''周期'''
         self.Interval = 1
         '''周期'''

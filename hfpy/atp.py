@@ -29,7 +29,7 @@ from .config import Config
 from py_ctp.trade import CtpTrade
 from py_ctp.quote import CtpQuote
 from py_ctp.enums import DirectType, OffsetType, OrderType, OrderStatus, InstrumentStatus
-from py_ctp.structs import InfoField, OrderField, TradeField, Tick, InstrumentField
+from py_ctp.structs import InfoField, OrderField, TradeField, Tick
 
 from sqlalchemy.engine import Engine, create_engine, ResultProxy
 from redis import Redis
@@ -55,9 +55,6 @@ class ATP(object):
         self.trade_time: dict = {}
         '''品种交易时间'''
 
-        self.instrument_info = {}
-        '''合约信息'''
-
         self.received_instrument: list = []
         '''已接收tick的合约'''
 
@@ -77,7 +74,7 @@ class ATP(object):
         """此处调用ctp接口即可实现实际下单"""
         # print('stra order')
 
-        self.cfg.log.war('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n'.format(len(stra.Orders), stra.D[-1], order.Direction, order.Offset, order.Price, order.Volume, order.Remark))
+        # self.cfg.log.war('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n'.format(len(stra.Orders), stra.D[-1], order.Direction, order.Offset, order.Price, order.Volume, order.Remark))
         
         # 可通过环境配置作为开关
         if self.pg is not None:
@@ -99,7 +96,15 @@ class ATP(object):
                 (tradingday, order_time, instrument, "period", strategy_id, sign, remark, insert_time)
                 VALUES('{data.Bars[-1].Tradingday}', '{stra.D[-1]}', '{data.Instrument}', {data.Interval}, '{stra.ID}', '{js}', '', now())"""
             self.pg.execute(sql)
-
+        if self.rds is not None:
+            self.rds.publish('ctp', json.dumps({
+                'Instrument': order.Instrument,
+                'Direction': str(order.Direction).split('.')[1],
+                'Offset': str(order.Offset).split('.')[1],
+                'Price': round(order.Price, 4),
+                'Volume': order.Volume,
+                "ID": stra.ID * 1000 + len(stra.Orders) + 1
+                }))
         if self.t is not None and self.t.logined and self.cfg.real_order_enable:
             # print(order)
             order_id = stra.ID * 1000 + len(stra.GetOrders()) + 1
@@ -197,7 +202,6 @@ class ATP(object):
                             self.cfg.log.info("# strategy:{0}".format(stra))
 
                             for data in stra.Datas:
-                                data.InstrumentInfo = self.instrument_info[data.Instrument]
                                 data.SingleOrderOneBar = self.cfg.single_order_one_bar
                             # 由atp处理策略指令
                             stra._data_order = self.on_order
@@ -296,24 +300,14 @@ ORDER BY "DateTime"
         stra: Strategy = None  # 只为后面的提示信息创建
         for stra in self.stra_instances:
             self.cfg.log.info('策略 {0} 正在加载历史数据'.format(stra.ID))
-            if stra.TickTest: # tick测试
-                tradingday = stra.BeginDate
-                tick: Tick = None
-                while tradingday < time.strftime('%Y%m%d', time.localtime()):
-                    for tick in self.read_ticks(stra, tradingday):
-                        for data in stra.Datas:
-                            if data.Instrument == tick.Instrument:
-                                data.on_tick(tick, tradingday)
-                    tradingday = datetime.strftime(datetime.strptime(tradingday, '%Y%m%d') + timedelta(days=1), '%Y%m%d')
-            else:
-                listBar = []
-                bars = self.read_bars(stra)
-                listBar = [Bar(b['DateTime'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest'], b['Tradingday']) for b in bars]
+            listBar = []
+            bars = self.read_bars(stra)
+            listBar = [Bar(b['DateTime'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest'], b['Tradingday']) for b in bars]
 
-                for bar in listBar:
-                    for data in stra.Datas:
-                        if data.Instrument == bar.Instrument:
-                            data.__new_min_bar__(bar)  # 调Data的onbar
+            for bar in listBar:
+                for data in stra.Datas:
+                    if data.Instrument == bar.Instrument:
+                        data.__new_min_bar__(bar)  # 调Data的onbar
             # 生成策略的测试报告
             # if len(stra.Orders) > 0:
             #     Report(stra)
@@ -585,22 +579,6 @@ ORDER BY "DateTime"
         for p in products:
             proc_dict[p['_id']] = p
 
-        req.Type = BarType.InstrumentInfo
-        insts = self.get_data_zmq(req)
-
-        for inst_proc in insts:
-            proc = proc_dict[inst_proc['ProductID']]
-            f = InstrumentField()
-            f.ExchangeID = proc['ExchangeID']
-            f.InstrumentID = inst_proc['_id']
-            f.PriceTick = proc['PriceTick']
-            f.ProductID = inst_proc['ProductID']
-            f.ProductType = proc['ProductType']
-            f.VolumeMultiple = proc['VolumeTuple']
-            if 'MAXLIMITORDERVOLUME' in proc:
-                f.MaxOrderVolume = proc['MAXLIMITORDERVOLUME']
-            self.instrument_info[inst_proc['_id']] = f
-
         # 接口未登录,不计算Actionday
         if self.TradingDay == '':
             return
@@ -659,6 +637,29 @@ COMMENT ON COLUMN public.strategy_sign.id IS '自增序列';
         self.load_strategy()
         self.cfg.log.info('历史数据回测...')
         self.read_data_test()
+        # 订阅行情
+        if self.rds is not None:
+            ps = self.rds.pubsub()
+            ps.psubscribe([inst for inst in [d.Instrument for d in [stra.Datas for stra in self.stra_instances]]])
+            for tick in ps.listen():
+                if tick['type'] == 'message':
+                    dic = json.dumps(tick['data'])
+                    t = Tick()
+                    t.Instrument = dic['InstrumentID']
+                    t.AskPrice = dic['AskPrice1']
+                    t.AskVolume = dic['AskVolume1']
+                    t.AveragePrice = dic['AveragePrice']
+                    t.BidPrice = dic['BidPrice1']
+                    t.BidVolume = dic['BidVolume1']
+                    t.LastPrice = dic['LastPrice']
+                    t.LowerLimitPrice = dic['LowerLimitPrice']
+                    t.OpenInterest = dic['OpenInterest']
+                    t.PreOpenInterest = 0.0 # dic['PreOpenInterest']
+                    t.UpdateMillisec = dic['AskPrice1']
+                    t.UpdateTime = dic['AskPrice1']
+                    t.Volume = dic['AskPrice1']
+                    t.UpperLimitPrice = dic['AskPrice1']
+                    self.q_Tick(t)
         
         if self.cfg.front_trade == '' or self.cfg.front_quote == '':
             self.cfg.log.war('**** 交易接口未配置 ****')
