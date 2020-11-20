@@ -124,9 +124,9 @@ stra_path:
                 self.show_tick_time = cfg_of['show_tick_time']
         
         self.pg_min:Engine = None
-        if 'pg_config' in os.environ:
-            self.pg_min = create_engine(os.environ['pg_config'])        
-            print(f"connecting pg min: {os.environ['pg_config']}")
+        if 'pg_min' in os.environ:
+            self.pg_min = create_engine(os.environ['pg_min'])        
+            print(f"connecting pg min: {os.environ['pg_min']}")
         self.pg_order:Engine = None
         if 'pg_order' in os.environ:
             self.pg_order = create_engine(os.environ['pg_order'])  

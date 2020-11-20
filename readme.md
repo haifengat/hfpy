@@ -72,7 +72,7 @@ docker-compose up -d
 * 修改config.yml
 * 修改zmq_config，配置对应的数据源
 * 修改stra_path，配置自己的策略
-* pg_config
+* pg_min
     * postgresql://postgres:123456@hf_pg:5432/postgres?sslmode=disable
     * 分钟数据库
 * pg_order

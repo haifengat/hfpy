@@ -8,8 +8,10 @@ services:
         environment:
             - TZ=Asia/Shanghai
             - config_path=/home/config
+            # 分钟数据,没配置zmq时使用
+            - pg_min=postgresql://postgres:12345@hf_py_pg:5432/postgres
             # 策略信号入库使用
-            - pg_config=postgresql://postgres:12345@hf_py_pg:5432/postgres
+            - pg_order=postgresql://postgres:12345@hf_py_pg:5432/postgres
         volumes:
             # 个人策略文件夹
             - ./strategies:/hfpy/strategies

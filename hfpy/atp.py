@@ -192,6 +192,9 @@ class ATP(object):
                                 continue
                             stra: Strategy = c(param)
                             stra.ID = param['ID']
+                            # 清除策略信号
+                            if self.cfg.pg_order is not None:
+                                self.cfg.pg_order.execute(f"DELETE FROM public.strategy_sign WHERE strategy_id='{stra.ID}'")
                             self.cfg.log.info("# strategy:{0}".format(stra))
 
                             for data in stra.Datas:

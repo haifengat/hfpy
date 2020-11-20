@@ -13,9 +13,6 @@ from .order import OrderItem
 from py_ctp.enums import DirectType, OffsetType, OrderType
 from py_ctp.structs import OrderField, TradeField, InfoField
 
-from sqlalchemy.engine import Engine, create_engine
-import os, time
-
 
 class Strategy(object):
     '''策略类 '''
@@ -54,14 +51,7 @@ class Strategy(object):
                 newdata.Instrument = data['Instrument']
                 newdata.Interval = data['Interval']
                 newdata.IntervalType = IntervalType[data['IntervalType']]
-                self.Datas.append(newdata)
-        # 策略信号入库
-        self.pg = None
-        if 'pg_config' in os.environ:
-            pg_config = os.environ['pg_config']
-            self.pg:Engine = create_engine(pg_config)  
-            # 清除策略信号
-            self.pg.execute(f"DELETE FROM public.strategy_sign WHERE strategy_id='{self.ID}'")
+                self.Datas.append(newdata)        
 
     @property
     def Bars(self):
