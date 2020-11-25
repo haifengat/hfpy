@@ -10,8 +10,6 @@ from .structs import IntervalType
 from .bar import Bar
 from .data import Data
 from .order import OrderItem
-from py_ctp.enums import DirectType, OffsetType, OrderType
-from py_ctp.structs import OrderField, TradeField, InfoField
 
 
 class Strategy(object):
@@ -72,12 +70,6 @@ class Strategy(object):
     def IntervalType(self):
         '''周期类型'''
         return self.Datas[0].IntervalType
-
-    @property
-    def Tick(self):
-        '''分笔数据
-        Tick.Instrument用来判断是否有实盘数据'''
-        return self.Datas[0].Tick
 
     @property
     def Orders(self):
@@ -268,49 +260,6 @@ class Strategy(object):
         实时行情:每分钟触发一次"""
         pass
 
-    def GetOrders(self) -> list:
-        """获取策略相关委托,返回[]"""
-        return self._get_orders(self)
-
-    def _get_orders(self, stra) -> list:
-        """获取策略相关委托,返回[]"""
-        pass
-
-    def GetLastOrder(self) -> OrderField:
-        """获取最后一个委托"""
-        return self._get_lastorder(self)
-
-    def _get_lastorder(self, stra) -> OrderField:
-        """获取最后一个委托"""
-        pass
-
-    def GetNotFillOrders(self) -> list:
-        """获取未成交委托"""
-        return self._get_notfill_orders(self)
-
-    def _get_notfill_orders(self, stra) -> list:
-        """获取未成交委托"""
-        pass
-
-    def ReqOrder(self, instrument: str, dire: DirectType, offset: OffsetType, price: float, volume: int, type: OrderType = OrderType.Limit):
-        """发送委托"""
-        self._req_order(instrument, dire, offset, price, volume, type, self)
-
-    def _req_order(self, instrument, dire, offset, price, volume, type, stra):
-        pass
-
-    def ReqCancel(self, orderid: str):
-        """发送撤单"""
-        pass
-
-    def ReqCancelAll(self):
-        """撤销所有委托"""
-        self._req_cancel_all(self, self)
-
-    def _req_cancel_all(self, stra):
-        """撤销所有委托"""
-        pass
-
     def __BarUpdate(self, data: Data, bar: Bar):
         """调用策略的逻辑部分"""
         # self.OnBarUpdate(data, bar)
@@ -325,24 +274,4 @@ class Strategy(object):
     # 外层接口调用
     def _data_order(self, stra, data: Data, order: OrderItem):
         """继承类中实现此函数,有策略信号产生时调用"""
-        pass
-
-    def OnOrder(self, order: OrderField()):
-        """委托响应"""
-        pass
-
-    def OnTrade(self, trade: TradeField()):
-        """成交响应"""
-        pass
-
-    def OnCancel(self, order: OrderField):
-        """撤单响应"""
-        pass
-
-    def OnErrOrder(self, order: OrderField, info: InfoField):
-        """委托错误"""
-        pass
-
-    def OnErrCancel(self, order: OrderField, info: InfoField):
-        """撤单错误"""
         pass

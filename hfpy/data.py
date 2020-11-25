@@ -11,8 +11,7 @@ import copy
 from .structs import IntervalType
 from .order import OrderItem
 from .bar import Bar
-from py_ctp.enums import DirectType, OffsetType
-from py_ctp.structs import InstrumentField, Tick
+from .structs import DirectType, OffsetType
 
 
 class Data(object):
@@ -37,14 +36,11 @@ class Data(object):
         '''周期类型'''
         self.IntervalType = IntervalType.Minute
         '''周期类型'''
-        '''分笔数据
-        Tick.Instrument用来判断是否有实盘数据'''
-        self.Tick = Tick()
-        '''分笔数据
-        Tick.Instrument用来判断是否有实盘数据'''
+        
         '''买卖信号'''
         self.Orders = []
         '''买卖信号'''
+        
         '''指标字典
         策略使用的指标保存在此字典中
         以便管理程序显示和处理'''
@@ -196,40 +192,11 @@ class Data(object):
         '''当前K线序号(0开始)'''
         return max(len(self.Bars) - 1, 0)
 
-    def on_tick(self, tick: Tick, tradingday: str):
+    def on_min(self, bar:Bar):
         '''分笔数据处理'''
-        # 避免相同tick重复调用
-        if self.Tick.UpdateTime == tick.UpdateTime and self.Tick.Volume == tick.Volume:
-            return
-        self.Tick = copy.copy(tick)
-        # 取此tick对应的分钟时间
-        # bar_time = time.strptime(time.strftime("%Y-%m-%d %H:%M", tick.UpdateTime), "%Y-%m-%d %H:%M")
-        bar_time = self.Tick.UpdateTime[:-2] + '00'  # time.strftime("%Y%m%d %H:%M:00", time.strptime(tick.UpdateTime, "%Y%m%d %H:%M:%S"))
-        if len(self.Bars) == 0 or self.Bars[-1].D != bar_time:  # 新数据
-            # bar_time, ins, h, l, o, c, v, i, a)
-            bar = Bar(bar_time, self.Tick.Instrument, self.Tick.LastPrice, self.Tick.LastPrice, self.Tick.LastPrice, self.Tick.LastPrice, self.Tick.Volume, self.Tick.OpenInterest, tradingday)
-            if len(self.Bars) > 0:
-                if self.Bars[-1]._pre_volume == 0:  # 实时行情首K即为新的分钟
-                    bar.V = 0
-                else:
-                    bar.V = self.Tick.Volume - self.Bars[-1]._pre_volume - self.Bars[-1].V
-            bar._pre_volume = self.Tick.Volume
-
+        if len(self.Bars) == 0 or self.Bars[-1].D != min['_id']:  # 新数据
             self.__new_min_bar__(bar)  # 新K线数据插入
         else:
-            bar = self.Bars[-1]
-            bar.H = max(bar.H, self.Tick.LastPrice)
-            bar.L = min(bar.L, self.Tick.LastPrice)
-            bar.C = self.Tick.LastPrice
-            # 当时从服务器取到的数据,与ctp实时数据处于同一分钟,需做衔接处理.
-            if bar._pre_volume == 0:
-                bar._pre_volume = self.Tick.Volume - bar.V  # 此tick产生的成交量忽略
-            else:
-                bar.V = self.Tick.Volume - bar._pre_volume
-            # bar._pre_volume = tick.Volume
-            bar.I = self.Tick.OpenInterest
-            bar.A = self.Tick.AveragePrice
-
             self.__update_bar__(bar)
 
     def __new_min_bar__(self, bar2):

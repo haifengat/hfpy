@@ -37,53 +37,18 @@ class IntervalType(Enum):
         """return int value"""
         return self.value
 
+class DirectType(Enum):
+    """买卖"""
+    Buy = 0
+    """买"""
+    Sell = 1
+    """卖"""
 
-class BarType(Enum):
-    """请求数据的类型"""
-
-    Min = 0
-    '''分钟'''
-
-    Real = 2
-    '''实时'''
-
-    Time = 3
-    '''交易时间'''
-
-    Product = 4
-    '''品种信息'''
-
-    TradeDate = 5
-    '''交易日历'''
-
-    InstrumentInfo = 6
-    '''合约与品种对应信息'''
-
-    def __int__(self):
-        """return int value"""
-        return self.value
-
-
-class ReqPackage:
-    """数据请求格式包"""
-
-    def __init__(self):
-        """Constructor"""
-
-        self.Type: BarType = BarType.Min
-        '''请求类型'''
-
-        self.Instrument = ''
-        '''合约'''
-
-        self.Begin = ''
-        '''开始时间'''
-
-        self.End = ''
-        '''结束时间'''
-
-    def __setitem__(self, k, v):
-        self.k = v
-
-    def __dict__(self):
-        return {'Type': int(self.Type), 'Instrument': self.Instrument, 'Begin': self.Begin, 'End': self.End}
+class OffsetType(Enum):
+    """开平"""
+    Open = 0
+    '''开'''
+    Close = 1
+    '''平'''
+    CloseToday = 2
+    '''平今'''

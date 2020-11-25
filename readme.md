@@ -40,14 +40,13 @@ services:
         container_name: hfpy
         restart: always
         environment:
-            - config_path=/home/config
             # 策略信号入库使用
             - pg_config=postgresql://postgres:12345@hfpy_pg:5432/postgres
         volumes: 
             # 个人策略文件夹
             - ./strategies:/hfpy/strategies
             # hfpy配置
-            - ./config:/home/config
+            - ./config:/hfpy/config
         depends_on:
             - hfpy_pg
    hfpy_pg:
@@ -69,9 +68,7 @@ services:
 docker-compose up -d
 ```
 ### 配置docker-compose.yml
-* 修改config.yml
-* 修改zmq_config，配置对应的数据源
-* 修改stra_path，配置自己的策略
+#### 环境变量
 * pg_min
     * postgresql://postgres:123456@hf_pg:5432/postgres?sslmode=disable
     * 分钟数据库
@@ -80,11 +77,15 @@ docker-compose up -d
     * 策略信号数据库
 * redis_addr
     * ip:port
-    * 实时分钟数据库
-    * 实时order [publish:ctp]
+    * 实时分钟数据库 [md.{instrument}]
+    * 实时order [order.{stra_name}.{stra_id}]
 * app
     * 信号入库为color模式
-
+* single_order_one_bar
+    * 是否K线只发一个委托,默认 True
+#### Volume
+* /hfpy/strategy 策略路径
+* /hfpy/config 配置文件路径
 ## 策略信号入库
 ```python
 # 修改 strategy.py 顶部增加

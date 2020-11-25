@@ -7,7 +7,8 @@ services:
         restart: always
         environment:
             - TZ=Asia/Shanghai
-            - config_path=/home/config
+            # 当日分钟与实时分钟
+            - redis_addr="172.19.129.98:16379"
             # 分钟数据,没配置zmq时使用
             - pg_min=postgresql://postgres:12345@hf_py_pg:5432/postgres
             # 策略信号入库使用
@@ -16,7 +17,7 @@ services:
             # 个人策略文件夹
             - ./strategies:/hfpy/strategies
             # hfpy配置
-            - ./config:/home/config
+            - ./config:/hfpy/config
         depends_on:
             - hf_py_pg
     hf_py_pg:
