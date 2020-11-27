@@ -25,10 +25,7 @@ class Strategy(object):
         格式:yyyyMMdd[%Y%m%d]
         默认:20170101"""
         self.BeginDate = '20170101'
-        '''结束测试时间
-        格式:yyyyMMdd[%Y%m%d]
-        默认:当前时间'''
-        self.EndDate = time.strftime("%Y%m%d", time.localtime())  # 默认值取当日期
+        
         '''参数'''
         self.Params = []
         '''分笔测试'''
@@ -42,8 +39,6 @@ class Strategy(object):
             self.BeginDate = str(dict_cfg['BeginDate'])
             if 'TickTest' in dict_cfg:
                 self.TickTest = dict_cfg['TickTest']
-            if 'EndDate' in dict_cfg:
-                self.EndDate = dict_cfg['EndDate']
             for data in dict_cfg['Datas']:
                 newdata = Data(self.__BarUpdate, self.__OnOrder)
                 newdata.Instrument = data['Instrument']

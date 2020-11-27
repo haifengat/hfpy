@@ -40,7 +40,7 @@ class Data(object):
         '''买卖信号'''
         self.Orders = []
         '''买卖信号'''
-        
+
         '''指标字典
         策略使用的指标保存在此字典中
         以便管理程序显示和处理'''
@@ -194,7 +194,7 @@ class Data(object):
 
     def on_min(self, bar:Bar):
         '''分笔数据处理'''
-        if len(self.Bars) == 0 or self.Bars[-1].D != min['_id']:  # 新数据
+        if len(self.Bars) == 0 or self.Bars[-1].D != bar.D:  # 新数据
             self.__new_min_bar__(bar)  # 新K线数据插入
         else:
             self.__update_bar__(bar)
@@ -232,8 +232,7 @@ class Data(object):
             day = time.strftime('%W', bar_time)
 
         # time -> str
-        bar_time = '{0}{1:02d}{2:02d} {3:02d}:{4:02d}:00'.format(
-            year, mon, day, hour, mins)
+        bar_time = f'{year}-{mon:02d}-{day:02d} {hour:02d}:{mins:02d}:00'
         if len(self.Bars) == 0 or self.Bars[-1].D != bar_time:
             bar.D = bar_time
             self.Bars.append(bar)

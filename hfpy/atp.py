@@ -6,10 +6,7 @@
 # @File    : atp.py
 # @Software: PyCharm
 
-import os
-import json
-import yaml
-import time
+import os, json, yaml
 
 from yaml import loader  # 可能前面的import模块对time有影响,故放在最后
 
@@ -59,14 +56,16 @@ class ATP(object):
                 VALUES('{data.Bars[-1].Tradingday}', '{stra.D[-1]}', '{data.Instrument}', {data.Interval}, '{stra.ID}', '{type(stra).__name__}', '{js}', '', now())"""
             self.cfg.pg_order.execute(sql)
         if self.real and self.cfg.rds is not None:
-            self.cfg.rds.publish(f'order.{type(stra).__name__}.{stra.ID}', json.dumps({
+            js = json.dumps({
                 'Instrument': order.Instrument,
                 'Direction': str(order.Direction).split('.')[1],
                 'Offset': str(order.Offset).split('.')[1],
                 'Price': round(order.Price, 4),
                 'Volume': order.Volume,
                 "ID": stra.ID * 1000 + len(stra.Orders) + 1
-                }))
+                })
+            self.cfg.rds.publish(f'order.{type(stra).__name__}.{stra.ID}', js)
+            self.cfg.log.war(js)
                 
     def load_strategy(self):
         """加载../strategy目录下的策略"""
@@ -106,13 +105,13 @@ class ATP(object):
             else:
                 self.cfg.log.error(f"缺少对应的 yaml 配置文件{cfg_file}")
 
-    def read_bars(self, stra: Strategy) -> list:
+    def read_bars_his(self, stra: Strategy) -> list:
         """PG"""
         bars = []
         if self.cfg.pg_min is not None:
             res:ResultProxy = self.cfg.pg_min.execute(f"""SELECT to_char("DateTime", 'YYYY-MM-DD HH24:MI:SS') AS datetime, "Instrument", "Open", "High", "Low","Close","Volume", "OpenInterest", "TradingDay"
 FROM future.future_min
-WHERE "TradingDay" BETWEEN '{stra.BeginDate}' AND '{stra.EndDate}'
+WHERE "TradingDay" >= '{stra.BeginDate}'
 AND "Instrument" IN ('{"','".join([d.Instrument for d in stra.Datas])}')
 ORDER BY "DateTime"
 """)
@@ -130,7 +129,13 @@ ORDER BY "DateTime"
                     'Tradingday':row[8]
                 })
                 row = res.fetchone()
-        # 取以实时数据
+        bars.sort(key=lambda bar: bar['DateTime'])  # 按时间升序
+        return bars
+
+    def read_bars_cur(self, stra:Strategy):
+        """取当日数据"""        
+        bars = []
+        # 取实时数据
         if self.cfg.rds is not None:
             for inst in [d.Instrument for d in stra.Datas]:
                 json_mins = self.cfg.rds.lrange(inst, 0, -1)
@@ -140,9 +145,6 @@ ORDER BY "DateTime"
                     bar['DateTime'] = bar.pop('_id')
                     bar['Tradingday'] = bar.pop('TradingDay')
                     bars.append(bar)
-    
-
-        bars.sort(key=lambda bar: bar['DateTime'])  # 按时间升序
         return bars
 
     def read_data_test(self):
@@ -150,7 +152,7 @@ ORDER BY "DateTime"
         for stra in self.stra_instances:
             self.cfg.log.info(f'策略 {type(stra).__name__}.{stra.ID} 加载历史数据...')
             listBar = []
-            bars = self.read_bars(stra)
+            bars = self.read_bars_his(stra)
             listBar = [Bar(b['DateTime'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest'], b['Tradingday']) for b in bars]
 
             for bar in listBar:
@@ -161,17 +163,18 @@ ORDER BY "DateTime"
             # if len(stra.Orders) > 0:
             #     Report(stra)
         self.cfg.log.war("test history is end.")
+        # 加载当日数据
+        for stra in self.stra_instances:
+            self.cfg.log.info(f'策略 {type(stra).__name__}.{stra.ID} 加载当日数据...')
+            listBar = []
+            bars = self.read_bars_cur(stra)
+            listBar = [Bar(b['DateTime'], b['Instrument'], b['High'], b['Low'], b['Open'], b['Close'], b['Volume'], b['OpenInterest'], b['Tradingday']) for b in bars]
 
-
-    def showmsg(self):
-        while self.t.logined:
-            if self.tick_time != '':
-                msg = ''
-                stra: Strategy = None
-                for stra in self.stra_instances:
-                    msg += f'{type(stra).__name__}[L={stra.PositionLong}; S={stra.PositionShort}]{stra.Params}||'
-                self.cfg.log.info(self.tick_time + '||' + msg)
-            time.sleep(60)
+            for bar in listBar:
+                for data in stra.Datas:
+                    if data.Instrument == bar.Instrument:
+                        data.__new_min_bar__(bar)  # 调Data的onbar
+        self.cfg.log.war("today test is end.")
 
     def Run(self):
         """"""
@@ -225,17 +228,8 @@ COMMENT ON COLUMN public.strategy_sign.id IS '自增序列';
                     ps.psubscribe(f'md.{data.Instrument}')
             for tick in ps.listen():
                 if tick['type'] == 'pmessage':
-                    dic = json.dumps(tick['data'])
-                    bar = Bar()
-                    bar.Instrument = tick['channel'][3:]
-                    bar.Tradingday = dic['TradingDay']
-                    bar.D = dic['_id']
-                    bar.O = dic['Open']
-                    bar.H = dic['High']
-                    bar.L = dic['Low']
-                    bar.C = dic['Close']
-                    bar.V = dic['Volume']
-                    bar.I = dic['OpenInterest']
+                    dic = json.loads(tick['data'])
+                    bar = Bar(dic['_id'],tick['channel'][3:],dic['High'],dic['Low'],dic['Open'],dic['Close'],dic['Volume'],dic['OpenInterest'],dic['TradingDay'])
                     # 分钟数据后，传给各个策略
                     for datas in [stra.Datas for stra in self.stra_instances]:
                         for data in datas:
