@@ -7,8 +7,7 @@ __mtime__ = '2016/8/16 '
 """
 
 import time
-from py_ctp.enums import DirectType, OffsetType
-
+from .structs import DirectType, OffsetType
 
 class OrderItem(object):
     """策略信号"""

@@ -11,11 +11,11 @@ services:
             # 当日分钟与实时分钟
             - redis_addr="172.19.129.98:16379"
             # 分钟数据,没配置zmq时使用
-            - pg_min=postgresql://postgres:12345@172.19.129.98:25432/postgres
+            - pg_min=postgresql://postgres:123456@172.19.129.98:25432/postgres
             # 策略信号入库使用
             - pg_order=postgresql://postgres:12345@172.19.129.98:20032/postgres
         volumes:
             # 个人策略文件夹
             - ./strategies:/hfpy/strategies
 
-# docker pull haifengat/hfpy && docker tag haifengat/hfpy haifengat/hfpy:`date '+%m%d'` && docker push haifengat/hfpy:`date '+%m%d'`
+# docker build -t haifengat/hfpy:`date '+%m%d'` . && docker push haifengat/hfpy:`date '+%m%d'`

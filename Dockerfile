@@ -15,7 +15,8 @@ FROM python:3.6.12-slim
 
 RUN set -ex; \
  apt-get update; \
- apt-get python3-dev; # 避免talib报错
+# 安装talib依赖
+ apt-get install -y python3-dev libssl-dev libffi-dev build-essential libxml2-dev libxslt1-dev;
 # openssh-client 支持 ssh scp
 #  apt-get install -y --no-install-recommends wget openssh-client; \
 #  # zmq
@@ -31,13 +32,14 @@ RUN cd ta-lib/; \
  ./configure --prefix=/usr; \
  make && make install; \
 # numpy 要先安装
+ pip install --upgrade pip; \ 
  pip install --no-cache-dir numpy; \
- pip install ta-lib; pyyaml color_log psycopg2-binary redis sqlalchemy; # 支持将order写入pg
+# 支持将order写入pg
+ pip install ta-lib pyyaml color_log psycopg2-binary redis sqlalchemy;
 
 WORKDIR /hfpy
 COPY hfpy ./hfpy/
 COPY strategies/SMA* ./strategies/
-COPY strategies/Test* ./strategies/
 COPY main.py .
 
 ENV strategy_names SMACross

@@ -6,9 +6,8 @@ __mtime__ = '20180820'
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
-# import shutil
 from color_log.logger import Logger
-import redis, json, os
+import redis, os
 
 
 class Config(object):
@@ -20,7 +19,7 @@ class Config(object):
         self.strategy_name = []
         '''策略配置json格式:stra_name:[stra_id]'''
         if 'strategy_names' in os.environ:
-            self.strategy_name = os.environ['strategy_names'].split(',')
+            self.strategy_name = [n.strip().strip('"') for n in os.environ['strategy_names'].split(',')]
 
         self.single_order_one_bar = True
         '''是否每根K线只发一次指令'''
