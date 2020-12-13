@@ -184,18 +184,23 @@ ORDER BY "DateTime"
             res = self.cfg.pg_order.execute("select count(1) from pg_catalog.pg_tables where schemaname='public' and tablename = 'strategy_sign'")
             if res.fetchone()[0] ==  0:
                 self.cfg.pg_order.execute(f"""
+-- public.strategy_sign definition
+
+-- Drop table
+
+-- DROP TABLE public.strategy_sign;
+
 CREATE TABLE public.strategy_sign (
 	tradingday varchar(8) NOT NULL, -- 交易日
 	order_time varchar(20) NOT NULL, -- 信号时间:yyyy-MM-dd HH:mm:ss
 	instrument varchar(32) NOT NULL, -- 合约
 	"period" int4 NOT NULL, -- 周期(单位-分钟)
 	strategy_id varchar(32) NOT NULL, -- 策略标识
-    strategy_group varchar(255) NOT NULL, -- 策略组(名)
 	sign varchar(512) NOT NULL, -- 信号内容:json
 	remark varchar(512) NULL, -- 备注
 	insert_time timestamp NULL DEFAULT now(), -- 入库时间
 	id serial NOT NULL, -- 自增序列
-	CONSTRAINT newtable_pk PRIMARY KEY (order_time, instrument, period, strategy_id)
+	strategy_group varchar(255) NULL -- 策略组(名)
 );
 CREATE INDEX newtable_instrument_idx ON public.strategy_sign USING btree (instrument, period);
 CREATE INDEX newtable_strategy_id_idx ON public.strategy_sign USING btree (strategy_id);
@@ -209,11 +214,16 @@ COMMENT ON COLUMN public.strategy_sign.order_time IS '信号时间:yyyy-MM-dd HH
 COMMENT ON COLUMN public.strategy_sign.instrument IS '合约';
 COMMENT ON COLUMN public.strategy_sign."period" IS '周期(单位-分钟)';
 COMMENT ON COLUMN public.strategy_sign.strategy_id IS '策略标识';
-COMMENT ON COLUMN public.strategy_sign.strategy_group IS '策略组(名)';
 COMMENT ON COLUMN public.strategy_sign.sign IS '信号内容:json';
 COMMENT ON COLUMN public.strategy_sign.remark IS '备注';
 COMMENT ON COLUMN public.strategy_sign.insert_time IS '入库时间';
 COMMENT ON COLUMN public.strategy_sign.id IS '自增序列';
+COMMENT ON COLUMN public.strategy_sign.strategy_group IS '策略组(名)';
+
+-- Permissions
+
+ALTER TABLE public.strategy_sign OWNER TO postgres;
+GRANT ALL ON TABLE public.strategy_sign TO postgres;
 """)
         self.cfg.log.info('加载策略...')
         self.load_strategy()
