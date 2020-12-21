@@ -50,5 +50,3 @@ class OffsetType(Enum):
     '''开'''
     Close = 1
     '''平'''
-    CloseToday = 2
-    '''平今'''

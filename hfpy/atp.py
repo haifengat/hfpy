@@ -64,7 +64,7 @@ class ATP(object):
                 'Volume': order.Volume,
                 "ID": stra.ID * 1000 + len(stra.Orders) + 1
                 })
-            self.cfg.rds.publish(f'order.{type(stra).__name__}.{stra.ID}', js)
+            self.cfg.rds.publish(f'order.{type(stra).__name__}', js)
             self.cfg.log.war(js)
                 
     def load_strategy(self):
