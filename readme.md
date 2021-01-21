@@ -28,6 +28,13 @@
 ### talab 指标库
   [https://www.ta-lib.org/function.html](https://www.ta-lib.org/function.html)
 
+### 生成镜像
+```bash
+docker build -t haifengat/hfpy:`date +%Y%m%d` .
+# hub.docker.com
+docker push haifengat/hfpy:`date +%Y%m%d`
+```
+
 ### 配置docker-compose.yml
 #### 环境变量
 * strategy_names
@@ -67,8 +74,6 @@ services:
         volumes:
             # 个人策略文件夹
             - ./strategies:/hfpy/strategies
-
-# docker pull haifengat/hfpy && docker tag haifengat/hfpy haifengat/hfpy:`date '+%m%d'` && docker push haifengat/hfpy:`date '+%m%d'`
 ```
 
 ## 策略信号
@@ -94,7 +99,7 @@ js = json.dumps({
                 'Volume': order.Volume,
                 "ID": stra.ID * 1000 + len(stra.Orders) + 1
                 })
-self.cfg.rds.publish(f'order.{type(stra).__name__}.{stra.ID}', js)
+self.cfg.rds.publish(f'order.{type(stra).__name__}', js)
 ```
 
 ## 测试报告
