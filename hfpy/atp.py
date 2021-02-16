@@ -7,6 +7,7 @@
 # @Software: PyCharm
 
 import os, json, yaml
+from sqlalchemy import log
 
 from yaml import loader  # 可能前面的import模块对time有影响,故放在最后
 
@@ -109,6 +110,10 @@ class ATP(object):
         """PG"""
         bars = []
         if self.cfg.pg_min is not None:
+            res = self.cfg.pg_min.execute("select count(1) from pg_catalog.pg_tables where schemaname='future' and tablename = 'future_min'")
+            if res.fetchone()[0] ==  0:
+                self.cfg.log.error('future.future_min 不存在')
+                return bars
             res:ResultProxy = self.cfg.pg_min.execute(f"""SELECT to_char("DateTime", 'YYYY-MM-DD HH24:MI:SS') AS datetime, "Instrument", "Open", "High", "Low","Close","Volume", "OpenInterest", "TradingDay"
 FROM future.future_min
 WHERE "TradingDay" >= '{stra.BeginDate}'

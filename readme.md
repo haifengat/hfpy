@@ -22,9 +22,8 @@
 
 ### 生成镜像
 ```bash
-docker build -t haifengat/hfpy:`date +%Y%m%d` .
-# hub.docker.com
-docker push haifengat/hfpy:`date +%Y%m%d`
+docker build -t haifengat/hfpy:`date +%Y%m%d` . && docker push haifengat/hfpy:`date +%Y%m%d`
+docker tag haifengat/hfpy:`date +%Y%m%d` haifengat/hfpy && docker push haifengat/hfpy
 ```
 
 ### 配置docker-compose.yml
