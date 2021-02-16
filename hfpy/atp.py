@@ -183,24 +183,18 @@ ORDER BY "DateTime"
             # 清除策略信号
             res = self.cfg.pg_order.execute("select count(1) from pg_catalog.pg_tables where schemaname='public' and tablename = 'strategy_sign'")
             if res.fetchone()[0] ==  0:
-                self.cfg.pg_order.execute(f"""
--- public.strategy_sign definition
-
--- Drop table
-
--- DROP TABLE public.strategy_sign;
-
+                sqls = f"""
 CREATE TABLE public.strategy_sign (
+	id serial NOT NULL, -- 自增序列
 	tradingday varchar(8) NOT NULL, -- 交易日
 	order_time varchar(20) NOT NULL, -- 信号时间:yyyy-MM-dd HH:mm:ss
+	strategy_group varchar(255) NULL, -- 策略组(名)
+	strategy_id varchar(32) NOT NULL, -- 策略标识
 	instrument varchar(32) NOT NULL, -- 合约
 	"period" int4 NOT NULL, -- 周期(单位-分钟)
-	strategy_id varchar(32) NOT NULL, -- 策略标识
 	sign varchar(512) NOT NULL, -- 信号内容:json
 	remark varchar(512) NULL, -- 备注
-	insert_time timestamp NULL DEFAULT now(), -- 入库时间
-	id serial NOT NULL, -- 自增序列
-	strategy_group varchar(255) NULL -- 策略组(名)
+	insert_time timestamp NULL DEFAULT now() -- 入库时间
 );
 CREATE INDEX newtable_instrument_idx ON public.strategy_sign USING btree (instrument, period);
 CREATE INDEX newtable_strategy_id_idx ON public.strategy_sign USING btree (strategy_id);
@@ -224,7 +218,11 @@ COMMENT ON COLUMN public.strategy_sign.strategy_group IS '策略组(名)';
 
 ALTER TABLE public.strategy_sign OWNER TO postgres;
 GRANT ALL ON TABLE public.strategy_sign TO postgres;
-""")
+"""
+                for sql in sqls.split(';'):
+                    if sql.strip('\n') == "":
+                        continue
+                    self.cfg.pg_order.execute(sql.strip('\n'))
         self.cfg.log.info('加载策略...')
         self.load_strategy()
         self.cfg.log.info('历史数据回测...')
